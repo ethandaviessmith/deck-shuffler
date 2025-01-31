@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://b6xsykb6ffhrn"]
+
+[ext_resource type="PackedScene" uid="uid://bt1unjfl7m3oi" path="res://scenes/world/PlayerController.tscn" id="1_jiviw"]
+
+[node name="Player" type="Node2D"]
+
+[node name="TopDownController" parent="." instance=ExtResource("1_jiviw")]
