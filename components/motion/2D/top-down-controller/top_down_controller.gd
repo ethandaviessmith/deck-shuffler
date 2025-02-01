@@ -55,7 +55,7 @@ func _on_finite_state_machine_state_changed(from_state: MachineState, state: Mac
 			animation_player.play("walk")
 
 func _on_hurt_box_2d_hurt(damage: Variant, angle: Variant, knockback: Variant) -> void:
-	print("player hurt")
+	#print("player hurt")
 	hp -= clamp(damage-armor, 1.0, 999.0)
 	healthBar.max_value = maxhp
 	healthBar.value = hp

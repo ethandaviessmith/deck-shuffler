@@ -1,7 +1,7 @@
 class_name TopDownGround extends MachineState
 
 
-@export var actor: TopDownController
+@export var actor: Player
 @export var speed: float = 300.0
 @export var acceleration: float = 25.0
 @export var friction: float = 50.0
@@ -10,7 +10,7 @@ class_name TopDownGround extends MachineState
 
 func _ready() -> void:
 	if actor == null:
-		actor = get_tree().get_first_node_in_group(TopDownController.GroupName)
+		actor = get_tree().get_first_node_in_group(Player.GroupName)
 
 
 func move(delta: float) -> void:

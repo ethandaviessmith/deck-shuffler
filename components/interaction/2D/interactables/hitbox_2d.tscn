@@ -12,6 +12,6 @@ script = ExtResource("1_objhs")
 position = Vector2(-1.5, -5.5)
 shape = SubResource("RectangleShape2D_4vuiw")
 
-[node name="DisableTimer" type="Timer" parent="."]
+[node name="DisableHitBoxTimer" type="Timer" parent="."]
 
-[connection signal="timeout" from="DisableTimer" to="." method="_on_disable_hit_box_timer_timeout"]
+[connection signal="timeout" from="DisableHitBoxTimer" to="." method="_on_disable_hit_box_timer_timeout"]

@@ -25,8 +25,9 @@ func disable():
 	set_deferred("monitoring", false)
 
 
-func on_area_entered(hitbox: Hitbox2D) -> void:
+func on_area_entered(hitbox: WeaponHitBox) -> void:
 	#hitbox_detected.emit(hitbox)
+	
 	if not hitbox.get("damage") == null:
 		collision.call_deferred("set","disabled",true)
 		disableTimer.start()
@@ -37,8 +38,10 @@ func on_area_entered(hitbox: Hitbox2D) -> void:
 			angle = hitbox.angle
 		if not hitbox.get("knockback_amount") == null:
 			knockback = hitbox.knockback_amount
-		
+			
 		emit_signal("hurt",damage, angle, knockback)
+		if hitbox.has_method("enemy_hit"):
+			hitbox.enemy_hit(1)
 
 func _on_disable_timer_timeout():
 	collision.call_deferred("set","disabled",false)

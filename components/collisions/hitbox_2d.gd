@@ -5,11 +5,18 @@ class_name Hitbox2D extends Area2D
 @onready var collision = $CollisionShape2D
 @onready var disableTimer = $DisableHitBoxTimer
 
+@onready var parent_angle
+
 func _init() -> void:
 	collision_mask = 0
 	collision_layer = GameGlobals.hitboxes_collision_layer
 	monitoring = false
 	monitorable = true
+	
+func _ready():
+	var parent_node = get_parent()
+	if not parent_node.get("angle") == null:
+		parent_angle = parent_node.angle
 
 
 func enable():

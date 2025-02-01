@@ -1,6 +1,5 @@
 [gd_scene load_steps=18 format=3 uid="uid://b6xsykb6ffhrn"]
 
-[ext_resource type="Script" path="res://components/motion/2D/top-down-controller/top_down_controller.gd" id="1_do0ca"]
 [ext_resource type="Script" path="res://scenes/world/player.gd" id="1_gqwxa"]
 [ext_resource type="SpriteFrames" uid="uid://ckr8lhlj048sb" path="res://components/rpg/f1_leovoyant.tres" id="2_yfxqc"]
 [ext_resource type="Script" path="res://components/behaviour/finite-state-machine/finite-state-machine.gd" id="3_d2tu4"]
@@ -105,11 +104,14 @@ _data = {
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q4tc1"]
-size = Vector2(16, 36)
+size = Vector2(16, 34)
 
-[node name="TopDownController" type="CharacterBody2D"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_v81tn"]
+radius = 561.712
+
+[node name="TopDownController" type="CharacterBody2D" groups=["player"]]
 motion_mode = 1
-script = ExtResource("1_do0ca")
+script = ExtResource("1_gqwxa")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -118,12 +120,12 @@ libraries = {
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
-position = Vector2(0, -42)
+position = Vector2(0, -17)
 sprite_frames = ExtResource("2_yfxqc")
 animation = &"breathing"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-1, -22)
+position = Vector2(-1, 3)
 shape = SubResource("RectangleShape2D_q4tc1")
 
 [node name="FiniteStateMachine" type="Node" parent="." node_paths=PackedStringArray("current_state")]
@@ -154,15 +156,22 @@ one_shot = true
 visible = false
 texture = ExtResource("8_u32yg")
 
-[node name="Player" type="Node2D" parent="." groups=["player"]]
-script = ExtResource("1_gqwxa")
+[node name="Attack" type="Node2D" parent="."]
+
+[node name="KnifeTimer" type="Timer" parent="Attack"]
+unique_name_in_owner = true
+wait_time = 0.2
+
+[node name="KnifeAttackTimer" type="Timer" parent="Attack/KnifeTimer"]
+unique_name_in_owner = true
+wait_time = 0.2
 
 [node name="Hurtbox2D" parent="." instance=ExtResource("10_0ny1a")]
 collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" parent="Hurtbox2D" index="0"]
-position = Vector2(-1, -20.125)
+position = Vector2(-1, 4)
 
 [node name="GUI" type="Control" parent="."]
 layout_mode = 3
@@ -174,16 +183,35 @@ offset_top = -64.0
 offset_right = 20.0
 offset_bottom = 40.0
 grow_horizontal = 2
+metadata/_edit_use_anchors_ = true
 
 [node name="HealthBar" type="TextureProgressBar" parent="GUI"]
 unique_name_in_owner = true
-layout_mode = 0
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.15
+anchor_top = 0.211538
+anchor_right = 0.15
+anchor_bottom = 0.211538
 offset_right = 40.0
 offset_bottom = 40.0
 texture_over = ExtResource("12_4aqtr")
 texture_progress = ExtResource("13_qrw3p")
+metadata/_edit_use_anchors_ = true
+
+[node name="EnemyDetectionArea" type="Area2D" parent="."]
+visible = false
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyDetectionArea"]
+shape = SubResource("CircleShape2D_v81tn")
 
 [connection signal="state_changed" from="FiniteStateMachine" to="." method="_on_finite_state_machine_state_changed"]
+[connection signal="timeout" from="Attack/KnifeTimer" to="." method="_on_knife_timer_timeout"]
+[connection signal="timeout" from="Attack/KnifeTimer/KnifeAttackTimer" to="." method="_on_knife_attack_timer_timeout"]
 [connection signal="hurt" from="Hurtbox2D" to="." method="_on_hurt_box_2d_hurt"]
+[connection signal="body_entered" from="EnemyDetectionArea" to="." method="_on_enemy_detection_area_body_entered"]
+[connection signal="body_exited" from="EnemyDetectionArea" to="." method="_on_enemy_detection_area_body_exited"]
 
 [editable path="Hurtbox2D"]
