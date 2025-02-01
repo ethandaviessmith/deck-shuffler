@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://iq63nlaer5ul"]
+[gd_scene load_steps=9 format=3 uid="uid://iq63nlaer5ul"]
 
 [ext_resource type="Script" path="res://scenes/world/enemy.gd" id="1_2wiof"]
 [ext_resource type="SpriteFrames" uid="uid://coxg58roo4g74" path="res://components/rpg/critter_2.tres" id="1_pg8tb"]
@@ -70,9 +70,6 @@ _data = {
 [sub_resource type="CircleShape2D" id="CircleShape2D_qsxed"]
 radius = 5.0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_jik4b"]
-radius = 9.0
-
 [node name="CharacterBody2D" type="CharacterBody2D"]
 motion_mode = 1
 script = ExtResource("1_2wiof")
@@ -89,25 +86,12 @@ libraries = {
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-1, -11)
+position = Vector2(-1, -5)
 shape = SubResource("CircleShape2D_qsxed")
 
 [node name="Hurtbox2D" parent="." instance=ExtResource("3_pva0l")]
-collision_layer = 0
-collision_mask = 4
-
-[node name="CollisionShape2D" parent="Hurtbox2D" index="0"]
-position = Vector2(-1, -11)
-shape = SubResource("CircleShape2D_jik4b")
 
 [node name="Hitbox2D" parent="." instance=ExtResource("4_axjrv")]
-visible = false
-collision_layer = 2
-collision_mask = 0
-damage = 20
-
-[node name="CollisionShape2D" parent="Hitbox2D" index="0"]
-position = Vector2(-1.5, -11)
 
 [connection signal="hurt" from="Hurtbox2D" to="." method="_on_hurtbox_2d_hurt"]
 

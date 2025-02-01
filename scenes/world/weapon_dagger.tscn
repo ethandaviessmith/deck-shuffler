@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://boqs32u8l6drn"]
+
+[ext_resource type="Texture2D" uid="uid://oibu116a5fu7" path="res://assets/dagger1.png" id="1_star1"]
+[ext_resource type="PackedScene" uid="uid://dvvoyxs6gfhne" path="res://components/interaction/2D/interactables/hitbox_2d.tscn" id="2_swsrv"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xn1s5"]
+radius = 1.0
+
+[node name="Area2D" type="Area2D"]
+
+[node name="Dagger1" type="Sprite2D" parent="."]
+position = Vector2(-1, 0)
+scale = Vector2(0.0453216, 0.0430328)
+texture = ExtResource("1_star1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_xn1s5")
+
+[node name="Hitbox2D" parent="." instance=ExtResource("2_swsrv")]
+visible = false
+collision_layer = 2
+collision_mask = 0
+damage = 20
+
+[node name="CollisionShape2D" parent="Hitbox2D" index="0"]
+position = Vector2(-1.5, -11)
+
+[editable path="Hitbox2D"]

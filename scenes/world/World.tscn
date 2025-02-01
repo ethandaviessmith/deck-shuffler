@@ -1,22 +1,42 @@
-[gd_scene load_steps=5 format=3 uid="uid://bvyi5v3q5glkx"]
+[gd_scene load_steps=4 format=3 uid="uid://bvyi5v3q5glkx"]
 
 [ext_resource type="PackedScene" uid="uid://iq63nlaer5ul" path="res://scenes/world/Enemy.tscn" id="1_78kn1"]
 [ext_resource type="PackedScene" uid="uid://b6xsykb6ffhrn" path="res://scenes/world/Player.tscn" id="1_sythe"]
-[ext_resource type="Script" path="res://scenes/world/enemy.gd" id="2_pf38i"]
-[ext_resource type="Script" path="res://scenes/world/player.gd" id="3_whbvp"]
+[ext_resource type="PackedScene" uid="uid://boqs32u8l6drn" path="res://scenes/world/weapon_dagger.tscn" id="2_ayyrq"]
 
 [node name="World" type="Node2D"]
 
 [node name="ColorRect" type="ColorRect" parent="."]
 offset_right = 1289.0
 offset_bottom = 737.0
-
-[node name="Enemy" parent="." instance=ExtResource("1_78kn1")]
-position = Vector2(848, 500)
-scale = Vector2(2, 2)
-script = ExtResource("2_pf38i")
+color = Color(0.648524, 0.749946, 0.737936, 0.862745)
 
 [node name="Player" parent="." instance=ExtResource("1_sythe")]
 position = Vector2(602, 378)
 scale = Vector2(3, 3)
-script = ExtResource("3_whbvp")
+
+[node name="Loot" type="Node2D" parent="." groups=["loot"]]
+
+[node name="WeaponDagger" parent="." instance=ExtResource("2_ayyrq")]
+position = Vector2(692, 322)
+scale = Vector2(2, 2)
+
+[node name="Enemy" parent="." instance=ExtResource("1_78kn1")]
+position = Vector2(902, 453)
+scale = Vector2(2, 2)
+
+[node name="Enemy2" parent="." instance=ExtResource("1_78kn1")]
+position = Vector2(1219, 572)
+scale = Vector2(2, 2)
+
+[node name="Enemy3" parent="." instance=ExtResource("1_78kn1")]
+position = Vector2(1162, 718)
+scale = Vector2(2, 2)
+
+[node name="Enemy4" parent="." instance=ExtResource("1_78kn1")]
+position = Vector2(1009, 522)
+scale = Vector2(2, 2)
+
+[node name="Enemy5" parent="." instance=ExtResource("1_78kn1")]
+position = Vector2(803, 629)
+scale = Vector2(2, 2)

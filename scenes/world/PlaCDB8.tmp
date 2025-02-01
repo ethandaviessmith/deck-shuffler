@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://b6xsykb6ffhrn"]
+[gd_scene load_steps=15 format=3 uid="uid://b6xsykb6ffhrn"]
 
 [ext_resource type="Script" path="res://components/motion/2D/top-down-controller/top_down_controller.gd" id="1_do0ca"]
 [ext_resource type="Script" path="res://scenes/world/player.gd" id="1_gqwxa"]
@@ -9,9 +9,6 @@
 [ext_resource type="Script" path="res://components/motion/2D/top-down-controller/states/dash.gd" id="6_bunba"]
 [ext_resource type="Script" path="res://components/vfx/2D/ghost_trail/ghost_trail_effect.gd" id="7_wnu4c"]
 [ext_resource type="Texture2D" uid="uid://la28kx7jw0ho" path="res://components/vfx/2D/ghost_trail/ghost.svg" id="8_u32yg"]
-[ext_resource type="PackedScene" uid="uid://b07rljcn3rxmd" path="res://components/interaction/2D/interactables/hurtbox_2d.tscn" id="10_0ny1a"]
-[ext_resource type="Texture2D" uid="uid://cj6a5rhwov14" path="res://assets/GUI/healthbar.png" id="12_4aqtr"]
-[ext_resource type="Texture2D" uid="uid://da53mspvqfxq4" path="res://assets/GUI/health.png" id="13_qrw3p"]
 
 [sub_resource type="Animation" id="Animation_40l5s"]
 length = 0.001
@@ -157,33 +154,4 @@ texture = ExtResource("8_u32yg")
 [node name="Player" type="Node2D" parent="." groups=["player"]]
 script = ExtResource("1_gqwxa")
 
-[node name="Hurtbox2D" parent="." instance=ExtResource("10_0ny1a")]
-collision_layer = 0
-collision_mask = 2
-
-[node name="CollisionShape2D" parent="Hurtbox2D" index="0"]
-position = Vector2(-1, -20.125)
-
-[node name="GUI" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -20.0
-offset_top = -64.0
-offset_right = 20.0
-offset_bottom = 40.0
-grow_horizontal = 2
-
-[node name="HealthBar" type="TextureProgressBar" parent="GUI"]
-unique_name_in_owner = true
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-texture_over = ExtResource("12_4aqtr")
-texture_progress = ExtResource("13_qrw3p")
-
 [connection signal="state_changed" from="FiniteStateMachine" to="." method="_on_finite_state_machine_state_changed"]
-[connection signal="hurt" from="Hurtbox2D" to="." method="_on_hurt_box_2d_hurt"]
-
-[editable path="Hurtbox2D"]
