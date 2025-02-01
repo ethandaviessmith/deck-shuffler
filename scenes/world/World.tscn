@@ -1,16 +1,17 @@
-[gd_scene load_steps=6 format=3 uid="uid://bvyi5v3q5glkx"]
+[gd_scene load_steps=7 format=3 uid="uid://bvyi5v3q5glkx"]
 
 [ext_resource type="PackedScene" uid="uid://iq63nlaer5ul" path="res://scenes/world/Enemy.tscn" id="1_78kn1"]
 [ext_resource type="PackedScene" uid="uid://b6xsykb6ffhrn" path="res://scenes/world/Player.tscn" id="1_sythe"]
 [ext_resource type="Script" path="res://scenes/world/enemy_spawner.gd" id="3_jf31c"]
 [ext_resource type="Script" path="res://spawn_info.gd" id="4_eae5y"]
+[ext_resource type="PackedScene" uid="uid://bsyksfjwdfwoy" path="res://scenes/world/experience_gem.tscn" id="5_0hwdq"]
 
 [sub_resource type="Resource" id="Resource_xs8gd"]
 script = ExtResource("4_eae5y")
 time_start = 0
 time_end = 120
 enemy = ExtResource("1_78kn1")
-enemy_num = 3
+enemy_num = 1
 enemy_spawn_delay = 0
 
 [node name="World" type="Node2D"]
@@ -50,5 +51,7 @@ spawns = Array[ExtResource("4_eae5y")]([SubResource("Resource_xs8gd")])
 
 [node name="Timer" type="Timer" parent="."]
 autostart = true
+
+[node name="ExperienceGem" parent="." instance=ExtResource("5_0hwdq")]
 
 [connection signal="timeout" from="Timer" to="EnemySpawner" method="_on_timer_timeout"]

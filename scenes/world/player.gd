@@ -10,9 +10,10 @@ var motion_input: TransformedInput = TransformedInput.new(self)
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 
-@onready var healthBar = get_node("%HealthBar")
 @onready var attacks = get_node("/root/World/Attacks")
-
+@onready var healthBar = get_node("%HealthBar")
+@onready var expBar = get_node("%ExperienceBar")
+@onready var lblLevel = get_node("%lbl_level")
 
 #Player
 var movement_speed = 40.0
@@ -54,6 +55,7 @@ func _ready() -> void:
 	animation_player.play("idle")
 	_on_hurt_box_2d_hurt(0,0,0)
 	attack()
+	set_expbar(experience, calculate_experiencecap())
 
 func _physics_process(_delta: float) -> void:
 	motion_input.update()
@@ -103,7 +105,7 @@ func _on_knife_attack_timer_timeout() -> void:
 			knife_attack.position = position
 			knife_attack.target = get_random_enemy().global_position
 			knife_attack.level = knife_level
-			attacks.add_child(knife_attack)
+			attacks.call_deferred("add_child",knife_attack)
 			knife_ammo -= 1
 			if knife_ammo > 0:
 				knifeAttackTimer.start()
@@ -123,3 +125,45 @@ func _on_enemy_detection_area_body_entered(body: Node2D) -> void:
 func _on_enemy_detection_area_body_exited(body: Node2D) -> void:
 	if enemy_close.has(body):
 		enemy_close.erase(body)
+
+
+func _on_grab_area_area_entered(area: Area2D) -> void:
+	if area.is_in_group("loot"):
+		print("loot")
+		area.target = self
+
+
+func _on_collect_area_area_entered(area: Area2D) -> void:
+	if area.is_in_group("loot"):
+		var gem_exp = area.collect()
+		calculate_experience(gem_exp)
+
+func calculate_experience(gem_exp):
+	var exp_required = calculate_experiencecap()
+	collected_experience += gem_exp
+	if experience + collected_experience >= exp_required: #level up
+		collected_experience -= exp_required-experience
+		experience_level += 1
+		experience = 0
+		exp_required = calculate_experiencecap()
+		#levelup()
+	else:
+		experience += collected_experience
+		collected_experience = 0
+	
+	set_expbar(experience, exp_required)
+
+func calculate_experiencecap():
+	var exp_cap = experience_level
+	if experience_level < 20:
+		exp_cap = experience_level*5
+	elif experience_level < 40:
+		exp_cap + 95 * (experience_level-19)*8
+	else:
+		exp_cap = 255 + (experience_level-39)*12
+		
+	return exp_cap
+		
+func set_expbar(set_value = 1, set_max_value = 100):
+	expBar.value = set_value
+	expBar.max_value = set_max_value

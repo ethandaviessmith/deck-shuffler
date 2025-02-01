@@ -16,7 +16,7 @@ var knockback = Vector2.ZERO
 @onready var hitBox = $Hitbox2D
 
 #var death_anim = preload("res://Enemy/explosion.tscn")
-#var exp_gem = preload("res://Objects/experience_gem.tscn")
+var exp_gem = preload("res://scenes/world/experience_gem.tscn")
 
 signal remove_from_array(object)
 
@@ -63,10 +63,10 @@ func death():
 	#enemy_death.scale = sprite.scale
 	#enemy_death.global_position = global_position
 	#get_parent().call_deferred("add_child",enemy_death)
-	#var new_gem = exp_gem.instantiate()
-	#new_gem.global_position = global_position
-	#new_gem.experience = experience
-	#loot_base.call_deferred("add_child",new_gem)
+	var new_gem = exp_gem.instantiate()
+	new_gem.global_position = global_position
+	new_gem.experience = experience
+	loot_base.call_deferred("add_child",new_gem)
 	await get_tree().create_timer($AnimationPlayer.current_animation_length).timeout
 	queue_free()
 

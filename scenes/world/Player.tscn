@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://b6xsykb6ffhrn"]
+[gd_scene load_steps=20 format=3 uid="uid://b6xsykb6ffhrn"]
 
 [ext_resource type="Script" path="res://scenes/world/player.gd" id="1_gqwxa"]
 [ext_resource type="SpriteFrames" uid="uid://ckr8lhlj048sb" path="res://components/rpg/f1_leovoyant.tres" id="2_yfxqc"]
@@ -107,7 +107,13 @@ _data = {
 size = Vector2(16, 34)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_v81tn"]
-radius = 561.712
+radius = 228.954
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_f0gk1"]
+radius = 33.0606
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0lwbw"]
+radius = 10.2956
 
 [node name="TopDownController" type="CharacterBody2D" groups=["player"]]
 motion_mode = 1
@@ -199,6 +205,27 @@ texture_over = ExtResource("12_4aqtr")
 texture_progress = ExtResource("13_qrw3p")
 metadata/_edit_use_anchors_ = true
 
+[node name="ExperienceBar" type="TextureProgressBar" parent="GUI"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 8.0
+grow_horizontal = 2
+texture_over = ExtResource("12_4aqtr")
+texture_progress = ExtResource("13_qrw3p")
+
+[node name="lbl_level" type="Label" parent="GUI/ExperienceBar"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -0.5
+offset_right = 0.5
+offset_bottom = 23.0
+grow_horizontal = 2
+
 [node name="EnemyDetectionArea" type="Area2D" parent="."]
 visible = false
 collision_layer = 4
@@ -207,11 +234,27 @@ collision_mask = 4
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyDetectionArea"]
 shape = SubResource("CircleShape2D_v81tn")
 
+[node name="GrabArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GrabArea"]
+shape = SubResource("CircleShape2D_f0gk1")
+
+[node name="CollectArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CollectArea"]
+shape = SubResource("CircleShape2D_0lwbw")
+
 [connection signal="state_changed" from="FiniteStateMachine" to="." method="_on_finite_state_machine_state_changed"]
 [connection signal="timeout" from="Attack/KnifeTimer" to="." method="_on_knife_timer_timeout"]
 [connection signal="timeout" from="Attack/KnifeTimer/KnifeAttackTimer" to="." method="_on_knife_attack_timer_timeout"]
 [connection signal="hurt" from="Hurtbox2D" to="." method="_on_hurt_box_2d_hurt"]
 [connection signal="body_entered" from="EnemyDetectionArea" to="." method="_on_enemy_detection_area_body_entered"]
 [connection signal="body_exited" from="EnemyDetectionArea" to="." method="_on_enemy_detection_area_body_exited"]
+[connection signal="area_entered" from="GrabArea" to="." method="_on_grab_area_area_entered"]
+[connection signal="area_entered" from="CollectArea" to="." method="_on_collect_area_area_entered"]
 
 [editable path="Hurtbox2D"]

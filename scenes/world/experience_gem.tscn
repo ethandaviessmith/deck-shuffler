@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://bsyksfjwdfwoy"]
+
+[ext_resource type="Script" path="res://scenes/world/experience_gem.gd" id="1_andqg"]
+[ext_resource type="Texture2D" uid="uid://bxeqkoloqhkbh" path="res://assets/gem_green.png" id="1_y0b0g"]
+[ext_resource type="AudioStream" uid="uid://bo2tisky4nbgx" path="res://assets/collectgem.mp3" id="2_kf26e"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_10vj5"]
+radius = 12.0416
+
+[node name="ExperienceGem" type="Area2D" groups=["loot"]]
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("1_andqg")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, 1)
+texture = ExtResource("1_y0b0g")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_10vj5")
+
+[node name="snd_play" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_kf26e")
+
+[connection signal="finished" from="snd_play" to="." method="_on_snd_play_finished"]
