@@ -1,7 +1,6 @@
-[gd_scene load_steps=23 format=3 uid="uid://b6xsykb6ffhrn"]
+[gd_scene load_steps=22 format=3 uid="uid://b6xsykb6ffhrn"]
 
 [ext_resource type="Script" path="res://scenes/world/player.gd" id="1_gqwxa"]
-[ext_resource type="PackedScene" uid="uid://5s7gwvm11hyb" path="res://scenes/world/card.tscn" id="2_vm03i"]
 [ext_resource type="SpriteFrames" uid="uid://ckr8lhlj048sb" path="res://components/rpg/f1_leovoyant.tres" id="2_yfxqc"]
 [ext_resource type="Script" path="res://components/behaviour/finite-state-machine/finite-state-machine.gd" id="3_d2tu4"]
 [ext_resource type="Script" path="res://components/motion/2D/top-down-controller/states/idle.gd" id="4_kdb0p"]
@@ -119,10 +118,10 @@ radius = 33.0606
 radius = 10.2956
 
 [node name="TopDownController" type="CharacterBody2D" groups=["player"]]
+texture_filter = 1
 collision_layer = 2
 motion_mode = 1
 script = ExtResource("1_gqwxa")
-card_scene = ExtResource("2_vm03i")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(2.5, 2.5)
@@ -182,7 +181,7 @@ wait_time = 0.2
 
 [node name="ManaTimer" type="Timer" parent="Attack"]
 unique_name_in_owner = true
-wait_time = 3.0
+wait_time = 5.0
 autostart = true
 
 [node name="Hurtbox2D" parent="." instance=ExtResource("10_0ny1a")]
@@ -208,10 +207,10 @@ metadata/_edit_use_anchors_ = true
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.15
-anchor_top = 0.211538
-anchor_right = 0.15
-anchor_bottom = 0.211538
+anchor_left = 0.075
+anchor_top = 0.278846
+anchor_right = 0.075
+anchor_bottom = 0.278846
 offset_right = 40.0
 offset_bottom = 40.0
 texture_over = ExtResource("12_4aqtr")
@@ -223,10 +222,10 @@ unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
-offset_left = 6.0
-offset_top = 4.0
-offset_right = 6.0
-offset_bottom = 12.0
+offset_left = 3.0
+offset_top = 15.0
+offset_right = 3.0
+offset_bottom = 23.0
 grow_horizontal = 2
 texture_over = ExtResource("12_4aqtr")
 texture_progress = ExtResource("13_ixa04")
@@ -247,10 +246,10 @@ unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
-offset_left = 6.0
-offset_top = 13.0
-offset_right = 6.0
-offset_bottom = 21.0
+offset_left = 3.0
+offset_top = 22.0
+offset_right = 3.0
+offset_bottom = 30.0
 grow_horizontal = 2
 texture_over = ExtResource("12_4aqtr")
 texture_progress = ExtResource("14_mutnh")

@@ -6,69 +6,54 @@ class_name Card extends Sprite2D
 
 var fade_mat: ShaderMaterial
 
+var card_path = "res://components/cards/2D/database/spanish_decks/pixel_deck/%s%d.png"
+var card_faces = ["clubs/basto","cups/copa","golds/oro","swords/espada"];
+
+
 func _ready():
 	fade_mat = get_material()
-	#ShaderMaterial = load("res://shaders/CardMaterial.tres")
 	randomize_card()
-	print(suit)
 	show_card()
 
 func show_card():
 	# Initialize transparency and scale for appearance
-	modulate = Color(modulate.r, modulate.g, modulate.b, 0)
-	scale = Vector2(0, 0)
+	modulate = Color(modulate.r, modulate.g, modulate.b, 0.3)
+	fade_mat.set_shader_parameter("wipe_amount", 1.0)
 
-	# Create a tween for show animation
-	var tween = create_tween()
-
-	# Fade in effect with sweep in
-	tween.tween_property(
-		self, "modulate:a", 1, fade_duration
-	).as_relative().set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_OUT)
-
-	tween.tween_property(
-		self, "scale", Vector2(1, 1), fade_duration
-	).as_relative().set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_IN)
+	var tween = create_tween() # Fade in effect with sweep in
+	tween.tween_property(self.material, "shader_parameter/wipe_amount", 0.0, fade_duration).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_IN_OUT)
+	tween.tween_property(self, "modulate:a", 1, fade_duration).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_OUT)
 	tween.tween_callback(Callable(self, "hide_card"))
 	
-	
-	# Configure shader parameters for wipe effect
-	fade_mat.set_shader_parameter("wipe_amount", 0.0)
-	# Create a tween for show animation
-	tween.tween_property(
-		self.material, "shader_parameter/wipe_amount", 1.0, fade_duration
-	).as_relative().set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_IN_OUT)
 
 func hide_card():
+	
 	# Create a tween for hide animation
+	fade_mat.set_shader_parameter("wipe_amount", 0.0)
+	modulate = Color(modulate.r, modulate.g, modulate.b, 1)
+	
 	var tween = create_tween()
-
 	# Fade out and shrink (sweep out) effect
-	tween.tween_property(
-		self, "modulate:a", 0, fade_duration
-	).as_relative().set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_OUT)
-
-	tween.tween_property(
-		self, "scale", Vector2(0, 0), fade_duration
-	).as_relative().set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_OUT)
+	#tween.tween_property(self, "modulate:a", 0, fade_duration).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_OUT)
+	tween.tween_property(self.material, "shader_parameter/wipe_amount", 1.0, fade_duration).set_trans(Tween.TRANS_SPRING).set_ease(Tween.EASE_IN_OUT)
 
 	# Callback for removal after animation
 	tween.tween_callback(Callable(self, "_remove_card"))
+	#_remove_card()
 
 func _remove_card():
+	print("remove %d"  % [number] + suit)
 	# Remove the card after animation
 	queue_free()
-
+	
 
 func randomize_card():
-	var suits = ["Hearts", "Diamonds", "Clubs", "Spades"]
-	var numbers = range(1, 14)  # Ace to King
-
-	suit = suits[randi() % suits.size()]
+	suit = card_faces[randi() % card_faces.size()]
+	var numbers = range(1, 12)  # Ace to King
 	number = numbers[randi() % numbers.size()]
-
-	# Optionally set texture based on suit and number here
-	
+	var texture_path = card_path % [suit, number]
+	print(texture_path)
+	texture = load(texture_path)
 
 
 func _on_timer_timeout() -> void:

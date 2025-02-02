@@ -1,6 +1,7 @@
 [gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://b1un5usafkhdh"]
 
-[ext_resource type="Shader" path="res://scenes/world/WipeEffectShader.shader.gdshader" id="1_x40d3"]
+[ext_resource type="Shader" path="res://scenes/world/card.gdshader" id="1_o0p0q"]
 
 [resource]
-shader = ExtResource("1_x40d3")
+shader = ExtResource("1_o0p0q")
+shader_parameter/wipe_amount = null

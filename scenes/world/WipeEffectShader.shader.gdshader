@@ -4,7 +4,7 @@ uniform float wipe_amount : hint_range(0.0, 1.0);
 
 void fragment() {
     vec2 uv = UV;
-    if (uv.y < 1.0 - wipe_amount) {
+    if (uv.y <  wipe_amount) {
         discard;
     }
     COLOR = texture(TEXTURE, uv) * COLOR;

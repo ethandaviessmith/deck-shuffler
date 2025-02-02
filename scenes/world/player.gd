@@ -5,8 +5,8 @@ const GroupName: StringName = &"player"
 
 var motion_input: TransformedInput = TransformedInput.new(self)
 
-@export var card_scene: PackedScene
-var card: Card
+@export var card_scene = preload("res://scenes/world/card.tscn")
+#var card: Card
 
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
@@ -60,8 +60,9 @@ var knife = preload("res://scenes/world/weapon_dagger.tscn")
 
 
 func _ready() -> void:
-	card = Card.new()
+	#card = Card.new()
 	animation_player.play("idle")
+	draw_card()
 	_on_hurt_box_2d_hurt(0,0,0)
 	attack()
 	set_expbar(experience, calculate_experiencecap())
@@ -192,5 +193,5 @@ func _on_mana_timer_timeout() -> void:
 func draw_card():
 	# Instance the card scene
 	var card_instance = card_scene.instantiate() as Card
-	card_instance.position = position
-	attacks.call_deferred("add_child",card_instance)
+	card_instance.position = Vector2(0, -80.0)
+	call_deferred("add_child",card_instance)
