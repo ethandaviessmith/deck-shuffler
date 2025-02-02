@@ -248,6 +248,19 @@ collision_mask = 8
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CollectArea"]
 shape = SubResource("CircleShape2D_0lwbw")
 
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -11.0
+offset_top = 21.0
+offset_right = 11.0
+offset_bottom = 30.0
+grow_horizontal = 2
+color = Color(0, 0, 0, 0.227451)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
 [connection signal="state_changed" from="FiniteStateMachine" to="." method="_on_finite_state_machine_state_changed"]
 [connection signal="timeout" from="Attack/KnifeTimer" to="." method="_on_knife_timer_timeout"]
 [connection signal="timeout" from="Attack/KnifeTimer/KnifeAttackTimer" to="." method="_on_knife_attack_timer_timeout"]

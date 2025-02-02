@@ -7,6 +7,7 @@ size = Vector2(18, 39)
 
 [node name="Hitbox2D" type="Area2D" groups=["attack"]]
 script = ExtResource("1_objhs")
+damage = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-1.5, -5.5)

@@ -22,7 +22,7 @@ position = Vector2(4.25, -0.5)
 shape = SubResource("RectangleShape2D_4vuiw")
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 0.2
+autostart = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(4.25, -0.5)
@@ -38,6 +38,11 @@ texture = ExtResource("1_star1")
 [node name="snd_play" type="AudioStreamPlayer2D" parent="."]
 bus = &"SFX"
 
+[node name="TimerDeath" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
+
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="TimerDeath" to="." method="_on_timer_death_timeout"]
 
 [editable path="Hitbox2D"]

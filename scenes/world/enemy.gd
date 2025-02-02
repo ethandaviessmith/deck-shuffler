@@ -53,8 +53,6 @@ func _physics_process(_delta):
 		sprite.flip_h = false
 
 
-
-
 func death():
 	emit_signal("remove_from_array",self)
 	can_move = false;
