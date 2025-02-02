@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=4 uid="uid://bvyi5v3q5glkx"]
+[gd_scene load_steps=11 format=4 uid="uid://bvyi5v3q5glkx"]
 
 [ext_resource type="PackedScene" uid="uid://iq63nlaer5ul" path="res://scenes/world/Enemy.tscn" id="1_78kn1"]
 [ext_resource type="PackedScene" uid="uid://b6xsykb6ffhrn" path="res://scenes/world/Player.tscn" id="1_sythe"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://spawn_info.gd" id="4_eae5y"]
 [ext_resource type="PackedScene" uid="uid://bsyksfjwdfwoy" path="res://scenes/world/experience_gem.tscn" id="5_0hwdq"]
 [ext_resource type="Texture2D" uid="uid://bhjd3irah3hs7" path="res://assets/green_woods/Assets/Tiles.png" id="6_jpaak"]
+[ext_resource type="PackedScene" uid="uid://5s7gwvm11hyb" path="res://scenes/world/card.tscn" id="7_c1eav"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qqcfr"]
 texture = ExtResource("6_jpaak")
@@ -166,7 +167,6 @@ tile_set = SubResource("TileSet_68f4t")
 
 [node name="Player" parent="." instance=ExtResource("1_sythe")]
 position = Vector2(602, 378)
-scale = Vector2(3, 3)
 
 [node name="Loot" type="Node2D" parent="." groups=["loot"]]
 
@@ -196,5 +196,7 @@ spawns = Array[ExtResource("4_eae5y")]([SubResource("Resource_xs8gd")])
 autostart = true
 
 [node name="ExperienceGem" parent="." instance=ExtResource("5_0hwdq")]
+
+[node name="Card" parent="." instance=ExtResource("7_c1eav")]
 
 [connection signal="timeout" from="Timer" to="EnemySpawner" method="_on_timer_timeout"]

@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://5s7gwvm11hyb"]
+
+[ext_resource type="Texture2D" uid="uid://1awt5bawvq25" path="res://components/cards/2D/database/spanish_decks/pixel_deck/cups/copa1.png" id="1_b3g02"]
+[ext_resource type="Material" uid="uid://b1un5usafkhdh" path="res://shaders/CardMaterial.tres" id="1_h47hf"]
+[ext_resource type="Script" path="res://scenes/world/card.gd" id="2_sqcmc"]
+
+[node name="Card" type="Sprite2D"]
+material = ExtResource("1_h47hf")
+position = Vector2(0, -18)
+scale = Vector2(0.366667, 0.366667)
+texture = ExtResource("1_b3g02")
+script = ExtResource("2_sqcmc")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

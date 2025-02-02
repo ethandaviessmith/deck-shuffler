@@ -5,15 +5,23 @@ const GroupName: StringName = &"player"
 
 var motion_input: TransformedInput = TransformedInput.new(self)
 
+@export var card_scene: PackedScene
+var card: Card
 
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+
+
 
 
 @onready var attacks = get_node("/root/World/Attacks")
 @onready var healthBar = get_node("%HealthBar")
 @onready var expBar = get_node("%ExperienceBar")
 @onready var lblLevel = get_node("%lbl_level")
+@onready var manaBar = get_node("%ManaBar")
+var mana = 100
+var max_mana = 100
+var draw_mana = 20
 
 #Player
 var movement_speed = 40.0
@@ -52,6 +60,7 @@ var knife = preload("res://scenes/world/weapon_dagger.tscn")
 
 
 func _ready() -> void:
+	card = Card.new()
 	animation_player.play("idle")
 	_on_hurt_box_2d_hurt(0,0,0)
 	attack()
@@ -167,3 +176,21 @@ func calculate_experiencecap():
 func set_expbar(set_value = 1, set_max_value = 100):
 	expBar.value = set_value
 	expBar.max_value = set_max_value
+
+
+func _on_mana_timer_timeout() -> void:
+	mana = clamp((mana - draw_mana), 0, 999.0)
+	manaBar.max_value = max_mana
+	manaBar.value = mana
+	if mana < draw_mana:
+		print("summon")
+		mana = max_mana
+	else:
+		draw_card()
+	pass
+
+func draw_card():
+	# Instance the card scene
+	var card_instance = card_scene.instantiate() as Card
+	card_instance.position = position
+	attacks.call_deferred("add_child",card_instance)

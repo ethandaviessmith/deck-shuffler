@@ -1,0 +1,6 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://b1un5usafkhdh"]
+
+[ext_resource type="Shader" path="res://scenes/world/WipeEffectShader.shader.gdshader" id="1_x40d3"]
+
+[resource]
+shader = ExtResource("1_x40d3")
