@@ -27,9 +27,7 @@ const run = "run";
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	anim.play(run)
-	print(randf_range(0, anim.get_animation(run).length))
 	anim.seek(randf_range(0, anim.get_animation(run).length))
-	
 	hitBox.damage = enemy_damage
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.

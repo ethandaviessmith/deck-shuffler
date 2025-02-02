@@ -7,6 +7,7 @@ var hp = 1
 var knockback_amount = 100
 var attack_size = 1.0
 
+@export var buff: StatsBuff
 
 var target = Vector2.ZERO
 var angle = Vector2.ZERO
@@ -21,33 +22,43 @@ signal remove_from_array(object)
 func _ready(): 
 	angle = global_position.direction_to(target)
 	rotation = angle.angle()
-	match level:
-		1:
-			hp = 1
-			speed = 200
-			damage = 5
-			knockback_amount = 100
-			attack_size = 1.0 * (1 + player.spell_size)
-		2:
-			hp = 1
-			speed = 100
-			damage = 5
-			knockback_amount = 100
-			attack_size = 1.0 * (1 + player.spell_size)
-		3:
-			hp = 2
-			speed = 100
-			damage = 8
-			knockback_amount = 100
-			attack_size = 1.0 * (1 + player.spell_size)
-		4:
-			hp = 2
-			speed = 100
-			damage = 8
-			knockback_amount = 100
-			attack_size = 1.0 * (1 + player.spell_size)
-
 	
+	if not buff == null:
+		print ("buffed weapon")
+		hp = buff.hp
+		speed = buff.speed
+		damage = buff.damage
+		knockback_amount = buff.knockback_amount
+		attack_size = buff.attack_size
+		
+	else:
+		print ("level weapon")
+		match level:
+			1:
+				hp = 1
+				speed = 200
+				damage = 5
+				knockback_amount = 100
+				attack_size = 1.0 * (1 + player.spell_size)
+			2:
+				hp = 1
+				speed = 100
+				damage = 5
+				knockback_amount = 100
+				attack_size = 1.0 * (1 + player.spell_size)
+			3:
+				hp = 2
+				speed = 100
+				damage = 8
+				knockback_amount = 100
+				attack_size = 1.0 * (1 + player.spell_size)
+			4:
+				hp = 2
+				speed = 100
+				damage = 8
+				knockback_amount = 100
+				attack_size = 1.0 * (1 + player.spell_size)
+
 	var tween = create_tween()
 	tween.tween_property(self,"scale",Vector2(1,1)*attack_size,1).set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
 	tween.play()
@@ -60,6 +71,8 @@ func enemy_hit(charge = 1):
 	if hp <= 0:
 		_play_death_effect()
 
+func add_buff(add_buff:StatsBuff):
+	buff = add_buff
 
 func _play_death_effect():
 	snd_play.play()
@@ -75,6 +88,7 @@ var shrink_duration = 1.0  # Duration in seconds
 var jitter_intensity = 5   # Pixel intensity of the jitter
 var jitter_duration = 0.1  # Duration for each jitter
 var total_jitter_time = 0.5  # Total time to apply jitter
+
 func darken_sprite():
 	var time_passed = 0.0
 	while time_passed < darken_duration:

@@ -1,60 +1,57 @@
-class_name Card extends Sprite2D
+class_name Card extends Resource
 
-@export var suit: String
-@export var number: int
-@export var fade_duration: float = 1.0  # Default fade duration
-
-var fade_mat: ShaderMaterial
-
-var card_path = "res://components/cards/2D/database/spanish_decks/pixel_deck/%s%d.png"
-var card_faces = ["clubs/basto","cups/copa","golds/oro","swords/espada"];
+enum CardType { ATTACK, SPELL, WEAPON }
+enum PowerType { AMOUNT, STRENGTH, NA }
+enum Rarity { COMMON }
+enum WeaponType {DAGGER, AXE, SWORD, NA}
 
 
-func _ready():
-	fade_mat = get_material()
-	randomize_card()
-	show_card()
+@export var name: String
+@export var texture_id: String
+@export var card_type: CardType
+@export var damage: float
+@export var weapon_type: WeaponType
+@export var power_type: PowerType
+@export var rarity: Rarity
 
-func show_card():
-	# Initialize transparency and scale for appearance
-	modulate = Color(modulate.r, modulate.g, modulate.b, 0.3)
-	fade_mat.set_shader_parameter("wipe_amount", 1.0)
+static func get_card_type(card_type:CardType) -> String:
+	match card_type:
+		CardType.ATTACK:
+			return "Attack"
+		CardType.SPELL:
+			return "Spell"
+		CardType.WEAPON:
+			return "Weapon"
+	return "Unknown"
 
-	var tween = create_tween() # Fade in effect with sweep in
-	tween.tween_property(self.material, "shader_parameter/wipe_amount", 0.0, fade_duration).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_IN_OUT)
-	tween.tween_property(self, "modulate:a", 1, fade_duration).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_OUT)
-	tween.tween_callback(Callable(self, "hide_card"))
+func get_card_type_name() -> String:
+	return get_card_type(self.card_type)
 	
+func get_power_type(power_type:PowerType) -> String:
+	match power_type:
+		PowerType.AMOUNT:
+			return "Amount"
+		PowerType.STRENGTH:
+			return "Strength"
+		PowerType.NA:
+			return "NA"
+	return "Unknown"
 
-func hide_card():
-	
-	# Create a tween for hide animation
-	fade_mat.set_shader_parameter("wipe_amount", 0.0)
-	modulate = Color(modulate.r, modulate.g, modulate.b, 1)
-	
-	var tween = create_tween()
-	# Fade out and shrink (sweep out) effect
-	#tween.tween_property(self, "modulate:a", 0, fade_duration).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_OUT)
-	tween.tween_property(self.material, "shader_parameter/wipe_amount", 1.0, fade_duration).set_trans(Tween.TRANS_SPRING).set_ease(Tween.EASE_IN_OUT)
+func get_power_type_name() -> String:
+	return get_power_type(self.power_type)
 
-	# Callback for removal after animation
-	tween.tween_callback(Callable(self, "_remove_card"))
-	#_remove_card()
+func get_weapon_type(weapon_type:WeaponType) -> String:
+	match weapon_type:
+		WeaponType.DAGGER:
+			return "Dagger"
+		WeaponType.AXE:
+			return "Axe"
+		WeaponType.SWORD:
+			return "Sword"
+	return "NA"
 
-func _remove_card():
-	print("remove %d"  % [number] + suit)
-	# Remove the card after animation
-	queue_free()
-	
+func get_weapon_type_name() -> String:
+	return get_weapon_type(self.weapon_type)
 
-func randomize_card():
-	suit = card_faces[randi() % card_faces.size()]
-	var numbers = range(1, 12)  # Ace to King
-	number = numbers[randi() % numbers.size()]
-	var texture_path = card_path % [suit, number]
-	print(texture_path)
-	texture = load(texture_path)
-
-
-func _on_timer_timeout() -> void:
-	pass # Replace with function body.
+func get_rarity() -> String:
+	return "COMMON"

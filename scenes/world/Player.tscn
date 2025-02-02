@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://b6xsykb6ffhrn"]
+[gd_scene load_steps=25 format=3 uid="uid://b6xsykb6ffhrn"]
 
 [ext_resource type="Script" path="res://scenes/world/player.gd" id="1_gqwxa"]
 [ext_resource type="SpriteFrames" uid="uid://ckr8lhlj048sb" path="res://components/rpg/f1_leovoyant.tres" id="2_yfxqc"]
@@ -13,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://fpdns3hhxx1" path="res://assets/GUI/exp.png" id="13_ixa04"]
 [ext_resource type="Texture2D" uid="uid://da53mspvqfxq4" path="res://assets/GUI/health.png" id="13_qrw3p"]
 [ext_resource type="Texture2D" uid="uid://4jgv6t084qqt" path="res://assets/GUI/mana.png" id="14_mutnh"]
+[ext_resource type="Script" path="res://deck.gd" id="14_p2bkr"]
 
 [sub_resource type="Animation" id="Animation_40l5s"]
 length = 0.001
@@ -108,6 +109,14 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q4tc1"]
 size = Vector2(16, 34)
 
+[sub_resource type="SystemFont" id="SystemFont_e3nto"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_tniib"]
+font = SubResource("SystemFont_e3nto")
+font_size = 14
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 0
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_v81tn"]
 radius = 228.954
 
@@ -117,11 +126,12 @@ radius = 33.0606
 [sub_resource type="CircleShape2D" id="CircleShape2D_0lwbw"]
 radius = 10.2956
 
-[node name="TopDownController" type="CharacterBody2D" groups=["player"]]
+[node name="TopDownController" type="CharacterBody2D" node_paths=PackedStringArray("deck") groups=["player"]]
 texture_filter = 1
 collision_layer = 2
 motion_mode = 1
 script = ExtResource("1_gqwxa")
+deck = NodePath("CardDeck")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(2.5, 2.5)
@@ -190,6 +200,30 @@ collision_mask = 2
 
 [node name="CollisionShape2D" parent="Hurtbox2D" index="0"]
 position = Vector2(-1, 4)
+
+[node name="Debug" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -250.0
+offset_top = 20.0
+offset_right = 216.0
+offset_bottom = 264.0
+scale = Vector2(0.5, 0.5)
+
+[node name="buff_label" type="Label" parent="Debug"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.043
+anchor_top = 0.619
+anchor_right = 0.743
+anchor_bottom = 0.951
+offset_left = -0.0380001
+offset_top = -81.036
+offset_right = 81.762
+offset_bottom = -0.0440063
+grow_vertical = 0
+label_settings = SubResource("LabelSettings_tniib")
 
 [node name="GUI" type="Control" parent="."]
 layout_mode = 3
@@ -287,6 +321,12 @@ offset_bottom = 27.0
 grow_horizontal = 2
 color = Color(0, 0, 0, 0.227451)
 
+[node name="CardDeck" type="Node" parent="."]
+script = ExtResource("14_p2bkr")
+
+[node name="ShuffleTimer" type="Timer" parent="CardDeck"]
+wait_time = 2.0
+
 [connection signal="state_changed" from="FiniteStateMachine" to="." method="_on_finite_state_machine_state_changed"]
 [connection signal="timeout" from="Attack/KnifeTimer" to="." method="_on_knife_timer_timeout"]
 [connection signal="timeout" from="Attack/KnifeTimer/KnifeAttackTimer" to="." method="_on_knife_attack_timer_timeout"]
@@ -296,5 +336,7 @@ color = Color(0, 0, 0, 0.227451)
 [connection signal="body_exited" from="EnemyDetectionArea" to="." method="_on_enemy_detection_area_body_exited"]
 [connection signal="area_entered" from="GrabArea" to="." method="_on_grab_area_area_entered"]
 [connection signal="area_entered" from="CollectArea" to="." method="_on_collect_area_area_entered"]
+[connection signal="shuffle_complete" from="CardDeck" to="." method="_on_card_deck_shuffle_complete"]
+[connection signal="timeout" from="CardDeck/ShuffleTimer" to="CardDeck" method="_on_shuffle_complete"]
 
 [editable path="Hurtbox2D"]

@@ -167,7 +167,6 @@ tile_set = SubResource("TileSet_68f4t")
 
 [node name="Player" parent="." instance=ExtResource("1_sythe")]
 position = Vector2(602, 378)
-card_scene = ExtResource("7_c1eav")
 
 [node name="Loot" type="Node2D" parent="." groups=["loot"]]
 

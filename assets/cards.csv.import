@@ -1,0 +1,17 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://b7rh7hecwdnyd"
+
+[deps]
+
+files=["res://assets/cards.texture.translation", "res://assets/cards.card.translation", "res://assets/cards.damage.translation", "res://assets/cards.power.translation", "res://assets/cards.weapon.translation", "res://assets/cards.rarity.translation"]
+
+source_file="res://assets/cards.csv"
+dest_files=["res://assets/cards.texture.translation", "res://assets/cards.card.translation", "res://assets/cards.damage.translation", "res://assets/cards.power.translation", "res://assets/cards.weapon.translation", "res://assets/cards.rarity.translation"]
+
+[params]
+
+compress=true
+delimiter=0
