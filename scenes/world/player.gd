@@ -6,9 +6,12 @@ const GroupName: StringName = &"player"
 var motion_input: TransformedInput = TransformedInput.new(self)
 
 @export var card_scene = preload("res://scenes/world/card.tscn")
-#var card: Card
+@export var mana = 100
+@export var max_mana = 100
+@export var draw_mana = 25
+@export var shuffle_mana = 50
 
-@onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
+@onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 @onready var attacks = get_node("/root/World/Attacks")
@@ -19,9 +22,11 @@ var motion_input: TransformedInput = TransformedInput.new(self)
 @onready var manaTimer = get_node("%ManaTimer")
 @onready var buff_label = get_node("%buff_label")
 
-var mana = 100
-var max_mana = 100
-var draw_mana = 20
+@onready var icon_draw = get_node("%StatusIconDrawSprite2D")
+@onready var icon_resolve = get_node("%StatusIconResolveSprite2D")
+@onready var icon_shuffle = get_node("%StatusIconShuffleSprite2D")
+
+var deck_animation = false
 
 @export var deck: CardDeck
 var active_buffs: Array[StatsBuff] = []
@@ -57,6 +62,8 @@ var enemy_close = []
 
 #AttackNodes
 var knife = preload("res://scenes/world/weapon_dagger.tscn")
+var axe = preload("res://scenes/world/weapon_axe.tscn")
+var sword = preload("res://scenes/world/weapon_sword.tscn")
 @onready var knifeTimer = get_node("%KnifeTimer")
 @onready var knifeAttackTimer = get_node("%KnifeAttackTimer")
 
@@ -65,7 +72,7 @@ var knife = preload("res://scenes/world/weapon_dagger.tscn")
 func _ready() -> void:
 	#card = Card.new()
 	var buff = StatsBuff.new()
-	active_buffs.append(buff)
+	active_buffs.append(StatsWeapon.create_new_weapon(Card.WeaponType.AXE))
 	animation_player.play("idle")
 	set_deck()
 	attack()
@@ -78,14 +85,13 @@ func _physics_process(_delta: float) -> void:
 	motion_input.update()
 	
 	if motion_input.input_direction_horizontal_axis < 0.1:
-		animated_sprite_2d.flip_h = true
+		sprite.flip_h = true
 	elif motion_input.input_direction_horizontal_axis > -0.1:
-		animated_sprite_2d.flip_h = false
+		sprite.flip_h = false
 	
 func attack():
-	#print("atack")
 	if knife_level > 0:
-		knifeTimer.wait_time = knife_attackspeed * (1-spell_cooldown)
+		knifeTimer.wait_time = knife_attackspeed * ( 1 - spell_cooldown)
 		if knifeTimer.is_stopped():
 			knifeTimer.start()
 
@@ -98,11 +104,12 @@ func get_random_enemy():
 
 # SIGNALS
 func _on_finite_state_machine_state_changed(from_state: MachineState, state: MachineState) -> void:
-	match state.name:
-		"TopDownIdle":
-			animation_player.play("idle")
-		"TopDownWalk":
-			animation_player.play("walk")
+	if not deck_animation:
+		match state.name:
+			"TopDownIdle":
+				animation_player.play("idle")
+			"TopDownWalk":
+				animation_player.play("walk")
 
 func _on_hurt_box_2d_hurt(damage: Variant, angle: Variant, knockback: Variant) -> void:
 	#print("player hurt")
@@ -112,31 +119,42 @@ func _on_hurt_box_2d_hurt(damage: Variant, angle: Variant, knockback: Variant) -
 	if hp <= 0:
 		pass#death()
 
-
 func _on_knife_attack_timer_timeout() -> void:
 	
 	var buff:StatsBuff = StatsBuff.new()
 	for i in active_buffs:
 		buff.add_buff(i)
 	
-	
-	display_buffs()
+	display_buffs(active_buffs.size())
 	if knife_ammo > 0:
 		if not get_random_enemy() == null:
-			var knife_attack = knife.instantiate()
-			knife_attack.position = position
-			knife_attack.target = get_random_enemy().global_position
-			knife_attack.add_buff(buff)
-			knife_attack.level = knife_level
-			attacks.call_deferred("add_child",knife_attack)
-			knife_ammo -= 1
-			if knife_ammo > 0:
-				knifeAttackTimer.start()
-			else:
-				knifeAttackTimer.stop()
-	# for weapon draw
-	# pick random weapon
-	# use stats on attack
+			if not buff.weapons == null:
+				var weapon_buff:StatsWeapon = buff.weapons.pick_random()
+				
+				var weapon: WeaponHitBox
+				if not weapon_buff == null:
+					match weapon_buff.type:
+						Card.WeaponType.DAGGER:
+							weapon = knife.instantiate()
+						Card.WeaponType.AXE:
+							weapon = axe.instantiate()
+						Card.WeaponType.SWORD:
+							weapon = sword.instantiate()
+						_:
+							print("no weapon")
+							weapon = knife.instantiate()
+				else:
+					weapon = knife.instantiate() #defualt to dagger in case
+				weapon.position = position
+				weapon.target = get_random_enemy().global_position
+				weapon.add_buff(buff)
+				weapon.level = knife_level
+				attacks.call_deferred("add_child",weapon)
+				knife_ammo -= 1
+				if knife_ammo > 0:
+					knifeAttackTimer.start()
+				else:
+					knifeAttackTimer.stop()
 	
 	if false and knife_ammo > 0:
 		if not get_random_enemy() == null:
@@ -216,14 +234,23 @@ func set_manabar(set_value = 100, set_max_value = 100):
 	manaBar.max_value = max_mana
 
 func _on_mana_timer_timeout() -> void:
-	mana = clamp((mana - draw_mana), 0, 999.0)
-	set_manabar(mana, max_mana)
-	if mana < draw_mana:
+	icon_resolve.visible = false
+	deck_animation = false
+	if use_mana(draw_mana):
+		pulse_sprite(icon_draw)
+		draw_card()
+		set_manabar(mana, max_mana)
+	else:
 		summon_hand()
 		mana = max_mana
-	else:
-		draw_card()
-	pass
+		# Tween mana refill
+		var tween = create_tween()
+		tween.tween_property(manaBar,"value",mana,2.5).set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_IN_OUT)
+		tween.play()
+
+func use_mana(used_mana) -> bool:
+	mana = clamp((mana - draw_mana), 0, 999.0)
+	return mana > draw_mana
 
 func draw_card():
 	if deck.has_draw():
@@ -233,40 +260,69 @@ func draw_card():
 		card_instance.position = Vector2(0, -80.0)
 		call_deferred("add_child",card_instance)
 	else:
-		print("player shuffling")
+		print("no draw, shuffling")
 		shuffle_deck()
 
+func idle():
+	animation_player.play("idle")
+	deck_animation = false
+	#manaTimer.start()
+
 func summon_hand():
-	print(deck.get_hand())
+	icon_resolve.visible = true
+	deck_animation = true
+	animation_player.play("resolve")
+	#manaTimer.stop()
+	
+	var timer_anim = Timer.new() #janky timer to make things look nice
+	timer_anim.connect("timeout", Callable(self,"idle"))
+	add_child(timer_anim)
+	timer_anim.start(1.3)
+	
+	# add buffs, and remove them later
 	var buff = deck.resolve_hand()
-	active_buffs.append(buff)
-	print(buff)
-	var debuff = Callable(self,"debuff").bind(buff)
 	var timer = Timer.new()
-	add_child(timer)
+	var debuff = Callable(self,"debuff").bind(buff, timer)
 	timer.connect("timeout", debuff)
+	add_child(timer)
+	timer.start(buff.time)
 	
-	
-func debuff(buff: StatsBuff):
+	active_buffs.append(buff)
+
+func debuff(buff: StatsBuff, timer: Timer):
 	active_buffs.erase(buff)
+	timer.queue_free()
 	pass
 
-func shuffle_deck():
-	manaTimer.stop()
-	deck.shuffle()	
-	#indicate player is shuffling
-	
-func display_buffs():
-	var label_text = ""
+func display_buffs(count:int):
+	var label_text = str(count) + ">"
 	for buff in active_buffs:
 		label_text += buff.format_stats()
-
+	label_text += "\n" +deck.format_hand_stats()
 	if buff_label and label_text:
 		buff_label.text = label_text
 	#weapons.append(weapon_add)
 	#time += time_add
 
 
+func shuffle_deck():
+	manaTimer.stop()
+	deck.shuffle()
+	#indicate player is shuffling
+	icon_shuffle.visible = true
+	deck_animation = true
+	animation_player.play("shuffle")
+
 func _on_card_deck_shuffle_complete() -> void:
 	manaTimer.start()
 	draw_card()
+	icon_shuffle.visible = false
+	deck_animation = true
+	print("how much longer after")
+
+func pulse_sprite(sprite:Sprite2D):
+	var tween = create_tween()
+	tween.tween_property(sprite, "modulate:a", 1.0, 1.0).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_IN_OUT)
+	tween.tween_property(sprite, "modulate:a", 0.0, 1.0).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_IN_OUT)
+	# Restart the tween in a loop
+	#tween.connect("tween_all_completed", self, "_on_tween_completed")

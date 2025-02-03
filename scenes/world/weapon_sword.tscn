@@ -1,8 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://boqs32u8l6drn"]
+[gd_scene load_steps=6 format=3 uid="uid://bf3d0f2wpes64"]
 
-[ext_resource type="Script" path="res://scenes/world/weapon_dagger.gd" id="1_bgbbv"]
-[ext_resource type="PackedScene" uid="uid://dvvoyxs6gfhne" path="res://components/interaction/2D/interactables/hitbox_2d.tscn" id="2_swsrv"]
-[ext_resource type="Texture2D" uid="uid://dinbqp45aok51" path="res://assets/weapons-and-equipment.png" id="4_4grqg"]
+[ext_resource type="Script" path="res://scenes/world/weapon_dagger.gd" id="1_pqug7"]
+[ext_resource type="PackedScene" uid="uid://dvvoyxs6gfhne" path="res://components/interaction/2D/interactables/hitbox_2d.tscn" id="2_0r7h0"]
+[ext_resource type="Texture2D" uid="uid://dinbqp45aok51" path="res://assets/weapons-and-equipment.png" id="4_iffqg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8swkb"]
 size = Vector2(19.75, 8)
@@ -14,9 +14,9 @@ size = Vector2(14.25, 6)
 texture_filter = 1
 collision_layer = 4
 collision_mask = 4
-script = ExtResource("1_bgbbv")
+script = ExtResource("1_pqug7")
 
-[node name="Hitbox2D" parent="." instance=ExtResource("2_swsrv")]
+[node name="Hitbox2D" parent="." instance=ExtResource("2_0r7h0")]
 collision_layer = 4
 collision_mask = 4
 damage = 2
@@ -42,12 +42,11 @@ wait_time = 5.0
 autostart = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(2, -1)
 rotation = 0.785398
 scale = Vector2(-1, 1)
-texture = ExtResource("4_4grqg")
+texture = ExtResource("4_iffqg")
 region_enabled = true
-region_rect = Rect2(64, 32, 32, 32)
+region_rect = Rect2(64, 160, 32, 32)
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="TimerDeath" to="." method="_on_timer_death_timeout"]

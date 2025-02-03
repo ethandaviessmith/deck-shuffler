@@ -7,12 +7,14 @@ enum WeaponType {DAGGER, AXE, SWORD, NA}
 
 
 @export var name: String
+@export var hp: float # durability
 @export var texture_id: String
 @export var card_type: CardType
-@export var damage: float
 @export var weapon_type: WeaponType
 @export var power_type: PowerType
 @export var rarity: Rarity
+
+@export var damage: float # amount
 
 static func get_card_type(card_type:CardType) -> String:
 	match card_type:

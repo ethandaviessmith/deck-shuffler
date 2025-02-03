@@ -1,11 +1,11 @@
 class_name WeaponHitBox extends Node2D
 
 var level = 1
-var hp = 1
+@export var hp = 1
 @export var speed = 200
 @export var damage = 1
-var knockback_amount = 100
-var attack_size = 1.0
+@export var knockback_amount = 100
+@export var attack_size = 1.0
 
 @export var buff: StatsBuff
 
@@ -24,41 +24,12 @@ func _ready():
 	rotation = angle.angle()
 	
 	if not buff == null:
-		print ("buffed weapon")
 		hp = buff.hp
 		speed = buff.speed
 		damage = buff.damage
 		knockback_amount = buff.knockback_amount
 		attack_size = buff.attack_size
-		
-	else:
-		print ("level weapon")
-		match level:
-			1:
-				hp = 1
-				speed = 200
-				damage = 5
-				knockback_amount = 100
-				attack_size = 1.0 * (1 + player.spell_size)
-			2:
-				hp = 1
-				speed = 100
-				damage = 5
-				knockback_amount = 100
-				attack_size = 1.0 * (1 + player.spell_size)
-			3:
-				hp = 2
-				speed = 100
-				damage = 8
-				knockback_amount = 100
-				attack_size = 1.0 * (1 + player.spell_size)
-			4:
-				hp = 2
-				speed = 100
-				damage = 8
-				knockback_amount = 100
-				attack_size = 1.0 * (1 + player.spell_size)
-
+	
 	var tween = create_tween()
 	tween.tween_property(self,"scale",Vector2(1,1)*attack_size,1).set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
 	tween.play()
@@ -82,9 +53,8 @@ func _play_death_effect():
 	queue_free()
 	
 # Fade animation
-	
-var darken_duration = 1.0  # Duration in seconds
-var shrink_duration = 1.0  # Duration in seconds
+var darken_duration = 0.5  # Duration in seconds
+var shrink_duration = 0.5  # Duration in seconds
 var jitter_intensity = 5   # Pixel intensity of the jitter
 var jitter_duration = 0.1  # Duration for each jitter
 var total_jitter_time = 0.5  # Total time to apply jitter

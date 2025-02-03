@@ -67,7 +67,7 @@ func death():
 	queue_free()
 
 func _on_hurtbox_2d_hurt(damage: Variant, angle: Variant, knockback_amount: Variant) -> void:
-	print(angle)
+	#print(angle)
 	hp -= damage
 	knockback = angle * knockback_amount
 	if hp <= 0:

@@ -6,10 +6,12 @@ var deck: Array[Card] = []
 var draw_pile: Array[Card] = []
 var hand: Array[Card] = []
 
+
+signal shuffle_complete
+#unused
 signal deck_updated
 signal card_added(card: Card)
 signal card_removed(card: Card)
-signal shuffle_complete
 
 func set_deck(cards: Array[Card]):
 	deck = cards
@@ -17,13 +19,15 @@ func set_deck(cards: Array[Card]):
 	emit_signal("deck_updated")
 
 func shuffle():
+	print("shuffle on deck")
 	$ShuffleTimer.start()
 
 func _on_shuffle_complete():
+	#hand.clear()
 	draw_pile = deck.duplicate()
 	draw_pile.shuffle()
 	emit_signal("shuffle_complete")
-	print("Shuffle complete!")
+	print("shuffle_complete")
 
 # Function to draw a random card from the draw_pile
 func draw_card() -> Card:
@@ -48,8 +52,9 @@ func get_hand() -> Array[Card]:
 func resolve_hand() -> StatsBuff:
 	var buff = StatsBuff.new()
 	buff.time = 4
-	for card in deck:
-		match(card.get_card_type_name()):
+	for card in hand:
+		print("new " + card.get_card_type_name())
+		match(card.card_type):
 			Card.CardType.ATTACK:
 				buff.hp += card.hp
 				#elemental
@@ -58,8 +63,9 @@ func resolve_hand() -> StatsBuff:
 				# drop gold/xp
 				# split
 			Card.CardType.WEAPON:
-				buff.weapons.append(StatsWeapon.create_weapon(card.damage, 1, 1, card.amount, 1, card.weapon_type))
-				
+				print("weapon", card.get_weapon_type_name())
+				buff.weapons.append(StatsWeapon.create_new_weapon(card.weapon_type))
+	hand.clear()
 	return buff
 	
 
@@ -70,8 +76,6 @@ func add_card(card: Card):
 
 # Example function to demonstrate setting and drawing from the deck
 func _ready():
-	#randomize()
-
 	# Connect signals to custom handlers
 	#connect("shuffle_complete", Callable(self, "_on_shuffle_complete"))
 	connect("card_added",  Callable(self, "_on_card_added"))
@@ -81,5 +85,8 @@ func _ready():
 func _on_card_added(card: Card):
 	print("Card added:", card)
 
-#func _on_card_removed(card: Card):
-#	print("Card removed:", card.name)
+func format_hand_stats() -> String:
+	var stats = ""
+	for card in hand:
+		stats += "[c:" + card.name + "]"
+	return stats

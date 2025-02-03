@@ -145,9 +145,9 @@ sources/0 = SubResource("TileSetAtlasSource_qqcfr")
 [sub_resource type="Resource" id="Resource_xs8gd"]
 script = ExtResource("4_eae5y")
 time_start = 0
-time_end = 120
+time_end = 240
 enemy = ExtResource("1_78kn1")
-enemy_num = 1
+enemy_num = 2
 enemy_spawn_delay = 0
 
 [node name="World" type="Node2D"]
@@ -167,7 +167,6 @@ tile_set = SubResource("TileSet_68f4t")
 
 [node name="Player" parent="." instance=ExtResource("1_sythe")]
 position = Vector2(602, 378)
-card_scene = ExtResource("7_c1eav")
 
 [node name="Loot" type="Node2D" parent="." groups=["loot"]]
 

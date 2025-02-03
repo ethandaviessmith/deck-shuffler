@@ -17,3 +17,13 @@ static func create_weapon(damage: float, size: float, speed: float, amount: int,
 	stats_weapon.set("knockback", knockback)
 	stats_weapon.set("type", type)
 	return stats_weapon
+
+static func create_new_weapon(weapon_type:Card.WeaponType) -> StatsWeapon:
+	match weapon_type:
+		Card.WeaponType.DAGGER:
+			return create_weapon(1, 0.5, 100, 1, 50, Card.WeaponType.DAGGER)
+		Card.WeaponType.AXE:
+			return create_weapon(1, 2, 50, 1, 70, Card.WeaponType.AXE)
+		Card.WeaponType.SWORD:
+			return create_weapon(2, 1, 80, 1, 80, Card.WeaponType.SWORD)
+	return create_weapon(1, 1, 100, 1, 50, Card.WeaponType.DAGGER)
