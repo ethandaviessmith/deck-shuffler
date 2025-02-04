@@ -151,9 +151,9 @@ enemy_spawn_delay = 0
 
 [sub_resource type="Resource" id="Resource_3rtke"]
 script = ExtResource("8_fsskc")
-knockback = 100.0
-weapon_type = 0
+weapon_type = 5
 fade = 3.0
+knockback = 1.0
 damage = 1.0
 durability = 2.0
 speed = 1.0
@@ -166,17 +166,12 @@ texture = ExtResource("8_37n03")
 card_type = 0
 attack = SubResource("Resource_3rtke")
 rarity = 0
-texture_id = ""
-damage = 0.0
-hp = 0.0
-weapon_type = 0
-power_type = 0
 
 [sub_resource type="Resource" id="Resource_rkxd2"]
 script = ExtResource("8_fsskc")
-knockback = 100.0
-weapon_type = 0
+weapon_type = 2
 fade = 3.0
+knockback = 1.0
 damage = 1.0
 durability = 2.0
 speed = 1.0
@@ -189,17 +184,12 @@ texture = ExtResource("10_hqopv")
 card_type = 0
 attack = SubResource("Resource_rkxd2")
 rarity = 0
-texture_id = ""
-damage = 0.0
-hp = 0.0
-weapon_type = 2
-power_type = 0
 
 [sub_resource type="Resource" id="Resource_xm6s7"]
 script = ExtResource("8_fsskc")
-knockback = 100.0
-weapon_type = 0
+weapon_type = 1
 fade = 3.0
+knockback = 1.0
 damage = 1.0
 durability = 2.0
 speed = 1.0
@@ -212,11 +202,6 @@ texture = ExtResource("11_6d21s")
 card_type = 0
 attack = SubResource("Resource_xm6s7")
 rarity = 0
-texture_id = ""
-damage = 0.0
-hp = 0.0
-weapon_type = 1
-power_type = 0
 
 [node name="World" type="Node2D"]
 

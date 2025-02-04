@@ -2,9 +2,10 @@ class_name WeaponHitBox extends Node2D
 
 var level = 1
 @export var hp = 1
-@export var speed = 200
 @export var damage = 1
+
 @export var knockback = 100
+@export var speed = 200
 @export var size = 1.0
 
 @export var buff: AttackStats
@@ -26,8 +27,8 @@ func _ready():
 	if not buff == null:
 		hp = buff.durability
 		damage = buff.damage
-		knockback = buff.knockback
 		
+		knockback *= buff.knockback
 		speed *= buff.speed
 		size *= buff.size
 	

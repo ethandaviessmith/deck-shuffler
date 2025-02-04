@@ -3,14 +3,13 @@ class_name CardSprite extends Sprite2D
 @export var suit: String
 @export var number: int
 @export var fade_duration: float = 1.0  # Default fade duration
-
 var fade_mat: ShaderMaterial
 
 var card_path = "res://components/cards/2D/database/spanish_decks/pixel_deck/%s%d.png"
 var card_faces = ["clubs/basto","cups/copa","golds/oro","swords/espada"];
 
 @onready var label_node = get_node("%CardLabel")
-const col = 0.8
+const col = 0.8 # give hue to cards by type
 
 func set_card(card: Card):
 	if not card == null:
@@ -18,19 +17,12 @@ func set_card(card: Card):
 		
 		if card.texture:
 			texture = card.texture
-			print("new texture")
-		else:
-			var texture_path = "res://components/cards/2D/database/spanish_decks/pixel_deck/" + card.texture_id
-			var card_texture = load(texture_path) as Texture2D
-			if card_texture:
-				texture = card_texture
-			
 		match card.card_type:
 			Card.CardType.ATTACK:
 				self.modulate = Color(1, col, col) 
 			Card.CardType.SPELL:
 				self.modulate = Color(col, 1, col)
-			Card.CardType.WEAPON:
+			Card.CardType.ACTION:
 				self.modulate = Color(col, col, 1)
 			_:
 				self.modulate = Color(1, 1, 1)  # Normal other

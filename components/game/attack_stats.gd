@@ -4,9 +4,10 @@ extends BaseStats
 class_name AttackStats
 
 enum WeaponType { DAGGER, SWORD, AXE, BOW, ROCK, NA }
-@export var knockback: float = 100.0
-@export var weapon_type: WeaponType = WeaponType.DAGGER
+@export var weapon_type: WeaponType = WeaponType.NA
 @export var fade: float = 3.0
+# multiplier
+@export var knockback: float = 1.0
 
 func add_player_buff(buff: PlayerStats):
 	add_buff(buff as BaseStats)

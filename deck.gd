@@ -55,7 +55,7 @@ func resolve_hand() -> PlayerStats:
 		print("new " + card.get_card_type_name())
 		match(card.card_type):
 			Card.CardType.ATTACK:
-				if not card.weapon_type == Card.WeaponType.NA:
+				if not card.attack.weapon_type == AttackStats.WeaponType.NA:
 					hand_buff.attacks.append(card.attack)
 				else:
 					hand_buff.add_buff(card.attack)
@@ -64,10 +64,8 @@ func resolve_hand() -> PlayerStats:
 				pass
 				# drop gold/xp
 				# split
-			Card.CardType.WEAPON:
-				print("not used anymore weapon", card.attack.get_weapon_type_name())
-				
-				#buff.weapons.append(StatsWeapon.create_new_weapon(card.weapon_type))
+			Card.CardType.ACTION:
+				print("not implemented actions")
 
 	hand.clear() # Discard hand
 	return hand_buff

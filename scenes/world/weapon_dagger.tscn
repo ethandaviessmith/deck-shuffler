@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://boqs32u8l6drn"]
 
-[ext_resource type="Script" path="res://scenes/world/weapon_dagger.gd" id="1_bgbbv"]
+[ext_resource type="Script" path="res://scenes/world/weapon.gd" id="1_bgbbv"]
 [ext_resource type="PackedScene" uid="uid://dvvoyxs6gfhne" path="res://components/interaction/2D/interactables/hitbox_2d.tscn" id="2_swsrv"]
 [ext_resource type="Texture2D" uid="uid://dinbqp45aok51" path="res://assets/weapons-and-equipment.png" id="4_4grqg"]
 

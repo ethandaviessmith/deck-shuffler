@@ -62,11 +62,10 @@ var sword = preload("res://scenes/world/weapon_sword.tscn")
 
 
 func _ready() -> void:
-	var buff = StatsBuff.new()
-	active_buffs.append(StatsWeapon.create_new_weapon(Card.WeaponType.AXE))
 	animation_player.play("idle")
-	draw_timer.wait_time = stats.draw_speed
 	
+	
+	draw_timer.wait_time = stats.draw_speed
 	set_deck(5)
 	attack()
 	
@@ -185,7 +184,7 @@ func summon_hand():
 	
 	active_buffs.append(buff)
 
-func debuff(buff: StatsBuff, timer: Timer):
+func debuff(buff: PlayerStats, timer: Timer):
 	active_buffs.erase(buff)
 	timer.queue_free()
 	pass
