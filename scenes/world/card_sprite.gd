@@ -15,11 +15,15 @@ const col = 0.8
 func set_card(card: Card):
 	if not card == null:
 		name = card.name
-
-		var texture_path = "res://components/cards/2D/database/spanish_decks/pixel_deck/" + card.texture_id
-		var card_texture = load(texture_path) as Texture2D
-		if card_texture:
-			texture = card_texture
+		
+		if card.texture:
+			texture = card.texture
+			print("new texture")
+		else:
+			var texture_path = "res://components/cards/2D/database/spanish_decks/pixel_deck/" + card.texture_id
+			var card_texture = load(texture_path) as Texture2D
+			if card_texture:
+				texture = card_texture
 			
 		match card.card_type:
 			Card.CardType.ATTACK:

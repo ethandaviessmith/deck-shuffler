@@ -36,8 +36,8 @@ func on_area_entered(hitbox: WeaponHitBox) -> void:
 		var knockback = 1
 		if not hitbox.get("angle") == null:
 			angle = hitbox.angle
-		if not hitbox.get("knockback_amount") == null:
-			knockback = hitbox.knockback_amount
+		if not hitbox.get("knockback") == null:
+			knockback = hitbox.knockback
 			
 		emit_signal("hurt",damage, angle, knockback)
 		if hitbox.has_method("enemy_hit"):

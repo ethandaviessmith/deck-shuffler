@@ -66,10 +66,10 @@ func death():
 	await get_tree().create_timer($AnimationPlayer.current_animation_length).timeout
 	queue_free()
 
-func _on_hurtbox_2d_hurt(damage: Variant, angle: Variant, knockback_amount: Variant) -> void:
+func _on_hurtbox_2d_hurt(damage: Variant, angle: Variant, knockback: Variant) -> void:
 	#print(angle)
 	hp -= damage
-	knockback = angle * knockback_amount
+	knockback = angle * knockback
 	if hp <= 0:
 		death()
 	else:

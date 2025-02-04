@@ -5,16 +5,19 @@ enum PowerType { AMOUNT, STRENGTH, NA }
 enum Rarity { COMMON }
 enum WeaponType {DAGGER, AXE, SWORD, NA}
 
-
 @export var name: String
-@export var hp: float # durability
-@export var texture_id: String
+@export var texture: Texture2D
 @export var card_type: CardType
-@export var weapon_type: WeaponType
-@export var power_type: PowerType
+@export var attack: AttackStats = AttackStats.new()
+@export var spell: SpellStats = SpellStats.new()
 @export var rarity: Rarity
 
+@export var texture_id: String
 @export var damage: float # amount
+@export var hp: float # durability
+@export var weapon_type: WeaponType
+@export var power_type: PowerType
+
 
 static func get_card_type(card_type:CardType) -> String:
 	match card_type:

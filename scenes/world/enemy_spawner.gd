@@ -15,7 +15,6 @@ func _on_timer_timeout():
 	time += 1
 	var enemy_spawns = spawns
 	for i in enemy_spawns:
-		print("enemy")
 		if time >= i.time_start and time <= i.time_end:
 			if i.spawn_delay_counter < i.enemy_spawn_delay:
 				i.spawn_delay_counter += 1
@@ -31,7 +30,8 @@ func _on_timer_timeout():
 	emit_signal("changetime",time)
 
 func get_random_position():
-	var vpr = get_viewport_rect().size * randf_range(1.1,1.4)
+	
+	var vpr = get_viewport_rect().size * randf_range(0.4,0.6) #$randf_range(1.1,1.4)
 	var top_left = Vector2(player.global_position.x - vpr.x/2, player.global_position.y - vpr.y/2)
 	var top_right = Vector2(player.global_position.x + vpr.x/2, player.global_position.y - vpr.y/2)
 	var bottom_left = Vector2(player.global_position.x - vpr.x/2, player.global_position.y + vpr.y/2)

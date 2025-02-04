@@ -49,24 +49,28 @@ func has_draw() -> bool:
 func get_hand() -> Array[Card]:
 	return hand
 	
-func resolve_hand() -> StatsBuff:
-	var buff = StatsBuff.new()
-	buff.time = 4
+func resolve_hand() -> PlayerStats:
+	var hand_buff = PlayerStats.new()
 	for card in hand:
 		print("new " + card.get_card_type_name())
 		match(card.card_type):
 			Card.CardType.ATTACK:
-				buff.hp += card.hp
+				if not card.weapon_type == Card.WeaponType.NA:
+					hand_buff.attacks.append(card.attack)
+				else:
+					hand_buff.add_buff(card.attack)
 				#elemental
 			Card.CardType.SPELL:
-				buff.damage += card.damage
+				pass
 				# drop gold/xp
 				# split
 			Card.CardType.WEAPON:
-				print("weapon", card.get_weapon_type_name())
-				buff.weapons.append(StatsWeapon.create_new_weapon(card.weapon_type))
-	hand.clear()
-	return buff
+				print("not used anymore weapon", card.attack.get_weapon_type_name())
+				
+				#buff.weapons.append(StatsWeapon.create_new_weapon(card.weapon_type))
+
+	hand.clear() # Discard hand
+	return hand_buff
 	
 
 # Function to add a card to the deck

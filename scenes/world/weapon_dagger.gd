@@ -4,10 +4,10 @@ var level = 1
 @export var hp = 1
 @export var speed = 200
 @export var damage = 1
-@export var knockback_amount = 100
-@export var attack_size = 1.0
+@export var knockback = 100
+@export var size = 1.0
 
-@export var buff: StatsBuff
+@export var buff: AttackStats
 
 var target = Vector2.ZERO
 var angle = Vector2.ZERO
@@ -24,14 +24,15 @@ func _ready():
 	rotation = angle.angle()
 	
 	if not buff == null:
-		hp = buff.hp
-		speed = buff.speed
+		hp = buff.durability
 		damage = buff.damage
-		knockback_amount = buff.knockback_amount
-		attack_size = buff.attack_size
+		knockback = buff.knockback
+		
+		speed *= buff.speed
+		size *= buff.size
 	
 	var tween = create_tween()
-	tween.tween_property(self,"scale",Vector2(1,1)*attack_size,1).set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
+	tween.tween_property(self,"scale",Vector2(1,1)*size,1).set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
 	tween.play()
 
 func _physics_process(delta):
@@ -42,7 +43,7 @@ func enemy_hit(charge = 1):
 	if hp <= 0:
 		_play_death_effect()
 
-func add_buff(add_buff:StatsBuff):
+func add_buff(add_buff:AttackStats):
 	buff = add_buff
 
 func _play_death_effect():
