@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://b6xsykb6ffhrn"]
+[gd_scene load_steps=35 format=3 uid="uid://b6xsykb6ffhrn"]
 
 [ext_resource type="Script" path="res://scenes/world/player.gd" id="1_gqwxa"]
 [ext_resource type="Script" path="res://components/game/player_stats.gd" id="2_5xxq7"]
@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://b07rljcn3rxmd" path="res://components/interaction/2D/interactables/hurtbox_2d.tscn" id="10_0ny1a"]
 [ext_resource type="Texture2D" uid="uid://cj6a5rhwov14" path="res://assets/GUI/healthbar.png" id="12_4aqtr"]
 [ext_resource type="Texture2D" uid="uid://fpdns3hhxx1" path="res://assets/GUI/exp.png" id="13_ixa04"]
+[ext_resource type="FontFile" uid="uid://do03fwxb30r7l" path="res://assets/GUI/OldSchoolAdventures-42j9.ttf" id="13_jvrdb"]
 [ext_resource type="Texture2D" uid="uid://da53mspvqfxq4" path="res://assets/GUI/health.png" id="13_qrw3p"]
 [ext_resource type="Texture2D" uid="uid://cb8aliofotrc4" path="res://components/cards/2D/icons/deck_pile.svg" id="14_m82w4"]
 [ext_resource type="Texture2D" uid="uid://4jgv6t084qqt" path="res://assets/GUI/mana.png" id="14_mutnh"]
@@ -31,7 +32,7 @@ time = 6.0
 attacks = Array[ExtResource("2_dff2h")]([])
 spells = Array[ExtResource("4_624bx")]([])
 damage = 1.0
-durability = 2.0
+durability = 20.0
 speed = 1.0
 size = 1.0
 
@@ -187,17 +188,18 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q4tc1"]
 size = Vector2(16, 34)
 
-[sub_resource type="SystemFont" id="SystemFont_e3nto"]
-subpixel_positioning = 0
-
 [sub_resource type="LabelSettings" id="LabelSettings_tniib"]
-font = SubResource("SystemFont_e3nto")
-font_size = 14
+line_spacing = 2.0
+font = ExtResource("13_jvrdb")
+font_size = 7
 outline_color = Color(0, 0, 0, 1)
 shadow_size = 0
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2ps4q"]
+size = Vector2(416, 280)
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_v81tn"]
-radius = 228.954
+radius = 61.4003
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_f0gk1"]
 radius = 33.0606
@@ -284,11 +286,11 @@ position = Vector2(-1, 4)
 [node name="Debug" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
-offset_left = -250.0
+offset_left = -256.0
 offset_top = 20.0
-offset_right = 216.0
-offset_bottom = 264.0
-scale = Vector2(0.5, 0.5)
+offset_right = 218.0
+offset_bottom = 174.0
+scale = Vector2(0.8, 0.8)
 
 [node name="buff_label" type="Label" parent="Debug"]
 unique_name_in_owner = true
@@ -298,11 +300,12 @@ anchor_left = 0.043
 anchor_top = 0.619
 anchor_right = 0.743
 anchor_bottom = 0.951
-offset_left = -0.0380001
-offset_top = -81.036
-offset_right = 81.762
-offset_bottom = -0.0440063
+offset_left = -11.632
+offset_top = -49.076
+offset_right = 80.568
+offset_bottom = -55.204
 grow_vertical = 0
+text = "[] example here"
 label_settings = SubResource("LabelSettings_tniib")
 
 [node name="GUI" type="Control" parent="."]
@@ -317,7 +320,12 @@ offset_bottom = 40.0
 grow_horizontal = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="HealthBar" type="TextureProgressBar" parent="GUI"]
+[node name="Control" type="Control" parent="GUI"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="HealthBar" type="TextureProgressBar" parent="GUI/Control"]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = -1
@@ -325,26 +333,27 @@ anchor_left = 0.075
 anchor_top = 0.278846
 anchor_right = 0.075
 anchor_bottom = 0.278846
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 1.0
+offset_top = 175.846
+offset_right = 33.0
+offset_bottom = 183.846
 texture_over = ExtResource("12_4aqtr")
 texture_progress = ExtResource("13_qrw3p")
-metadata/_edit_use_anchors_ = true
 
-[node name="ExperienceBar" type="TextureProgressBar" parent="GUI"]
+[node name="ExperienceBar" type="TextureProgressBar" parent="GUI/Control"]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
-offset_left = 3.0
-offset_top = 15.0
-offset_right = 3.0
-offset_bottom = 23.0
+offset_left = 4.0
+offset_top = 194.0
+offset_right = -4.0
+offset_bottom = 202.0
 grow_horizontal = 2
 texture_over = ExtResource("12_4aqtr")
 texture_progress = ExtResource("13_ixa04")
 
-[node name="lbl_level" type="Label" parent="GUI/ExperienceBar"]
+[node name="lbl_level" type="Label" parent="GUI/Control/ExperienceBar"]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 5
@@ -355,15 +364,15 @@ offset_right = 0.5
 offset_bottom = 23.0
 grow_horizontal = 2
 
-[node name="ManaBar" type="TextureProgressBar" parent="GUI"]
+[node name="ManaBar" type="TextureProgressBar" parent="GUI/Control"]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
-offset_left = 3.0
-offset_top = 22.0
-offset_right = 3.0
-offset_bottom = 30.0
+offset_left = 4.0
+offset_top = 101.0
+offset_right = -4.0
+offset_bottom = 109.0
 grow_horizontal = 2
 texture_over = ExtResource("12_4aqtr")
 texture_progress = ExtResource("14_mutnh")
@@ -371,14 +380,14 @@ texture_progress = ExtResource("14_mutnh")
 [node name="StatusIconDrawSprite2D" type="Sprite2D" parent="GUI"]
 unique_name_in_owner = true
 modulate = Color(1, 1, 1, 0)
-position = Vector2(7, 97)
+position = Vector2(6, 97)
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("14_m82w4")
 
 [node name="StatusIconResolveSprite2D" type="Sprite2D" parent="GUI"]
 unique_name_in_owner = true
 visible = false
-position = Vector2(12, 97)
+position = Vector2(11, 97)
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("15_b6fgc")
 
@@ -389,15 +398,22 @@ position = Vector2(17, 97)
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("16_23hk5")
 
-[node name="EnemyDetectionArea" type="Area2D" parent="."]
-visible = false
+[node name="EnemyFarArea2D" type="Area2D" parent="."]
 collision_layer = 4
 collision_mask = 4
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyDetectionArea"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyFarArea2D"]
+shape = SubResource("RectangleShape2D_2ps4q")
+
+[node name="EnemyNearArea2D" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyNearArea2D"]
 shape = SubResource("CircleShape2D_v81tn")
 
 [node name="GrabArea" type="Area2D" parent="."]
+visible = false
 collision_layer = 0
 collision_mask = 8
 
@@ -405,6 +421,7 @@ collision_mask = 8
 shape = SubResource("CircleShape2D_f0gk1")
 
 [node name="CollectArea" type="Area2D" parent="."]
+visible = false
 collision_layer = 0
 collision_mask = 8
 
@@ -426,8 +443,10 @@ one_shot = true
 [connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]
 [connection signal="state_changed" from="FiniteStateMachine" to="." method="_on_finite_state_machine_state_changed"]
 [connection signal="hurt" from="Hurtbox2D" to="." method="_on_hurt_box_2d_hurt"]
-[connection signal="body_entered" from="EnemyDetectionArea" to="." method="_on_enemy_detection_area_body_entered"]
-[connection signal="body_exited" from="EnemyDetectionArea" to="." method="_on_enemy_detection_area_body_exited"]
+[connection signal="body_entered" from="EnemyFarArea2D" to="." method="_on_enemy_far_area_body_entered"]
+[connection signal="body_exited" from="EnemyFarArea2D" to="." method="_on_enemy_far_area_body_exited"]
+[connection signal="body_entered" from="EnemyNearArea2D" to="." method="_on_enemy_near_area_body_entered"]
+[connection signal="body_exited" from="EnemyNearArea2D" to="." method="_on_enemy_near_area_body_exited"]
 [connection signal="area_entered" from="GrabArea" to="." method="_on_grab_area_area_entered"]
 [connection signal="area_entered" from="CollectArea" to="." method="_on_collect_area_area_entered"]
 [connection signal="shuffle_complete" from="CardDeck" to="." method="_on_card_deck_shuffle_complete"]

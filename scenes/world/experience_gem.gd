@@ -29,7 +29,6 @@ func _physics_process(delta):
 		speed += 3 * delta
 
 func collect():
-	print("experience")
 	sound.play()
 	collision.call_deferred("set","disabled",true)
 	sprite.visible = false

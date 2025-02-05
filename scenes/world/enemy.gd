@@ -14,6 +14,7 @@ var knockback = Vector2.ZERO
 #@onready var anim = 
 #@onready var snd_hit = $snd_hit
 @onready var hitBox = $Hitbox2D
+@onready var damage_label = $DamageLabel
 
 #var death_anim = preload("res://Enemy/explosion.tscn")
 var exp_gem = preload("res://scenes/world/experience_gem.tscn")
@@ -66,10 +67,11 @@ func death():
 	await get_tree().create_timer($AnimationPlayer.current_animation_length).timeout
 	queue_free()
 
-func _on_hurtbox_2d_hurt(damage: Variant, angle: Variant, knockback: Variant) -> void:
+func _on_hurtbox_2d_hurt(damage: Variant, angle: Variant, knockback_amount: Variant) -> void:
 	#print(angle)
 	hp -= damage
-	knockback = angle * knockback
+	knockback = angle * knockback_amount
+	damage_label.text = str(hp)
 	if hp <= 0:
 		death()
 	else:

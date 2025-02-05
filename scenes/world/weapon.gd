@@ -32,8 +32,9 @@ func _ready():
 		speed *= buff.speed
 		size *= buff.size
 	
+	scale = Vector2(0.2,0.2)
 	var tween = create_tween()
-	tween.tween_property(self,"scale",Vector2(1,1)*size,1).set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
+	tween.tween_property(self,"scale", Vector2(1,1) * size, 0.3).set_trans(Tween.TRANS_BOUNCE).set_ease(Tween.EASE_OUT)
 	tween.play()
 
 func _physics_process(delta):
@@ -42,6 +43,7 @@ func _physics_process(delta):
 func enemy_hit(charge = 1):
 	hp -= charge
 	if hp <= 0:
+		hitbox.disable()
 		_play_death_effect()
 
 func add_buff(add_buff:AttackStats):

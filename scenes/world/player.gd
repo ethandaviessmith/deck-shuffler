@@ -3,20 +3,11 @@ class_name Player extends CharacterBody2D
 
 const GroupName: StringName = &"player"
 
-var motion_input: TransformedInput = TransformedInput.new(self)
-
-@export var card_scene = preload("res://scenes/world/card.tscn")
-@export var mana = 100
-@export var max_mana = 100
-@export var draw_mana = 25
-@export var shuffle_mana = 50
-
-@onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
-@onready var animation_player: AnimationPlayer = $AnimationPlayer
-
+# World
 @onready var attacks = get_node("/root/World/Attacks")
 @onready var deck_helper = get_node("/root/World/DeckHelper")
 
+# GUI
 @onready var healthBar = get_node("%HealthBar")
 @onready var expBar = get_node("%ExperienceBar")
 @onready var manaBar = get_node("%ManaBar")
@@ -29,14 +20,27 @@ var motion_input: TransformedInput = TransformedInput.new(self)
 @onready var icon_resolve = get_node("%StatusIconResolveSprite2D")
 @onready var icon_shuffle = get_node("%StatusIconShuffleSprite2D")
 
-var deck_animation = false
+@onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
+@export var card_scene = preload("res://scenes/world/card.tscn")
+#AttackNodes
+var dagger = preload("res://scenes/world/weapon_dagger.tscn")
+var axe = preload("res://scenes/world/weapon_axe.tscn")
+var sword = preload("res://scenes/world/weapon_sword.tscn")
 
 @export var deck: CardDeck
 var active_buffs: Array[PlayerStats] = []
+var deck_animation = false # janky anim fix for now
+
+var motion_input: TransformedInput = TransformedInput.new(self) # TopDownController
 
 #Player
 @export var stats: PlayerStats
-var hp = 80
+@export var mana = 4
+@export var max_mana = 4
+@export var draw_mana = 1
+@export var shuffle_mana = 2
+@export var hp = 20
 var experience = 0
 var experience_level = 1
 var collected_experience = 0
@@ -53,45 +57,45 @@ var collected_experience = 0
 var spell_cooldown = 0
 var additional_attacks = 0
 
-var enemy_close = []
+var enemy_near = []
+var enemy_far = []
 
-#AttackNodes
-var dagger = preload("res://scenes/world/weapon_dagger.tscn")
-var axe = preload("res://scenes/world/weapon_axe.tscn")
-var sword = preload("res://scenes/world/weapon_sword.tscn")
+
 
 
 func _ready() -> void:
 	animation_player.play("idle")
-	
-	
 	draw_timer.wait_time = stats.draw_speed
+	
+	set_guibar(expBar,experience, calculate_experiencecap())
+	set_guibar(manaBar, mana, max_mana)
+	set_guibar(healthBar, hp, stats.durability)
+	
 	set_deck(5)
 	attack()
-	
-	set_expbar(experience, calculate_experiencecap())
-	set_manabar()
-	_on_hurt_box_2d_hurt(0,0,0)
 
 # MOVEMENT
 func _physics_process(_delta: float) -> void:
 	motion_input.update()
 	
-	if motion_input.input_direction_horizontal_axis < 0.1:
+	if get_last_motion().x < 0.1:
 		sprite.flip_h = true
-	elif motion_input.input_direction_horizontal_axis > -0.1:
+	elif get_last_motion().x > -0.1:
 		sprite.flip_h = false
 
 
 func get_random_enemy():
-	if enemy_close.size() > 0:
-		return enemy_close.pick_random()
+	if enemy_near.size() > 0:
+		return enemy_near.pick_random()
+	elif enemy_far.size() > 0:
+		return enemy_far.pick_random()
 	else:
 		return null
 
 func attack():
 	var buff:AttackStats = AttackStats.new()
 	var weapons:Array[AttackStats] = []
+	
 	for active_buff in active_buffs:
 		buff.add_buff(active_buff)
 		if not active_buff.attacks == null:
@@ -128,36 +132,32 @@ func set_deck(count):
 		cards.append(deck_helper.get_random_card())
 	deck.set_deck(cards)
 
-func set_manabar(set_value = 100, set_max_value = 100):
-	manaBar.value = mana
-	manaBar.max_value = max_mana
-
 func next_action():
 	icon_resolve.visible = false
 	deck_animation = false
 	if use_mana(draw_mana):
 		pulse_sprite(icon_draw)
 		draw_card()
-		set_manabar(mana, max_mana)
+		set_guibar(manaBar, mana, max_mana)
 	else:
 		summon_hand()
 		mana = max_mana
-		# Tween mana refill
-		var tween = create_tween()
+		var tween = create_tween() # Tween mana refill
 		tween.tween_property(manaBar,"value",mana,2.5).set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_IN_OUT)
 		tween.play()
 
-
 func use_mana(used_mana) -> bool:
-	mana = clamp((mana - draw_mana), 0, 999.0)
-	return mana > draw_mana
+	if mana >= draw_mana:
+		mana = clamp((mana - draw_mana), 0, max_mana)
+		return true
+	return false
 
 func draw_card():
 	if deck.has_draw():
 		var card = deck.draw_card()
 		var card_instance = card_scene.instantiate() as CardSprite
 		card_instance.set_card(card)
-		card_instance.position = Vector2(0, -80.0)
+		card_instance.position = Vector2(0, -40.0)
 		call_deferred("add_child",card_instance)
 	else:
 		print("no draw, shuffling")
@@ -167,20 +167,18 @@ func summon_hand():
 	icon_resolve.visible = true
 	deck_animation = true
 	animation_player.play("resolve")
-	#manaTimer.stop()
+	draw_timer.stop()
 	
-	var timer_anim = Timer.new() #janky timer to make things look nice
+	var timer_anim = TimeHelper.create_idle_timer(1.3, true, true)
 	timer_anim.connect("timeout", Callable(self,"idle"))
-	add_child(timer_anim)
-	timer_anim.start(1.3)
+	add_child(timer_anim) #janky timer to make things look nice (not cleaning up)
 	
 	# add buffs, and remove them later
 	var buff = deck.resolve_hand()
-	var timer = Timer.new()
+	var timer = TimeHelper.create_idle_timer(buff.time, true, true)
 	var debuff = Callable(self,"debuff").bind(buff, timer)
 	timer.connect("timeout", debuff)
 	add_child(timer)
-	timer.start(buff.time)
 	
 	active_buffs.append(buff)
 
@@ -204,28 +202,6 @@ func shuffle_complete():
 	deck_animation = true
 	print("how much longer after")
 
-func pulse_sprite(sprite:Sprite2D):
-	var tween = create_tween()
-	tween.tween_property(sprite, "modulate:a", 1.0, 1.0).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_IN_OUT)
-	tween.tween_property(sprite, "modulate:a", 0.0, 1.0).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_IN_OUT)
-	# Restart the tween in a loop
-	#tween.connect("tween_all_completed", self, "_on_tween_completed")
-
-func idle():
-	animation_player.play("idle")
-	deck_animation = false
-	#manaTimer.start()
-
-func display_buffs(count:int):
-	var label_text = str(count) + ">"
-	for buff in active_buffs:
-		label_text += buff.format_stats()
-	label_text += "\n" +deck.format_hand_stats()
-	if buff_label and label_text:
-		buff_label.text = label_text
-	#weapons.append(weapon_add)
-	#time += time_add
-
 func calculate_experience(gem_exp):
 	var exp_required = calculate_experiencecap()
 	collected_experience += gem_exp
@@ -239,10 +215,11 @@ func calculate_experience(gem_exp):
 		experience += collected_experience
 		collected_experience = 0
 	
-	set_expbar(experience, exp_required)
+	set_guibar(expBar,experience, exp_required)
 
 func calculate_experiencecap():
 	var exp_cap = experience_level
+	# experience levels taken from survivor clone
 	if experience_level < 20:
 		exp_cap = experience_level*5
 	elif experience_level < 40:
@@ -251,9 +228,38 @@ func calculate_experiencecap():
 		exp_cap = 255 + (experience_level-39)*12
 	return exp_cap
 
-func set_expbar(set_value = 1, set_max_value = 100):
-	expBar.value = set_value
-	expBar.max_value = set_max_value
+#region VISUALS
+
+func set_guibar(bar: TextureProgressBar, set_value = 100, set_max_value = 100, time = 0):
+	if time == 0:
+		bar.value = set_value
+		bar.max_value = set_max_value
+	else:
+		var tween = create_tween() # Tween refill
+		tween.tween_property(bar,"value",set_value, time).set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_IN_OUT)
+		tween.play()
+
+func pulse_sprite(sprite:Sprite2D):
+	var tween = create_tween()
+	tween.tween_property(sprite, "modulate:a", 1.0, 1.0).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_IN_OUT)
+	tween.tween_property(sprite, "modulate:a", 0.0, 1.0).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_IN_OUT)
+
+func idle():
+	animation_player.play("idle")
+	print("back to idle")
+	deck_animation = false
+	draw_timer.start()
+
+func display_buffs(count:int):
+	var label_text = str(count) + ">"
+	for buff in active_buffs:
+		label_text += buff.format_stats()
+	label_text += "\n" +deck.format_hand_stats()
+	if buff_label and label_text:
+		buff_label.text = label_text
+	#weapons.append(weapon_add)
+	#time += time_add
+#endregion
 
 #region SIGNALS
 func _on_finite_state_machine_state_changed(from_state: MachineState, state: MachineState) -> void:
@@ -265,10 +271,9 @@ func _on_finite_state_machine_state_changed(from_state: MachineState, state: Mac
 				animation_player.play("walk")
 
 func _on_hurt_box_2d_hurt(damage: Variant, angle: Variant, knockback: Variant) -> void:
-	#print("player hurt")
+	print("player hurt")
 	hp -= clamp(damage - stats.armor, 1.0, 999.0)
-	healthBar.max_value = stats.durability
-	healthBar.value = hp
+	set_guibar(healthBar, hp, stats.durability)
 	if hp <= 0:
 		pass#death()
 
@@ -281,17 +286,25 @@ func _on_attack_timer_timeout() -> void:
 func _on_card_deck_shuffle_complete() -> void:
 	shuffle_complete()
 
-func _on_enemy_detection_area_body_entered(body: Node2D) -> void:
-	if not enemy_close.has(body):
-		enemy_close.append(body)
+func _on_enemy_near_area_body_entered(body: Node2D) -> void:
+	if not enemy_near.has(body):
+		enemy_near.append(body)
 
-func _on_enemy_detection_area_body_exited(body: Node2D) -> void:
-	if enemy_close.has(body):
-		enemy_close.erase(body)
+func _on_enemy_near_area_body_exited(body: Node2D) -> void:
+	if enemy_near.has(body):
+		enemy_near.erase(body)
+
+func _on_enemy_far_area_body_entered(body: Node2D) -> void:
+	if not enemy_far.has(body):
+		enemy_far.append(body)
+
+func _on_enemy_far_area_body_exited(body: Node2D) -> void:
+	if enemy_far.has(body):
+		enemy_far.erase(body)
+
 
 func _on_grab_area_area_entered(area: Area2D) -> void:
 	if area.is_in_group("loot"):
-		print("loot")
 		area.target = self
 
 func _on_collect_area_area_entered(area: Area2D) -> void:

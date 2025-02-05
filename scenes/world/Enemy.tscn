@@ -1,9 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://iq63nlaer5ul"]
+[gd_scene load_steps=13 format=3 uid="uid://iq63nlaer5ul"]
 
 [ext_resource type="Script" path="res://scenes/world/enemy.gd" id="1_2wiof"]
 [ext_resource type="SpriteFrames" uid="uid://coxg58roo4g74" path="res://components/rpg/critter_2.tres" id="1_pg8tb"]
 [ext_resource type="PackedScene" uid="uid://b07rljcn3rxmd" path="res://components/interaction/2D/interactables/hurtbox_2d.tscn" id="3_pva0l"]
 [ext_resource type="PackedScene" uid="uid://dvvoyxs6gfhne" path="res://components/interaction/2D/interactables/hitbox_2d.tscn" id="4_axjrv"]
+[ext_resource type="FontFile" uid="uid://do03fwxb30r7l" path="res://assets/GUI/OldSchoolAdventures-42j9.ttf" id="5_bpmjk"]
 
 [sub_resource type="Animation" id="Animation_wasu3"]
 length = 0.001
@@ -105,8 +106,9 @@ radius = 9.0
 radius = 7.07107
 
 [node name="CharacterBody2D" type="CharacterBody2D"]
+texture_filter = 1
 collision_layer = 5
-collision_mask = 5
+collision_mask = 133
 motion_mode = 1
 script = ExtResource("1_2wiof")
 
@@ -127,7 +129,7 @@ shape = SubResource("CircleShape2D_qsxed")
 
 [node name="Hurtbox2D" parent="." instance=ExtResource("3_pva0l")]
 collision_layer = 4
-collision_mask = 4
+collision_mask = 132
 
 [node name="CollisionShape2D" parent="Hurtbox2D" index="0"]
 position = Vector2(-1, -11)
@@ -141,6 +143,15 @@ damage = 20
 [node name="CollisionShape2D" parent="Hitbox2D" index="0"]
 position = Vector2(-1, -11)
 shape = SubResource("CircleShape2D_60q7e")
+
+[node name="DamageLabel" type="Label" parent="."]
+texture_filter = 1
+offset_left = -12.0
+offset_top = -32.0
+offset_right = 13.0
+theme_override_fonts/font = ExtResource("5_bpmjk")
+theme_override_font_sizes/font_size = 7
+horizontal_alignment = 1
 
 [connection signal="hurt" from="Hurtbox2D" to="." method="_on_hurtbox_2d_hurt"]
 
