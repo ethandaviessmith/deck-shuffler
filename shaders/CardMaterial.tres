@@ -1,7 +1,9 @@
 [gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://b1un5usafkhdh"]
 
-[ext_resource type="Shader" path="res://shaders/card.gdshader" id="1_ln3b3"]
+[ext_resource type="Shader" path="res://shaders/card_smoke.gdshader" id="1_onx2w"]
 
 [resource]
-shader = ExtResource("1_ln3b3")
-shader_parameter/wipe_amount = null
+shader = ExtResource("1_onx2w")
+shader_parameter/reveal_progress = 1.0
+shader_parameter/show = false
+shader_parameter/card_color = Vector4(1, 1, 1, 1)

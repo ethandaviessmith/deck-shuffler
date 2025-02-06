@@ -47,14 +47,15 @@ func show_card():
 		
 	# Initialize transparency and scale for appearance
 	modulate = Color(modulate.r, modulate.g, modulate.b, 0.3)
-	#fade_mat.set_shader_parameter("show", true)
-	fade_mat.set_shader_parameter("wipe_amount", 1.0)
+	fade_mat.set_shader_parameter("show", true)
+	fade_mat.set_shader_parameter("reveal_progress", 0.0)
+	#fade_mat.set_shader_parameter("wipe_amount", 1.0)
 
 	var tween = create_tween() # Fade in effect with sweep in
-	#tween.tween_property(self.material, "shader_parameter/reveal_progress", 1, fade_duration).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_IN_OUT)
-	tween.tween_property(self.material, "shader_parameter/wipe_amount", 0.0, fade_duration).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_IN_OUT)
-	tween.tween_property(self, "modulate:a", 1, fade_duration).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_OUT)
-	tween.tween_callback(Callable(self, "hide_card"))
+	tween.tween_property(fade_mat, "shader_parameter/reveal_progress", 1.0, fade_duration).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_IN_OUT)
+	#tween.tween_property(self.material, "shader_parameter/wipe_amount", 0.0, fade_duration).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_IN_OUT)
+	#tween.tween_property(self, "modulate:a", 1, fade_duration).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_OUT)
+	tween.tween_callback(Callable(self, "hide_card")).set_delay(fade_duration)
 	
 
 func hide_card():
@@ -62,13 +63,15 @@ func hide_card():
 			label_node.text = ""
 	# Create a tween for hide animation
 	fade_mat.set_shader_parameter("show", false)
+	fade_mat.set_shader_parameter("reveal_progress", 0.0)
 	modulate = Color(modulate.r, modulate.g, modulate.b, 1)
 	
 	var tween = create_tween()
 	# Fade out and shrink (sweep out) effect
 	#tween.tween_property(self, "modulate:a", 0, fade_duration).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_OUT)
-	tween.tween_property(self.material, "shader_parameter/wipe_amount", 1.0, fade_duration).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_IN_OUT)
-	#tween.tween_property(self.material, "shader_parameter/reveal_progress", 0, fade_duration).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	#tween.tween_property(self.material, "shader_parameter/wipe_amount", 1.0, fade_duration).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_IN_OUT)
+	tween.tween_property(fade_mat, "shader_parameter/reveal_progress", 1.0, fade_duration).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+
 
 	# Callback for removal after animation
 	tween.tween_callback(Callable(self, "queue_free"))
