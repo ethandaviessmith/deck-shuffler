@@ -1,0 +1,7 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://5creo3g4o3t2"]
+
+[ext_resource type="FontFile" uid="uid://do03fwxb30r7l" path="res://assets/GUI/OldSchoolAdventures-42j9.ttf" id="1_16m2w"]
+
+[resource]
+default_font = ExtResource("1_16m2w")
+default_font_size = 7

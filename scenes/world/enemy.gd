@@ -7,7 +7,7 @@ extends CharacterBody2D
 @export var enemy_damage = 1
 var knockback = Vector2.ZERO
 
-@onready var player = get_tree().get_first_node_in_group("player")
+@onready var player = get_tree().get_first_node_in_group(Player.GroupName)
 @onready var loot_base = get_tree().get_first_node_in_group("loot")
 @onready var sprite = $AnimatedSprite2D
 @onready var anim: AnimationPlayer = $AnimationPlayer;

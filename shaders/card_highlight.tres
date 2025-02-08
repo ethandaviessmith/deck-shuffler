@@ -1,0 +1,11 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://ual471r2mys8"]
+
+[ext_resource type="Shader" path="res://shaders/card_highlight.gdshader" id="1_xsuel"]
+
+[resource]
+shader = ExtResource("1_xsuel")
+shader_parameter/smudge_on = false
+shader_parameter/smudge_intensity = 0.0
+shader_parameter/ghost_effect_on = true
+shader_parameter/ghost_intensity = 0.05
+shader_parameter/time = 0.0

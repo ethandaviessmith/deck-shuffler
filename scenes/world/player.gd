@@ -16,6 +16,11 @@ const GroupName: StringName = &"player"
 @onready var lblLevel = get_node("%lbl_level")
 @onready var buff_label = get_node("%buff_label")
 
+@onready var damage_label = get_node("%damage_label")
+@onready var defence_label = get_node("%defence_label")
+@onready var speed_label = get_node("%speed_label")
+@onready var size_label = get_node("%size_label")
+
 @onready var icon_draw = get_node("%StatusIconDrawSprite2D")
 @onready var icon_resolve = get_node("%StatusIconResolveSprite2D")
 @onready var icon_shuffle = get_node("%StatusIconShuffleSprite2D")
@@ -36,6 +41,7 @@ var motion_input: TransformedInput = TransformedInput.new(self) # TopDownControl
 
 #Player
 @export var stats: PlayerStats
+
 @export var mana = 4
 @export var max_mana = 4
 @export var draw_mana = 1
@@ -59,9 +65,6 @@ var additional_attacks = 0
 
 var enemy_near = []
 var enemy_far = []
-
-
-
 
 func _ready() -> void:
 	animation_player.play("idle")
@@ -228,6 +231,11 @@ func calculate_experiencecap():
 		exp_cap = 255 + (experience_level-39)*12
 	return exp_cap
 
+func apply_upgrade(card: Card):
+	stats.add_buff(card.attack)
+	display_buffs(111)
+	#pass
+
 #region VISUALS
 
 func set_guibar(bar: TextureProgressBar, set_value = 100, set_max_value = 100, time = 0):
@@ -250,15 +258,40 @@ func idle():
 	deck_animation = false
 	draw_timer.start()
 
+func calculate_stats() -> PlayerStats:
+	var disp_stats = PlayerStats.new()
+	disp_stats.add_buff(stats)
+	for buff in active_buffs:
+		disp_stats.add_player_stats(buff)
+	return disp_stats
+
+func display_weapons(disp_stats: PlayerStats):
+	var weapons = []
+	for attack in disp_stats.attacks:
+		if not attack.weapon_type == AttackStats.WeaponType.NA:
+			# display weapon icon
+			
+			pass
+	pass
+
 func display_buffs(count:int):
+	var disp_stats = calculate_stats()
+	
+	#Player numbers
+	damage_label.text = str(disp_stats.damage)
+	defence_label.text = str(disp_stats.durability)
+	speed_label.text = str(disp_stats.speed)
+	size_label.text = str(disp_stats.size)
+		
+	#Debug text
 	var label_text = str(count) + ">"
 	for buff in active_buffs:
 		label_text += buff.format_stats()
-	label_text += "\n" +deck.format_hand_stats()
+	label_text += "\n" +deck.format_hand_stats() #"\n" +
 	if buff_label and label_text:
 		buff_label.text = label_text
-	#weapons.append(weapon_add)
-	#time += time_add
+		
+		
 #endregion
 
 #region SIGNALS
