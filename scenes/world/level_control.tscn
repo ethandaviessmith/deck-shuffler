@@ -1,0 +1,143 @@
+[gd_scene load_steps=6 format=3 uid="uid://dk4gbowd3qrh6"]
+
+[ext_resource type="Script" path="res://scenes/world/level_control.gd" id="1_0bq88"]
+[ext_resource type="Material" uid="uid://ual471r2mys8" path="res://shaders/card_highlight.tres" id="2_xwjvm"]
+[ext_resource type="Texture2D" uid="uid://be4k40otfl3gt" path="res://components/cards/2D/database/spanish_decks/pixel_deck/backs/back.png" id="3_6eenk"]
+[ext_resource type="Theme" uid="uid://5creo3g4o3t2" path="res://ui/menus/menu_theme.tres" id="4_tj5uo"]
+[ext_resource type="Texture2D" uid="uid://b7y0yx7ru8lfa" path="res://components/cards/2D/database/spanish_decks/pixel_deck/cups/copa2.png" id="5_rwvy7"]
+
+[node name="LevelControl" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchor_left = 0.5
+anchor_top = 0.612
+anchor_right = 0.5
+anchor_bottom = 0.612
+offset_left = -194.0
+offset_top = -136.648
+offset_right = 193.0
+offset_bottom = 141.352
+script = ExtResource("1_0bq88")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -183.5
+offset_top = -116.5
+offset_right = 183.5
+offset_bottom = 116.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Highlight" type="TextureRect" parent="Panel"]
+modulate = Color(1, 1, 1, 0.439216)
+show_behind_parent = true
+material = ExtResource("2_xwjvm")
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -37.0
+offset_top = -79.0
+offset_right = 23.0
+offset_bottom = 17.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("3_6eenk")
+
+[node name="BoxContainer" type="BoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -156.5
+offset_top = -99.0
+offset_right = 155.5
+offset_bottom = 93.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="VBoxContainer1" type="VBoxContainer" parent="Panel/BoxContainer"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+
+[node name="NameLabel" type="RichTextLabel" parent="Panel/BoxContainer/VBoxContainer1"]
+custom_minimum_size = Vector2(100, 25)
+layout_mode = 2
+theme = ExtResource("4_tj5uo")
+text = "Option Description with multiple lines"
+scroll_active = false
+
+[node name="TextureRect" type="TextureRect" parent="Panel/BoxContainer/VBoxContainer1"]
+layout_direction = 1
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("5_rwvy7")
+stretch_mode = 2
+
+[node name="DescriptionLabel" type="RichTextLabel" parent="Panel/BoxContainer/VBoxContainer1"]
+custom_minimum_size = Vector2(100, 25)
+layout_mode = 2
+theme = ExtResource("4_tj5uo")
+text = "Option Description with multiple lines"
+scroll_active = false
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Panel/BoxContainer"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+
+[node name="NameLabel" type="RichTextLabel" parent="Panel/BoxContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(100, 25)
+layout_mode = 2
+theme = ExtResource("4_tj5uo")
+text = "Option Description with multiple lines"
+scroll_active = false
+
+[node name="TextureRect" type="TextureRect" parent="Panel/BoxContainer/VBoxContainer2"]
+layout_direction = 1
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("5_rwvy7")
+stretch_mode = 2
+
+[node name="DescriptionLabel" type="RichTextLabel" parent="Panel/BoxContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(100, 25)
+layout_mode = 2
+theme = ExtResource("4_tj5uo")
+text = "Option Description with multiple lines"
+scroll_active = false
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="Panel/BoxContainer"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+
+[node name="NameLabel" type="RichTextLabel" parent="Panel/BoxContainer/VBoxContainer3"]
+custom_minimum_size = Vector2(100, 25)
+layout_mode = 2
+theme = ExtResource("4_tj5uo")
+text = "Option Description with multiple lines"
+scroll_active = false
+
+[node name="TextureRect" type="TextureRect" parent="Panel/BoxContainer/VBoxContainer3"]
+layout_direction = 1
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("5_rwvy7")
+stretch_mode = 2
+
+[node name="DescriptionLabel" type="RichTextLabel" parent="Panel/BoxContainer/VBoxContainer3"]
+custom_minimum_size = Vector2(100, 25)
+layout_mode = 2
+theme = ExtResource("4_tj5uo")
+text = "Option Description with multiple lines"
+scroll_active = false

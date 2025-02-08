@@ -8,6 +8,7 @@ const GroupName: StringName = &"player"
 @onready var deck_helper = get_node("/root/World/DeckHelper")
 
 # GUI
+@onready var gui_control = $GUI
 @onready var healthBar = get_node("%HealthBar")
 @onready var expBar = get_node("%ExperienceBar")
 @onready var manaBar = get_node("%ManaBar")
@@ -25,13 +26,16 @@ const GroupName: StringName = &"player"
 @onready var icon_resolve = get_node("%StatusIconResolveSprite2D")
 @onready var icon_shuffle = get_node("%StatusIconShuffleSprite2D")
 
+# Player
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @export var card_scene = preload("res://scenes/world/card.tscn")
+@export var level_scene = preload("res://scenes/world/level_control.tscn")
 #AttackNodes
 var dagger = preload("res://scenes/world/weapon_dagger.tscn")
 var axe = preload("res://scenes/world/weapon_axe.tscn")
 var sword = preload("res://scenes/world/weapon_sword.tscn")
+
 
 @export var deck: CardDeck
 var active_buffs: Array[PlayerStats] = []
@@ -203,7 +207,6 @@ func shuffle_complete():
 	draw_card()
 	icon_shuffle.visible = false
 	deck_animation = true
-	print("how much longer after")
 
 func calculate_experience(gem_exp):
 	var exp_required = calculate_experiencecap()
@@ -213,7 +216,7 @@ func calculate_experience(gem_exp):
 		experience_level += 1
 		experience = 0
 		exp_required = calculate_experiencecap()
-		#levelup()
+		show_level_control()
 	else:
 		experience += collected_experience
 		collected_experience = 0
@@ -223,7 +226,9 @@ func calculate_experience(gem_exp):
 func calculate_experiencecap():
 	var exp_cap = experience_level
 	# experience levels taken from survivor clone
-	if experience_level < 20:
+	if experience_level < 3:
+		exp_cap = experience_level
+	elif experience_level < 20:
 		exp_cap = experience_level*5
 	elif experience_level < 40:
 		exp_cap + 95 * (experience_level-19)*8
@@ -237,6 +242,8 @@ func apply_upgrade(card: Card):
 	#pass
 
 #region VISUALS
+func show_level_control():
+	gui_control.call_deferred("add_child", level_scene.instantiate())
 
 func set_guibar(bar: TextureProgressBar, set_value = 100, set_max_value = 100, time = 0):
 	if time == 0:

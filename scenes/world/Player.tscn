@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://b6xsykb6ffhrn"]
+[gd_scene load_steps=36 format=3 uid="uid://b6xsykb6ffhrn"]
 
 [ext_resource type="Script" path="res://scenes/world/player.gd" id="1_gqwxa"]
 [ext_resource type="Script" path="res://components/game/player_stats.gd" id="2_5xxq7"]
@@ -21,11 +21,6 @@
 [ext_resource type="Script" path="res://deck.gd" id="14_p2bkr"]
 [ext_resource type="Texture2D" uid="uid://b70diibqey7ui" path="res://components/cards/2D/icons/player_hand.svg" id="15_b6fgc"]
 [ext_resource type="Texture2D" uid="uid://csu1ob7stu3dl" path="res://components/cards/2D/icons/deck.svg" id="16_23hk5"]
-[ext_resource type="Script" path="res://scenes/world/level_control.gd" id="18_730lg"]
-[ext_resource type="Theme" uid="uid://5creo3g4o3t2" path="res://ui/menus/menu_theme.tres" id="18_nvvh1"]
-[ext_resource type="Material" uid="uid://ual471r2mys8" path="res://shaders/card_highlight.tres" id="19_5avrk"]
-[ext_resource type="Texture2D" uid="uid://be4k40otfl3gt" path="res://components/cards/2D/database/spanish_decks/pixel_deck/backs/back.png" id="19_eyxeo"]
-[ext_resource type="Texture2D" uid="uid://b7y0yx7ru8lfa" path="res://components/cards/2D/database/spanish_decks/pixel_deck/cups/copa2.png" id="19_pgb5c"]
 [ext_resource type="Texture2D" uid="uid://cf0fjcnjpclbt" path="res://assets/acesprite_gui.png" id="22_agk72"]
 
 [sub_resource type="Resource" id="Resource_kruik"]
@@ -422,139 +417,6 @@ offset_bottom = 109.0
 grow_horizontal = 2
 texture_over = ExtResource("12_4aqtr")
 texture_progress = ExtResource("14_mutnh")
-
-[node name="LevelControl" type="Control" parent="GUI"]
-layout_mode = 1
-anchor_left = 0.5
-anchor_top = 0.612
-anchor_right = 0.5
-anchor_bottom = 0.612
-offset_left = -194.0
-offset_top = -136.648
-offset_right = 193.0
-offset_bottom = 141.352
-script = ExtResource("18_730lg")
-
-[node name="Panel" type="Panel" parent="GUI/LevelControl"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -183.5
-offset_top = -116.5
-offset_right = 183.5
-offset_bottom = 116.5
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Highlight" type="TextureRect" parent="GUI/LevelControl/Panel"]
-material = ExtResource("19_5avrk")
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -30.0
-offset_top = -48.0
-offset_right = 30.0
-offset_bottom = 48.0
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(1.2, 1.2)
-texture = ExtResource("19_eyxeo")
-
-[node name="BoxContainer" type="BoxContainer" parent="GUI/LevelControl/Panel"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -156.5
-offset_top = -99.0
-offset_right = 155.5
-offset_bottom = 93.0
-grow_horizontal = 2
-grow_vertical = 2
-alignment = 1
-
-[node name="VBoxContainer1" type="VBoxContainer" parent="GUI/LevelControl/Panel/BoxContainer"]
-custom_minimum_size = Vector2(30, 0)
-layout_mode = 2
-
-[node name="NameLabel" type="RichTextLabel" parent="GUI/LevelControl/Panel/BoxContainer/VBoxContainer1"]
-custom_minimum_size = Vector2(100, 25)
-layout_mode = 2
-theme = ExtResource("18_nvvh1")
-text = "Option Description with multiple lines"
-scroll_active = false
-
-[node name="TextureRect" type="TextureRect" parent="GUI/LevelControl/Panel/BoxContainer/VBoxContainer1"]
-layout_direction = 1
-layout_mode = 2
-size_flags_horizontal = 4
-texture = ExtResource("19_pgb5c")
-stretch_mode = 2
-
-[node name="DescriptionLabel" type="RichTextLabel" parent="GUI/LevelControl/Panel/BoxContainer/VBoxContainer1"]
-custom_minimum_size = Vector2(100, 25)
-layout_mode = 2
-theme = ExtResource("18_nvvh1")
-text = "Option Description with multiple lines"
-scroll_active = false
-
-[node name="VBoxContainer2" type="VBoxContainer" parent="GUI/LevelControl/Panel/BoxContainer"]
-custom_minimum_size = Vector2(30, 0)
-layout_mode = 2
-
-[node name="NameLabel" type="RichTextLabel" parent="GUI/LevelControl/Panel/BoxContainer/VBoxContainer2"]
-custom_minimum_size = Vector2(100, 25)
-layout_mode = 2
-theme = ExtResource("18_nvvh1")
-text = "Option Description with multiple lines"
-scroll_active = false
-
-[node name="TextureRect" type="TextureRect" parent="GUI/LevelControl/Panel/BoxContainer/VBoxContainer2"]
-layout_direction = 1
-layout_mode = 2
-size_flags_horizontal = 4
-texture = ExtResource("19_pgb5c")
-stretch_mode = 2
-
-[node name="DescriptionLabel" type="RichTextLabel" parent="GUI/LevelControl/Panel/BoxContainer/VBoxContainer2"]
-custom_minimum_size = Vector2(100, 25)
-layout_mode = 2
-theme = ExtResource("18_nvvh1")
-text = "Option Description with multiple lines"
-scroll_active = false
-
-[node name="VBoxContainer3" type="VBoxContainer" parent="GUI/LevelControl/Panel/BoxContainer"]
-custom_minimum_size = Vector2(30, 0)
-layout_mode = 2
-
-[node name="NameLabel" type="RichTextLabel" parent="GUI/LevelControl/Panel/BoxContainer/VBoxContainer3"]
-custom_minimum_size = Vector2(100, 25)
-layout_mode = 2
-theme = ExtResource("18_nvvh1")
-text = "Option Description with multiple lines"
-scroll_active = false
-
-[node name="TextureRect" type="TextureRect" parent="GUI/LevelControl/Panel/BoxContainer/VBoxContainer3"]
-layout_direction = 1
-layout_mode = 2
-size_flags_horizontal = 4
-texture = ExtResource("19_pgb5c")
-stretch_mode = 2
-
-[node name="DescriptionLabel" type="RichTextLabel" parent="GUI/LevelControl/Panel/BoxContainer/VBoxContainer3"]
-custom_minimum_size = Vector2(100, 25)
-layout_mode = 2
-theme = ExtResource("18_nvvh1")
-text = "Option Description with multiple lines"
-scroll_active = false
 
 [node name="AcespriteGui" type="Sprite2D" parent="GUI"]
 position = Vector2(-101, -11)
