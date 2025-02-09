@@ -84,7 +84,9 @@ func _ready() -> void:
 
 # MOVEMENT
 func _physics_process(_delta: float) -> void:
+	#motion_input.set_speed(stats.speed)
 	motion_input.update()
+	velocity *= stats.speed
 	
 	if get_last_motion().x < 0.1:
 		sprite.flip_h = true

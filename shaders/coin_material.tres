@@ -1,0 +1,8 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://d4ev67r04ffmu"]
+
+[ext_resource type="Shader" path="res://shaders/coin_shader.gdshader" id="1_enk5c"]
+
+[resource]
+shader = ExtResource("1_enk5c")
+shader_parameter/sprite_frame_size = Vector2(64, 64)
+shader_parameter/current_frame = 21

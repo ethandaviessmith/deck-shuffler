@@ -1,11 +1,50 @@
-[gd_scene load_steps=5 format=3 uid="uid://bsyksfjwdfwoy"]
+[gd_scene load_steps=9 format=3 uid="uid://bsyksfjwdfwoy"]
 
 [ext_resource type="Script" path="res://scenes/world/experience_gem.gd" id="1_andqg"]
-[ext_resource type="Texture2D" uid="uid://bxeqkoloqhkbh" path="res://assets/gem_green.png" id="1_y0b0g"]
+[ext_resource type="Material" uid="uid://d4ev67r04ffmu" path="res://shaders/coin_material.tres" id="1_qhyin"]
+[ext_resource type="Texture2D" uid="uid://b4bgle5wml37l" path="res://assets/coin_sheet.png" id="2_vyr8m"]
 [ext_resource type="AudioStream" uid="uid://bblufhfxswae0" path="res://assets/audio/64282-Healing_crystal_drop_set_down_movement_jewel-BLASTWAVEFX-01900.mp3" id="3_23ov2"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_10vj5"]
 radius = 6.08276
+
+[sub_resource type="Animation" id="Animation_x5dly"]
+resource_name = "idle"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [15, 21]
+}
+
+[sub_resource type="Animation" id="Animation_ubqte"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [21]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_th1px"]
+_data = {
+"RESET": SubResource("Animation_ubqte"),
+"spin": SubResource("Animation_x5dly")
+}
 
 [node name="ExperienceGem" type="Area2D" groups=["loot"]]
 collision_layer = 8
@@ -14,14 +53,24 @@ script = ExtResource("1_andqg")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
-position = Vector2(0, 1)
-scale = Vector2(0.4375, 0.4375)
-texture = ExtResource("1_y0b0g")
+material = ExtResource("1_qhyin")
+scale = Vector2(0.28125, 0.28125)
+texture = ExtResource("2_vyr8m")
+hframes = 5
+vframes = 5
+frame = 21
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource("CircleShape2D_10vj5")
 
 [node name="snd_play" type="AudioStreamPlayer" parent="."]
+process_mode = 3
 stream = ExtResource("3_23ov2")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_th1px")
+}
 
 [connection signal="finished" from="snd_play" to="." method="_on_snd_play_finished"]

@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scenes/world/player.gd" id="1_gqwxa"]
 [ext_resource type="Script" path="res://components/game/player_stats.gd" id="2_5xxq7"]
 [ext_resource type="Script" path="res://components/game/attack_stats.gd" id="2_dff2h"]
-[ext_resource type="SpriteFrames" uid="uid://ckr8lhlj048sb" path="res://components/rpg/f1_leovoyant.tres" id="2_yfxqc"]
+[ext_resource type="SpriteFrames" uid="uid://ckr8lhlj048sb" path="res://assets/f1_leovoyant.tres" id="2_yfxqc"]
 [ext_resource type="Script" path="res://components/behaviour/finite-state-machine/finite-state-machine.gd" id="3_d2tu4"]
 [ext_resource type="Script" path="res://components/game/spell_stats.gd" id="4_624bx"]
 [ext_resource type="Script" path="res://components/motion/2D/top-down-controller/states/idle.gd" id="4_kdb0p"]
@@ -18,11 +18,11 @@
 [ext_resource type="Texture2D" uid="uid://da53mspvqfxq4" path="res://assets/GUI/health.png" id="13_qrw3p"]
 [ext_resource type="Texture2D" uid="uid://cb8aliofotrc4" path="res://components/cards/2D/icons/deck_pile.svg" id="14_m82w4"]
 [ext_resource type="Texture2D" uid="uid://4jgv6t084qqt" path="res://assets/GUI/mana.png" id="14_mutnh"]
-[ext_resource type="Script" path="res://deck.gd" id="14_p2bkr"]
+[ext_resource type="Script" path="res://scenes/world/deck.gd" id="14_p2bkr"]
 [ext_resource type="Texture2D" uid="uid://b70diibqey7ui" path="res://components/cards/2D/icons/player_hand.svg" id="15_b6fgc"]
 [ext_resource type="Texture2D" uid="uid://csu1ob7stu3dl" path="res://components/cards/2D/icons/deck.svg" id="16_23hk5"]
 [ext_resource type="Texture2D" uid="uid://cf0fjcnjpclbt" path="res://assets/acesprite_gui.png" id="22_agk72"]
-[ext_resource type="Texture2D" uid="uid://dwc5h550ya7ix" path="res://assets/card_draw.png" id="22_gwm21"]
+[ext_resource type="Texture2D" uid="uid://45t7if157bk1" path="res://assets/sdprites-Sheet.png" id="22_c8r4b"]
 [ext_resource type="AudioStream" uid="uid://dmmhnrbirnnfy" path="res://assets/audio/157233-MB-Cards-Turn-01-01.mp3" id="24_i3ak6"]
 [ext_resource type="AudioStream" uid="uid://ccgltpgeu5xm1" path="res://assets/audio/420680-Card-Game-Movement-Deal-Four.mp3" id="25_2db4x"]
 
@@ -37,7 +37,7 @@ attacks = Array[ExtResource("2_dff2h")]([])
 spells = Array[ExtResource("4_624bx")]([])
 damage = 1.0
 durability = 20.0
-speed = 1.0
+speed = 0.6
 size = 1.0
 
 [sub_resource type="Animation" id="Animation_40l5s"]
@@ -216,6 +216,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_rlwxj"]
 resource_name = "card_draw"
+length = 1.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -223,10 +224,10 @@ tracks/0/path = NodePath("ActionSprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.933333),
+"times": PackedFloat32Array(0, 1.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [0, 9]
+"values": [0, 19]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_isixn"]
@@ -341,8 +342,9 @@ anchors_preset = 14
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
+offset_left = 6.0
 offset_top = 10.0
-offset_right = -185.0
+offset_right = -167.0
 offset_bottom = 103.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -491,8 +493,9 @@ libraries = {
 [node name="ActionSprite2D" type="Sprite2D" parent="GUI"]
 position = Vector2(-199, -52)
 scale = Vector2(0.6875, 0.6875)
-texture = ExtResource("22_gwm21")
-hframes = 10
+texture = ExtResource("22_c8r4b")
+hframes = 5
+vframes = 5
 
 [node name="EnemyFarArea2D" type="Area2D" parent="."]
 visible = false

@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://bt1unjfl7m3oi"]
 
 [ext_resource type="PackedScene" uid="uid://bi5gskavh1v12" path="res://components/motion/2D/top-down-controller/top_down_controller.tscn" id="1_aue5w"]
-[ext_resource type="SpriteFrames" uid="uid://ckr8lhlj048sb" path="res://components/rpg/f1_leovoyant.tres" id="2_x1n1t"]
+[ext_resource type="SpriteFrames" uid="uid://ckr8lhlj048sb" path="res://assets/f1_leovoyant.tres" id="2_x1n1t"]
 
 [sub_resource type="Animation" id="Animation_mgx1i"]
 resource_name = "idle"

@@ -23,7 +23,7 @@ func _enter_tree() -> void:
 
 
 func _ready() -> void:
-	hide()
+	#hide()
 	
 	mouse_filter = MouseFilter.MOUSE_FILTER_IGNORE
 	

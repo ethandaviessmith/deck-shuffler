@@ -47,7 +47,6 @@ func _init(_actor: Node, _deadzone: float = deadzone):
 	
 	Input.joy_connection_changed.connect(on_joy_connection_changed)
 
-
 func update():
 	_update_previous_directions()
 	# This handles deadzone in a correct way for most use cases. The resulting deadzone will have a circular shape as it generally should.

@@ -44,6 +44,7 @@ func enemy_hit(charge = 1):
 	hp -= charge
 	if hp <= 0:
 		hitbox.disable()
+		$CollisionShape2D.disabled = true
 		_play_death_effect()
 
 func add_buff(add_buff:AttackStats):
