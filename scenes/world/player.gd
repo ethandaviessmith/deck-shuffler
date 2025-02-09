@@ -9,6 +9,7 @@ const GroupName: StringName = &"player"
 
 # GUI
 @onready var gui_control = $GUI
+@onready var action_anim = $"GUI/ActionAnimationPlayer"
 @onready var healthBar = get_node("%HealthBar")
 @onready var expBar = get_node("%ExperienceBar")
 @onready var manaBar = get_node("%ManaBar")
@@ -161,6 +162,7 @@ func use_mana(used_mana) -> bool:
 
 func draw_card():
 	if deck.has_draw():
+		action_anim.play("card_draw")
 		var card = deck.draw_card()
 		var card_instance = card_scene.instantiate() as CardSprite
 		card_instance.set_card(card)

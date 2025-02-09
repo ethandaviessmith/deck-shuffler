@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scenes/world/experience_gem.gd" id="1_andqg"]
 [ext_resource type="Texture2D" uid="uid://bxeqkoloqhkbh" path="res://assets/gem_green.png" id="1_y0b0g"]
-[ext_resource type="AudioStream" uid="uid://bo2tisky4nbgx" path="res://assets/collectgem.mp3" id="2_kf26e"]
+[ext_resource type="AudioStream" uid="uid://bblufhfxswae0" path="res://assets/audio/64282-Healing_crystal_drop_set_down_movement_jewel-BLASTWAVEFX-01900.mp3" id="3_23ov2"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_10vj5"]
 radius = 6.08276
@@ -22,6 +22,6 @@ texture = ExtResource("1_y0b0g")
 shape = SubResource("CircleShape2D_10vj5")
 
 [node name="snd_play" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("2_kf26e")
+stream = ExtResource("3_23ov2")
 
 [connection signal="finished" from="snd_play" to="." method="_on_snd_play_finished"]

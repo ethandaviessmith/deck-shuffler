@@ -6,12 +6,16 @@ var deck: Array[Card] = []
 var draw_pile: Array[Card] = []
 var hand: Array[Card] = []
 
+@onready var draw_audio = $DrawAudio
+@onready var shuffle_audio = $ShuffleAudio
 
 signal shuffle_complete
 #unused
 signal deck_updated
 signal card_added(card: Card)
 signal card_removed(card: Card)
+
+
 
 func set_deck(cards: Array[Card]):
 	deck = cards
@@ -20,6 +24,7 @@ func set_deck(cards: Array[Card]):
 
 func shuffle():
 	print("shuffle on deck")
+	shuffle_audio.play()
 	$ShuffleTimer.start()
 
 func _on_shuffle_complete():
@@ -29,9 +34,13 @@ func _on_shuffle_complete():
 	emit_signal("shuffle_complete")
 	print("shuffle_complete")
 
+
+
 # Function to draw a random card from the draw_pile
 func draw_card() -> Card:
+	
 	if draw_pile.size() > 0:
+		draw_audio.play()
 		var random_index = randi() % draw_pile.size()
 		var drawn_card = draw_pile[random_index]
 		hand.append(drawn_card)
