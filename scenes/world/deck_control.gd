@@ -1,5 +1,5 @@
 @icon("res://components/cards/2D/icons/deck.svg")
-class_name CardDeckOld extends Node
+class_name CardDeck extends Control
 
 # The actual deck containing Card resources
 var deck: Array[Card] = []
@@ -17,13 +17,13 @@ signal card_added(card: Card)
 signal card_removed(card: Card)
 
 # Cache the ScrollContainer node for easy access
-@onready var deck_control = $DeckControl
-@onready var scroll_container = $DeckControl/ScrollContainer
-@onready var grid_container = $DeckControl/ScrollContainer/GridContainer
+@onready var deck_control = $Control
+@onready var scroll_container = $Control/ScrollContainer
+@onready var grid_container = $Control/ScrollContainer/GridContainer
 
 func _process(delta):
-	if Input.is_action_pressed("toggle_inventory"):
-		deck_control.visible = true
+	if Input.is_action_just_pressed("toggle_inventory"):
+		deck_control.visible = !deck_control.visible
 	if Input.is_action_pressed("move_back"):
 		scroll_container.scroll_vertical += 10 # Modify as needed for smooth scrolling
 	elif Input.is_action_pressed("move_forward"):
@@ -100,7 +100,7 @@ func resolve_hand() -> PlayerStats:
 # Function to add a card to the deck
 func add_card(card: Card):
 	deck.append(card)
-	var card_instance = card_scene.instantiate() as CardSprite
+	var card_instance = card_scene.instantiate() as CardDeckSprite
 	grid_container.add_child(card_instance)
 	
 	card_instance.set_card(card)

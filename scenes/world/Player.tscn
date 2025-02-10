@@ -18,13 +18,13 @@
 [ext_resource type="Texture2D" uid="uid://da53mspvqfxq4" path="res://assets/GUI/health.png" id="13_qrw3p"]
 [ext_resource type="Texture2D" uid="uid://cb8aliofotrc4" path="res://components/cards/2D/icons/deck_pile.svg" id="14_m82w4"]
 [ext_resource type="Texture2D" uid="uid://4jgv6t084qqt" path="res://assets/GUI/mana.png" id="14_mutnh"]
-[ext_resource type="Script" path="res://scenes/world/deck.gd" id="14_p2bkr"]
 [ext_resource type="Texture2D" uid="uid://b70diibqey7ui" path="res://components/cards/2D/icons/player_hand.svg" id="15_b6fgc"]
 [ext_resource type="Texture2D" uid="uid://csu1ob7stu3dl" path="res://components/cards/2D/icons/deck.svg" id="16_23hk5"]
 [ext_resource type="Texture2D" uid="uid://cf0fjcnjpclbt" path="res://assets/acesprite_gui.png" id="22_agk72"]
 [ext_resource type="Texture2D" uid="uid://45t7if157bk1" path="res://assets/sdprites-Sheet.png" id="22_c8r4b"]
 [ext_resource type="AudioStream" uid="uid://dmmhnrbirnnfy" path="res://assets/audio/157233-MB-Cards-Turn-01-01.mp3" id="24_i3ak6"]
 [ext_resource type="AudioStream" uid="uid://ccgltpgeu5xm1" path="res://assets/audio/420680-Card-Game-Movement-Deal-Four.mp3" id="25_2db4x"]
+[ext_resource type="Script" path="res://scenes/world/deck_control.gd" id="26_rta5l"]
 
 [sub_resource type="Resource" id="Resource_kruik"]
 script = ExtResource("2_5xxq7")
@@ -36,7 +36,7 @@ time = 6.0
 attacks = Array[ExtResource("2_dff2h")]([])
 spells = Array[ExtResource("4_624bx")]([])
 damage = 1.0
-durability = 20.0
+durability = 0.0
 speed = 0.6
 size = 1.0
 
@@ -253,7 +253,7 @@ texture_filter = 1
 collision_layer = 2
 motion_mode = 1
 script = ExtResource("1_gqwxa")
-deck = NodePath("CardDeck")
+deck = NodePath("GUI/DeckControl")
 stats = SubResource("Resource_kruik")
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -274,6 +274,8 @@ color = Color(0, 0, 0, 0.227451)
 libraries = {
 "": SubResource("AnimationLibrary_u7yur")
 }
+
+[node name="CardNode2D" type="Node2D" parent="."]
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
@@ -491,11 +493,77 @@ libraries = {
 }
 
 [node name="ActionSprite2D" type="Sprite2D" parent="GUI"]
+visible = false
 position = Vector2(-199, -52)
 scale = Vector2(0.6875, 0.6875)
 texture = ExtResource("22_c8r4b")
 hframes = 5
 vframes = 5
+
+[node name="DeckControl" type="Control" parent="GUI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("26_rta5l")
+
+[node name="DrawTimer" type="Timer" parent="GUI/DeckControl"]
+unique_name_in_owner = true
+wait_time = 3.0
+autostart = true
+
+[node name="ShuffleTimer" type="Timer" parent="GUI/DeckControl"]
+wait_time = 2.0
+one_shot = true
+
+[node name="DrawAudio" type="AudioStreamPlayer2D" parent="GUI/DeckControl"]
+position = Vector2(20, 64)
+stream = ExtResource("24_i3ak6")
+bus = &"SFX"
+
+[node name="ShuffleAudio" type="AudioStreamPlayer2D" parent="GUI/DeckControl"]
+position = Vector2(20, 64)
+stream = ExtResource("25_2db4x")
+
+[node name="Control" type="Control" parent="GUI/DeckControl"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="GUI/DeckControl/Control"]
+layout_mode = 0
+offset_left = -170.0
+offset_top = -66.0
+offset_right = 217.0
+offset_bottom = 193.0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="GUI/DeckControl/Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -171.0
+offset_top = -115.0
+offset_right = 187.0
+offset_bottom = 140.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+horizontal_scroll_mode = 0
+
+[node name="GridContainer" type="GridContainer" parent="GUI/DeckControl/Control/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+columns = 4
 
 [node name="EnemyFarArea2D" type="Area2D" parent="."]
 visible = false
@@ -529,36 +597,16 @@ collision_mask = 8
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CollectArea"]
 shape = SubResource("CircleShape2D_0lwbw")
 
-[node name="CardDeck" type="Node" parent="."]
-script = ExtResource("14_p2bkr")
-
-[node name="DrawTimer" type="Timer" parent="CardDeck"]
-unique_name_in_owner = true
-wait_time = 3.0
-autostart = true
-
-[node name="ShuffleTimer" type="Timer" parent="CardDeck"]
-wait_time = 2.0
-one_shot = true
-
-[node name="DrawAudio" type="AudioStreamPlayer2D" parent="CardDeck"]
-stream = ExtResource("24_i3ak6")
-bus = &"SFX"
-
-[node name="ShuffleAudio" type="AudioStreamPlayer2D" parent="CardDeck"]
-stream = ExtResource("25_2db4x")
-
 [connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]
 [connection signal="state_changed" from="FiniteStateMachine" to="." method="_on_finite_state_machine_state_changed"]
 [connection signal="hurt" from="Hurtbox2D" to="." method="_on_hurt_box_2d_hurt"]
+[connection signal="shuffle_complete" from="GUI/DeckControl" to="." method="_on_card_deck_shuffle_complete"]
+[connection signal="timeout" from="GUI/DeckControl/DrawTimer" to="." method="_on_draw_timer_timeout"]
 [connection signal="body_entered" from="EnemyFarArea2D" to="." method="_on_enemy_far_area_body_entered"]
 [connection signal="body_exited" from="EnemyFarArea2D" to="." method="_on_enemy_far_area_body_exited"]
 [connection signal="body_entered" from="EnemyNearArea2D" to="." method="_on_enemy_near_area_body_entered"]
 [connection signal="body_exited" from="EnemyNearArea2D" to="." method="_on_enemy_near_area_body_exited"]
 [connection signal="area_entered" from="GrabArea" to="." method="_on_grab_area_area_entered"]
 [connection signal="area_entered" from="CollectArea" to="." method="_on_collect_area_area_entered"]
-[connection signal="shuffle_complete" from="CardDeck" to="." method="_on_card_deck_shuffle_complete"]
-[connection signal="timeout" from="CardDeck/DrawTimer" to="." method="_on_draw_timer_timeout"]
-[connection signal="timeout" from="CardDeck/ShuffleTimer" to="CardDeck" method="_on_shuffle_complete"]
 
 [editable path="Hurtbox2D"]

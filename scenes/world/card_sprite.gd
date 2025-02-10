@@ -1,7 +1,5 @@
 class_name CardSprite extends Sprite2D
 
-@export var suit: String
-@export var number: int
 @export var fade_duration: float = 1.0  # Default fade duration
 var fade_mat: ShaderMaterial
 
@@ -9,6 +7,7 @@ var fade_mat: ShaderMaterial
 const col = 0.8 # give hue to cards by type
 
 var card: Card
+var draw_card:bool = true
 
 func set_card(set_card: Card):
 	if not set_card == null:
@@ -32,30 +31,33 @@ func set_card(set_card: Card):
 
 func _ready():
 	fade_mat = get_material()
-	show_card()
+	if draw_card:
+		show_card()
 	
 
 func show_card():
 	if label_node:
 		label_node.text = name
 	
-	match card.card_type:
-		Card.CardType.ATTACK:
-			#self.modulate = Color(1, col, col) 
-			#fade_mat.set_shader_parameter("reveal_progress", Vector4(1.0, col, col, 1.0))
-			pass
-		
-	# Initialize transparency and scale for appearance
-	modulate = Color(modulate.r, modulate.g, modulate.b, 0.3)
-	fade_mat.set_shader_parameter("show", true)
-	fade_mat.set_shader_parameter("reveal_progress", 0.0)
-	#fade_mat.set_shader_parameter("wipe_amount", 1.0)
+	if not card == null:
+		match card.card_type:
+			Card.CardType.ATTACK:
+				#self.modulate = Color(1, col, col) 
+				#fade_mat.set_shader_parameter("reveal_progress", Vector4(1.0, col, col, 1.0))
+				pass
+	
+	if draw_card:
+		# Initialize transparency and scale for appearance
+		modulate = Color(modulate.r, modulate.g, modulate.b, 0.3)
+		fade_mat.set_shader_parameter("show", true)
+		fade_mat.set_shader_parameter("reveal_progress", 0.0)
+		#fade_mat.set_shader_parameter("wipe_amount", 1.0)
 
-	var tween = create_tween() # Fade in effect with sweep in
-	tween.tween_property(fade_mat, "shader_parameter/reveal_progress", 1.0, fade_duration).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_IN_OUT)
-	#tween.tween_property(self.material, "shader_parameter/wipe_amount", 0.0, fade_duration).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_IN_OUT)
-	#tween.tween_property(self, "modulate:a", 1, fade_duration).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_OUT)
-	tween.tween_callback(Callable(self, "hide_card")).set_delay(fade_duration)
+		var tween = create_tween() # Fade in effect with sweep in
+		tween.tween_property(fade_mat, "shader_parameter/reveal_progress", 1.0, fade_duration).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_IN_OUT)
+		#tween.tween_property(self.material, "shader_parameter/wipe_amount", 0.0, fade_duration).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_IN_OUT)
+		#tween.tween_property(self, "modulate:a", 1, fade_duration).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_OUT)
+		tween.tween_callback(Callable(self, "hide_card")).set_delay(fade_duration)
 	
 
 func hide_card():

@@ -30,6 +30,7 @@ const GroupName: StringName = &"player"
 # Player
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var card_node: Node2D = $CardNode2D
 @export var card_scene = preload("res://scenes/world/card.tscn")
 @export var level_scene = preload("res://scenes/world/level_control.tscn")
 #AttackNodes
@@ -166,7 +167,7 @@ func draw_card():
 		var card_instance = card_scene.instantiate() as CardSprite
 		card_instance.set_card(card)
 		card_instance.position = Vector2(0, -40.0)
-		call_deferred("add_child",card_instance)
+		card_node.call_deferred("add_child",card_instance)
 	else:
 		print("no draw, shuffling")
 		shuffle_deck()
