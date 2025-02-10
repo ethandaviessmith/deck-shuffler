@@ -1,7 +1,6 @@
-[gd_scene load_steps=9 format=3 uid="uid://bsyksfjwdfwoy"]
+[gd_scene load_steps=8 format=3 uid="uid://bsyksfjwdfwoy"]
 
 [ext_resource type="Script" path="res://scenes/world/experience_gem.gd" id="1_andqg"]
-[ext_resource type="Material" uid="uid://d4ev67r04ffmu" path="res://shaders/coin_material.tres" id="1_qhyin"]
 [ext_resource type="Texture2D" uid="uid://b4bgle5wml37l" path="res://assets/coin_sheet.png" id="2_vyr8m"]
 [ext_resource type="AudioStream" uid="uid://bblufhfxswae0" path="res://assets/audio/64282-Healing_crystal_drop_set_down_movement_jewel-BLASTWAVEFX-01900.mp3" id="3_23ov2"]
 
@@ -53,7 +52,7 @@ script = ExtResource("1_andqg")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
-material = ExtResource("1_qhyin")
+position = Vector2(1, 0)
 scale = Vector2(0.28125, 0.28125)
 texture = ExtResource("2_vyr8m")
 hframes = 5

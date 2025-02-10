@@ -87,7 +87,8 @@ func highlight_selected():
 #	option_nodes[current_selection].modulate = Color(0.8, 0.8, 1)  # Apply highlight
 
 func apply_upgrade():
-	player.apply_upgrade(upgrade_options[current_selection])
+	var card = upgrade_options[current_selection]
+	player.apply_upgrade(card)
 	var tween = create_tween()
 	tween.tween_property(self, "modulate:a", 0.0, 1.0)
 	tween.connect("finished", Callable(self, "_on_fade_completed"))

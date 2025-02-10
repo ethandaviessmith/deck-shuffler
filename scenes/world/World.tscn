@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=4 uid="uid://bvyi5v3q5glkx"]
+[gd_scene load_steps=24 format=4 uid="uid://bvyi5v3q5glkx"]
 
 [ext_resource type="PackedScene" uid="uid://iq63nlaer5ul" path="res://scenes/world/Enemy.tscn" id="1_78kn1"]
 [ext_resource type="PackedScene" uid="uid://b6xsykb6ffhrn" path="res://scenes/world/Player.tscn" id="1_sythe"]
@@ -7,10 +7,11 @@
 [ext_resource type="Script" path="res://components/game/deck_helper.gd" id="6_dideo"]
 [ext_resource type="Texture2D" uid="uid://bhjd3irah3hs7" path="res://assets/green_woods/Assets/Tiles.png" id="6_jpaak"]
 [ext_resource type="Script" path="res://scenes/world/card.gd" id="7_tugua"]
-[ext_resource type="Texture2D" uid="uid://ejgil3c54tbt" path="res://components/cards/2D/database/spanish_decks/pixel_deck/swords/espada1.png" id="8_37n03"]
 [ext_resource type="Script" path="res://components/game/attack_stats.gd" id="8_fsskc"]
-[ext_resource type="Texture2D" uid="uid://bx3g6ee0mgga0" path="res://components/cards/2D/database/spanish_decks/pixel_deck/swords/espada2.png" id="10_hqopv"]
-[ext_resource type="Texture2D" uid="uid://covdvepgu4iww" path="res://components/cards/2D/database/spanish_decks/pixel_deck/swords/espada3.png" id="11_6d21s"]
+[ext_resource type="Texture2D" uid="uid://7cldoug2s404" path="res://assets/cards/slice1.png" id="9_bsfnr"]
+[ext_resource type="Texture2D" uid="uid://c36vglpg13qmp" path="res://assets/cards/slash.png" id="10_dfad8"]
+[ext_resource type="Texture2D" uid="uid://2ndgy8smkliw" path="res://assets/cards/chop.png" id="11_mwrl8"]
+[ext_resource type="Texture2D" uid="uid://c54mrd1luf5ub" path="res://assets/cards/stretch.png" id="12_l8cns"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qqcfr"]
 texture = ExtResource("6_jpaak")
@@ -152,55 +153,73 @@ enemy_spawn_delay = 0
 [sub_resource type="Resource" id="Resource_3rtke"]
 script = ExtResource("8_fsskc")
 weapon_type = 0
-fade = 3.0
-knockback = 1.0
+fade = 2.0
+knockback = 2.0
 damage = 1.0
-durability = 2.0
+durability = 1.0
 speed = 1.0
 size = 1.0
 
 [sub_resource type="Resource" id="Resource_oxfa6"]
 script = ExtResource("7_tugua")
-name = "attack_1"
-texture = ExtResource("8_37n03")
+name = "slice"
+texture = ExtResource("9_bsfnr")
 card_type = 0
 attack = SubResource("Resource_3rtke")
 rarity = 0
 
 [sub_resource type="Resource" id="Resource_rkxd2"]
 script = ExtResource("8_fsskc")
-weapon_type = 2
+weapon_type = 1
 fade = 3.0
 knockback = 1.0
 damage = 1.0
 durability = 2.0
-speed = 1.0
+speed = 0.8
 size = 1.0
 
 [sub_resource type="Resource" id="Resource_eridv"]
 script = ExtResource("7_tugua")
-name = "attack_2"
-texture = ExtResource("10_hqopv")
+name = "slash"
+texture = ExtResource("10_dfad8")
 card_type = 0
 attack = SubResource("Resource_rkxd2")
 rarity = 0
 
 [sub_resource type="Resource" id="Resource_xm6s7"]
 script = ExtResource("8_fsskc")
-weapon_type = 1
+weapon_type = 2
 fade = 3.0
-knockback = 1.0
-damage = 1.0
+knockback = 2.0
+damage = 2.0
 durability = 2.0
 speed = 1.0
 size = 1.0
 
 [sub_resource type="Resource" id="Resource_8gd7h"]
 script = ExtResource("7_tugua")
-name = "attack_3"
-texture = ExtResource("11_6d21s")
+name = "chop"
+texture = ExtResource("11_mwrl8")
 card_type = 0
 attack = SubResource("Resource_xm6s7")
+rarity = 0
+
+[sub_resource type="Resource" id="Resource_g4i7s"]
+script = ExtResource("8_fsskc")
+weapon_type = 5
+fade = 0.0
+knockback = 0.0
+damage = 1.0
+durability = 0.0
+speed = 1.0
+size = 1.0
+
+[sub_resource type="Resource" id="Resource_580ic"]
+script = ExtResource("7_tugua")
+name = "stretch"
+texture = ExtResource("12_l8cns")
+card_type = 0
+attack = SubResource("Resource_g4i7s")
 rarity = 0
 
 [node name="World" type="Node2D"]
@@ -246,6 +265,6 @@ position = Vector2(331, 183)
 [node name="DeckHelper" type="Node" parent="."]
 unique_name_in_owner = true
 script = ExtResource("6_dideo")
-deck = Array[ExtResource("7_tugua")]([SubResource("Resource_oxfa6"), SubResource("Resource_eridv"), SubResource("Resource_8gd7h")])
+deck = Array[ExtResource("7_tugua")]([SubResource("Resource_oxfa6"), SubResource("Resource_eridv"), SubResource("Resource_8gd7h"), SubResource("Resource_580ic")])
 
 [connection signal="timeout" from="EnemySpawner/Timer" to="EnemySpawner" method="_on_timer_timeout"]

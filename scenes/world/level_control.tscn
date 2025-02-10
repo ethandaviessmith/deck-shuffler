@@ -86,6 +86,7 @@ texture = ExtResource("5_rwvy7")
 stretch_mode = 2
 
 [node name="DescriptionLabel" type="RichTextLabel" parent="Panel/BoxContainer/VBoxContainer1"]
+visible = false
 custom_minimum_size = Vector2(100, 25)
 layout_mode = 2
 theme = ExtResource("4_tj5uo")
@@ -111,6 +112,7 @@ texture = ExtResource("5_rwvy7")
 stretch_mode = 2
 
 [node name="DescriptionLabel" type="RichTextLabel" parent="Panel/BoxContainer/VBoxContainer2"]
+visible = false
 custom_minimum_size = Vector2(100, 25)
 layout_mode = 2
 theme = ExtResource("4_tj5uo")
@@ -136,6 +138,7 @@ texture = ExtResource("5_rwvy7")
 stretch_mode = 2
 
 [node name="DescriptionLabel" type="RichTextLabel" parent="Panel/BoxContainer/VBoxContainer3"]
+visible = false
 custom_minimum_size = Vector2(100, 25)
 layout_mode = 2
 theme = ExtResource("4_tj5uo")

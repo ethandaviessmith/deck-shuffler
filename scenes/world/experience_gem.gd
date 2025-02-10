@@ -27,7 +27,8 @@ func _ready():
 	else:
 		pass
 		#sprite.texture = spr_red
-	sprite.material.set_shader_parameter("time", Time.get_ticks_usec() / 1000000.0)
+	if not sprite.material == null:
+		sprite.material.set_shader_parameter("time", Time.get_ticks_usec() / 1000000.0)
 
 func _process(delta):
 	time_elapsed += delta
@@ -48,14 +49,15 @@ func _process(delta):
 
 func update_frame_info():
 	var frame_size = Vector2(1.0 / 5, 1.0 / 5)  # Assuming known number of columns & rows
-	sprite.material.set_shader_parameter("sprite_frame_size", frame_size)
-	sprite.material.set_shader_parameter("current_frame", sprite.frame)
+	if not sprite.material == null:
+		sprite.material.set_shader_parameter("sprite_frame_size", frame_size)
+		sprite.material.set_shader_parameter("current_frame", sprite.frame)
 
 func _physics_process(delta):
 	update_frame_info()
 	if target != null:
 		global_position = global_position.move_toward(target.global_position, speed)
-		$AnimationPlayer.play("spin")
+		$AnimationPlayer.play("spin") 
 		speed += 3 * delta
 
 func collect():

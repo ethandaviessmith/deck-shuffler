@@ -137,10 +137,7 @@ func attack():
 	#knifeTimer.wait_time = nife_attackspeed * ( 1 - spell_cooldown)
 
 func set_deck(count):
-	var cards:Array[Card] = []
-	for i in count:
-		cards.append(deck_helper.get_random_card())
-	deck.set_deck(cards)
+	deck.set_deck(deck_helper.get_starter_deck(count))
 
 func next_action():
 	icon_resolve.visible = false
@@ -241,7 +238,10 @@ func calculate_experiencecap():
 	return exp_cap
 
 func apply_upgrade(card: Card):
-	stats.add_buff(card.attack)
+	if card.is_card_type_stat():
+		stats.add_buff(card.attack)
+	else:
+		deck.add_card(card)
 	display_buffs(111)
 	#pass
 

@@ -15,6 +15,7 @@ config/description="Indie Blueprint is a comprehensive Godot project template de
 config/version="1.3.0"
 run/main_scene="res://scenes/entry_point/game-entry_point.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
+boot_splash/image="res://assets/deckgpt2.png"
 config/icon="res://icon.svg"
 
 [autoload]

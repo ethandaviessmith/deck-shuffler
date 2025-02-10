@@ -1,6 +1,6 @@
 class_name Card extends Resource
 
-enum CardType { ATTACK, SPELL, ACTION }
+enum CardType { ATTACK, SPELL, ACTION, STAT }
 enum Rarity { COMMON }
 
 @export var name: String
@@ -18,10 +18,16 @@ static func get_card_type(card_type:CardType) -> String:
 			return "Spell"
 		CardType.ACTION:
 			return "Action"
+		CardType.STAT:
+			return "Stat"
 	return "Unknown"
+
+func is_card_type_stat() -> bool:
+	return card_type == CardType.STAT
 
 func get_card_type_name() -> String:
 	return get_card_type(self.card_type)
 
 func get_rarity() -> String:
 	return "COMMON"
+	
