@@ -17,7 +17,7 @@ collision_mask = 4
 script = ExtResource("1_bgbbv")
 
 [node name="Hitbox2D" parent="." instance=ExtResource("2_swsrv")]
-collision_layer = 132
+collision_layer = 128
 collision_mask = 4
 damage = 2
 

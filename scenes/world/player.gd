@@ -176,6 +176,7 @@ func summon_hand():
 	icon_resolve.visible = true
 	deck_animation = true
 	animation_player.play("resolve")
+	action_anim.play("resolve")
 	draw_timer.stop()
 	
 	var timer_anim = TimeHelper.create_idle_timer(1.3, true, true)
@@ -203,6 +204,7 @@ func shuffle_deck():
 	icon_shuffle.visible = true
 	deck_animation = true
 	animation_player.play("shuffle")
+	action_anim.play("shuffle")
 
 func shuffle_complete():
 	draw_timer.start()
@@ -316,7 +318,7 @@ func _on_finite_state_machine_state_changed(from_state: MachineState, state: Mac
 				animation_player.play("walk")
 
 func _on_hurt_box_2d_hurt(damage: Variant, angle: Variant, knockback: Variant) -> void:
-	print("player hurt")
+	print("player hurt", damage)
 	hp -= clamp(damage - stats.armor, 1.0, 999.0)
 	set_guibar(healthBar, hp, stats.durability)
 	if hp <= 0:

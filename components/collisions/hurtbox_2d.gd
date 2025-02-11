@@ -25,7 +25,7 @@ func disable():
 	set_deferred("monitoring", false)
 
 
-func on_area_entered(hitbox: WeaponHitBox) -> void:
+func on_area_entered(hitbox: Node2D) -> void:
 	#hitbox_detected.emit(hitbox)
 	
 	if not hitbox.get("damage") == null:
