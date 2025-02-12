@@ -11,10 +11,12 @@ var knockback = Vector2.ZERO
 @onready var loot_base = get_tree().get_first_node_in_group("loot")
 @onready var sprite = $AnimatedSprite2D
 @onready var anim: AnimationPlayer = $AnimationPlayer;
-#@onready var anim = 
-#@onready var snd_hit = $snd_hit
 @onready var hitBox = $Hitbox2D
 @onready var damage_label = $DamageLabel
+
+@onready var sfx_audio:AudioStreamPlayer2D = $SFXAudioStream
+@export var pitch_variance: float = 0.1  # Pitch variance range
+@export var volume_variance: float = 0.1  # Volume variance range
 
 #var death_anim = preload("res://Enemy/explosion.tscn")
 var exp_gem = preload("res://scenes/world/experience_gem.tscn")
@@ -23,26 +25,23 @@ signal remove_from_array(object)
 
 var can_move = true
 
-const run = "run";
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	anim.play(run)
-	anim.seek(randf_range(0, anim.get_animation(run).length))
+	anim.play("run")
+	anim.seek(randf_range(0, anim.get_animation("run").length))
 	hitBox.damage = enemy_damage
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	
 	pass
 
 func _physics_process(_delta):
-	
 	knockback = knockback.move_toward(Vector2.ZERO, knockback_recovery)
 	var direction = Vector2.ZERO;
 	if(can_move):
 		direction = global_position.direction_to(player.global_position)
-	velocity = direction*movement_speed
+	velocity = direction * movement_speed
 	velocity += knockback
 	move_and_slide()
 	
@@ -56,6 +55,7 @@ func death():
 	emit_signal("remove_from_array",self)
 	can_move = false;
 	anim.play("die")
+	play_with_randomized_audio(sfx_audio)
 	#var enemy_death = death_anim.instantiate()
 	#enemy_death.scale = sprite.scale
 	#enemy_death.global_position = global_position
@@ -66,6 +66,11 @@ func death():
 	loot_base.call_deferred("add_child",new_gem)
 	await get_tree().create_timer($AnimationPlayer.current_animation_length).timeout
 	queue_free()
+
+func play_with_randomized_audio(sound: AudioStreamPlayer2D):
+	sound.pitch_scale = sound.pitch_scale * (1.0 + randf_range(-pitch_variance, pitch_variance))
+	sound.volume_db = sound.volume_db + randf_range(-volume_variance, volume_variance)
+	sound.play()
 
 func _on_hurtbox_2d_hurt(damage: Variant, angle: Variant, knockback_amount: Variant) -> void:
 	hp -= damage

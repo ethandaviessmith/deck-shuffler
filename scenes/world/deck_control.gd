@@ -95,7 +95,6 @@ func resolve_hand() -> PlayerStats:
 
 	hand.clear() # Discard hand
 	return hand_buff
-	
 
 # Function to add a card to the deck
 func add_card(card: Card):

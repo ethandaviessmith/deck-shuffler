@@ -1,10 +1,11 @@
-[gd_scene load_steps=13 format=3 uid="uid://iq63nlaer5ul"]
+[gd_scene load_steps=14 format=3 uid="uid://iq63nlaer5ul"]
 
 [ext_resource type="Script" path="res://scenes/world/enemy.gd" id="1_2wiof"]
 [ext_resource type="SpriteFrames" uid="uid://coxg58roo4g74" path="res://assets/critter_2.tres" id="1_pg8tb"]
 [ext_resource type="PackedScene" uid="uid://b07rljcn3rxmd" path="res://components/interaction/2D/interactables/hurtbox_2d.tscn" id="3_pva0l"]
 [ext_resource type="PackedScene" uid="uid://dvvoyxs6gfhne" path="res://components/interaction/2D/interactables/hitbox_2d.tscn" id="4_axjrv"]
 [ext_resource type="FontFile" uid="uid://do03fwxb30r7l" path="res://assets/GUI/OldSchoolAdventures-42j9.ttf" id="5_bpmjk"]
+[ext_resource type="AudioStream" uid="uid://b17xuikgm18at" path="res://assets/audio/hit-flesh-01-266311.mp3" id="6_v0a0p"]
 
 [sub_resource type="Animation" id="Animation_wasu3"]
 length = 0.001
@@ -152,6 +153,10 @@ offset_right = 13.0
 theme_override_fonts/font = ExtResource("5_bpmjk")
 theme_override_font_sizes/font_size = 7
 horizontal_alignment = 1
+
+[node name="SFXAudioStream" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_v0a0p")
+bus = &"SFX"
 
 [connection signal="hurt" from="Hurtbox2D" to="." method="_on_hurtbox_2d_hurt"]
 

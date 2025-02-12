@@ -10,6 +10,9 @@ var level = 1
 
 @export var buff: AttackStats
 
+@export var pitch_variance: float = 0.1  # Pitch variance range
+@export var volume_variance: float = 0.1  # Volume variance range
+
 var target = Vector2.ZERO
 var angle = Vector2.ZERO
 
@@ -17,6 +20,8 @@ var angle = Vector2.ZERO
 @onready var hitbox: Hitbox2D = $Hitbox2D
 @onready var snd_play:AudioStreamPlayer2D = $snd_play
 @onready var sprite:Sprite2D =$Sprite2D
+
+
 
 signal remove_from_array(object)
 
@@ -36,6 +41,7 @@ func _ready():
 	var tween = create_tween()
 	tween.tween_property(self,"scale", Vector2(1,1) * size, 0.3).set_trans(Tween.TRANS_BOUNCE).set_ease(Tween.EASE_OUT)
 	tween.play()
+	play_with_randomized_audio(snd_play)
 
 func _physics_process(delta):
 	position += angle*speed*delta
@@ -45,13 +51,19 @@ func enemy_hit(charge = 1):
 	if hp <= 0:
 		hitbox.disable()
 		$CollisionShape2D.disabled = true
-		_play_death_effect()
+		
 
 func add_buff(add_buff:AttackStats):
 	buff = add_buff
+	
+# Randomize pitch slightly by adjusting the pitch scale and volume slightly by adjusting the volume in dB
+func play_with_randomized_audio(sound: AudioStreamPlayer2D):
+	sound.pitch_scale = sound.pitch_scale * (1.0 + randf_range(-pitch_variance, pitch_variance))
+	sound.volume_db = sound.volume_db + randf_range(-volume_variance, volume_variance)
+	sound.play()
+
 
 func _play_death_effect():
-	snd_play.play()
 	#await darken_sprite()
 	await jitter_and_shrink()
 	emit_signal("remove_from_array",self)

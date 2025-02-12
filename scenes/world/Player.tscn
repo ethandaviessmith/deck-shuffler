@@ -29,10 +29,10 @@
 [sub_resource type="Resource" id="Resource_kruik"]
 script = ExtResource("2_5xxq7")
 armor = 0
-draw_speed = 3.0
-shuffle_speed = 0.0
-attacks_per_second = 0.0
 time = 6.0
+draw_speed = 1.0
+shuffle_speed = 1.0
+attacks_per_second = 1.0
 attacks = Array[ExtResource("2_dff2h")]([])
 spells = Array[ExtResource("4_624bx")]([])
 damage = 1.0
@@ -549,6 +549,7 @@ wait_time = 3.0
 autostart = true
 
 [node name="ShuffleTimer" type="Timer" parent="GUI/DeckControl"]
+unique_name_in_owner = true
 wait_time = 2.0
 one_shot = true
 
@@ -562,6 +563,7 @@ position = Vector2(20, 64)
 stream = ExtResource("25_2db4x")
 
 [node name="Control" type="Control" parent="GUI/DeckControl"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

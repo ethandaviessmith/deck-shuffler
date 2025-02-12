@@ -15,6 +15,7 @@ const GroupName: StringName = &"player"
 @onready var manaBar = get_node("%ManaBar")
 
 @onready var draw_timer = get_node("%DrawTimer")
+@onready var shuffle_timer = get_node("%ShuffleTimer")
 @onready var lblLevel = get_node("%lbl_level")
 @onready var buff_label = get_node("%buff_label")
 
@@ -74,14 +75,19 @@ var enemy_far = []
 
 func _ready() -> void:
 	animation_player.play("idle")
-	draw_timer.wait_time = stats.draw_speed
 	
 	set_guibar(expBar,experience, calculate_experiencecap())
 	set_guibar(manaBar, mana, max_mana)
 	set_guibar(healthBar, hp, stats.durability)
 	
+	set_player_stats()
 	set_deck(5)
 	attack()
+
+func set_player_stats():
+	draw_timer.wait_time *= stats.draw_speed
+	shuffle_timer.wait_time *= stats.shuffle_speed
+	print("draw ",draw_timer.wait_time, ",shuffle ", shuffle_timer.wait_time)
 
 # MOVEMENT
 func _physics_process(_delta: float) -> void:
@@ -242,11 +248,11 @@ func calculate_experiencecap():
 
 func apply_upgrade(card: Card):
 	if card.is_card_type_stat():
-		stats.add_buff(card.attack)
+		stats.add_player_stats(card.spell)
+		set_player_stats()
 	else:
 		deck.add_card(card)
 	display_buffs(111)
-	#pass
 
 #region VISUALS
 func show_level_control():
