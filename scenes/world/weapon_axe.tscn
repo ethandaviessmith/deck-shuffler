@@ -1,29 +1,20 @@
 [gd_scene load_steps=6 format=3 uid="uid://bqltejbbflvly"]
 
 [ext_resource type="Script" path="res://scenes/world/weapon.gd" id="1_pqug7"]
-[ext_resource type="PackedScene" uid="uid://dvvoyxs6gfhne" path="res://components/interaction/2D/interactables/hitbox_2d.tscn" id="2_0r7h0"]
+[ext_resource type="AudioStream" uid="uid://betw2m30spj7l" path="res://assets/audio/swish.mp3" id="3_ci7s4"]
+[ext_resource type="AudioStream" uid="uid://b17xuikgm18at" path="res://assets/audio/hit-flesh-01-266311.mp3" id="4_bf3rl"]
 [ext_resource type="Texture2D" uid="uid://dinbqp45aok51" path="res://assets/weapons-and-equipment.png" id="4_iffqg"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_8swkb"]
-size = Vector2(19.75, 8)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4vuiw"]
 size = Vector2(14.25, 6)
 
-[node name="Dagger" type="Area2D" groups=["attack"]]
+[node name="Weapon" type="Area2D" groups=["attack"]]
 texture_filter = 1
 collision_layer = 128
 collision_mask = 4
 script = ExtResource("1_pqug7")
-
-[node name="Hitbox2D" parent="." instance=ExtResource("2_0r7h0")]
-collision_layer = 132
-collision_mask = 4
+hp = 2
 damage = 2
-
-[node name="CollisionShape2D" parent="Hitbox2D" index="0"]
-position = Vector2(4.125, 0)
-shape = SubResource("RectangleShape2D_8swkb")
 
 [node name="Timer" type="Timer" parent="."]
 autostart = true
@@ -33,9 +24,6 @@ position = Vector2(1.875, 0)
 shape = SubResource("RectangleShape2D_4vuiw")
 
 [node name="Node2D" type="Node2D" parent="."]
-
-[node name="snd_play" type="AudioStreamPlayer2D" parent="."]
-bus = &"SFX"
 
 [node name="TimerDeath" type="Timer" parent="."]
 wait_time = 5.0
@@ -48,7 +36,13 @@ texture = ExtResource("4_iffqg")
 region_enabled = true
 region_rect = Rect2(0, 0, 32, 32)
 
+[node name="StartAudioStream" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_ci7s4")
+bus = &"SFX"
+
+[node name="HitAudioStream" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_bf3rl")
+bus = &"SFX"
+
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="TimerDeath" to="." method="_on_timer_death_timeout"]
-
-[editable path="Hitbox2D"]

@@ -13,9 +13,9 @@ var speed = -0.5
 @onready var collision = $CollisionShape2D
 @onready var sound = $snd_play
 var lifetime = 3.0  # Total time before the sprite destroys itself in seconds
-var jitter_start_time = 2.5
-var jitter_intensity = 1.8  # Intensity of the jitter effect
-var fade_duration = 0.4  # Duration of the fade-out effect in seconds
+var jitter_start_time = 2.0
+var jitter_intensity = 2.0  # Intensity of the jitter effect
+var fade_duration = 0.6  # Duration of the fade-out effect in seconds
 var time_elapsed = 0.0
 
 func _ready():

@@ -4,8 +4,8 @@ extends Resource
 class_name BaseStats
 
 # Default addition
-@export var damage: float = 1.0
-@export var durability: float = 2.0
+@export var damage: float = 0.0
+@export var durability: float = 0.0
 
 # Default Multiplier
 @export var speed: float = 1.0

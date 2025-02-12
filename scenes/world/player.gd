@@ -139,7 +139,7 @@ func attack():
 		weapon.position = position
 		weapon.target = get_random_enemy().global_position
 		
-		weapon.add_buff(buff as AttackStats)
+		weapon.set_buff(buff)
 		attacks.call_deferred("add_child", weapon)
 	#knifeTimer.wait_time = nife_attackspeed * ( 1 - spell_cooldown)
 

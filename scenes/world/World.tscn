@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=4 uid="uid://bvyi5v3q5glkx"]
+[gd_scene load_steps=41 format=4 uid="uid://bvyi5v3q5glkx"]
 
 [ext_resource type="PackedScene" uid="uid://iq63nlaer5ul" path="res://scenes/world/Enemy.tscn" id="1_78kn1"]
 [ext_resource type="PackedScene" uid="uid://b6xsykb6ffhrn" path="res://scenes/world/Player.tscn" id="1_sythe"]
@@ -18,6 +18,7 @@
 [ext_resource type="Texture2D" uid="uid://tnfxj728yagg" path="res://assets/cards/cards14.png" id="16_ewon4"]
 [ext_resource type="Texture2D" uid="uid://k30npqskair6" path="res://assets/cards/cards15.png" id="17_w0fud"]
 [ext_resource type="Texture2D" uid="uid://s4po7yd714xd" path="res://assets/cards/cards16.png" id="18_rogvp"]
+[ext_resource type="Material" uid="uid://dv4gs88rfind1" path="res://shaders/fog_material.tres" id="19_4vo1s"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qqcfr"]
 texture = ExtResource("6_jpaak")
@@ -161,7 +162,7 @@ script = ExtResource("8_fsskc")
 weapon_type = 0
 fade = 2.0
 knockback = 2.0
-damage = 1.0
+damage = 0.0
 durability = 1.0
 speed = 1.0
 size = 1.0
@@ -179,8 +180,8 @@ script = ExtResource("8_fsskc")
 weapon_type = 1
 fade = 3.0
 knockback = 1.0
-damage = 1.0
-durability = 2.0
+damage = 0.0
+durability = 0.0
 speed = 0.8
 size = 1.0
 
@@ -198,7 +199,7 @@ weapon_type = 2
 fade = 3.0
 knockback = 2.0
 damage = 2.0
-durability = 2.0
+durability = 0.0
 speed = 1.0
 size = 1.0
 
@@ -215,7 +216,7 @@ script = ExtResource("8_fsskc")
 weapon_type = 5
 fade = 0.0
 knockback = 0.0
-damage = 1.0
+damage = 0.0
 durability = 0.0
 speed = 1.0
 size = 1.0
@@ -240,7 +241,7 @@ attacks_per_second = 1.0
 attacks = Array[ExtResource("8_fsskc")]([])
 spells = Array[ExtResource("13_2oihk")]([])
 damage = 0.0
-durability = 2.0
+durability = 0.0
 speed = 1.0
 size = 1.0
 
@@ -393,5 +394,24 @@ unique_name_in_owner = true
 script = ExtResource("6_dideo")
 deck = Array[ExtResource("7_tugua")]([SubResource("Resource_oxfa6"), SubResource("Resource_eridv"), SubResource("Resource_8gd7h"), SubResource("Resource_580ic")])
 player_upgrades = Array[ExtResource("7_tugua")]([SubResource("Resource_exmbl"), SubResource("Resource_uafl5"), SubResource("Resource_o6lf2"), SubResource("Resource_xxe5f"), SubResource("Resource_tkx8r")])
+
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+material = ExtResource("19_4vo1s")
+offset_right = 221.0
+offset_bottom = 159.0
+
+[node name="Fog" type="ParallaxBackground" parent="."]
+layer = 2
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="Fog"]
+motion_mirroring = Vector2(1280, 720)
+
+[node name="ColorRect" type="ColorRect" parent="Fog/ParallaxLayer"]
+material = ExtResource("19_4vo1s")
+offset_left = -153.0
+offset_top = -113.0
+offset_right = 1127.0
+offset_bottom = 607.0
 
 [connection signal="timeout" from="EnemySpawner/Timer" to="EnemySpawner" method="_on_timer_timeout"]

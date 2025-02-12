@@ -18,10 +18,9 @@ var angle = Vector2.ZERO
 
 @onready var player = get_tree().get_first_node_in_group(Player.GroupName)
 @onready var hitbox: Hitbox2D = $Hitbox2D
-@onready var snd_play:AudioStreamPlayer2D = $snd_play
+@onready var start_audio:AudioStreamPlayer2D = $StartAudioStream
+@onready var hit_audio:AudioStreamPlayer2D = $HitAudioStream
 @onready var sprite:Sprite2D =$Sprite2D
-
-
 
 signal remove_from_array(object)
 
@@ -30,8 +29,8 @@ func _ready():
 	rotation = angle.angle()
 	
 	if not buff == null:
-		hp = buff.durability
-		damage = buff.damage
+		hp += buff.durability
+		damage += buff.damage
 		
 		knockback *= buff.knockback
 		speed *= buff.speed
@@ -41,20 +40,21 @@ func _ready():
 	var tween = create_tween()
 	tween.tween_property(self,"scale", Vector2(1,1) * size, 0.3).set_trans(Tween.TRANS_BOUNCE).set_ease(Tween.EASE_OUT)
 	tween.play()
-	play_with_randomized_audio(snd_play)
+	play_with_randomized_audio(start_audio)
 
 func _physics_process(delta):
-	position += angle*speed*delta
+	position += angle * speed * delta
 
 func enemy_hit(charge = 1):
 	hp -= charge
+	play_with_randomized_audio(hit_audio)
 	if hp <= 0:
-		hitbox.disable()
-		$CollisionShape2D.disabled = true
+		$CollisionShape2D.call_deferred("set","disabled",true)
+		_play_death_effect()
 		
 
-func add_buff(add_buff:AttackStats):
-	buff = add_buff
+func set_buff(_buff:AttackStats):
+	buff = _buff
 	
 # Randomize pitch slightly by adjusting the pitch scale and volume slightly by adjusting the volume in dB
 func play_with_randomized_audio(sound: AudioStreamPlayer2D):

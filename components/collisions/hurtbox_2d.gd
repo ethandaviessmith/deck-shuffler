@@ -36,16 +36,12 @@ func on_area_entered(hitbox: Node2D) -> void:
 		var knockback = 1
 		if not hitbox.get("angle") == null:
 			angle = hitbox.angle
-			print("enemy angle",angle)
 		if not hitbox.get("knockback") == null:
 			knockback = hitbox.knockback
 		
-		if not hitbox.get("angle") == null && not hitbox.get("knockback") == null: # prevent signal unless pulling values that i want
-			emit_signal("hurt",damage, angle, knockback)
+		emit_signal("hurt",damage, angle, knockback)
 		if hitbox.has_method("enemy_hit"):
 			hitbox.enemy_hit(1)
-		else:
-			print("enemy hit happened", hitbox.name)
 
 func _on_disable_timer_timeout():
 	collision.call_deferred("set","disabled",false)

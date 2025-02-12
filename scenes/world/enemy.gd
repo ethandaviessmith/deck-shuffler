@@ -76,6 +76,9 @@ func _on_hurtbox_2d_hurt(damage: Variant, angle: Variant, knockback_amount: Vari
 	hp -= damage
 	knockback = angle * knockback_amount
 	damage_label.text = str(hp)
+	damage_label.modulate.a = 1
+	var tween = create_tween()
+	tween.tween_property(damage_label, "modulate:a", 0.0, 1.0)
 	if hp <= 0:
 		death()
 	else:
