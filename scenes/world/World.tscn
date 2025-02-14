@@ -166,7 +166,7 @@ script = ExtResource("4_eae5y")
 time_start = 0
 time_end = 240
 enemy = ExtResource("1_78kn1")
-enemy_num = 2
+enemy_num = 1
 enemy_spawn_delay = 0
 
 [sub_resource type="Resource" id="Resource_3rtke"]

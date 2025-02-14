@@ -39,7 +39,7 @@ var dagger = preload("res://scenes/world/weapon_dagger.tscn")
 var axe = preload("res://scenes/world/weapon_axe.tscn")
 var sword = preload("res://scenes/world/weapon_sword.tscn")
 
-
+@export var camera: Camera2D
 @export var deck: CardDeck
 var active_buffs: Array[PlayerStats] = []
 var deck_animation = false # janky anim fix for now
@@ -58,6 +58,12 @@ var experience = 0
 var experience_level = 1
 var collected_experience = 0
 
+
+@export var knockback_recovery = 2
+var knockback = Vector2.ZERO
+var normal_color = Color(1, 1, 1) 
+var hit_color = Color(1, .7, .7)
+
 #var movement_speed = 40.0
 #var last_movement = Vector2.UP
 #var time = 0
@@ -70,8 +76,9 @@ var collected_experience = 0
 var spell_cooldown = 0
 var additional_attacks = 0
 
-var enemy_near = []
-var enemy_far = []
+var enemy_far = [] # targets to shoot at
+var enemy_near = [] # prioritized targets
+var enemy_touch = [] # slowing the player
 
 func _ready() -> void:
 	animation_player.play("idle")
@@ -87,18 +94,23 @@ func _ready() -> void:
 func set_player_stats():
 	draw_timer.wait_time *= stats.draw_speed
 	shuffle_timer.wait_time *= stats.shuffle_speed
+	hp = stats.durability
 	print("draw ",draw_timer.wait_time, ",shuffle ", shuffle_timer.wait_time)
 
 # MOVEMENT
 func _physics_process(_delta: float) -> void:
-	#motion_input.set_speed(stats.speed)
 	motion_input.update()
-	velocity *= stats.speed
+	
+	var adjusted_speed = max(stats.speed - enemy_touch.size() * 0.2, stats.speed/2)
+	velocity *= adjusted_speed
+	
+	knockback = knockback.move_toward(Vector2.ZERO, knockback_recovery)
+	velocity += knockback
 	
 	if get_last_motion().x < 0.1:
 		sprite.flip_h = true
 	elif get_last_motion().x > -0.1:
-		sprite.flip_h = false
+		sprite.flip_h = false	
 
 
 func get_random_enemy():
@@ -323,10 +335,14 @@ func _on_finite_state_machine_state_changed(from_state: MachineState, state: Mac
 			"TopDownWalk":
 				animation_player.play("walk")
 
-func _on_hurt_box_2d_hurt(damage: Variant, angle: Variant, knockback: Variant) -> void:
-	print("player hurt", damage)
+func _on_hurt_box_2d_hurt(damage: Variant, angle: Variant, knockback_amount: Variant) -> void:
+	knockback = angle * knockback_amount
 	hp -= clamp(damage - stats.armor, 1.0, 999.0)
 	set_guibar(healthBar, hp, stats.durability)
+	
+	var tween = create_tween().set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_IN_OUT)
+	tween.tween_property(sprite, "modulate", hit_color, 0.1)
+	tween.tween_property(sprite, "modulate", normal_color, 0.1) 
 	if hp <= 0:
 		pass#death()
 
@@ -355,6 +371,14 @@ func _on_enemy_far_area_body_exited(body: Node2D) -> void:
 	if enemy_far.has(body):
 		enemy_far.erase(body)
 
+func _on_enemy_touch_area_2d_body_entered(body: Node2D) -> void:
+	if not enemy_touch.has(body):
+		enemy_touch.append(body)
+
+
+func _on_enemy_touch_area_2d_body_exited(body: Node2D) -> void:
+	if enemy_touch.has(body):
+		enemy_touch.erase(body)
 
 func _on_grab_area_area_entered(area: Area2D) -> void:
 	if area.is_in_group("loot"):
@@ -365,3 +389,17 @@ func _on_collect_area_area_entered(area: Area2D) -> void:
 		var gem_exp = area.collect()
 		calculate_experience(gem_exp)
 #endregion
+
+func _on_enemy_despawn_area_2d_body_exited(body: Node2D) -> void:
+	# When off the screen wrap enemies back onto the opposite side
+	var vpr = get_viewport_rect().size * (Vector2(1,1) / get_viewport().get_camera_2d().zoom)
+	var pos: Vector2 = Vector2(int(clamp(velocity.x, -1,1)), int(clamp(velocity.y, -1,1)))
+	
+	if body.position.x < global_position.x - (vpr.x/2):
+		body.position.x += vpr.x*1.3
+	elif body.position.x > global_position.x + (vpr.x/2):
+		body.position.x -= vpr.x*1.3
+	if body.position.y < global_position.y - (vpr.y/2):
+		body.position.y += vpr.y*1.3
+	elif body.position.y > global_position.y + (vpr.y/2):
+		body.position.y -= vpr.y*1.3

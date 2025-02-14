@@ -16,15 +16,15 @@ func update_fog_density(density:float):
 
 func _on_rest_area_2d_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):
-		update_fog_density(0.1)
+		update_fog_density(0.05)
 
 func _on_rest_area_2d_body_exited(body: Node2D) -> void:
 	if body.is_in_group("player"):
-		update_fog_density(0.3)
+		update_fog_density(0.15)
 
 func _on_field_area_2d_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):
-		update_fog_density(1)
+		update_fog_density(0.5)
 
 func _on_field_area_2d_body_exited(body: Node2D) -> void:
 	if body.is_in_group("player"):
