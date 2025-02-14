@@ -399,9 +399,9 @@ label_settings = SubResource("LabelSettings_tniib")
 [node name="defence_label" type="Label" parent="Debug"]
 unique_name_in_owner = true
 layout_mode = 0
-offset_left = 110.0
+offset_left = 113.75
 offset_top = 53.75
-offset_right = 120.0
+offset_right = 123.75
 offset_bottom = 63.75
 text = "1"
 label_settings = SubResource("LabelSettings_tniib")
@@ -409,9 +409,9 @@ label_settings = SubResource("LabelSettings_tniib")
 [node name="speed_label" type="Label" parent="Debug"]
 unique_name_in_owner = true
 layout_mode = 0
-offset_left = 131.25
+offset_left = 141.25
 offset_top = 53.75
-offset_right = 141.25
+offset_right = 151.25
 offset_bottom = 63.75
 text = "1"
 label_settings = SubResource("LabelSettings_tniib")
@@ -419,9 +419,9 @@ label_settings = SubResource("LabelSettings_tniib")
 [node name="size_label" type="Label" parent="Debug"]
 unique_name_in_owner = true
 layout_mode = 0
-offset_left = 151.25
+offset_left = 168.75
 offset_top = 53.75
-offset_right = 161.25
+offset_right = 178.75
 offset_bottom = 63.75
 text = "1"
 label_settings = SubResource("LabelSettings_tniib")
@@ -539,6 +539,8 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -1.0
+offset_right = -1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("26_rta5l")
@@ -599,11 +601,11 @@ horizontal_scroll_mode = 0
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
-columns = 4
+columns = 5
 
 [node name="EnemyFarArea2D" type="Area2D" parent="."]
 visible = false
-collision_layer = 4
+collision_layer = 0
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyFarArea2D"]
@@ -611,7 +613,7 @@ shape = SubResource("RectangleShape2D_2ps4q")
 
 [node name="EnemyNearArea2D" type="Area2D" parent="."]
 visible = false
-collision_layer = 4
+collision_layer = 0
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyNearArea2D"]
@@ -626,7 +628,6 @@ collision_mask = 8
 shape = SubResource("CircleShape2D_f0gk1")
 
 [node name="CollectArea" type="Area2D" parent="."]
-visible = false
 collision_layer = 0
 collision_mask = 8
 

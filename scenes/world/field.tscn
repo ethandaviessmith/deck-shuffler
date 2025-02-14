@@ -1,0 +1,337 @@
+[gd_scene load_steps=2 format=3 uid="uid://bpe337i4jjv5p"]
+
+[ext_resource type="Texture2D" uid="uid://cxahejisqcaol" path="res://assets/field-sheet.png" id="1_44vmf"]
+
+[node name="Control" type="Control"]
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 0
+offset_right = 44.0
+offset_bottom = 30.0
+
+[node name="RowControl" type="Control" parent="."]
+custom_minimum_size = Vector2(0, 71)
+anchors_preset = 0
+offset_bottom = 71.0
+
+[node name="Sprite2D" type="Sprite2D" parent="RowControl"]
+position = Vector2(32, 32)
+texture = ExtResource("1_44vmf")
+hframes = 11
+frame = 5
+
+[node name="Sprite2D2" type="Sprite2D" parent="RowControl"]
+position = Vector2(96, 32)
+texture = ExtResource("1_44vmf")
+hframes = 11
+frame = 2
+
+[node name="Sprite2D3" type="Sprite2D" parent="RowControl"]
+position = Vector2(160, 32)
+texture = ExtResource("1_44vmf")
+hframes = 11
+frame = 5
+
+[node name="Sprite2D4" type="Sprite2D" parent="RowControl"]
+position = Vector2(224, 32)
+texture = ExtResource("1_44vmf")
+hframes = 11
+frame = 5
+
+[node name="Sprite2D5" type="Sprite2D" parent="RowControl"]
+position = Vector2(288, 32)
+texture = ExtResource("1_44vmf")
+hframes = 11
+frame = 4
+
+[node name="Sprite2D6" type="Sprite2D" parent="RowControl"]
+position = Vector2(352, 32)
+texture = ExtResource("1_44vmf")
+hframes = 11
+frame = 9
+
+[node name="Sprite2D7" type="Sprite2D" parent="RowControl"]
+position = Vector2(416, 32)
+texture = ExtResource("1_44vmf")
+hframes = 11
+frame = 6
+
+[node name="Sprite2D8" type="Sprite2D" parent="RowControl"]
+position = Vector2(480, 32)
+texture = ExtResource("1_44vmf")
+hframes = 11
+frame = 2
+
+[node name="RowControl2" type="Control" parent="."]
+custom_minimum_size = Vector2(0, 71)
+layout_mode = 3
+anchors_preset = 0
+offset_top = 48.0
+offset_bottom = 119.0
+
+[node name="Sprite2D" type="Sprite2D" parent="RowControl2"]
+position = Vector2(32, 32)
+texture = ExtResource("1_44vmf")
+hframes = 11
+frame = 5
+
+[node name="Sprite2D2" type="Sprite2D" parent="RowControl2"]
+position = Vector2(96, 32)
+texture = ExtResource("1_44vmf")
+hframes = 11
+frame = 6
+
+[node name="Sprite2D3" type="Sprite2D" parent="RowControl2"]
+position = Vector2(160, 32)
+texture = ExtResource("1_44vmf")
+hframes = 11
+frame = 5
+
+[node name="Sprite2D4" type="Sprite2D" parent="RowControl2"]
+position = Vector2(224, 32)
+texture = ExtResource("1_44vmf")
+hframes = 11
+frame = 3
+
+[node name="Sprite2D5" type="Sprite2D" parent="RowControl2"]
+position = Vector2(288, 32)
+texture = ExtResource("1_44vmf")
+hframes = 11
+frame = 2
+
+[node name="Sprite2D6" type="Sprite2D" parent="RowControl2"]
+position = Vector2(352, 32)
+texture = ExtResource("1_44vmf")
+hframes = 11
+frame = 8
+
+[node name="Sprite2D7" type="Sprite2D" parent="RowControl2"]
+position = Vector2(416, 32)
+texture = ExtResource("1_44vmf")
+hframes = 11
+frame = 9
+
+[node name="Sprite2D8" type="Sprite2D" parent="RowControl2"]
+position = Vector2(480, 32)
+texture = ExtResource("1_44vmf")
+hframes = 11
+frame = 2
+
+[node name="RowControl3" type="Control" parent="."]
+custom_minimum_size = Vector2(0, 71)
+layout_mode = 3
+anchors_preset = 0
+offset_top = 92.0
+offset_bottom = 164.0
+
+[node name="Sprite2D" type="Sprite2D" parent="RowControl3"]
+position = Vector2(32, 32)
+texture = ExtResource("1_44vmf")
+hframes = 11
+frame = 4
+
+[node name="Sprite2D2" type="Sprite2D" parent="RowControl3"]
+position = Vector2(96, 32)
+texture = ExtResource("1_44vmf")
+hframes = 11
+frame = 2
+
+[node name="Sprite2D3" type="Sprite2D" parent="RowControl3"]
+position = Vector2(160, 32)
+texture = ExtResource("1_44vmf")
+hframes = 11
+frame = 9
+
+[node name="Sprite2D4" type="Sprite2D" parent="RowControl3"]
+position = Vector2(224, 32)
+texture = ExtResource("1_44vmf")
+hframes = 11
+frame = 5
+
+[node name="Sprite2D5" type="Sprite2D" parent="RowControl3"]
+position = Vector2(288, 32)
+texture = ExtResource("1_44vmf")
+hframes = 11
+frame = 1
+
+[node name="Sprite2D6" type="Sprite2D" parent="RowControl3"]
+position = Vector2(352, 32)
+texture = ExtResource("1_44vmf")
+hframes = 11
+frame = 9
+
+[node name="Sprite2D7" type="Sprite2D" parent="RowControl3"]
+position = Vector2(416, 32)
+texture = ExtResource("1_44vmf")
+hframes = 11
+frame = 7
+
+[node name="Sprite2D8" type="Sprite2D" parent="RowControl3"]
+position = Vector2(480, 32)
+texture = ExtResource("1_44vmf")
+hframes = 11
+frame = 1
+
+[node name="RowControl4" type="Control" parent="."]
+custom_minimum_size = Vector2(0, 71)
+layout_mode = 3
+anchors_preset = 0
+offset_top = 139.0
+offset_bottom = 210.0
+
+[node name="Sprite2D" type="Sprite2D" parent="RowControl4"]
+position = Vector2(32, 32)
+texture = ExtResource("1_44vmf")
+hframes = 11
+frame = 5
+
+[node name="Sprite2D2" type="Sprite2D" parent="RowControl4"]
+position = Vector2(96, 32)
+texture = ExtResource("1_44vmf")
+hframes = 11
+frame = 7
+
+[node name="Sprite2D3" type="Sprite2D" parent="RowControl4"]
+position = Vector2(160, 32)
+texture = ExtResource("1_44vmf")
+hframes = 11
+frame = 5
+
+[node name="Sprite2D4" type="Sprite2D" parent="RowControl4"]
+position = Vector2(224, 32)
+texture = ExtResource("1_44vmf")
+hframes = 11
+frame = 5
+
+[node name="Sprite2D5" type="Sprite2D" parent="RowControl4"]
+position = Vector2(288, 32)
+texture = ExtResource("1_44vmf")
+hframes = 11
+frame = 1
+
+[node name="Sprite2D6" type="Sprite2D" parent="RowControl4"]
+position = Vector2(352, 32)
+texture = ExtResource("1_44vmf")
+hframes = 11
+frame = 9
+
+[node name="Sprite2D7" type="Sprite2D" parent="RowControl4"]
+position = Vector2(416, 32)
+texture = ExtResource("1_44vmf")
+hframes = 11
+frame = 9
+
+[node name="Sprite2D8" type="Sprite2D" parent="RowControl4"]
+position = Vector2(480, 32)
+texture = ExtResource("1_44vmf")
+hframes = 11
+frame = 4
+
+[node name="RowControl5" type="Control" parent="."]
+custom_minimum_size = Vector2(0, 71)
+layout_mode = 3
+anchors_preset = 0
+offset_top = 188.0
+offset_bottom = 259.0
+
+[node name="Sprite2D" type="Sprite2D" parent="RowControl5"]
+position = Vector2(32, 32)
+texture = ExtResource("1_44vmf")
+hframes = 11
+
+[node name="Sprite2D2" type="Sprite2D" parent="RowControl5"]
+position = Vector2(96, 32)
+texture = ExtResource("1_44vmf")
+hframes = 11
+frame = 2
+
+[node name="Sprite2D3" type="Sprite2D" parent="RowControl5"]
+position = Vector2(160, 32)
+texture = ExtResource("1_44vmf")
+hframes = 11
+frame = 1
+
+[node name="Sprite2D4" type="Sprite2D" parent="RowControl5"]
+position = Vector2(224, 32)
+texture = ExtResource("1_44vmf")
+hframes = 11
+frame = 4
+
+[node name="Sprite2D5" type="Sprite2D" parent="RowControl5"]
+position = Vector2(288, 32)
+texture = ExtResource("1_44vmf")
+hframes = 11
+frame = 3
+
+[node name="Sprite2D6" type="Sprite2D" parent="RowControl5"]
+position = Vector2(352, 32)
+texture = ExtResource("1_44vmf")
+hframes = 11
+frame = 9
+
+[node name="Sprite2D7" type="Sprite2D" parent="RowControl5"]
+position = Vector2(416, 32)
+texture = ExtResource("1_44vmf")
+hframes = 11
+frame = 9
+
+[node name="Sprite2D8" type="Sprite2D" parent="RowControl5"]
+position = Vector2(480, 32)
+texture = ExtResource("1_44vmf")
+hframes = 11
+frame = 2
+
+[node name="RowControl6" type="Control" parent="."]
+custom_minimum_size = Vector2(0, 71)
+layout_mode = 3
+anchors_preset = 0
+offset_top = 236.0
+offset_bottom = 307.0
+
+[node name="Sprite2D" type="Sprite2D" parent="RowControl6"]
+position = Vector2(32, 32)
+texture = ExtResource("1_44vmf")
+hframes = 11
+frame = 2
+
+[node name="Sprite2D2" type="Sprite2D" parent="RowControl6"]
+position = Vector2(96, 32)
+texture = ExtResource("1_44vmf")
+hframes = 11
+frame = 9
+
+[node name="Sprite2D3" type="Sprite2D" parent="RowControl6"]
+position = Vector2(160, 32)
+texture = ExtResource("1_44vmf")
+hframes = 11
+frame = 5
+
+[node name="Sprite2D4" type="Sprite2D" parent="RowControl6"]
+position = Vector2(224, 32)
+texture = ExtResource("1_44vmf")
+hframes = 11
+frame = 5
+
+[node name="Sprite2D5" type="Sprite2D" parent="RowControl6"]
+position = Vector2(288, 32)
+texture = ExtResource("1_44vmf")
+hframes = 11
+frame = 1
+
+[node name="Sprite2D6" type="Sprite2D" parent="RowControl6"]
+position = Vector2(352, 32)
+texture = ExtResource("1_44vmf")
+hframes = 11
+frame = 10
+
+[node name="Sprite2D7" type="Sprite2D" parent="RowControl6"]
+position = Vector2(416, 32)
+texture = ExtResource("1_44vmf")
+hframes = 11
+frame = 4
+
+[node name="Sprite2D8" type="Sprite2D" parent="RowControl6"]
+position = Vector2(480, 32)
+texture = ExtResource("1_44vmf")
+hframes = 11
+frame = 2
