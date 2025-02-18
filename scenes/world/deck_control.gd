@@ -44,8 +44,6 @@ func shuffle():
 	shuffle_audio.play()
 	$ShuffleTimer.start()
 
-
-
 func _on_shuffle_complete():
 	#hand.clear()
 	draw_pile = deck.duplicate()
@@ -74,7 +72,12 @@ func has_draw() -> bool:
 
 func get_hand() -> Array[Card]:
 	return hand
-	
+
+func get_last_drawn_card() -> Card:
+	if hand.size() == 0:
+		return null
+	return hand.back()
+
 func resolve_hand() -> PlayerStats:
 	var hand_buff = PlayerStats.new()
 	for card in hand:

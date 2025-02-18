@@ -11,8 +11,11 @@ var knockback = Vector2.ZERO
 @onready var loot_base = get_tree().get_first_node_in_group("loot")
 @onready var sprite = $AnimatedSprite2D
 @onready var anim: AnimationPlayer = $AnimationPlayer;
+
 @onready var hitBox = $Hitbox2D
 @onready var damage_label = $DamageLabel
+var normal_color = Color(1, 1, 1) 
+var hit_color = Color(1, .7, .7)
 
 @onready var sfx_audio:AudioStreamPlayer2D = $SFXAudioStream
 @export var pitch_variance: float = 0.1  # Pitch variance range
@@ -79,6 +82,10 @@ func _on_hurtbox_2d_hurt(damage: Variant, angle: Variant, knockback_amount: Vari
 	damage_label.modulate.a = 1
 	var tween = create_tween()
 	tween.tween_property(damage_label, "modulate:a", 0.0, 1.0)
+	
+	var tween2 = create_tween().set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_IN_OUT)
+	tween2.tween_property(sprite, "modulate", hit_color, 0.1)
+	tween2.tween_property(sprite, "modulate", normal_color, 0.1) 
 	if hp <= 0:
 		death()
 	else:

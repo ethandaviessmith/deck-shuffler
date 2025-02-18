@@ -1,6 +1,7 @@
 class_name Card extends Resource
 
 enum CardType { ATTACK, SPELL, ACTION, STAT }
+enum ACTIONS { NA, QUICK_DRAW, DOUBLE_FINALE, MIRRAGE}
 enum Rarity { COMMON }
 
 @export var name: String
@@ -8,6 +9,7 @@ enum Rarity { COMMON }
 @export var card_type: CardType
 @export var attack: AttackStats = AttackStats.new()
 @export var spell: SpellStats = SpellStats.new()
+@export var action: ACTIONS = ACTIONS.NA
 @export var rarity: Rarity
 
 static func get_card_type(card_type:CardType) -> String:

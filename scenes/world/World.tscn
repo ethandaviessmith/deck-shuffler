@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=4 uid="uid://bvyi5v3q5glkx"]
+[gd_scene load_steps=52 format=4 uid="uid://bvyi5v3q5glkx"]
 
 [ext_resource type="PackedScene" uid="uid://iq63nlaer5ul" path="res://scenes/world/Enemy.tscn" id="1_78kn1"]
 [ext_resource type="Script" path="res://scenes/world/map.gd" id="1_hf0a2"]
@@ -11,17 +11,20 @@
 [ext_resource type="Script" path="res://scenes/world/card.gd" id="7_tugua"]
 [ext_resource type="Script" path="res://components/game/attack_stats.gd" id="8_fsskc"]
 [ext_resource type="Texture2D" uid="uid://8ubtvov6hn83" path="res://assets/cards/cards2.png" id="9_5t0hg"]
-[ext_resource type="Texture2D" uid="uid://bo4tqip5llm3i" path="res://assets/cards/cards4.png" id="10_y7rni"]
 [ext_resource type="Texture2D" uid="uid://ymvwl7y108tj" path="res://assets/cards/cards6.png" id="11_q4jti"]
-[ext_resource type="Texture2D" uid="uid://ylnls4xr471t" path="res://assets/cards/cards7.png" id="12_rsb0i"]
 [ext_resource type="Script" path="res://components/game/spell_stats.gd" id="13_2oihk"]
-[ext_resource type="Texture2D" uid="uid://bevsai7m4e5ek" path="res://assets/cards/cards12.png" id="14_4d4d5"]
-[ext_resource type="Texture2D" uid="uid://jhorkm5wu67k" path="res://assets/cards/cards13.png" id="15_nh6t7"]
-[ext_resource type="Texture2D" uid="uid://tnfxj728yagg" path="res://assets/cards/cards14.png" id="16_ewon4"]
+[ext_resource type="Texture2D" uid="uid://bjrmgjkhvdhxm" path="res://assets/cards/cards8.png" id="14_ank4h"]
+[ext_resource type="Texture2D" uid="uid://cxyej0slmaeey" path="res://assets/cards/cards10.png" id="15_qmehy"]
 [ext_resource type="Texture2D" uid="uid://k30npqskair6" path="res://assets/cards/cards15.png" id="17_w0fud"]
-[ext_resource type="Texture2D" uid="uid://s4po7yd714xd" path="res://assets/cards/cards16.png" id="18_rogvp"]
+[ext_resource type="Texture2D" uid="uid://crt4os1asdqrh" path="res://assets/cards/cards18.png" id="17_wlf66"]
+[ext_resource type="Texture2D" uid="uid://cxi5fqymxqcu4" path="res://assets/cards/cards19.png" id="18_xmdy8"]
+[ext_resource type="Texture2D" uid="uid://cp6afh2lxqw6h" path="res://assets/cards/cards20.png" id="18_yi5xp"]
 [ext_resource type="Material" uid="uid://dv4gs88rfind1" path="res://shaders/fog_material.tres" id="19_4vo1s"]
+[ext_resource type="Texture2D" uid="uid://b8ds7wopjbkyy" path="res://assets/cards/cards21.png" id="19_65dly"]
+[ext_resource type="Texture2D" uid="uid://cfon42c8uvecx" path="res://assets/cards/cards22.png" id="20_rctnv"]
 [ext_resource type="PackedScene" uid="uid://bpe337i4jjv5p" path="res://scenes/world/field.tscn" id="20_xm670"]
+[ext_resource type="Texture2D" uid="uid://cmk27wfdhsh21" path="res://assets/cards/cards23.png" id="21_w8ibi"]
+[ext_resource type="Texture2D" uid="uid://eyrorsjsi3cd" path="res://assets/cards/cards24.png" id="22_pal45"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qqcfr"]
 texture = ExtResource("1_l660s")
@@ -185,6 +188,7 @@ name = "slice"
 texture = ExtResource("9_5t0hg")
 card_type = 0
 attack = SubResource("Resource_3rtke")
+action = 0
 rarity = 0
 
 [sub_resource type="Resource" id="Resource_rkxd2"]
@@ -200,9 +204,10 @@ size = 1.0
 [sub_resource type="Resource" id="Resource_eridv"]
 script = ExtResource("7_tugua")
 name = "slash"
-texture = ExtResource("10_y7rni")
+texture = ExtResource("11_q4jti")
 card_type = 0
 attack = SubResource("Resource_rkxd2")
+action = 0
 rarity = 0
 
 [sub_resource type="Resource" id="Resource_xm6s7"]
@@ -218,9 +223,10 @@ size = 1.0
 [sub_resource type="Resource" id="Resource_8gd7h"]
 script = ExtResource("7_tugua")
 name = "chop"
-texture = ExtResource("11_q4jti")
+texture = ExtResource("14_ank4h")
 card_type = 0
 attack = SubResource("Resource_xm6s7")
+action = 0
 rarity = 0
 
 [sub_resource type="Resource" id="Resource_g4i7s"]
@@ -236,9 +242,34 @@ size = 1.0
 [sub_resource type="Resource" id="Resource_580ic"]
 script = ExtResource("7_tugua")
 name = "attack"
-texture = ExtResource("12_rsb0i")
+texture = ExtResource("15_qmehy")
 card_type = 0
 attack = SubResource("Resource_g4i7s")
+action = 0
+rarity = 0
+
+[sub_resource type="Resource" id="Resource_lkljn"]
+script = ExtResource("7_tugua")
+name = "Quick Draw"
+texture = ExtResource("17_w0fud")
+card_type = 2
+action = 1
+rarity = 0
+
+[sub_resource type="Resource" id="Resource_k3mic"]
+script = ExtResource("7_tugua")
+name = "Double finale"
+texture = ExtResource("17_wlf66")
+card_type = 2
+action = 2
+rarity = 0
+
+[sub_resource type="Resource" id="Resource_yr7tv"]
+script = ExtResource("7_tugua")
+name = "Mirrage"
+texture = ExtResource("18_xmdy8")
+card_type = 2
+action = 3
 rarity = 0
 
 [sub_resource type="Resource" id="Resource_xnx8o"]
@@ -260,9 +291,10 @@ size = 1.0
 [sub_resource type="Resource" id="Resource_exmbl"]
 script = ExtResource("7_tugua")
 name = "endure"
-texture = ExtResource("14_4d4d5")
+texture = ExtResource("18_yi5xp")
 card_type = 3
 spell = SubResource("Resource_xnx8o")
+action = 0
 rarity = 0
 
 [sub_resource type="Resource" id="Resource_i0bjp"]
@@ -284,9 +316,10 @@ size = 1.0
 [sub_resource type="Resource" id="Resource_uafl5"]
 script = ExtResource("7_tugua")
 name = "grow"
-texture = ExtResource("15_nh6t7")
+texture = ExtResource("19_65dly")
 card_type = 3
 spell = SubResource("Resource_i0bjp")
+action = 0
 rarity = 0
 
 [sub_resource type="Resource" id="Resource_qkm4w"]
@@ -308,9 +341,10 @@ size = 1.0
 [sub_resource type="Resource" id="Resource_o6lf2"]
 script = ExtResource("7_tugua")
 name = "draw"
-texture = ExtResource("16_ewon4")
+texture = ExtResource("20_rctnv")
 card_type = 3
 spell = SubResource("Resource_qkm4w")
+action = 0
 rarity = 0
 
 [sub_resource type="Resource" id="Resource_mi84d"]
@@ -332,9 +366,10 @@ size = 1.0
 [sub_resource type="Resource" id="Resource_xxe5f"]
 script = ExtResource("7_tugua")
 name = "speed"
-texture = ExtResource("17_w0fud")
+texture = ExtResource("21_w8ibi")
 card_type = 3
 spell = SubResource("Resource_mi84d")
+action = 0
 rarity = 0
 
 [sub_resource type="Resource" id="Resource_g7ae8"]
@@ -356,9 +391,10 @@ size = 1.0
 [sub_resource type="Resource" id="Resource_tkx8r"]
 script = ExtResource("7_tugua")
 name = "shuffle"
-texture = ExtResource("18_rogvp")
+texture = ExtResource("22_pal45")
 card_type = 3
 spell = SubResource("Resource_g7ae8")
+action = 0
 rarity = 0
 
 [node name="World" type="Node2D"]
@@ -469,7 +505,7 @@ position = Vector2(331, 183)
 [node name="DeckHelper" type="Node" parent="."]
 unique_name_in_owner = true
 script = ExtResource("6_dideo")
-deck = Array[ExtResource("7_tugua")]([SubResource("Resource_oxfa6"), SubResource("Resource_eridv"), SubResource("Resource_8gd7h"), SubResource("Resource_580ic")])
+deck = Array[ExtResource("7_tugua")]([SubResource("Resource_oxfa6"), SubResource("Resource_eridv"), SubResource("Resource_8gd7h"), SubResource("Resource_580ic"), SubResource("Resource_lkljn"), SubResource("Resource_k3mic"), SubResource("Resource_yr7tv")])
 player_upgrades = Array[ExtResource("7_tugua")]([SubResource("Resource_exmbl"), SubResource("Resource_uafl5"), SubResource("Resource_o6lf2"), SubResource("Resource_xxe5f"), SubResource("Resource_tkx8r")])
 
 [node name="ColorRect" type="ColorRect" parent="."]

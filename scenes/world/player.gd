@@ -110,8 +110,7 @@ func _physics_process(_delta: float) -> void:
 	if get_last_motion().x < 0.1:
 		sprite.flip_h = true
 	elif get_last_motion().x > -0.1:
-		sprite.flip_h = false	
-
+		sprite.flip_h = false
 
 func get_random_enemy():
 	if enemy_near.size() > 0:
@@ -161,16 +160,27 @@ func set_deck(count):
 func next_action():
 	icon_resolve.visible = false
 	deck_animation = false
+	# check last card
+	var card = deck.get_last_drawn_card()
+	if not card == null:
+		if not card.action == Card.ACTIONS.NA:
+			match(card.action):
+				Card.ACTIONS.DOUBLE_FINALE:
+					use_mana(mana)
+					var buff = deck.resolve_hand()
+					summon_hand(buff)
+					summon_hand(buff)
+					return
+				Card.ACTIONS.QUICK_DRAW:
+					pass
+				_: pass
+	
 	if use_mana(draw_mana):
-		pulse_sprite(icon_draw)
 		draw_card()
-		set_guibar(manaBar, mana, max_mana)
 	else:
-		summon_hand()
-		mana = max_mana
-		var tween = create_tween() # Tween mana refill
-		tween.tween_property(manaBar,"value",mana,2.5).set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_IN_OUT)
-		tween.play()
+		# add buffs, and remove them later
+		var buff = deck.resolve_hand()
+		summon_hand(buff)
 
 func use_mana(used_mana) -> bool:
 	if mana >= draw_mana:
@@ -179,6 +189,7 @@ func use_mana(used_mana) -> bool:
 	return false
 
 func draw_card():
+	pulse_sprite(icon_draw)
 	if deck.has_draw():
 		action_anim.play("card_draw")
 		var card = deck.draw_card()
@@ -189,20 +200,24 @@ func draw_card():
 	else:
 		print("no draw, shuffling")
 		shuffle_deck()
+	set_guibar(manaBar, mana, max_mana)
 
-func summon_hand():
+func summon_hand(buff: PlayerStats):
 	icon_resolve.visible = true
 	deck_animation = true
 	animation_player.play("resolve")
 	action_anim.play("resolve")
 	draw_timer.stop()
+	mana = max_mana
+	var tween = create_tween() # Tween mana refill
+	tween.tween_property(manaBar,"value",mana,2.5).set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_IN_OUT)
+	tween.play()
 	
 	var timer_anim = TimeHelper.create_idle_timer(1.3, true, true)
 	timer_anim.connect("timeout", Callable(self,"idle"))
 	add_child(timer_anim) #janky timer to make things look nice (not cleaning up)
 	
-	# add buffs, and remove them later
-	var buff = deck.resolve_hand()
+	## add buffs, and remove them later
 	var timer = TimeHelper.create_idle_timer(buff.time, true, true)
 	var debuff = Callable(self,"debuff").bind(buff, timer)
 	timer.connect("timeout", debuff)
@@ -388,7 +403,6 @@ func _on_collect_area_area_entered(area: Area2D) -> void:
 	if area.is_in_group("loot"):
 		var gem_exp = area.collect()
 		calculate_experience(gem_exp)
-#endregion
 
 func _on_enemy_despawn_area_2d_body_exited(body: Node2D) -> void:
 	# When off the screen wrap enemies back onto the opposite side
@@ -403,3 +417,5 @@ func _on_enemy_despawn_area_2d_body_exited(body: Node2D) -> void:
 		body.position.y += vpr.y*1.3
 	elif body.position.y > global_position.y + (vpr.y/2):
 		body.position.y -= vpr.y*1.3
+
+#endregion
