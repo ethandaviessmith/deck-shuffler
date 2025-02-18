@@ -171,12 +171,10 @@ func next_action():
 					summon_hand(buff)
 					summon_hand(buff)
 					return
-				Card.ACTIONS.QUICK_DRAW:
-					pass
 				_: pass
 	
 	if use_mana(draw_mana):
-		draw_card()
+		draw_card(stats.draw_speed)
 	else:
 		# add buffs, and remove them later
 		var buff = deck.resolve_hand()
@@ -188,13 +186,17 @@ func use_mana(used_mana) -> bool:
 		return true
 	return false
 
-func draw_card():
+func draw_card(draw_speed: float):
 	pulse_sprite(icon_draw)
 	if deck.has_draw():
 		action_anim.play("card_draw")
 		var card = deck.draw_card()
+		if card.action == Card.ACTIONS.QUICK_DRAW:
+			draw_card(draw_speed/2)
+			draw_card(draw_speed/2)
+		
 		var card_instance = card_scene.instantiate() as CardSprite
-		card_instance.set_card(card)
+		card_instance.set_card(card, draw_speed)
 		card_instance.position = Vector2(0, -40.0)
 		card_node.call_deferred("add_child",card_instance)
 	else:
@@ -229,7 +231,7 @@ func shuffle_deck():
 
 func shuffle_complete():
 	draw_timer.start()
-	draw_card()
+	next_action()
 	icon_shuffle.visible = false
 	deck_animation = true
 

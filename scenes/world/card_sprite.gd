@@ -1,15 +1,16 @@
 class_name CardSprite extends Sprite2D
 
-@export var fade_duration: float = 1.0  # Default fade duration
+
 var fade_mat: ShaderMaterial
 
 @onready var label_node = get_node("%CardLabel")
 const col = 0.8 # give hue to cards by type
 
 var card: Card
-var draw_card:bool = true
+var draw_card: bool = true
+@export var draw_speed: float = 1.0
 
-func set_card(set_card: Card):
+func set_card(set_card: Card, speed: float = 1.0):
 	if not set_card == null:
 		card = set_card
 		
@@ -28,6 +29,7 @@ func set_card(set_card: Card):
 				self.modulate = Color(1, 1, 1)  # Normal other
 	else:
 		print("card is null")
+	draw_speed = speed
 
 func _ready():
 	fade_mat = get_material()
@@ -54,10 +56,10 @@ func show_card():
 		#fade_mat.set_shader_parameter("wipe_amount", 1.0)
 
 		var tween = create_tween() # Fade in effect with sweep in
-		tween.tween_property(fade_mat, "shader_parameter/reveal_progress", 1.0, fade_duration).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_IN_OUT)
-		#tween.tween_property(self.material, "shader_parameter/wipe_amount", 0.0, fade_duration).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_IN_OUT)
-		#tween.tween_property(self, "modulate:a", 1, fade_duration).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_OUT)
-		tween.tween_callback(Callable(self, "hide_card")).set_delay(fade_duration)
+		tween.tween_property(fade_mat, "shader_parameter/reveal_progress", 1.0, draw_speed).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_IN_OUT)
+		#tween.tween_property(self.material, "shader_parameter/wipe_amount", 0.0, draw_speed).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_IN_OUT)
+		#tween.tween_property(self, "modulate:a", 1, draw_speed).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_OUT)
+		tween.tween_callback(Callable(self, "hide_card")).set_delay(draw_speed)
 	
 
 func hide_card():
@@ -70,19 +72,10 @@ func hide_card():
 	
 	var tween = create_tween()
 	# Fade out and shrink (sweep out) effect
-	#tween.tween_property(self, "modulate:a", 0, fade_duration).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_OUT)
-	#tween.tween_property(self.material, "shader_parameter/wipe_amount", 1.0, fade_duration).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_IN_OUT)
-	tween.tween_property(fade_mat, "shader_parameter/reveal_progress", 1.0, fade_duration).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
-
-
-	# Callback for removal after animation
+	#tween.tween_property(self, "modulate:a", 0, draw_speed).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_OUT)
+	#tween.tween_property(self.material, "shader_parameter/wipe_amount", 1.0, draw_speed).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_IN_OUT)
+	tween.tween_property(fade_mat, "shader_parameter/reveal_progress", 1.0, draw_speed).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 	tween.tween_callback(Callable(self, "queue_free"))
-	#_remove_card()
-
-func _remove_card():
-	# Remove the card after animation
-	queue_free()
-	
 
 func _on_timer_timeout() -> void:
 	pass # Replace with function body.
