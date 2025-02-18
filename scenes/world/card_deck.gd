@@ -1,19 +1,18 @@
 class_name CardDeckSprite extends ColorRect
 
-@onready var label_node = get_node("%CardLabel")
-const col = 0.95 # give hue to cards by type
+@onready var label_node = $Card/CardLabel
+@onready var sprite = $Card
 
 var card: Card
-var draw_card:bool
+const col = 0.95 # give hue to cards by type
 
-@onready var sprite = $Card
 
 func set_card(set_card: Card):
 	if not set_card == null:
 		card = set_card
-		
-		name = set_card.name
-		
+
+		if label_node:
+			label_node.text = set_card.description
 		if set_card.texture:
 			sprite.texture = set_card.texture
 		match set_card.card_type:
@@ -29,12 +28,9 @@ func set_card(set_card: Card):
 		print("card is null")
 
 func _ready():
-	if draw_card:
-		show_card()
+	pass
 
 func show_card():
-	if label_node:
-		label_node.text = name
 	
 	if not card == null:
 		match card.card_type:

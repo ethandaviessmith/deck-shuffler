@@ -185,6 +185,7 @@ size = 1.0
 [sub_resource type="Resource" id="Resource_oxfa6"]
 script = ExtResource("7_tugua")
 name = "slice"
+description = "Throw a dagger"
 texture = ExtResource("9_5t0hg")
 card_type = 0
 attack = SubResource("Resource_3rtke")
@@ -204,6 +205,7 @@ size = 1.0
 [sub_resource type="Resource" id="Resource_eridv"]
 script = ExtResource("7_tugua")
 name = "slash"
+description = "Lob a sword"
 texture = ExtResource("11_q4jti")
 card_type = 0
 attack = SubResource("Resource_rkxd2")
@@ -223,6 +225,7 @@ size = 1.0
 [sub_resource type="Resource" id="Resource_8gd7h"]
 script = ExtResource("7_tugua")
 name = "chop"
+description = "Huck an axe"
 texture = ExtResource("14_ank4h")
 card_type = 0
 attack = SubResource("Resource_xm6s7")
@@ -242,6 +245,7 @@ size = 1.0
 [sub_resource type="Resource" id="Resource_580ic"]
 script = ExtResource("7_tugua")
 name = "attack"
+description = "+1 damage to attacks"
 texture = ExtResource("15_qmehy")
 card_type = 0
 attack = SubResource("Resource_g4i7s")
@@ -251,6 +255,7 @@ rarity = 0
 [sub_resource type="Resource" id="Resource_lkljn"]
 script = ExtResource("7_tugua")
 name = "Quick Draw"
+description = "Draw 2 more cards"
 texture = ExtResource("17_w0fud")
 card_type = 2
 action = 1
@@ -259,6 +264,7 @@ rarity = 0
 [sub_resource type="Resource" id="Resource_k3mic"]
 script = ExtResource("7_tugua")
 name = "Double finale"
+description = "Resolve hand twice"
 texture = ExtResource("17_wlf66")
 card_type = 2
 action = 2
@@ -267,6 +273,7 @@ rarity = 0
 [sub_resource type="Resource" id="Resource_yr7tv"]
 script = ExtResource("7_tugua")
 name = "Mirrage"
+description = "Copy effects of last card"
 texture = ExtResource("18_xmdy8")
 card_type = 2
 action = 3
@@ -291,6 +298,7 @@ size = 1.0
 [sub_resource type="Resource" id="Resource_exmbl"]
 script = ExtResource("7_tugua")
 name = "endure"
+description = ""
 texture = ExtResource("18_yi5xp")
 card_type = 3
 spell = SubResource("Resource_xnx8o")
@@ -316,6 +324,7 @@ size = 1.0
 [sub_resource type="Resource" id="Resource_uafl5"]
 script = ExtResource("7_tugua")
 name = "grow"
+description = ""
 texture = ExtResource("19_65dly")
 card_type = 3
 spell = SubResource("Resource_i0bjp")
@@ -341,6 +350,7 @@ size = 1.0
 [sub_resource type="Resource" id="Resource_o6lf2"]
 script = ExtResource("7_tugua")
 name = "draw"
+description = ""
 texture = ExtResource("20_rctnv")
 card_type = 3
 spell = SubResource("Resource_qkm4w")
@@ -366,6 +376,7 @@ size = 1.0
 [sub_resource type="Resource" id="Resource_xxe5f"]
 script = ExtResource("7_tugua")
 name = "speed"
+description = ""
 texture = ExtResource("21_w8ibi")
 card_type = 3
 spell = SubResource("Resource_mi84d")
@@ -391,6 +402,7 @@ size = 1.0
 [sub_resource type="Resource" id="Resource_tkx8r"]
 script = ExtResource("7_tugua")
 name = "shuffle"
+description = ""
 texture = ExtResource("22_pal45")
 card_type = 3
 spell = SubResource("Resource_g7ae8")

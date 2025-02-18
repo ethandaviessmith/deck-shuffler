@@ -1,12 +1,13 @@
 [gd_scene load_steps=5 format=3 uid="uid://bpegyhvamna5b"]
 
-[ext_resource type="Texture2D" uid="uid://1awt5bawvq25" path="res://components/cards/2D/database/spanish_decks/pixel_deck/cups/copa1.png" id="2_mitu2"]
+[ext_resource type="Texture2D" uid="uid://bw1y4n60gsqgw" path="res://assets/cards/cards1.png" id="2_k46f6"]
 [ext_resource type="Script" path="res://scenes/world/card_deck.gd" id="2_p65ng"]
 [ext_resource type="FontFile" uid="uid://do03fwxb30r7l" path="res://assets/GUI/OldSchoolAdventures-42j9.ttf" id="4_5bqg2"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_4jbsq"]
 font = ExtResource("4_5bqg2")
-font_size = 12
+font_size = 7
+shadow_color = Color(0, 0, 0, 0.529412)
 
 [node name="Rect" type="ColorRect"]
 custom_minimum_size = Vector2(65, 100)
@@ -20,9 +21,9 @@ script = ExtResource("2_p65ng")
 
 [node name="Card" type="Sprite2D" parent="."]
 texture_filter = 1
-position = Vector2(32.7458, 46.8496)
+position = Vector2(32.3376, 41.5769)
 scale = Vector2(0.833331, 0.833331)
-texture = ExtResource("2_mitu2")
+texture = ExtResource("2_k46f6")
 
 [node name="CardLabel" type="Label" parent="Card"]
 unique_name_in_owner = true
@@ -31,12 +32,14 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -82.0
-offset_top = -47.0
-offset_right = 22.0
-offset_bottom = -29.0
+offset_left = -62.4898
+offset_top = -41.8794
+offset_right = -2.48979
+offset_bottom = -16.8794
 grow_horizontal = 2
 grow_vertical = 0
-text = "card_1"
+text = "a longer desc"
 label_settings = SubResource("LabelSettings_4jbsq")
 horizontal_alignment = 1
+autowrap_mode = 3
+text_overrun_behavior = 1

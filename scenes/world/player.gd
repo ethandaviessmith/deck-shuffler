@@ -95,7 +95,7 @@ func set_player_stats():
 	draw_timer.wait_time *= stats.draw_speed
 	shuffle_timer.wait_time *= stats.shuffle_speed
 	hp = stats.durability
-	print("draw ",draw_timer.wait_time, ",shuffle ", shuffle_timer.wait_time)
+	Log.pr("draw ",draw_timer.wait_time, ",shuffle ", shuffle_timer.wait_time)
 
 # MOVEMENT
 func _physics_process(_delta: float) -> void:

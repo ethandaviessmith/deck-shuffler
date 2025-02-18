@@ -5,6 +5,7 @@ enum ACTIONS { NA, QUICK_DRAW, DOUBLE_FINALE, MIRRAGE}
 enum Rarity { COMMON }
 
 @export var name: String
+@export var description: String
 @export var texture: Texture2D
 @export var card_type: CardType
 @export var attack: AttackStats = AttackStats.new()
