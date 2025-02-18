@@ -203,20 +203,8 @@ func draw_card():
 	set_guibar(manaBar, mana, max_mana)
 
 func summon_hand(buff: PlayerStats):
-	icon_resolve.visible = true
-	deck_animation = true
-	animation_player.play("resolve")
-	action_anim.play("resolve")
-	draw_timer.stop()
 	mana = max_mana
-	var tween = create_tween() # Tween mana refill
-	tween.tween_property(manaBar,"value",mana,2.5).set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_IN_OUT)
-	tween.play()
-	
-	var timer_anim = TimeHelper.create_idle_timer(1.3, true, true)
-	timer_anim.connect("timeout", Callable(self,"idle"))
-	add_child(timer_anim) #janky timer to make things look nice (not cleaning up)
-	
+	summon_animation()
 	## add buffs, and remove them later
 	var timer = TimeHelper.create_idle_timer(buff.time, true, true)
 	var debuff = Callable(self,"debuff").bind(buff, timer)
@@ -282,6 +270,7 @@ func apply_upgrade(card: Card):
 	display_buffs(111)
 
 #region VISUALS
+
 func show_level_control():
 	gui_control.call_deferred("add_child", level_scene.instantiate())
 
@@ -304,6 +293,21 @@ func idle():
 	print("back to idle")
 	deck_animation = false
 	draw_timer.start()
+
+func summon_animation():
+	icon_resolve.visible = true
+	deck_animation = true
+	animation_player.play("resolve")
+	action_anim.play("resolve")
+	draw_timer.stop()
+	
+	var tween = create_tween() # Tween mana refill
+	tween.tween_property(manaBar,"value",mana,2.5).set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_IN_OUT)
+	tween.play()
+	
+	var timer_anim = TimeHelper.create_idle_timer(1.3, true, true)
+	timer_anim.connect("timeout", Callable(self,"idle"))
+	add_child(timer_anim) #janky timer to make things look nice (not cleaning up)
 
 func calculate_stats() -> PlayerStats:
 	var disp_stats = PlayerStats.new()
