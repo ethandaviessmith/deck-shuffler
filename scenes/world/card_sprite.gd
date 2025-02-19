@@ -10,15 +10,15 @@ var card: Card
 var draw_card: bool = true
 @export var draw_speed: float = 1.0
 
-func set_card(set_card: Card, speed: float = 1.0):
-	if not set_card == null:
-		card = set_card
+func set_card(_card: Card, speed: float = 1.0):
+	if not _card == null:
+		card = _card
 		
-		name = set_card.name
+		name = card.name
 		
-		if set_card.texture:
-			texture = set_card.texture
-		match set_card.card_type:
+		if card.texture:
+			texture = card.texture
+		match card.card_type:
 			Card.CardType.ATTACK:
 				self.modulate = Color(1, col, col) 
 			Card.CardType.SPELL:

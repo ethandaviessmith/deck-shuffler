@@ -115,6 +115,7 @@ bullet per https://godotengine.org/asset-library/asset/2053
 
 https://github.com/Maaack/Godot-Game-Template
 https://github.com/viniciusgerevini/godot-aseprite-wizard?tab=readme-ov-file
+https://github.com/russmatney/log.gd
 
 # TODO next
 
@@ -128,22 +129,25 @@ resolve animation
 shuffle animation
 hit, level up animation
 
-#### CARDS ####
+#### CARDS
 
 ## Action Cards
-Quick Draw - Next 2 draws draw 2 cards or Instant draw 2 more cards 
+
+Quick Draw - Next 2 draws draw 2 cards or Instant draw 2 more cards
 Double Finale - Resolve now, resolve hand twice
 Mirrage - Duplicates last card (stacks with effects)
 
 ## Spells
+
 Loot (drop chance)
 Pattern (slow, wave, zigzag, spiral, gravity)
 Duration (buff time)
 Amount (shots fired per attack)
 
-
 ## Attacks
+
 Pierce (weapon durability)
 
 ## Upgrades
+
 APS

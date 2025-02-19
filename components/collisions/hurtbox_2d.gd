@@ -34,7 +34,7 @@ func on_area_entered(hitbox: Node2D) -> void:
 		var damage = hitbox.damage
 		#var angle = Vector2.ZERO
 		var angle = (global_position - hitbox.global_position).normalized()
-		print("hitbox pos", hitbox.global_position," this pos",global_position, "angle",angle)
+		#print("hitbox pos", hitbox.global_position," this pos",global_position, "angle",angle)
 		var knockback = 100
 		#if not hitbox.get("angle") == null:
 			#angle = hitbox.angle

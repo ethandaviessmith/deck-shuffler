@@ -14,7 +14,7 @@ const GroupName: StringName = &"player"
 @onready var expBar = get_node("%ExperienceBar")
 @onready var manaBar = get_node("%ManaBar")
 
-@onready var draw_timer = get_node("%DrawTimer")
+@onready var draw_timer:Timer = get_node("%DrawTimer")
 @onready var shuffle_timer = get_node("%ShuffleTimer")
 @onready var lblLevel = get_node("%lbl_level")
 @onready var buff_label = get_node("%buff_label")
@@ -42,6 +42,7 @@ var sword = preload("res://scenes/world/weapon_sword.tscn")
 @export var camera: Camera2D
 @export var deck: CardDeck
 var active_buffs: Array[PlayerStats] = []
+var next_actions: Array[Card.ACTIONS] = []
 var deck_animation = false # janky anim fix for now
 
 var motion_input: TransformedInput = TransformedInput.new(self) # TopDownController
@@ -89,13 +90,13 @@ func _ready() -> void:
 	
 	set_player_stats()
 	set_deck(5)
-	attack()
+	next_action()
 
 func set_player_stats():
 	draw_timer.wait_time *= stats.draw_speed
 	shuffle_timer.wait_time *= stats.shuffle_speed
 	hp = stats.durability
-	Log.pr("draw ",draw_timer.wait_time, ",shuffle ", shuffle_timer.wait_time)
+	print("draw ",draw_timer.wait_time, ",shuffle ", shuffle_timer.wait_time)
 
 # MOVEMENT
 func _physics_process(_delta: float) -> void:
@@ -130,7 +131,7 @@ func attack():
 			weapons.append_array(active_buff.attacks)
 	if weapons.size() == 0:
 		weapons.append(AttackStats.new()) # Default attack, no weapons in buff
-		print("No weapons from buff - choosing default")
+		#print("No weapons from buff - choosing default")
 	display_buffs(active_buffs.size())
 	
 	if not get_random_enemy() == null:
@@ -144,9 +145,8 @@ func attack():
 				weapon = axe.instantiate()
 			AttackStats.WeaponType.SWORD:
 				weapon = sword.instantiate()
-			_:
-				print("no weapon")
-				weapon = dagger.instantiate() # needed?
+			AttackStats.WeaponType.NA:
+				weapon = dagger.instantiate()
 		weapon.position = position
 		weapon.target = get_random_enemy().global_position
 		
@@ -160,25 +160,29 @@ func set_deck(count):
 func next_action():
 	icon_resolve.visible = false
 	deck_animation = false
-	# check last card
-	var card = deck.get_last_drawn_card()
-	if not card == null:
-		if not card.action == Card.ACTIONS.NA:
-			match(card.action):
-				Card.ACTIONS.DOUBLE_FINALE:
-					use_mana(mana)
-					var buff = deck.resolve_hand()
-					summon_hand(buff)
-					summon_hand(buff)
-					return
-				_: pass
 	
-	if use_mana(draw_mana):
-		draw_card(stats.draw_speed)
+	var action = next_actions.pop_back()
+	
+	if action == null: # default behaviour
+		if use_mana(draw_mana):
+			draw_card(stats.draw_speed)
+		else:
+			# add buffs, and remove them later
+			var buff = deck.resolve_hand()
+			summon_hand(buff)
 	else:
-		# add buffs, and remove them later
-		var buff = deck.resolve_hand()
-		summon_hand(buff)
+		match(action):
+			Card.ACTIONS.DOUBLE_FINALE:
+				use_mana(mana)
+				var buff = deck.resolve_hand()
+				summon_hand(buff)
+				summon_hand(buff)
+				return
+			Card.ACTIONS.QUICK_DRAW:
+				draw_card(stats.draw_speed * 2)
+				pass
+			_: pass
+
 
 func use_mana(used_mana) -> bool:
 	if mana >= draw_mana:
@@ -191,10 +195,10 @@ func draw_card(draw_speed: float):
 	if deck.has_draw():
 		action_anim.play("card_draw")
 		var card = deck.draw_card()
+		draw_timer.start(draw_speed)
 		if card.action == Card.ACTIONS.QUICK_DRAW:
-			draw_card(draw_speed/2)
-			draw_card(draw_speed/2)
-		
+			next_actions.append(Card.ACTIONS.QUICK_DRAW)
+			next_actions.append(Card.ACTIONS.QUICK_DRAW)
 		var card_instance = card_scene.instantiate() as CardSprite
 		card_instance.set_card(card, draw_speed)
 		card_instance.position = Vector2(0, -40.0)

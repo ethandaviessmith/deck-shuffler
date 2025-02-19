@@ -24,4 +24,5 @@ func get_starter_deck(count) -> Array[Card]:
 	var cards:Array[Card] = []
 	for i in count:
 		cards.append(get_random_card())
+	cards.append(deck[4])
 	return cards

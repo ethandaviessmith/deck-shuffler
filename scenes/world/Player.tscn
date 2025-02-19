@@ -30,7 +30,7 @@
 script = ExtResource("2_5xxq7")
 armor = 0
 time = 6.0
-draw_speed = 1.0
+draw_speed = 3.0
 shuffle_speed = 1.0
 attacks_per_second = 1.0
 attacks = Array[ExtResource("2_dff2h")]([])
@@ -198,6 +198,7 @@ font = ExtResource("13_jvrdb")
 font_size = 7
 outline_color = Color(0, 0, 0, 1)
 shadow_size = 0
+shadow_color = Color(0, 0, 0, 0.458824)
 
 [sub_resource type="Animation" id="Animation_xxl3l"]
 length = 0.001
@@ -379,14 +380,14 @@ anchors_preset = 14
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = 6.0
-offset_top = 10.0
-offset_right = -163.0
-offset_bottom = 103.0
+offset_top = -5.0
+offset_bottom = 66.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "[] example here"
 label_settings = SubResource("LabelSettings_tniib")
+autowrap_mode = 3
+text_overrun_behavior = 3
 
 [node name="damage_label" type="Label" parent="Debug"]
 unique_name_in_owner = true
@@ -550,7 +551,6 @@ script = ExtResource("26_rta5l")
 [node name="DrawTimer" type="Timer" parent="GUI/DeckControl"]
 unique_name_in_owner = true
 wait_time = 3.0
-autostart = true
 
 [node name="ShuffleTimer" type="Timer" parent="GUI/DeckControl"]
 unique_name_in_owner = true

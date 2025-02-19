@@ -7,15 +7,15 @@ var card: Card
 const col = 0.95 # give hue to cards by type
 
 
-func set_card(set_card: Card):
-	if not set_card == null:
-		card = set_card
+func set_card(_card: Card):
+	if not _card == null:
+		card = _card
 
 		if label_node:
-			label_node.text = set_card.description
-		if set_card.texture:
-			sprite.texture = set_card.texture
-		match set_card.card_type:
+			label_node.text = card.description
+		if card.texture:
+			sprite.texture = card.texture
+		match card.card_type:
 			Card.CardType.ATTACK:
 				self.modulate = Color(1, col, col) 
 			Card.CardType.SPELL:
