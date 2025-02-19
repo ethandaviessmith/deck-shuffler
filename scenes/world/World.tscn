@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=4 uid="uid://bvyi5v3q5glkx"]
+[gd_scene load_steps=57 format=4 uid="uid://bvyi5v3q5glkx"]
 
 [ext_resource type="PackedScene" uid="uid://iq63nlaer5ul" path="res://scenes/world/Enemy.tscn" id="1_78kn1"]
 [ext_resource type="Script" path="res://scenes/world/map.gd" id="1_hf0a2"]
@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://b6xsykb6ffhrn" path="res://scenes/world/Player.tscn" id="1_sythe"]
 [ext_resource type="Script" path="res://scenes/world/enemy_spawner.gd" id="3_jf31c"]
 [ext_resource type="Script" path="res://scenes/world/spawn_info.gd" id="4_eae5y"]
-[ext_resource type="Texture2D" uid="uid://dyjin2l2w1yea" path="res://assets/fire.png" id="4_stng6"]
+[ext_resource type="Texture2D" uid="uid://cr6pv1sb1w6yh" path="res://assets/fire-sheet.png" id="4_w74vi"]
 [ext_resource type="Script" path="res://components/game/deck_helper.gd" id="6_dideo"]
 [ext_resource type="Script" path="res://scenes/world/card.gd" id="7_tugua"]
 [ext_resource type="Script" path="res://components/game/attack_stats.gd" id="8_fsskc"]
@@ -21,6 +21,7 @@
 [ext_resource type="Texture2D" uid="uid://cp6afh2lxqw6h" path="res://assets/cards/cards20.png" id="18_yi5xp"]
 [ext_resource type="Material" uid="uid://dv4gs88rfind1" path="res://shaders/fog_material.tres" id="19_4vo1s"]
 [ext_resource type="Texture2D" uid="uid://b8ds7wopjbkyy" path="res://assets/cards/cards21.png" id="19_65dly"]
+[ext_resource type="Texture2D" uid="uid://d0oy6gs1brng4" path="res://assets/cards/cards25.png" id="19_pxnfh"]
 [ext_resource type="Texture2D" uid="uid://cfon42c8uvecx" path="res://assets/cards/cards22.png" id="20_rctnv"]
 [ext_resource type="PackedScene" uid="uid://bpe337i4jjv5p" path="res://scenes/world/field.tscn" id="20_xm670"]
 [ext_resource type="Texture2D" uid="uid://cmk27wfdhsh21" path="res://assets/cards/cards23.png" id="21_w8ibi"]
@@ -164,6 +165,44 @@ size = Vector2(1561, 1340.5)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ooeju"]
 size = Vector2(486.25, 232.375)
 
+[sub_resource type="Animation" id="Animation_mktwl"]
+resource_name = "fire"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Fire:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0, 3]
+}
+
+[sub_resource type="Animation" id="Animation_6w823"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Fire:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1darb"]
+_data = {
+"RESET": SubResource("Animation_6w823"),
+"fire": SubResource("Animation_mktwl")
+}
+
 [sub_resource type="Resource" id="Resource_xs8gd"]
 script = ExtResource("4_eae5y")
 time_start = 0
@@ -185,7 +224,7 @@ size = 1.0
 [sub_resource type="Resource" id="Resource_oxfa6"]
 script = ExtResource("7_tugua")
 name = "slice"
-description = "Throw a dagger"
+description = "Fling a dagger"
 texture = ExtResource("9_5t0hg")
 card_type = 0
 attack = SubResource("Resource_3rtke")
@@ -225,7 +264,7 @@ size = 1.0
 [sub_resource type="Resource" id="Resource_8gd7h"]
 script = ExtResource("7_tugua")
 name = "chop"
-description = "Huck an axe"
+description = "Chuck an axe"
 texture = ExtResource("14_ank4h")
 card_type = 0
 attack = SubResource("Resource_xm6s7")
@@ -277,6 +316,15 @@ description = "Copy effects of last card"
 texture = ExtResource("18_xmdy8")
 card_type = 2
 action = 3
+rarity = 0
+
+[sub_resource type="Resource" id="Resource_ioi8e"]
+script = ExtResource("7_tugua")
+name = "Gain Energy"
+description = "Increase hand size"
+texture = ExtResource("19_pxnfh")
+card_type = 2
+action = 4
 rarity = 0
 
 [sub_resource type="Resource" id="Resource_xnx8o"]
@@ -411,7 +459,7 @@ rarity = 0
 
 [node name="World" type="Node2D"]
 
-[node name="Map" type="Control" parent="."]
+[node name="Map" type="Control" parent="." groups=["world"]]
 texture_filter = 1
 layout_mode = 3
 anchors_preset = 0
@@ -477,13 +525,19 @@ collision_mask = 2
 position = Vector2(608, 405)
 shape = SubResource("RectangleShape2D_ooeju")
 
-[node name="Loot" type="Node2D" parent="." groups=["loot"]]
+[node name="FireAnimationPlayer" type="AnimationPlayer" parent="Map"]
+libraries = {
+"": SubResource("AnimationLibrary_1darb")
+}
 
-[node name="Fire" type="Sprite2D" parent="."]
+[node name="Fire" type="Sprite2D" parent="Map"]
 y_sort_enabled = true
 texture_filter = 1
 position = Vector2(602, 444)
-texture = ExtResource("4_stng6")
+texture = ExtResource("4_w74vi")
+hframes = 4
+
+[node name="Loot" type="Node2D" parent="." groups=["loot"]]
 
 [node name="Player" parent="." instance=ExtResource("1_sythe")]
 position = Vector2(602, 378)
@@ -499,25 +553,10 @@ spawns = Array[ExtResource("4_eae5y")]([SubResource("Resource_xs8gd")])
 wait_time = 2.0
 autostart = true
 
-[node name="CharacterBody2D" parent="EnemySpawner" instance=ExtResource("1_78kn1")]
-position = Vector2(744, 468)
-
-[node name="CharacterBody2D2" parent="EnemySpawner" instance=ExtResource("1_78kn1")]
-position = Vector2(731, 462)
-
-[node name="CharacterBody2D3" parent="EnemySpawner" instance=ExtResource("1_78kn1")]
-position = Vector2(393, 294)
-
-[node name="CharacterBody2D4" parent="EnemySpawner" instance=ExtResource("1_78kn1")]
-position = Vector2(764, 269)
-
-[node name="CharacterBody2D5" parent="EnemySpawner" instance=ExtResource("1_78kn1")]
-position = Vector2(331, 183)
-
 [node name="DeckHelper" type="Node" parent="."]
 unique_name_in_owner = true
 script = ExtResource("6_dideo")
-deck = Array[ExtResource("7_tugua")]([SubResource("Resource_oxfa6"), SubResource("Resource_eridv"), SubResource("Resource_8gd7h"), SubResource("Resource_580ic"), SubResource("Resource_lkljn"), SubResource("Resource_k3mic"), SubResource("Resource_yr7tv")])
+deck = Array[ExtResource("7_tugua")]([SubResource("Resource_oxfa6"), SubResource("Resource_eridv"), SubResource("Resource_8gd7h"), SubResource("Resource_580ic"), SubResource("Resource_lkljn"), SubResource("Resource_k3mic"), SubResource("Resource_yr7tv"), SubResource("Resource_ioi8e")])
 player_upgrades = Array[ExtResource("7_tugua")]([SubResource("Resource_exmbl"), SubResource("Resource_uafl5"), SubResource("Resource_o6lf2"), SubResource("Resource_xxe5f"), SubResource("Resource_tkx8r")])
 
 [node name="ColorRect" type="ColorRect" parent="."]

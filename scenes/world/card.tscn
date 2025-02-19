@@ -1,25 +1,31 @@
-[gd_scene load_steps=6 format=3 uid="uid://5s7gwvm11hyb"]
+[gd_scene load_steps=7 format=3 uid="uid://5s7gwvm11hyb"]
 
-[ext_resource type="Texture2D" uid="uid://1awt5bawvq25" path="res://components/cards/2D/database/spanish_decks/pixel_deck/cups/copa1.png" id="1_b3g02"]
-[ext_resource type="Material" uid="uid://b1un5usafkhdh" path="res://shaders/CardMaterial.tres" id="1_h47hf"]
+[ext_resource type="Shader" path="res://shaders/card_smoke.gdshader" id="1_patu3"]
+[ext_resource type="Texture2D" uid="uid://eyrorsjsi3cd" path="res://assets/cards/cards24.png" id="2_u6mg5"]
 [ext_resource type="Script" path="res://scenes/world/card_sprite.gd" id="3_3m5o4"]
 [ext_resource type="FontFile" uid="uid://do03fwxb30r7l" path="res://assets/GUI/OldSchoolAdventures-42j9.ttf" id="4_371v2"]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_p8b7w"]
+shader = ExtResource("1_patu3")
+shader_parameter/reveal_progress = 0.0
+shader_parameter/show = true
+shader_parameter/card_color = Vector4(1, 1, 1, 1)
+
 [sub_resource type="LabelSettings" id="LabelSettings_4jbsq"]
 font = ExtResource("4_371v2")
-font_size = 12
+font_size = 7
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
 
 [node name="Card" type="Sprite2D"]
 texture_filter = 1
-material = ExtResource("1_h47hf")
-position = Vector2(0, -18)
+material = SubResource("ShaderMaterial_p8b7w")
+position = Vector2(0, -17)
 scale = Vector2(0.366667, 0.366667)
-texture = ExtResource("1_b3g02")
+texture = ExtResource("2_u6mg5")
 script = ExtResource("3_3m5o4")
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 4.0
-autostart = true
 
 [node name="CardLabel" type="Label" parent="."]
 unique_name_in_owner = true
@@ -29,9 +35,9 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -82.0
-offset_top = -47.0
+offset_top = -44.2727
 offset_right = 22.0
-offset_bottom = -29.0
+offset_bottom = -26.2727
 grow_horizontal = 2
 grow_vertical = 0
 text = "card_1"

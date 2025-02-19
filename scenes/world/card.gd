@@ -1,7 +1,7 @@
 class_name Card extends Resource
 
 enum CardType { ATTACK, SPELL, ACTION, STAT }
-enum ACTIONS { NA, QUICK_DRAW, DOUBLE_FINALE, MIRRAGE}
+enum ACTIONS { NA, QUICK_DRAW, DOUBLE_FINALE, MIRRAGE, GAIN_ENERGY }
 enum Rarity { COMMON }
 
 @export var name: String

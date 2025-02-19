@@ -3,6 +3,7 @@ extends Node2D
 @export var spawns: Array[Spawn_info] = []
 
 @onready var player:Player = get_tree().get_first_node_in_group(Player.GroupName)
+@onready var world:World = get_tree().get_first_node_in_group(World.GroupName)
 
 @export var time = 0
 
@@ -20,14 +21,15 @@ func _on_timer_timeout():
 			if i.spawn_delay_counter < i.enemy_spawn_delay:
 				i.spawn_delay_counter += 1
 			else:
-				i.spawn_delay_counter = 0
-				var new_enemy = i.enemy
-				var counter = 0
-				while  counter < i.enemy_num:
-					var enemy_spawn = new_enemy.instantiate()
-					enemy_spawn.global_position = get_random_position()
-					add_child(enemy_spawn)
-					counter += 1
+				if not world.get_area() == World.LOC.REST: # don't spawn enemies at rest site
+					i.spawn_delay_counter = 0
+					var new_enemy = i.enemy
+					var counter = 0
+					while  counter < i.enemy_num:
+						var enemy_spawn = new_enemy.instantiate()
+						enemy_spawn.global_position = get_random_position()
+						add_child(enemy_spawn)
+						counter += 1
 	emit_signal("changetime",time)
 
 func get_random_position():

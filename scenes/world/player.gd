@@ -173,40 +173,41 @@ func next_action():
 	else:
 		match(action):
 			Card.ACTIONS.DOUBLE_FINALE:
-				use_mana(mana)
+				use_mana(mana) 
 				var buff = deck.resolve_hand()
 				summon_hand(buff)
 				summon_hand(buff)
-				return
 			Card.ACTIONS.QUICK_DRAW:
-				draw_card(stats.draw_speed * 2)
-				pass
+				if not draw_card(stats.draw_speed / 3):
+					next_actions.append(Card.ACTIONS.QUICK_DRAW) # Add another draw if you had to shuffle
+			Card.ACTIONS.GAIN_ENERGY:
+				draw_card(stats.draw_speed) # draw withouth spending energy
+				#mana += draw_mana
 			_: pass
 
-
-func use_mana(used_mana) -> bool:
-	if mana >= draw_mana:
-		mana = clamp((mana - draw_mana), 0, max_mana)
-		return true
-	return false
-
-func draw_card(draw_speed: float):
+func draw_card(draw_speed: float) -> bool:
 	pulse_sprite(icon_draw)
-	if deck.has_draw():
+	var has_draw = deck.has_draw()
+	if has_draw:
 		action_anim.play("card_draw")
 		var card = deck.draw_card()
-		draw_timer.start(draw_speed)
-		if card.action == Card.ACTIONS.QUICK_DRAW:
-			next_actions.append(Card.ACTIONS.QUICK_DRAW)
-			next_actions.append(Card.ACTIONS.QUICK_DRAW)
+		set_next_action(card.action)
 		var card_instance = card_scene.instantiate() as CardSprite
 		card_instance.set_card(card, draw_speed)
-		card_instance.position = Vector2(0, -40.0)
+		card_instance.position = Vector2(0, -43.0) # place above head
 		card_node.call_deferred("add_child",card_instance)
+		draw_timer.start(draw_speed)
 	else:
-		print("no draw, shuffling")
 		shuffle_deck()
 	set_guibar(manaBar, mana, max_mana)
+	return has_draw
+	
+func set_next_action(action: Card.ACTIONS):
+	if not action == Card.ACTIONS.NA:
+		next_actions.append(action)
+		# not sure how to approach mirage (maybe spell?)
+		if action == Card.ACTIONS.QUICK_DRAW:
+			next_actions.append(action) # add 2 quick draws
 
 func summon_hand(buff: PlayerStats):
 	mana = max_mana
@@ -238,6 +239,12 @@ func shuffle_complete():
 	next_action()
 	icon_shuffle.visible = false
 	deck_animation = true
+
+func use_mana(used_mana) -> bool:
+	if mana >= draw_mana:
+		mana = clamp((mana - draw_mana), 0, max_mana)
+		return true
+	return false
 
 func calculate_experience(gem_exp):
 	var exp_required = calculate_experiencecap()

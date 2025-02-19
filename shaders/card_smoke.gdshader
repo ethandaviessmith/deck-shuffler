@@ -57,7 +57,7 @@ void fragment() {
 	// TODO I just added a -0.5 to get it close enough
 	
     // Create mask for the reveal effect
-    float mask = step(noise_value, adjusted_y + smoke_noise * 0.2 - 0.5);// + smoke_noise * 0.2);
+    float mask = step(noise_value, adjusted_y + smoke_noise * 0.2 - 0.6);// + smoke_noise * 0.2);
 
     // Adjust visibility based on show/hide
     if (!show) {

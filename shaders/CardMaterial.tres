@@ -5,5 +5,5 @@
 [resource]
 shader = ExtResource("1_onx2w")
 shader_parameter/reveal_progress = 0.0
-shader_parameter/show = false
+shader_parameter/show = true
 shader_parameter/card_color = Vector4(1, 1, 1, 1)
