@@ -49,6 +49,7 @@ func show_card():
 				pass
 	
 	if draw_card:
+		Log.pr("start draw")
 		# Initialize transparency and scale for appearance
 		modulate = Color(modulate.r, modulate.g, modulate.b, 0.3)
 		fade_mat.set_shader_parameter("show", true)
