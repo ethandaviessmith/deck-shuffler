@@ -5,11 +5,18 @@ class_name DeckHelper extends Node
 
 @export var player_upgrades:Array[Card]
 
+
+func rng_list(numbers: Array) -> int:
+	var rng = RandomNumberGenerator.new() #rng.randomize()
+	var random_index = rng.randi_range(0, numbers.size() - 1)
+	return numbers[random_index]
+
 func get_random_card() -> Card:
-	return deck.pick_random()
+	return deck[rng_list([0,1,2,3,5,7])]
+	#return deck.pick_random()
 
 func get_random_cards(count:int) -> Array[Card]:
-	var array = deck + player_upgrades
+	var array = deck # + player_upgrades # only deck for now as we focus on deck building first
 	array.shuffle()
 	return array.slice(0,count)
 
@@ -22,7 +29,13 @@ func get_random_upgrades(count:int):
 	
 func get_starter_deck(count) -> Array[Card]:
 	var cards:Array[Card] = []
-	for i in count:
+	#for i in count:
+	for i in 3:
 		cards.append(get_random_card())
-	cards.append(deck[4])
+	cards.append(deck[4]) # extra draw card
+	
+	cards.append(deck[1]) # set hand manually
+	cards.append(deck[2])
+	cards.append(deck[3])
+	cards.append(deck[0])
 	return cards

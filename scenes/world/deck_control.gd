@@ -36,11 +36,11 @@ func set_deck(cards: Array[Card]):
 		var card_instance = card_scene.instantiate() as CardDeckSprite
 		grid_container.add_child(card_instance)
 		card_instance.set_card(card)
-		print("add_card", card)
+		Log.pr("add_card", card)
 	emit_signal("deck_updated")
 
 func shuffle():
-	print("shuffle on deck")
+	Log.pr("shuffle on deck")
 	shuffle_audio.play()
 	$ShuffleTimer.start()
 
@@ -49,7 +49,7 @@ func _on_shuffle_complete():
 	draw_pile = deck.duplicate()
 	draw_pile.shuffle()
 	emit_signal("shuffle_complete")
-	print("shuffle_complete")
+	Log.pr("shuffle_complete")
 
 # Function to draw a random card from the draw_pile
 func draw_card() -> Card:
@@ -61,10 +61,10 @@ func draw_card() -> Card:
 		hand.append(drawn_card)
 		draw_pile.remove_at(random_index)
 		#emit_signal("card_removed", drawn_card)  # Signal removal
-		print(drawn_card.get_card_type_name() + "drawn")
+		Log.pr(drawn_card.get_card_type_name() + "drawn")
 		return drawn_card
 	else:
-		print("Draw pile is empty!")
+		Log.pr("Draw pile is empty!")
 		return null
 
 func has_draw() -> bool:
@@ -81,7 +81,7 @@ func get_last_drawn_card() -> Card:
 func resolve_hand() -> PlayerStats:
 	var hand_buff = PlayerStats.new()
 	for card in hand:
-		print("new " + card.get_card_type_name())
+		Log.pr("new " + card.get_card_type_name())
 		match(card.card_type):
 			Card.CardType.ATTACK:
 				if not card.attack.weapon_type == AttackStats.WeaponType.NA:
@@ -94,7 +94,7 @@ func resolve_hand() -> PlayerStats:
 				# drop gold/xp
 				# split
 			Card.CardType.ACTION:
-				print("not implemented actions")
+				Log.pr("not implemented actions")
 
 	hand.clear() # Discard hand
 	return hand_buff
@@ -117,7 +117,7 @@ func _ready():
 
 # Custom signal handlers
 func _on_card_added(card: Card):
-	print("Card added:", card)
+	Log.pr("Card added:", card)
 
 func format_hand_stats() -> String:
 	var stats = ""

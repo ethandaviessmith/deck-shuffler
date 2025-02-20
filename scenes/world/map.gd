@@ -4,12 +4,13 @@ const GroupName: StringName = &"world"
 @onready var fog:ColorRect = get_node("/root/World/Fog/ParallaxLayer/ColorRect")
 
 enum LOC { REST, FIELD, OTHER}
-
 var area = LOC.REST
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	$FireAnimationPlayer.play("fire")
+	fog.visible = true # hide when in editor mode
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

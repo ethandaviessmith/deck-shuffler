@@ -34,7 +34,7 @@ func update_option_ui(option_node, card_data:Card):
 	if not card_data == null:
 		option_node.get_node("NameLabel").text = card_data.name
 		option_node.get_node("TextureRect").texture = card_data.texture
-		option_node.get_node("DescriptionLabel").text = card_data.get_card_type_name()
+		option_node.get_node("DescriptionLabel").text = card_data.description
 
 func _input(event):
 	if event is InputEventKey:

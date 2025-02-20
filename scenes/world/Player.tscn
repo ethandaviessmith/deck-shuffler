@@ -380,8 +380,10 @@ anchors_preset = 14
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_top = -5.0
-offset_bottom = 66.0
+offset_left = 122.5
+offset_top = 257.5
+offset_right = 242.5
+offset_bottom = 283.5
 grow_horizontal = 2
 grow_vertical = 2
 text = "[] example here"
@@ -604,6 +606,14 @@ layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
 columns = 5
+
+[node name="WeaponHFlowContainer" type="HFlowContainer" parent="GUI"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = -221.0
+offset_top = -24.0
+offset_right = -105.0
+offset_bottom = 20.0
 
 [node name="Hurtbox2D" parent="." instance=ExtResource("10_0ny1a")]
 visible = false

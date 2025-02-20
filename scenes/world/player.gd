@@ -27,6 +27,7 @@ const GroupName: StringName = &"player"
 @onready var icon_draw = get_node("%StatusIconDrawSprite2D")
 @onready var icon_resolve = get_node("%StatusIconResolveSprite2D")
 @onready var icon_shuffle = get_node("%StatusIconShuffleSprite2D")
+@onready var icon_weapon_list = get_node("%WeaponHFlowContainer")
 
 # Player
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
@@ -38,6 +39,7 @@ const GroupName: StringName = &"player"
 var dagger = preload("res://scenes/world/weapon_dagger.tscn")
 var axe = preload("res://scenes/world/weapon_axe.tscn")
 var sword = preload("res://scenes/world/weapon_sword.tscn")
+var wpn_icon = preload("res://scenes/world/weapon_icon.tscn")
 
 @export var camera: Camera2D
 @export var deck: CardDeck
@@ -96,7 +98,7 @@ func set_player_stats():
 	draw_timer.wait_time *= stats.draw_speed
 	shuffle_timer.wait_time *= stats.shuffle_speed
 	hp = stats.durability
-	print("draw ",draw_timer.wait_time, ",shuffle ", shuffle_timer.wait_time)
+	Log.pr("draw ",draw_timer.wait_time, ",shuffle ", shuffle_timer.wait_time)
 
 # MOVEMENT
 func _physics_process(_delta: float) -> void:
@@ -135,24 +137,24 @@ func attack():
 	display_buffs(active_buffs.size())
 	
 	if not get_random_enemy() == null:
-		var random_attack: AttackStats = weapons.pick_random()
-		var weapon: WeaponHitBox
-		
-		match random_attack.weapon_type:
-			AttackStats.WeaponType.DAGGER:
-				weapon = dagger.instantiate()
-			AttackStats.WeaponType.AXE:
-				weapon = axe.instantiate()
-			AttackStats.WeaponType.SWORD:
-				weapon = sword.instantiate()
-			AttackStats.WeaponType.NA:
-				weapon = dagger.instantiate()
-		weapon.position = position
-		weapon.target = get_random_enemy().global_position
-		
-		weapon.set_buff(buff)
-		attacks.call_deferred("add_child", weapon)
-	#knifeTimer.wait_time = nife_attackspeed * ( 1 - spell_cooldown)
+		for weapon_attack in weapons:
+			#var random_attack: AttackStats = weapons.pick_random()
+			var weapon: WeaponHitBox
+			
+			match weapon_attack.weapon_type:
+				AttackStats.WeaponType.DAGGER:
+					weapon = dagger.instantiate()
+				AttackStats.WeaponType.AXE:
+					weapon = axe.instantiate()
+				AttackStats.WeaponType.SWORD:
+					weapon = sword.instantiate()
+				AttackStats.WeaponType.NA:
+					weapon = dagger.instantiate()
+			weapon.position = position
+			weapon.target = get_random_enemy().global_position
+			
+			weapon.set_buff(buff)
+			attacks.call_deferred("add_child", weapon)
 
 func set_deck(count):
 	deck.set_deck(deck_helper.get_starter_deck(count))
@@ -161,15 +163,14 @@ func next_action():
 	icon_resolve.visible = false
 	deck_animation = false
 	
-	var action = next_actions.pop_back()
+	var action = next_actions.pop_front()
 	
 	if action == null: # default behaviour
 		if use_mana(draw_mana):
 			draw_card(stats.draw_speed)
 		else:
-			# add buffs, and remove them later
 			var buff = deck.resolve_hand()
-			summon_hand(buff)
+			summon_hand(buff) # add buffs, and remove them later
 	else:
 		match(action):
 			Card.ACTIONS.DOUBLE_FINALE:
@@ -204,7 +205,10 @@ func draw_card(draw_speed: float) -> bool:
 	
 func set_next_action(action: Card.ACTIONS):
 	if not action == Card.ACTIONS.NA:
-		next_actions.append(action)
+		if action == Card.ACTIONS.DOUBLE_FINALE:
+			next_actions = [action] # remove other actions
+		else:
+			next_actions.append(action)
 		# not sure how to approach mirage (maybe spell?)
 		if action == Card.ACTIONS.QUICK_DRAW:
 			next_actions.append(action) # add 2 quick draws
@@ -219,6 +223,7 @@ func summon_hand(buff: PlayerStats):
 	add_child(timer)
 	
 	active_buffs.append(buff)
+	show_weapon_icons(buff)
 
 func debuff(buff: PlayerStats, timer: Timer):
 	active_buffs.erase(buff)
@@ -329,14 +334,13 @@ func calculate_stats() -> PlayerStats:
 		disp_stats.add_player_stats(buff)
 	return disp_stats
 
-func display_weapons(disp_stats: PlayerStats):
-	var weapons = []
-	for attack in disp_stats.attacks:
-		if not attack.weapon_type == AttackStats.WeaponType.NA:
-			# display weapon icon
-			
-			pass
-	pass
+func show_weapon_icons(buff: PlayerStats):
+	if not buff.attacks == null:
+		for weapon in buff.attacks:
+			var wpn_icon_instance = wpn_icon.instantiate() as WeaponIcon
+			Log.pr("icon", weapon.weapon_type, weapon.damage)
+			wpn_icon_instance.add_buff(weapon.weapon_type, buff.time)
+			icon_weapon_list.call_deferred("add_child",wpn_icon_instance)
 
 func display_buffs(count:int):
 	var disp_stats = calculate_stats()

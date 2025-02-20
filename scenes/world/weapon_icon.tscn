@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://c5y8hxuy00tcm"]
+
+[ext_resource type="Texture2D" uid="uid://b7em3piksc28e" path="res://assets/icons.png" id="1_hkxea"]
+[ext_resource type="Script" path="res://scenes/world/weapon_icon.gd" id="2_ccdyu"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u6uc5"]
+atlas = ExtResource("1_hkxea")
+region = Rect2(128, 0, 32, 32)
+margin = Rect2(-6, -6, -12, -12)
+
+[node name="TextureRect" type="TextureRect"]
+texture = SubResource("AtlasTexture_u6uc5")
+script = ExtResource("2_ccdyu")
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
