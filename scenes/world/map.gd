@@ -35,7 +35,7 @@ func _on_rest_area_2d_body_exited(body: Node2D) -> void:
 func _on_field_area_2d_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):
 		area = LOC.FIELD
-		update_fog_density(0.5)
+		update_fog_density(0.25)
 
 func _on_field_area_2d_body_exited(body: Node2D) -> void:
 	if body.is_in_group("player"):

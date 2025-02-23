@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bccj3y081bq8w"
-path="res://.godot/imported/circular_inventory.svg-ca26300319edfd0f581dd0916fde3024.ctex"
+uid="uid://des60sw5pp1s2"
+path="res://.godot/imported/characters.png-71e65985a77efe7b4b18913c785b67f9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://components/rpg/inventory/3D/circular_inventory.svg"
-dest_files=["res://.godot/imported/circular_inventory.svg-ca26300319edfd0f581dd0916fde3024.ctex"]
+source_file="res://assets/characters.png"
+dest_files=["res://.godot/imported/characters.png-71e65985a77efe7b4b18913c785b67f9.ctex"]
 
 [params]
 
@@ -32,6 +32,3 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
-svg/scale=1.0
-editor/scale_with_editor_scale=false
-editor/convert_colors_with_editor_theme=false

@@ -36,9 +36,10 @@ const GroupName: StringName = &"player"
 @export var card_scene = preload("res://scenes/world/card.tscn")
 @export var level_scene = preload("res://scenes/world/level_control.tscn")
 #AttackNodes
-var dagger = preload("res://scenes/world/weapon_dagger.tscn")
-var axe = preload("res://scenes/world/weapon_axe.tscn")
-var sword = preload("res://scenes/world/weapon_sword.tscn")
+var wpn_dagger = preload("res://scenes/world/weapon_dagger.tscn")
+var wpn_axe = preload("res://scenes/world/weapon_axe.tscn")
+var wpn_sword = preload("res://scenes/world/weapon_sword.tscn")
+var wpn_scarecrow = preload("res://scenes/world/weapon_scarecrow.tscn")
 var wpn_icon = preload("res://scenes/world/weapon_icon.tscn")
 
 @export var camera: Camera2D
@@ -123,38 +124,49 @@ func get_random_enemy():
 	else:
 		return null
 
+var next_weapon = 0
+var weapon_num = 1
+
+	
 func attack():
 	var buff:AttackStats = AttackStats.new()
 	var weapons:Array[AttackStats] = []
 	
 	for active_buff in active_buffs:
-		buff.add_buff(active_buff)
-		if not active_buff.attacks == null:
+		if active_buff.attacks == null: # general buff or specific weapon
+			buff.add_buff(active_buff)
+		else:
 			weapons.append_array(active_buff.attacks)
 	if weapons.size() == 0:
 		weapons.append(AttackStats.new()) # Default attack, no weapons in buff
 		#print("No weapons from buff - choosing default")
 	display_buffs(active_buffs.size())
 	
-	if not get_random_enemy() == null:
-		for weapon_attack in weapons:
-			#var random_attack: AttackStats = weapons.pick_random()
-			var weapon: WeaponHitBox
-			
+	if not get_random_enemy() == null: # true or
+		var weapon: WeaponAttack
+		Log.pr("attack",next_weapon, next_weapon + weapon_num)
+		for weapon_attack in weapons.slice(next_weapon, next_weapon + weapon_num):
 			match weapon_attack.weapon_type:
 				AttackStats.WeaponType.DAGGER:
-					weapon = dagger.instantiate()
+					weapon = wpn_dagger.instantiate()
 				AttackStats.WeaponType.AXE:
-					weapon = axe.instantiate()
+					weapon = wpn_axe.instantiate()
 				AttackStats.WeaponType.SWORD:
-					weapon = sword.instantiate()
+					weapon = wpn_sword.instantiate()
+				AttackStats.WeaponType.SCARECROW:
+					weapon = wpn_scarecrow.instantiate()
 				AttackStats.WeaponType.NA:
-					weapon = dagger.instantiate()
+					weapon = wpn_dagger.instantiate()
 			weapon.position = position
-			weapon.target = get_random_enemy().global_position
-			
-			weapon.set_buff(buff)
+			if not get_random_enemy() == null:
+				weapon.target = get_random_enemy().global_position
+			# need to add buff from card (base buff)
+			weapon.set_buff(weapon_attack) # player buff
+			weapon.add_buff(buff) # player buff
 			attacks.call_deferred("add_child", weapon)
+	next_weapon += weapon_num
+	if next_weapon >= weapons.size():
+		next_weapon = 0
 
 func set_deck(count):
 	deck.set_deck(deck_helper.get_starter_deck(count))

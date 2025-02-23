@@ -10,7 +10,7 @@ func add_buff(weapon_type: AttackStats.WeaponType, _time: float):
 	set_weapon_type(weapon_type)
 
 func set_weapon_type(weapon_type: AttackStats.WeaponType):
-	var region_offset = int(weapon_type) * REGION_SIZE + (REGION_SIZE * 4)
+	var region_offset = get_weapon_index(weapon_type) * REGION_SIZE + (REGION_SIZE * 4)
 	var old_atlas = texture as AtlasTexture
 	var atlas_texture = AtlasTexture.new()
 	atlas_texture.atlas = old_atlas.atlas
@@ -26,6 +26,23 @@ func _on_timer_timeout() -> void:
 	Log.pr("starting fade")
 	start_fade_and_remove(fade_time,0.375)
 
+func get_weapon_index(weapon_type: AttackStats.WeaponType) -> int:
+	match (weapon_type):
+		AttackStats.WeaponType.DAGGER:
+			return 0
+		AttackStats.WeaponType.SWORD:
+			return 1
+		AttackStats.WeaponType.AXE:
+			return 2
+		AttackStats.WeaponType.BOW:
+			return 0
+		AttackStats.WeaponType.ROCK:
+			return 0
+		AttackStats.WeaponType.SCARECROW:
+			return 3
+		AttackStats.WeaponType.NA:
+			return 0
+	return 0
 
 func start_fade_and_remove(total_duration: float, fade_duration: float):
 	var fade_count = total_duration / (fade_duration * 2)

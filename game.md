@@ -129,8 +129,12 @@ resolve animation
 shuffle animation
 hit, level up animation
 
-#### CARDS
+#### Survivor
+Enemy state machines
+Boss
 
+
+#### CARDS
 ## Action Cards
 
 Quick Draw - Next 2 draws draw 2 cards or Instant draw 2 more cards

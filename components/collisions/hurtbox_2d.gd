@@ -25,19 +25,20 @@ func disable():
 	set_deferred("monitoring", false)
 
 
-func on_area_entered(hitbox: Node2D) -> void:
+func on_area_entered(hitbox: Area2D) -> void:
 	#hitbox_detected.emit(hitbox)
 	
 	if not hitbox.get("damage") == null:
 		collision.call_deferred("set","disabled",true)
 		disableTimer.start()
 		var damage = hitbox.damage
-		#var angle = Vector2.ZERO
-		var angle = (global_position - hitbox.global_position).normalized()
 		#print("hitbox pos", hitbox.global_position," this pos",global_position, "angle",angle)
+		var angle = Vector2.ZERO
+		if not hitbox.get("angle") == null:
+			angle = hitbox.angle
+		else:
+			angle = (global_position - hitbox.global_position).normalized()
 		var knockback = 100
-		#if not hitbox.get("angle") == null:
-			#angle = hitbox.angle
 		if not hitbox.get("knockback") == null:
 			knockback = hitbox.knockback
 		

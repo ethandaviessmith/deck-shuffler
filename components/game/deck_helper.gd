@@ -32,10 +32,12 @@ func get_starter_deck(count) -> Array[Card]:
 	#for i in count:
 	for i in 3:
 		cards.append(get_random_card())
-	cards.append(deck[4]) # extra draw card
-	
-	cards.append(deck[1]) # set hand manually
+	 
+	# set hand manually
+	cards.append(deck[0])
+	cards.append(deck[1])
 	cards.append(deck[2])
 	cards.append(deck[3])
-	cards.append(deck[0])
+	cards.append(deck[4]) # extra draw card
+	cards.append(deck[8]) # scarecrow
 	return cards

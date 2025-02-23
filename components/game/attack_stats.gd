@@ -3,7 +3,7 @@ extends BaseStats
 
 class_name AttackStats
 
-enum WeaponType { DAGGER, SWORD, AXE, BOW, ROCK, NA }
+enum WeaponType { DAGGER, SWORD, AXE, BOW, ROCK, SCARECROW, NA }
 @export var weapon_type: WeaponType = WeaponType.NA
 @export var fade: float = 3.0
 # multiplier

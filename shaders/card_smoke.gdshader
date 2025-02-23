@@ -19,8 +19,8 @@ float noise(vec2 st) {
 
     vec2 u = f * f * (3.0 - 2.0 * f);
 
-    return mix(a, b, u.x) + 
-           (c - a) * u.y * (1.0 - u.x) + 
+    return mix(a, b, u.x) +
+           (c - a) * u.y * (1.0 - u.x) +
            (d - b) * u.x * u.y;
 }
 
@@ -41,7 +41,7 @@ float billow_noise(vec2 st) {
 
 void fragment() {
     vec2 uv = UV;
-    
+
     // Compute fire-like noise
     float noise_value = fbm(uv * 10.0);
     // Add billowing smoke effect
@@ -49,13 +49,13 @@ void fragment() {
 
     // Linearize reveal progress for a smooth start throughout the animation
     float linear_progress = show ? reveal_progress: 1.0 - reveal_progress;
-    
+
     // Adjust reveal so the bottom is visible first and last
     //float adjusted_y = uv.y * (1.0 - linear_progress) + linear_progress;
 	float adjusted_y = uv.y + reveal_progress;
-	
+
 	// TODO I just added a -0.5 to get it close enough
-	
+
     // Create mask for the reveal effect
     float mask = step(noise_value, adjusted_y + smoke_noise * 0.2 - 0.6);// + smoke_noise * 0.2);
 

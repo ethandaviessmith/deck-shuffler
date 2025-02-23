@@ -1,4 +1,4 @@
-[gd_scene load_steps=57 format=4 uid="uid://bvyi5v3q5glkx"]
+[gd_scene load_steps=60 format=4 uid="uid://bvyi5v3q5glkx"]
 
 [ext_resource type="PackedScene" uid="uid://iq63nlaer5ul" path="res://scenes/world/Enemy.tscn" id="1_78kn1"]
 [ext_resource type="Script" path="res://scenes/world/map.gd" id="1_hf0a2"]
@@ -24,6 +24,7 @@
 [ext_resource type="Texture2D" uid="uid://d0oy6gs1brng4" path="res://assets/cards/cards25.png" id="19_pxnfh"]
 [ext_resource type="Texture2D" uid="uid://cfon42c8uvecx" path="res://assets/cards/cards22.png" id="20_rctnv"]
 [ext_resource type="PackedScene" uid="uid://bpe337i4jjv5p" path="res://scenes/world/field.tscn" id="20_xm670"]
+[ext_resource type="Texture2D" uid="uid://dd2ab1o2y1r1j" path="res://assets/cards/cards26.png" id="21_ifrxr"]
 [ext_resource type="Texture2D" uid="uid://cmk27wfdhsh21" path="res://assets/cards/cards23.png" id="21_w8ibi"]
 [ext_resource type="Texture2D" uid="uid://eyrorsjsi3cd" path="res://assets/cards/cards24.png" id="22_pal45"]
 
@@ -273,10 +274,10 @@ rarity = 0
 
 [sub_resource type="Resource" id="Resource_g4i7s"]
 script = ExtResource("8_fsskc")
-weapon_type = 5
+weapon_type = 6
 fade = 0.0
 knockback = 0.0
-damage = 0.0
+damage = 1.0
 durability = 0.0
 speed = 1.0
 size = 1.0
@@ -325,6 +326,26 @@ description = "Increase hand size"
 texture = ExtResource("19_pxnfh")
 card_type = 2
 action = 4
+rarity = 0
+
+[sub_resource type="Resource" id="Resource_jf28h"]
+script = ExtResource("8_fsskc")
+weapon_type = 5
+fade = 12.0
+knockback = 1.0
+damage = 1.0
+durability = 1.0
+speed = -1.0
+size = 1.0
+
+[sub_resource type="Resource" id="Resource_eger2"]
+script = ExtResource("7_tugua")
+name = "Scarecrow"
+description = "Summon scarecrow totem"
+texture = ExtResource("21_ifrxr")
+card_type = 0
+attack = SubResource("Resource_jf28h")
+action = 0
 rarity = 0
 
 [sub_resource type="Resource" id="Resource_xnx8o"]
@@ -556,7 +577,7 @@ autostart = true
 [node name="DeckHelper" type="Node" parent="."]
 unique_name_in_owner = true
 script = ExtResource("6_dideo")
-deck = Array[ExtResource("7_tugua")]([SubResource("Resource_oxfa6"), SubResource("Resource_eridv"), SubResource("Resource_8gd7h"), SubResource("Resource_580ic"), SubResource("Resource_lkljn"), SubResource("Resource_k3mic"), SubResource("Resource_yr7tv"), SubResource("Resource_ioi8e")])
+deck = Array[ExtResource("7_tugua")]([SubResource("Resource_oxfa6"), SubResource("Resource_eridv"), SubResource("Resource_8gd7h"), SubResource("Resource_580ic"), SubResource("Resource_lkljn"), SubResource("Resource_k3mic"), SubResource("Resource_yr7tv"), SubResource("Resource_ioi8e"), SubResource("Resource_eger2")])
 player_upgrades = Array[ExtResource("7_tugua")]([SubResource("Resource_exmbl"), SubResource("Resource_uafl5"), SubResource("Resource_o6lf2"), SubResource("Resource_xxe5f"), SubResource("Resource_tkx8r")])
 
 [node name="ColorRect" type="ColorRect" parent="."]
