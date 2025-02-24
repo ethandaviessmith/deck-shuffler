@@ -365,10 +365,10 @@ func _add_keybinding_event(action: String, keybinding_type: Array[String] = []):
 		"InputEventKey":
 			var input_event_key = InputEventKey.new()
 			input_event_key.keycode = OS.find_keycode_from_string(StringHelper.str_replace(keybinding_type[1].strip_edges(), keybinding_modifiers_regex, func(_text: String): return ""))
-			input_event_key.alt_pressed = not StringHelper.case_insensitive_comparison(keybinding_type[1], "alt") and keybinding_type[1].containsn("alt")
-			input_event_key.ctrl_pressed = not StringHelper.case_insensitive_comparison(keybinding_type[1], "ctrl") and keybinding_type[1].containsn("ctrl")
-			input_event_key.shift_pressed = not StringHelper.case_insensitive_comparison(keybinding_type[1], "shift") and keybinding_type[1].containsn("shift")
-			input_event_key.meta_pressed =  keybinding_type[1].containsn("meta")
+			input_event_key.alt_pressed = not StringHelper.case_insensitive_comparison(keybinding_type[1], "alt") and keybinding_type[1].contains("alt")
+			input_event_key.ctrl_pressed = not StringHelper.case_insensitive_comparison(keybinding_type[1], "ctrl") and keybinding_type[1].contains("ctrl")
+			input_event_key.shift_pressed = not StringHelper.case_insensitive_comparison(keybinding_type[1], "shift") and keybinding_type[1].contains("shift")
+			input_event_key.meta_pressed =  keybinding_type[1].contains("meta")
 			
 			InputMap.action_add_event(action, input_event_key)
 		"InputEventMouseButton":

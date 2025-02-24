@@ -144,7 +144,7 @@ func attack():
 	
 	if not get_random_enemy() == null: # true or
 		var weapon: WeaponAttack
-		Log.pr("attack",next_weapon, next_weapon + weapon_num)
+		#Log.pr("attack",next_weapon, next_weapon + weapon_num)
 		for weapon_attack in weapons.slice(next_weapon, next_weapon + weapon_num):
 			match weapon_attack.weapon_type:
 				AttackStats.WeaponType.DAGGER:

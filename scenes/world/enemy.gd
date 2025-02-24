@@ -11,6 +11,7 @@ var knockback = Vector2.ZERO
 @onready var loot_base = get_tree().get_first_node_in_group("loot")
 @onready var sprite = $AnimatedSprite2D
 @onready var anim: AnimationPlayer = $AnimationPlayer;
+@onready var state: FiniteStateMachine = $FiniteStateMachine;
 
 @onready var hitBox = $Hitbox2D
 @onready var damage_label = $DamageLabel
@@ -35,16 +36,24 @@ func _ready():
 	anim.seek(randf_range(0, anim.get_animation("run").length))
 	hitBox.damage = enemy_damage
 	
+	state.change_state_to(IdleState)
+	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
+
+func move_towards_target(_delta: float, target:Vector2):
+	if(can_move):
+		var direction = global_position.direction_to(target)
+		velocity = direction * movement_speed
+	
 
 func _physics_process(_delta):
 	knockback = knockback.move_toward(Vector2.ZERO, knockback_recovery)
 	var direction = Vector2.ZERO;
 	if(can_move):
 		direction = global_position.direction_to(player.global_position)
-	velocity = direction * movement_speed
+	#velocity = direction * movement_speed
 	velocity += knockback
 	move_and_slide()
 	
@@ -74,6 +83,13 @@ func play_with_randomized_audio(sound: AudioStreamPlayer2D):
 	sound.pitch_scale = sound.pitch_scale * (1.0 + randf_range(-pitch_variance, pitch_variance))
 	sound.volume_db = sound.volume_db + randf_range(-volume_variance, volume_variance)
 	sound.play()
+
+func _on_finite_state_machine_state_changed(from_state: MachineState, state: MachineState) -> void:
+	match state.name:
+		"idle":
+			Log.pr("idle", "finished")
+		"TopDownWalk":
+			pass#animation_player.play("walk")
 
 func _on_hurtbox_2d_hurt(damage: Variant, angle: Variant, knockback_amount: Variant) -> void:
 	hp -= damage

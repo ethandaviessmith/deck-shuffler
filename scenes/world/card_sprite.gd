@@ -44,7 +44,7 @@ func show_card():
 		modulate = Color(modulate.r, modulate.g, modulate.b, 0.3)
 		fade_mat.set_shader_parameter("show", true)
 		fade_mat.set_shader_parameter("reveal_progress", 0.0)
-		Log.pr("start draw", card.name, draw_speed)
+		#Log.pr("start draw", card.name, draw_speed)
 		
 		if tween:
 			tween.kill()
@@ -54,13 +54,13 @@ func show_card():
 		#tween.tween_property(self, "modulate:a", 1, draw_speed).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_OUT)
 		#tween.tween_callback(Callable(self, "hide_card")).set_delay(draw_speed)
 		$Timer.start(draw_speed)
-		Log.pr("start draw",tween)
+		#Log.pr("start draw",tween)
 		
 	
 
 func hide_card():
 	if not draw_card:
-		Log.pr("queue_free", card.name)
+		#Log.pr("queue_free", card.name)
 		queue_free()
 	else:
 		draw_card = false
@@ -70,7 +70,7 @@ func hide_card():
 		get_material().set_shader_parameter("show", false)
 		get_material().set_shader_parameter("reveal_progress", 0.0)
 		modulate = Color(modulate.r, modulate.g, modulate.b, 1)
-		Log.pr("hide draw", card.name, get_material().get_shader_parameter("reveal_progress"))
+		#Log.pr("hide draw", card.name, get_material().get_shader_parameter("reveal_progress"))
 		
 		if tween:
 			tween.kill()

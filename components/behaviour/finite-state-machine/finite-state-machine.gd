@@ -6,7 +6,9 @@ signal states_initialized(states: Dictionary)
 signal state_changed(from_state: MachineState, state: MachineState)
 signal state_change_failed(from: MachineState, to: MachineState)
 signal stack_pushed(new_state: MachineState, stack: Array[MachineState])
+signal state_ended(state: MachineState)
 signal stack_flushed(stack: Array[MachineState])
+
 
 @export var current_state: MachineState
 @export var enable_stack: bool = true
@@ -26,6 +28,7 @@ func _ready():
 
 	state_changed.connect(on_state_changed)
 	state_change_failed.connect(on_state_change_failed)
+	state_ended.connect(on_state_ended)
 	
 	_prepare_states()
 	enter_state(current_state)
@@ -187,7 +190,6 @@ func unlock_state_machine():
 func _prepare_states(node: Node = self):
 	for child in node.get_children(true):
 		if child is MachineState:
-			
 			_add_state_to_dictionary(child)
 		else:
 			if child.get_child_count() > 0:
@@ -211,3 +213,15 @@ func on_state_changed(from: MachineState, to: MachineState):
 
 func on_state_change_failed(_from: MachineState, _to: MachineState):
 	is_transitioning = false
+
+func on_state_ended(state: MachineState):
+	state_ended_change(state)
+	if not state == null:
+		match(state):
+			IdleState:
+				Log.pr("end idle state fsm", state)
+			_: pass
+	pass
+
+func state_ended_change(state: MachineState):
+	Log.pr("state_ended_change base", state)

@@ -143,6 +143,7 @@ Mirrage - Duplicates last card (stacks with effects)
 
 ## Spells
 
+## Throw (fade #)
 Loot (drop chance)
 Pattern (slow, wave, zigzag, spiral, gravity)
 Duration (buff time)

@@ -68,8 +68,8 @@ static func renderer_is_mobile() -> bool:
 
 static func is_steam_deck() -> bool:
 	return StringHelper.case_insensitive_comparison(distribution_name, "SteamOS") \
-		or video_adapter_name.containsn("radv vangogh") \
-		or OS.get_processor_name().containsn("amd custom apu 0405")
+		or video_adapter_name.contains("radv vangogh") \
+		or OS.get_processor_name().contains("amd custom apu 0405")
 
 
 static func is_mobile() -> bool:
@@ -102,7 +102,7 @@ static func auto_discover_graphics_quality() -> QualityPreset:
 	
 	for preset in devices_by_quality:
 		for adapter: String in devices_by_quality[preset]:
-			if current_hardware_device_name.containsn(adapter):
+			if current_hardware_device_name.contains(adapter):
 				return preset
 				
 	return QualityPreset.Medium

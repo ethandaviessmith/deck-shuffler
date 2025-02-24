@@ -76,7 +76,7 @@ func apply_dash(direction: Vector2 = dash_direction) -> void:
 	
 
 func on_animation_finished() -> void:
-	if actor.animated_sprite_2d.animation.containsn("dash"):
+	if actor.animated_sprite_2d.animation.contains("dash"):
 		FSM.change_state_to(TopDownWalk)
 
 
