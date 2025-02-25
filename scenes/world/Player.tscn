@@ -291,7 +291,7 @@ radius = 10.2956
 radius = 8.5
 height = 38.0
 
-[node name="TopDownController" type="CharacterBody2D" node_paths=PackedStringArray("camera", "deck") groups=["player"]]
+[node name="TopDownController" type="CharacterBody2D" node_paths=PackedStringArray("camera", "deck") groups=["player", "target"]]
 texture_filter = 1
 collision_layer = 2
 motion_mode = 1

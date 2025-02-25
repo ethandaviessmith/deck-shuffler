@@ -16,8 +16,6 @@ var normal_color = Color(1, 1, 1)
 var hit_color = Color(1, .7, .7)
 
 @onready var player = get_tree().get_first_node_in_group(Player.GroupName)
-@onready var hitbox: Hitbox2D = $Hitbox2D
-#@onready var start_audio:AudioStreamPlayer2D = $StartAudioStream
 @onready var hit_audio:AudioStreamPlayer2D = $HitAudioStream
 @onready var anim: AnimationPlayer = $AnimationPlayer
 @onready var anim_effect: AnimationPlayer = $EffectAnimationPlayer
@@ -25,7 +23,7 @@ var hit_color = Color(1, .7, .7)
 
 
 func _ready(): 
-	angle = global_position.direction_to(target)
+	#angle = global_position.direction_to(target)
 	#rotation = angle.angle()
 	
 	anim.play("idle")
@@ -68,13 +66,6 @@ func _on_timer_timeout():
 	anim.play("thump")
 	anim_effect.play("thump")
 	Util.play_with_randomized_audio(hit_audio)
-	#collision.call_deferred("set","disabled", false)
-	$HitTimer.start(0.2)
 
 func _on_fade_timer_timeout() -> void:
 	_play_death_effect()
-
-
-func _on_hit_timer_timeout() -> void:
-	pass
-	#collision.call_deferred("set","disabled",true)

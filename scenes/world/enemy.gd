@@ -1,4 +1,4 @@
-extends CharacterBody2D
+class_name Character extends CharacterBody2D
 
 @export var movement_speed = 30.0
 @export var hp = 3
@@ -11,7 +11,7 @@ var knockback = Vector2.ZERO
 @onready var loot_base = get_tree().get_first_node_in_group("loot")
 @onready var sprite = $AnimatedSprite2D
 @onready var anim: AnimationPlayer = $AnimationPlayer;
-@onready var state: FiniteStateMachine = $FiniteStateMachine;
+@onready var state: StateMachine = $FiniteStateMachine;
 
 @onready var hitBox = $Hitbox2D
 @onready var damage_label = $DamageLabel
@@ -28,6 +28,9 @@ var exp_gem = preload("res://scenes/world/experience_gem.tscn")
 signal remove_from_array(object)
 
 var can_move = true
+var targets:Array[Node2D] = []
+
+signal new_target(node: Node2D)
 
 
 # Called when the node enters the scene tree for the first time.
@@ -36,7 +39,7 @@ func _ready():
 	anim.seek(randf_range(0, anim.get_animation("run").length))
 	hitBox.damage = enemy_damage
 	
-	state.change_state_to(IdleState)
+	#state.change_state_to(IdleState)
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -51,8 +54,8 @@ func move_towards_target(_delta: float, target:Vector2):
 func _physics_process(_delta):
 	knockback = knockback.move_toward(Vector2.ZERO, knockback_recovery)
 	var direction = Vector2.ZERO;
-	if(can_move):
-		direction = global_position.direction_to(player.global_position)
+	#if(can_move):
+		#direction = global_position.direction_to(player.global_position)
 	#velocity = direction * movement_speed
 	velocity += knockback
 	move_and_slide()
@@ -94,6 +97,7 @@ func _on_finite_state_machine_state_changed(from_state: MachineState, state: Mac
 func _on_hurtbox_2d_hurt(damage: Variant, angle: Variant, knockback_amount: Variant) -> void:
 	hp -= damage
 	knockback = angle * knockback_amount
+	Log.pr("angle", angle, "knockback", knockback_amount)
 	damage_label.text = str(hp)
 	damage_label.modulate.a = 1
 	var tween = create_tween()
@@ -107,3 +111,29 @@ func _on_hurtbox_2d_hurt(damage: Variant, angle: Variant, knockback_amount: Vari
 	else:
 		pass
 		#snd_hit.play()
+
+
+# Body and Area Signals connected
+func _on_chase_area_2d_body_entered(body: Node2D) -> void:
+	if body.is_in_group("target"):
+		targets.append(body)
+		new_target.emit(body)
+	Log.pr("enter", body.name)
+
+func _on_chase_area_2d_body_exited(body: Node2D) -> void:
+	if body.is_in_group("target"): # keep in list of targets for now
+		targets.erase(body) 
+		Log.pr("exit", body.name)
+
+
+func _on_chase_area_2d_area_entered(area: Area2D) -> void:
+	if area.is_in_group("target"):
+		targets.append(area)
+		new_target.emit(area)
+	Log.pr("enter", area.name)
+
+
+func _on_chase_area_2d_area_exited(area: Area2D) -> void:
+	if area.is_in_group("target"): # keep in list of targets for now
+		targets.erase(area) 
+		Log.pr("exit", area.name)

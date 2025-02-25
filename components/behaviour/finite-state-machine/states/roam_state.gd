@@ -1,31 +1,18 @@
 @icon("res://components/behaviour/finite-state-machine/state.png")
-class_name RoamState extends CharacterMachineState
+class_name RoamState extends CharacterState
 
 
-@export var IDLE_DURATION = 0.2
+@export var IDLE_DURATION = 2.0
 var idle_time = 0.0
 
 var roam_points: Array = []
-const ROAM_RADIUS = 200
+const ROAM_RADIUS = 50
 
 
-func _ready():
-	pass
-
-
-func enter() -> void:
+func enter(previous_state_path: String, data := {}) -> void:
 	if roam_points.is_empty():
-		origin_position = FSM.origin_position
 		_setup_roam_points()
 	target_position = _pick_new_roam_target()
-	
-
-func exit(_next_state: MachineState) -> void:
-	pass
-	
-
-func handle_input(_event: InputEvent):
-	pass
 
 
 func physics_update(_delta: float):
@@ -33,14 +20,18 @@ func physics_update(_delta: float):
 	
 	
 func update(_delta: float):
-	FSM.character.move_towards_target(_delta, target_position)
-	#if position.distance_to(target_position) < 10:
-		#current_state = State.IDLE
-#
+	character.move_towards_target(_delta, target_position)
+
+	if character.position.distance_to(target_position) < 10:
+		finished.emit(IDLE)
+
+	if character.targets.size() > 0:
+		finished.emit(CHASE)
 	#var potential_target = _find_target_in_radius(FOLLOW_RADIUS)
 	#if potential_target:
 		#target = potential_target
 		#current_state = State.FOLLOW
+	pass
 
 func _pick_new_roam_target():
 	if roam_points.size() > 0:
@@ -52,7 +43,7 @@ func _setup_roam_points():
 	for i in range(5):  # Example: 5 random spots
 		var angle = randf_range(0, PI * 2)
 		var distance = randf_range(0, ROAM_RADIUS)
-		roam_points.append(origin_position + Vector2(cos(angle), sin(angle)) * distance)
+		roam_points.append(character.position + Vector2(cos(angle), sin(angle)) * distance)
 
 
 func _pick_random_roam_return_point():

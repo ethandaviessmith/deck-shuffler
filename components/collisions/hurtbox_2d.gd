@@ -38,7 +38,7 @@ func on_area_entered(hitbox: Area2D) -> void:
 			angle = hitbox.angle
 		else:
 			angle = (global_position - hitbox.global_position).normalized()
-		var knockback = 100
+		var knockback = 2
 		if not hitbox.get("knockback") == null:
 			knockback = hitbox.knockback
 		

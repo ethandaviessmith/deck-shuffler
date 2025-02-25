@@ -3,7 +3,7 @@ extends WeaponAttack
 var level = 1
 @export var damage = 1
 
-@export var knockback = 100
+@export var knockback = 10
 @export var speed = 200
 @export var size = 1.0
 

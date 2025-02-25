@@ -15,13 +15,15 @@ func _ready():
 
 func state_ended_change(state: MachineState):
 	if state.name == "IdleState":
-		pass
+		change_state_to(RoamState)
+	
 		#current_state = State.ROAM
 		#_pick_new_roam_target()
 		# what to do after idle
 
 func _on_state_ended(state: Variant) -> void:
-	Log.pr("end idle state", state)
+	pass
+	#Log.pr("end idle state", state)
 
 
 #func _follow_state(delta):

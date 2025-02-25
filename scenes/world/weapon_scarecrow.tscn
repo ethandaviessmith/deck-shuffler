@@ -143,7 +143,7 @@ radius = 41.0122
 [sub_resource type="CircleShape2D" id="CircleShape2D_eydsx"]
 radius = 10.0499
 
-[node name="Area2D" type="Area2D"]
+[node name="Area2D" type="Area2D" groups=["target"]]
 texture_filter = 1
 position = Vector2(0, -18)
 collision_layer = 128
@@ -176,13 +176,16 @@ position = Vector2(0, 17)
 shape = SubResource("CircleShape2D_203sm")
 disabled = true
 
-[node name="Hurtbox2D" type="Area2D" parent="."]
-collision_layer = 2
-collision_mask = 4
+[node name="Hurtbox2D" type="Area2D" parent="." groups=["target"]]
+collision_layer = 10
+collision_mask = 0
 script = ExtResource("3_5rkx8")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox2D"]
 shape = SubResource("CircleShape2D_eydsx")
+
+[node name="DisableTimer" type="Timer" parent="Hurtbox2D"]
+one_shot = true
 
 [node name="AttackTimer" type="Timer" parent="."]
 wait_time = 1.972
@@ -195,11 +198,6 @@ autostart = true
 stream = ExtResource("4_1usri")
 bus = &"SFX"
 
-[node name="HitTimer" type="Timer" parent="."]
-wait_time = 1.972
-autostart = true
-
 [connection signal="hurt" from="Hurtbox2D" to="." method="_on_hurtbox_2d_hurt"]
 [connection signal="timeout" from="AttackTimer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="FadeTimer" to="." method="_on_fade_timer_timeout"]
-[connection signal="timeout" from="HitTimer" to="." method="_on_hit_timer_timeout"]

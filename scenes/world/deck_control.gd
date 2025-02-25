@@ -36,7 +36,7 @@ func set_deck(cards: Array[Card]):
 		var card_instance = card_scene.instantiate() as CardDeckSprite
 		grid_container.add_child(card_instance)
 		card_instance.set_card(card)
-		Log.pr("add_card", card)
+		Log.pr("add_card", card.name)
 	emit_signal("deck_updated")
 
 func shuffle():
@@ -61,7 +61,7 @@ func draw_card() -> Card:
 		hand.append(drawn_card)
 		draw_pile.remove_at(random_index)
 		#emit_signal("card_removed", drawn_card)  # Signal removal
-		Log.pr(drawn_card.get_card_type_name() + "drawn")
+		#Log.pr(drawn_card.get_card_type_name() + "drawn")
 		return drawn_card
 	else:
 		Log.pr("Draw pile is empty!")

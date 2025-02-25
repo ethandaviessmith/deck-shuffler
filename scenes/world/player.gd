@@ -142,7 +142,8 @@ func attack():
 		#print("No weapons from buff - choosing default")
 	display_buffs(active_buffs.size())
 	
-	if not get_random_enemy() == null: # true or
+	# attacking DISABLED
+	if false and not get_random_enemy() == null: # true or
 		var weapon: WeaponAttack
 		#Log.pr("attack",next_weapon, next_weapon + weapon_num)
 		for weapon_attack in weapons.slice(next_weapon, next_weapon + weapon_num):

@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://iq63nlaer5ul"]
+[gd_scene load_steps=19 format=3 uid="uid://iq63nlaer5ul"]
 
 [ext_resource type="Script" path="res://scenes/world/enemy.gd" id="1_2wiof"]
 [ext_resource type="SpriteFrames" uid="uid://coxg58roo4g74" path="res://assets/critter_2.tres" id="1_pg8tb"]
@@ -6,9 +6,10 @@
 [ext_resource type="PackedScene" uid="uid://dvvoyxs6gfhne" path="res://components/interaction/2D/interactables/hitbox_2d.tscn" id="4_axjrv"]
 [ext_resource type="FontFile" uid="uid://do03fwxb30r7l" path="res://assets/GUI/OldSchoolAdventures-42j9.ttf" id="5_bpmjk"]
 [ext_resource type="AudioStream" uid="uid://b17xuikgm18at" path="res://assets/audio/hit-flesh-01-266311.mp3" id="6_v0a0p"]
-[ext_resource type="Script" path="res://components/behaviour/finite-state-machine/character_state.gd" id="7_amcy8"]
+[ext_resource type="Script" path="res://components/behaviour/finite-state-machine/fsm.gd" id="7_dm454"]
 [ext_resource type="Script" path="res://components/behaviour/finite-state-machine/states/idle_state.gd" id="8_5vbtl"]
 [ext_resource type="Script" path="res://components/behaviour/finite-state-machine/states/roam_state.gd" id="9_dvc74"]
+[ext_resource type="Script" path="res://components/behaviour/finite-state-machine/states/chase_state.gd" id="10_cv45o"]
 
 [sub_resource type="Animation" id="Animation_wasu3"]
 length = 0.001
@@ -109,10 +110,13 @@ radius = 9.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_60q7e"]
 radius = 7.07107
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_ecuri"]
+radius = 83.65
+
 [node name="CharacterBody2D" type="CharacterBody2D"]
 texture_filter = 1
 collision_layer = 4
-collision_mask = 133
+collision_mask = 131
 motion_mode = 1
 script = ExtResource("1_2wiof")
 
@@ -161,10 +165,15 @@ horizontal_alignment = 1
 stream = ExtResource("6_v0a0p")
 bus = &"SFX"
 
-[node name="FiniteStateMachine" type="Node" parent="." node_paths=PackedStringArray("character", "current_state")]
-script = ExtResource("7_amcy8")
-character = NodePath("..")
-current_state = NodePath("IdleState")
+[node name="ChaseArea2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 10
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChaseArea2D"]
+shape = SubResource("CircleShape2D_ecuri")
+
+[node name="FiniteStateMachine" type="Node" parent="."]
+script = ExtResource("7_dm454")
 
 [node name="IdleState" type="Node" parent="FiniteStateMachine"]
 script = ExtResource("8_5vbtl")
@@ -172,9 +181,14 @@ script = ExtResource("8_5vbtl")
 [node name="RoamState" type="Node" parent="FiniteStateMachine"]
 script = ExtResource("9_dvc74")
 
+[node name="ChaseState" type="Node" parent="FiniteStateMachine"]
+script = ExtResource("10_cv45o")
+
 [connection signal="hurt" from="Hurtbox2D" to="." method="_on_hurtbox_2d_hurt"]
-[connection signal="state_changed" from="FiniteStateMachine" to="." method="_on_finite_state_machine_state_changed"]
-[connection signal="state_ended" from="FiniteStateMachine" to="FiniteStateMachine" method="_on_state_ended"]
+[connection signal="area_entered" from="ChaseArea2D" to="." method="_on_chase_area_2d_area_entered"]
+[connection signal="area_exited" from="ChaseArea2D" to="." method="_on_chase_area_2d_area_exited"]
+[connection signal="body_entered" from="ChaseArea2D" to="." method="_on_chase_area_2d_body_entered"]
+[connection signal="body_exited" from="ChaseArea2D" to="." method="_on_chase_area_2d_body_exited"]
 
 [editable path="Hurtbox2D"]
 [editable path="Hitbox2D"]
