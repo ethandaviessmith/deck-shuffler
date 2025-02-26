@@ -440,16 +440,22 @@ func _on_collect_area_area_entered(area: Area2D) -> void:
 
 func _on_enemy_despawn_area_2d_body_exited(body: Node2D) -> void:
 	# When off the screen wrap enemies back onto the opposite side
-	var vpr = get_viewport_rect().size * (Vector2(1,1) / get_viewport().get_camera_2d().zoom)
-	var pos: Vector2 = Vector2(int(clamp(velocity.x, -1,1)), int(clamp(velocity.y, -1,1)))
 	
-	if body.position.x < global_position.x - (vpr.x/2):
-		body.position.x += vpr.x*1.3
-	elif body.position.x > global_position.x + (vpr.x/2):
-		body.position.x -= vpr.x*1.3
-	if body.position.y < global_position.y - (vpr.y/2):
-		body.position.y += vpr.y*1.3
-	elif body.position.y > global_position.y + (vpr.y/2):
-		body.position.y -= vpr.y*1.3
+	if body.has_method("get_spawn_type"):
+		if body.get_spawn_type() == Character.Spawn.WRAP:
+			var vpr = get_viewport_rect().size * (Vector2(1,1) / get_viewport().get_camera_2d().zoom)
+			var pos: Vector2 = Vector2(int(clamp(velocity.x, -1,1)), int(clamp(velocity.y, -1,1)))
+			
+			if body.position.x < global_position.x - (vpr.x/2):
+				body.position.x += vpr.x*1.3
+			elif body.position.x > global_position.x + (vpr.x/2):
+				body.position.x -= vpr.x*1.3
+			if body.position.y < global_position.y - (vpr.y/2):
+				body.position.y += vpr.y*1.3
+			elif body.position.y > global_position.y + (vpr.y/2):
+				body.position.y -= vpr.y*1.3
+				
+			if body.has_method("teleport"):
+				body.teleport()
 
 #endregion

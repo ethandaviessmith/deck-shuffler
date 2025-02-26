@@ -12,6 +12,8 @@ func _ready() -> void:
 	for state_node: State in find_children("*", "State"):
 		state_node.finished.connect(_transition_to_next_state)
 	await owner.ready
+	if owner.has_signal("next_state"):
+		owner.next_state.connect(_transition_to_next_state)
 	state.enter("")
 
 func _unhandled_input(event: InputEvent) -> void:

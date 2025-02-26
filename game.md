@@ -130,20 +130,23 @@ shuffle animation
 hit, level up animation
 
 #### Survivor
+
 Enemy state machines
 Boss
 
-
 #### CARDS
+
 ## Action Cards
 
-Quick Draw - Next 2 draws draw 2 cards or Instant draw 2 more cards
+Quick Draw - Instant draw 2 more cards. alt. Next 2 draws draw 2 cards or
 Double Finale - Resolve now, resolve hand twice
 Mirrage - Duplicates last card (stacks with effects)
+Energy - Add 1 more draw to hand (should be next hand)
 
 ## Spells
 
 ## Throw (fade #)
+
 Loot (drop chance)
 Pattern (slow, wave, zigzag, spiral, gravity)
 Duration (buff time)
@@ -156,3 +159,8 @@ Pierce (weapon durability)
 ## Upgrades
 
 APS
+
+# TO DO
+
+Scarecrow not targetable by enemy
+Enemy state machine (lose target)

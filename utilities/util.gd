@@ -3,6 +3,9 @@ class_name Util
 static var pitch_variance: float = 0.1  # Pitch variance range
 static var volume_variance: float = 0.1  # Volume variance range
 
+static var normal_color = Color(1, 1, 1) 
+static var hit_color = Color(1, .7, .7)
+
 static func get_random_edge_pos(pos: Vector2, vpr: Vector2) -> Vector2:
 	var top_left = Vector2(pos.x - vpr.x/2, pos.y - vpr.y/2)
 	var top_right = Vector2(pos.x + vpr.x/2, pos.y - vpr.y/2)

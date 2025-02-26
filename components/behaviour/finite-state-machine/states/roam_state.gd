@@ -5,24 +5,23 @@ class_name RoamState extends CharacterState
 @export var IDLE_DURATION = 2.0
 var idle_time = 0.0
 
-var roam_points: Array = []
-const ROAM_RADIUS = 50
+var roam_points: Array[Node2D] = []
+const ROAM_RADIUS = 80
 
 
 func enter(previous_state_path: String, data := {}) -> void:
 	if roam_points.is_empty():
 		_setup_roam_points()
-	target_position = _pick_new_roam_target()
-
+	target = _pick_new_roam_target()
 
 func physics_update(_delta: float):
 	pass
 	
 	
 func update(_delta: float):
-	character.move_towards_target(_delta, target_position)
+	move(_delta)
 
-	if character.position.distance_to(target_position) < 10:
+	if character.position.distance_to(target.position) < 10:
 		finished.emit(IDLE)
 
 	if character.targets.size() > 0:
@@ -33,9 +32,10 @@ func update(_delta: float):
 		#current_state = State.FOLLOW
 	pass
 
-func _pick_new_roam_target():
-	if roam_points.size() > 0:
+func _pick_new_roam_target() -> Node2D:
+	if not roam_points.is_empty():
 		return roam_points[randi() % roam_points.size()]
+	return null
 
 
 func _setup_roam_points():
@@ -43,7 +43,9 @@ func _setup_roam_points():
 	for i in range(5):  # Example: 5 random spots
 		var angle = randf_range(0, PI * 2)
 		var distance = randf_range(0, ROAM_RADIUS)
-		roam_points.append(character.position + Vector2(cos(angle), sin(angle)) * distance)
+		var point = Node2D.new()
+		point.global_position = character.position + Vector2(cos(angle), sin(angle)) * distance
+		roam_points.append(point)
 
 
 func _pick_random_roam_return_point():

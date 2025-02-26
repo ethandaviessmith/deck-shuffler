@@ -189,8 +189,7 @@ _data = {
 "walk": SubResource("Animation_mr4bg")
 }
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_q4tc1"]
-size = Vector2(12, 32)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5rohf"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_tniib"]
 line_spacing = 2.0
@@ -328,9 +327,8 @@ sprite_frames = ExtResource("2_yfxqc")
 animation = &"breathing"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 position = Vector2(-1, 3)
-shape = SubResource("RectangleShape2D_q4tc1")
+shape = SubResource("CapsuleShape2D_5rohf")
 
 [node name="AttackTimer" type="Timer" parent="."]
 unique_name_in_owner = true

@@ -587,6 +587,7 @@ autostart = true
 
 [node name="CharacterBody2D" parent="EnemySpawner" instance=ExtResource("1_78kn1")]
 position = Vector2(447, 352)
+spawn_type = 1
 
 [node name="Area2D" parent="EnemySpawner" instance=ExtResource("9_2c4su")]
 position = Vector2(408, 380)

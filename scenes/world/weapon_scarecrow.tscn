@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://kql8wfuj5tej"]
+[gd_scene load_steps=16 format=3 uid="uid://kql8wfuj5tej"]
 
 [ext_resource type="Script" path="res://scenes/world/weapon_scarecrow.gd" id="1_8h5pg"]
 [ext_resource type="Texture2D" uid="uid://des60sw5pp1s2" path="res://assets/characters.png" id="2_102gw"]
@@ -143,7 +143,10 @@ radius = 41.0122
 [sub_resource type="CircleShape2D" id="CircleShape2D_eydsx"]
 radius = 10.0499
 
-[node name="Area2D" type="Area2D" groups=["target"]]
+[sub_resource type="CircleShape2D" id="CircleShape2D_axf65"]
+radius = 23.0868
+
+[node name="Area2D" type="Area2D"]
 texture_filter = 1
 position = Vector2(0, -18)
 collision_layer = 128
@@ -176,7 +179,7 @@ position = Vector2(0, 17)
 shape = SubResource("CircleShape2D_203sm")
 disabled = true
 
-[node name="Hurtbox2D" type="Area2D" parent="." groups=["target"]]
+[node name="Hurtbox2D" type="Area2D" parent="."]
 collision_layer = 10
 collision_mask = 0
 script = ExtResource("3_5rkx8")
@@ -197,6 +200,13 @@ autostart = true
 [node name="HitAudioStream" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_1usri")
 bus = &"SFX"
+
+[node name="TestArea2D" type="Area2D" parent="." groups=["target"]]
+collision_layer = 8
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TestArea2D"]
+shape = SubResource("CircleShape2D_axf65")
 
 [connection signal="hurt" from="Hurtbox2D" to="." method="_on_hurtbox_2d_hurt"]
 [connection signal="timeout" from="AttackTimer" to="." method="_on_timer_timeout"]
