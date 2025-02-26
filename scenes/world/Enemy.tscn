@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://iq63nlaer5ul"]
+[gd_scene load_steps=23 format=3 uid="uid://iq63nlaer5ul"]
 
 [ext_resource type="Script" path="res://scenes/world/enemy.gd" id="1_2wiof"]
 [ext_resource type="SpriteFrames" uid="uid://coxg58roo4g74" path="res://assets/critter_2.tres" id="1_pg8tb"]
@@ -117,6 +117,11 @@ radius = 7.07107
 [sub_resource type="CircleShape2D" id="CircleShape2D_ecuri"]
 radius = 140.004
 
+[sub_resource type="LabelSettings" id="LabelSettings_ireb8"]
+font_size = 7
+outline_size = 2
+outline_color = Color(0, 0, 0, 1)
+
 [node name="CharacterBody2D" type="CharacterBody2D"]
 texture_filter = 1
 position = Vector2(1, 10)
@@ -203,6 +208,30 @@ script = ExtResource("12_h35yo")
 
 [node name="AttackState" type="Node" parent="FiniteStateMachine"]
 script = ExtResource("13_7sq1y")
+
+[node name="Node2D" type="Node2D" parent="."]
+position = Vector2(-1, 2)
+scale = Vector2(0.5, 0.5)
+
+[node name="StateLabel" type="Label" parent="Node2D"]
+unique_name_in_owner = true
+texture_filter = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -15.0
+offset_top = -8.33333
+offset_right = 15.0
+offset_bottom = 1.66667
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("5_bpmjk")
+theme_override_font_sizes/font_size = 7
+text = "state"
+label_settings = SubResource("LabelSettings_ireb8")
+horizontal_alignment = 1
 
 [connection signal="hurt" from="Hurtbox2D" to="." method="_on_hurtbox_2d_hurt"]
 [connection signal="area_entered" from="ChaseArea2D" to="." method="_on_chase_area_2d_area_entered"]

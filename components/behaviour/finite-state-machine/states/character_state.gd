@@ -10,7 +10,6 @@ const TELEPORT = "TeleportState"
 
 var character: Character
 
-
 var target: Node2D
 var origin_position: Vector2
 var target_offset: Vector2 = Vector2.ZERO

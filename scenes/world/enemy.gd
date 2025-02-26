@@ -36,6 +36,7 @@ func get_spawn_type() -> Spawn:
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	hitBox.damage = enemy_damage
+	next_state.emit(CharacterState.CHASE, {"target": player})
 
 func _process(delta: float) -> void:
 	pass

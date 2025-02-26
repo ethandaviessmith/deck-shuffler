@@ -22,6 +22,7 @@ func physics_update(_delta: float):
 	
 	
 func update(_delta: float):
+	decelerate(_delta)
 	idle_time += _delta
 	#if Engine.get_process_frames() % 15 == 0:
 	if idle_time >= IDLE_DURATION:

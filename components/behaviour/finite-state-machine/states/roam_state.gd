@@ -1,7 +1,6 @@
 @icon("res://components/behaviour/finite-state-machine/state.png")
 class_name RoamState extends CharacterState
 
-
 @export var IDLE_DURATION = 2.0
 var idle_time = 0.0
 

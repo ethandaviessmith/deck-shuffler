@@ -1,8 +1,9 @@
 @icon("res://components/behaviour/finite-state-machine/fsm.png")
 class_name StateMachine extends Node
 
-@export var initial_state: State = null
+@onready var state_label = $"../Node2D/StateLabel" #debugging
 
+@export var initial_state: State = null
 @onready var state: State = (func get_initial_state() -> State:
 	return initial_state if initial_state != null else get_child(0)
 ).call()
@@ -34,3 +35,8 @@ func _transition_to_next_state(target_state_path: String, data: Dictionary = {})
 	state.exit()
 	state = get_node(target_state_path)
 	state.enter(previous_state_path, data)
+	
+	state_label.text = target_state_path # show and hide state on change
+	state_label.modulate.a = 1
+	var tween = create_tween()
+	tween.tween_property(state_label, "modulate:a", 0.0, 1.0)

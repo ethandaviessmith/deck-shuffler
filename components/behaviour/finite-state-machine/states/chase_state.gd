@@ -1,13 +1,17 @@
 @icon("res://components/behaviour/finite-state-machine/state.png")
 class_name ChaseState extends CharacterState
 
-const CHASE_DISTANCE = 80
+const CHASE_DISTANCE = 30
 const OFFSET = 50
 var positions = [ Vector2.ZERO, Vector2(0, -CHASE_DISTANCE), Vector2(0, CHASE_DISTANCE), Vector2(-CHASE_DISTANCE, 0), Vector2(CHASE_DISTANCE, 0) ]
 
 func enter(previous_state_path: String, data := {}) -> void:
-	if target == null:
-		target = character.targets.pick_random() 
+	if not data.get("target") == null:
+		target = data.get("target")
+		Log.pr("target", "not working")
+	else:
+		if target == null:
+			target = character.targets.pick_random() 
 	target_offset =  positions[randi() % positions.size()]
 
 func exit() -> void:
