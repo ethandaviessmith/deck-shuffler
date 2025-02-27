@@ -20,13 +20,12 @@ func exit() -> void:
 	pass
 
 func physics_update(delta: float):
-	pass
+	if is_instance_valid(target):
+		update_circle_movement(delta)
 
 
 func update(delta: float):
-	
 	if is_instance_valid(target):
-		update_circle_movement(delta)
 		if character.global_position.distance_to(get_position()) < DISTANCE_CLOSE:
 			pass
 			#finished.emit(ATTACK)

@@ -18,11 +18,10 @@ func exit() -> void:
 	
 
 func physics_update(_delta: float):
-	pass
+	move(_delta)
 
 
 func update(_delta: float):
-	move(_delta)
 	if is_instance_valid(target):
 		#var direction = character.global_position.direction_to(target.global_position)
 		#character.velocity = direction * character.movement_speed * _delta

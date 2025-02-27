@@ -7,10 +7,9 @@ func enter(previous_state_path: String, data := {}) -> void:
 	target_offset =  Vector2.ZERO
 
 func physics_update(_delta: float):
-	pass
+	move(_delta)
 
 func update(_delta: float):
-	move(_delta)
 	if is_instance_valid(target):
 		if character.global_position.distance_to(target.global_position) < DISTANCE_BESIDE:
 			finished.emit(IDLE)

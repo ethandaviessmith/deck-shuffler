@@ -14,12 +14,9 @@ func enter(previous_state_path: String, data := {}) -> void:
 	target = _pick_new_roam_target()
 
 func physics_update(_delta: float):
-	pass
-	
-	
-func update(_delta: float):
 	move(_delta)
 
+func update(_delta: float):
 	if character.position.distance_to(target.position) < DISTANCE_BESIDE:
 		finished.emit(IDLE)
 

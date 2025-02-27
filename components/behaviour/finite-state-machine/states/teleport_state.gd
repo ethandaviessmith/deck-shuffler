@@ -21,8 +21,7 @@ func exit() -> void:
 
 func physics_update(_delta: float):
 	pass
-	
-	
+
 func update(_delta: float):
 	idle_time += _delta
 	#if Engine.get_process_frames() % 15 == 0:

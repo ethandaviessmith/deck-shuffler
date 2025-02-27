@@ -16,15 +16,12 @@ func enter(previous_state_path: String, data := {}) -> void:
 
 func exit() -> void:
 	pass
-	
 
 func physics_update(_delta: float):
-	pass
-	
-	
-func update(_delta: float):
 	decelerate(_delta)
 
+func update(_delta: float):
+	pass
 
 func death():
 	character.friction = FRICTION
