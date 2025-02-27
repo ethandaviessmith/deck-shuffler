@@ -21,7 +21,7 @@ var knockback = Vector2.ZERO
 @onready var damage_label = $DamageLabel
 #var death_anim = preload("res://Enemy/explosion.tscn")
 
-signal next_state(object:String)
+signal next_state(next_state_path: String, data: Dictionary)
 
 var can_move = true
 var targets:Array[Node2D] = []
@@ -36,7 +36,8 @@ func get_spawn_type() -> Spawn:
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	hitBox.damage = enemy_damage
-	next_state.emit(CharacterState.CHASE, {"target": player})
+	if get_spawn_type() == Character.Spawn.WRAP:
+		targets.append(player)
 
 func _process(delta: float) -> void:
 	pass
@@ -47,7 +48,7 @@ func _physics_process(_delta):
 	move_and_slide()
 
 func teleport():
-	next_state.emit(CharacterState.TELEPORT)
+	next_state.emit(CharacterState.TELEPORT, {})
 	
 func face_target(vector: Vector2):
 	if global_position.direction_to(vector).x < 0.1:
@@ -80,7 +81,7 @@ func _on_hurtbox_2d_hurt(damage: Variant, angle: Variant, knockback_amount: Vari
 	tween2.tween_property(sprite, "modulate", Util.hit_color, 0.1)
 	tween2.tween_property(sprite, "modulate", Util.normal_color, 0.1) 
 	if hp <= 0:
-		next_state.emit(CharacterState.DEATH)
+		next_state.emit(CharacterState.DEATH, {})
 	else:
 		pass
 

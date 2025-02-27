@@ -143,7 +143,7 @@ func attack():
 	display_buffs(active_buffs.size())
 	
 	# attacking DISABLED
-	if false and not get_random_enemy() == null: # true or
+	if false or not get_random_enemy() == null: # true or
 		var weapon: WeaponAttack
 		#Log.pr("attack",next_weapon, next_weapon + weapon_num)
 		for weapon_attack in weapons.slice(next_weapon, next_weapon + weapon_num):
@@ -393,6 +393,7 @@ func _on_hurt_box_2d_hurt(damage: Variant, angle: Variant, knockback_amount: Var
 	tween.tween_property(sprite, "modulate", hit_color, 0.1)
 	tween.tween_property(sprite, "modulate", normal_color, 0.1) 
 	if hp <= 0:
+		animation_player.play("die")
 		pass#death()
 
 func _on_draw_timer_timeout() -> void:

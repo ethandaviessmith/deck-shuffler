@@ -1,7 +1,7 @@
 @icon("res://components/behaviour/finite-state-machine/state.png")
 class_name DieState extends CharacterState
 
-@export var IDLE_DURATION = 0.2
+@export var FRICTION = 100
 @export var anim: AnimationPlayer
 @export var sfx_audio: AudioStreamPlayer2D
 
@@ -27,6 +27,9 @@ func update(_delta: float):
 
 
 func death():
+	character.friction = FRICTION
+	character.knockback = Vector2.ZERO
+	
 	if not anim == null:
 		anim.play("die")
 	if not sfx_audio == null:

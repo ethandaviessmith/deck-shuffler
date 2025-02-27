@@ -22,6 +22,9 @@ func physics_update(_delta: float):
 	
 	
 func update(_delta: float):
+	if character.get_spawn_type() == Character.Spawn.WRAP:
+		finished.emit(CharacterState.CHASE,  {"key": character.player})
+	
 	decelerate(_delta)
 	idle_time += _delta
 	#if Engine.get_process_frames() % 15 == 0:

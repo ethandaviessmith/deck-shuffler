@@ -1,13 +1,13 @@
-[gd_scene load_steps=46 format=3 uid="uid://b6xsykb6ffhrn"]
+[gd_scene load_steps=47 format=3 uid="uid://b6xsykb6ffhrn"]
 
 [ext_resource type="Script" path="res://scenes/world/player.gd" id="1_gqwxa"]
 [ext_resource type="Script" path="res://components/game/player_stats.gd" id="2_5xxq7"]
 [ext_resource type="Script" path="res://components/game/attack_stats.gd" id="2_dff2h"]
-[ext_resource type="SpriteFrames" uid="uid://ckr8lhlj048sb" path="res://assets/f1_leovoyant.tres" id="2_yfxqc"]
 [ext_resource type="Script" path="res://components/behaviour/finite-state-machine/finite-state-machine.gd" id="3_d2tu4"]
 [ext_resource type="Script" path="res://components/game/spell_stats.gd" id="4_624bx"]
 [ext_resource type="Script" path="res://components/motion/2D/top-down-controller/states/idle.gd" id="4_kdb0p"]
 [ext_resource type="Script" path="res://components/motion/2D/top-down-controller/states/walk.gd" id="5_t48kx"]
+[ext_resource type="SpriteFrames" uid="uid://vktqhm2afg3s" path="res://assets/neutral_mercgambitgirl.tres" id="5_yrmep"]
 [ext_resource type="Script" path="res://components/motion/2D/top-down-controller/states/dash.gd" id="6_bunba"]
 [ext_resource type="Script" path="res://components/vfx/2D/ghost_trail/ghost_trail_effect.gd" id="7_wnu4c"]
 [ext_resource type="Texture2D" uid="uid://la28kx7jw0ho" path="res://components/vfx/2D/ghost_trail/ghost.svg" id="8_u32yg"]
@@ -37,7 +37,7 @@ attacks = Array[ExtResource("2_dff2h")]([])
 spells = Array[ExtResource("4_624bx")]([])
 damage = 0.0
 durability = 10.0
-speed = 0.6
+speed = 0.5
 size = 1.0
 
 [sub_resource type="Animation" id="Animation_40l5s"]
@@ -98,7 +98,7 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id="Animation_2nnml"]
 resource_name = "resolve"
-length = 1.3333
+length = 2.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -118,10 +118,10 @@ tracks/1/path = NodePath("AnimatedSprite2D:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 1, 1.0001, 1.33333),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [0, 12, 18, 22]
+"values": [0, 13]
 }
 
 [sub_resource type="Animation" id="Animation_xowja"]
@@ -174,15 +174,43 @@ tracks/1/path = NodePath("AnimatedSprite2D:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.9999),
+"times": PackedFloat32Array(0, 1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [0, 7]
 }
 
+[sub_resource type="Animation" id="Animation_8biax"]
+resource_name = "die"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"death"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0, 10]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_u7yur"]
 _data = {
 "RESET": SubResource("Animation_40l5s"),
+"die": SubResource("Animation_8biax"),
 "idle": SubResource("Animation_mgx1i"),
 "resolve": SubResource("Animation_2nnml"),
 "shuffle": SubResource("Animation_xowja"),
@@ -306,10 +334,10 @@ zoom = Vector2(2.5, 2.5)
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -11.0
-offset_top = 22.0
-offset_right = 12.0
-offset_bottom = 25.0
+offset_left = -10.0
+offset_top = 14.0
+offset_right = 10.0
+offset_bottom = 17.0
 grow_horizontal = 2
 color = Color(0, 0, 0, 0.227451)
 
@@ -322,8 +350,8 @@ libraries = {
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
-position = Vector2(0, -17)
-sprite_frames = ExtResource("2_yfxqc")
+position = Vector2(0, -7)
+sprite_frames = ExtResource("5_yrmep")
 animation = &"breathing"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

@@ -20,7 +20,7 @@ func physics_update(_delta: float):
 func update(_delta: float):
 	move(_delta)
 
-	if character.position.distance_to(target.position) < 10:
+	if character.position.distance_to(target.position) < DISTANCE_BESIDE:
 		finished.emit(IDLE)
 
 	if character.targets.size() > 0:

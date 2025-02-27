@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://iq63nlaer5ul"]
+[gd_scene load_steps=24 format=3 uid="uid://iq63nlaer5ul"]
 
 [ext_resource type="Script" path="res://scenes/world/enemy.gd" id="1_2wiof"]
 [ext_resource type="SpriteFrames" uid="uid://coxg58roo4g74" path="res://assets/critter_2.tres" id="1_pg8tb"]
@@ -13,6 +13,7 @@
 [ext_resource type="Script" path="res://components/behaviour/finite-state-machine/states/die_state.gd" id="11_bsm27"]
 [ext_resource type="Script" path="res://components/behaviour/finite-state-machine/states/teleport_state.gd" id="12_h35yo"]
 [ext_resource type="Script" path="res://components/behaviour/finite-state-machine/states/attack_state.gd" id="13_7sq1y"]
+[ext_resource type="Script" path="res://components/behaviour/finite-state-machine/states/orbit_state.gd" id="14_h0eb7"]
 
 [sub_resource type="Animation" id="Animation_wasu3"]
 length = 0.001
@@ -124,7 +125,6 @@ outline_color = Color(0, 0, 0, 1)
 
 [node name="CharacterBody2D" type="CharacterBody2D"]
 texture_filter = 1
-position = Vector2(1, 10)
 collision_layer = 4
 collision_mask = 135
 motion_mode = 1
@@ -132,7 +132,7 @@ script = ExtResource("1_2wiof")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
-position = Vector2(-1, -25)
+position = Vector2(0, -14)
 sprite_frames = ExtResource("1_pg8tb")
 animation = &"run"
 
@@ -142,10 +142,10 @@ libraries = {
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-1, -11)
 shape = SubResource("CircleShape2D_qsxed")
 
 [node name="Hurtbox2D" parent="." instance=ExtResource("3_pva0l")]
+position = Vector2(1, 11)
 collision_layer = 4
 collision_mask = 128
 
@@ -153,7 +153,11 @@ collision_mask = 128
 position = Vector2(-1, -11)
 shape = SubResource("CircleShape2D_jik4b")
 
+[node name="DisableTimer" parent="Hurtbox2D" index="1"]
+wait_time = 0.5
+
 [node name="Hitbox2D" parent="." instance=ExtResource("4_axjrv")]
+position = Vector2(1, 11)
 collision_layer = 4
 collision_mask = 2
 damage = 20
@@ -164,9 +168,10 @@ shape = SubResource("CircleShape2D_60q7e")
 
 [node name="DamageLabel" type="Label" parent="."]
 texture_filter = 1
-offset_left = -12.0
-offset_top = -32.0
-offset_right = 13.0
+offset_left = -11.0
+offset_top = -21.0
+offset_right = 14.0
+offset_bottom = 11.0
 theme_override_fonts/font = ExtResource("5_bpmjk")
 theme_override_font_sizes/font_size = 7
 horizontal_alignment = 1
@@ -177,6 +182,7 @@ stream = ExtResource("6_v0a0p")
 bus = &"SFX"
 
 [node name="ChaseArea2D" type="Area2D" parent="."]
+position = Vector2(1, 11)
 collision_layer = 0
 collision_mask = 10
 
@@ -200,6 +206,7 @@ script = ExtResource("10_cv45o")
 
 [node name="DieState" type="Node" parent="FiniteStateMachine" node_paths=PackedStringArray("anim", "sfx_audio")]
 script = ExtResource("11_bsm27")
+FRICTION = 15
 anim = NodePath("../../AnimationPlayer")
 sfx_audio = NodePath("../../SFXAudioStream")
 
@@ -209,8 +216,11 @@ script = ExtResource("12_h35yo")
 [node name="AttackState" type="Node" parent="FiniteStateMachine"]
 script = ExtResource("13_7sq1y")
 
+[node name="OrbitState" type="Node" parent="FiniteStateMachine"]
+script = ExtResource("14_h0eb7")
+
 [node name="Node2D" type="Node2D" parent="."]
-position = Vector2(-1, 2)
+position = Vector2(0, 13)
 scale = Vector2(0.5, 0.5)
 
 [node name="StateLabel" type="Label" parent="Node2D"]

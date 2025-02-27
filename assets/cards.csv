@@ -1,5 +1,0 @@
-name,texture_id,card_type,damage,power_type,weapon_type,rarity
-attack2,golds/oro2.png,ATTACK,1.0,NA,NA,COMMON
-weapon1,swords/espada1.png,WEAPON,1.0,NA,Dagger,COMMON
-weapon2,swords/espada2.png,WEAPON,1.5,NA,AXE,COMMON
-weapon3,swords/espada3.png,WEAPON,2.2,NA,SWORD,COMMON
