@@ -20,6 +20,7 @@ var knockback = Vector2.ZERO
 @onready var hitBox = $Hitbox2D
 
 signal next_state(next_state_path: String, data: Dictionary)
+signal lock_state(lock: bool)
 
 var can_move = true
 var targets:Array[Node2D] = []

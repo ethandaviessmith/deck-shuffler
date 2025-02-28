@@ -36,7 +36,8 @@ func _transition_to_next_state(target_state_path: String, data: Dictionary = {})
 		state = get_node(target_state_path)
 		state.enter(previous_state_path, data)
 		
-		state_label.text = target_state_path # show and hide state on change
-		state_label.modulate.a = 1
-		var tween = create_tween()
-		tween.tween_property(state_label, "modulate:a", 0.0, 1.0)
+		if not state_label == null:
+			state_label.text = target_state_path # show and hide state on change
+			state_label.modulate.a = 1
+			var tween = create_tween()
+			tween.tween_property(state_label, "modulate:a", 0.0, 1.0)

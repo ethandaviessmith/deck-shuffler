@@ -7,9 +7,14 @@ const GroupName: StringName = &"player"
 @onready var attacks = get_node("/root/World/Attacks")
 @onready var deck_helper = get_node("/root/World/DeckHelper")
 
-# GUI
-@onready var gui_control = $GUI
 @onready var action_anim = $"GUI/ActionAnimationPlayer"
+@onready var motion_state: FiniteStateMachine = $FiniteStateMachine;
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var card_node: Node2D = $CardNode2D
+@onready var gui_control = $GUI
+@onready var hurtbox:Hurtbox2D = $Hurtbox2D
+
+# GUI
 @onready var healthBar = get_node("%HealthBar")
 @onready var expBar = get_node("%ExperienceBar")
 @onready var manaBar = get_node("%ManaBar")
@@ -30,11 +35,11 @@ const GroupName: StringName = &"player"
 @onready var icon_weapon_list = get_node("%WeaponHFlowContainer")
 
 # Player
-#@onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
-@onready var animation_player: AnimationPlayer = $AnimationPlayer
-@onready var card_node: Node2D = $CardNode2D
 @export var card_scene = preload("res://scenes/world/card.tscn")
 @export var level_scene = preload("res://scenes/world/level_control.tscn")
+@export var restart_scene = preload("res://scenes/world/restart_control.tscn")
+
+
 #AttackNodes
 var wpn_dagger = preload("res://scenes/world/weapon_dagger.tscn")
 var wpn_axe = preload("res://scenes/world/weapon_axe.tscn")
@@ -87,6 +92,7 @@ func _init():
 	spawn_type = Spawn.NA
 
 func _ready() -> void:
+	lock_state.connect(_on_lock_finite_state_machine)
 	animation_player.play("idle")
 	
 	set_guibar(expBar,experience, calculate_experiencecap())
@@ -102,6 +108,7 @@ func set_player_stats():
 	shuffle_timer.wait_time *= stats.shuffle_speed
 	hp = stats.durability
 	Log.pr("draw ",draw_timer.wait_time, ",shuffle ", shuffle_timer.wait_time)
+
 
 # MOVEMENT
 func _physics_process(_delta: float) -> void:
@@ -129,7 +136,7 @@ func get_random_enemy():
 var next_weapon = 0
 var weapon_num = 1
 
-	
+
 func attack():
 	var buff:AttackStats = AttackStats.new()
 	var weapons:Array[AttackStats] = []
@@ -175,6 +182,8 @@ func set_deck(count):
 	deck.set_deck(deck_helper.get_starter_deck(count))
 
 func next_action():
+	if motion_state.locked:
+		return # don't attack when locked
 	icon_resolve.visible = false
 	deck_animation = false
 	
@@ -378,6 +387,14 @@ func display_buffs(count:int):
 #endregion
 
 #region SIGNALS
+
+
+func _on_lock_finite_state_machine(lock: bool):
+	if lock:
+		motion_state.lock_state_machine()
+	else:
+		motion_state.unlock_state_machine()
+	
 func _on_finite_state_machine_state_changed(from_state: MachineState, state: MachineState) -> void:
 	if not deck_animation:
 		match state.name:
@@ -396,7 +413,9 @@ func _on_hurt_box_2d_hurt(damage: Variant, angle: Variant, knockback_amount: Var
 	tween.tween_property(sprite, "modulate", normal_color, 0.1) 
 	if hp <= 0:
 		animation_player.play("die")
-		pass#death()
+		next_state.emit(CharacterState.DEATH, {"target": self})
+		hurtbox.disable()
+		gui_control.call_deferred("add_child", restart_scene.instantiate())
 
 func _on_draw_timer_timeout() -> void:
 	next_action()
@@ -438,8 +457,9 @@ func _on_grab_area_area_entered(area: Area2D) -> void:
 
 func _on_collect_area_area_entered(area: Area2D) -> void:
 	if area.is_in_group("loot"):
-		var gem_exp = area.collect()
-		calculate_experience(gem_exp)
+		if not motion_state.locked:
+			var gem_exp = area.collect()
+			calculate_experience(gem_exp)
 
 func _on_enemy_despawn_area_2d_body_exited(body: Node2D) -> void:
 	# When off the screen wrap enemies back onto the opposite side

@@ -573,6 +573,7 @@ hframes = 4
 
 [node name="Player" parent="." instance=ExtResource("1_sythe")]
 position = Vector2(609, 396)
+hp = 1
 
 [node name="Attacks" type="Node2D" parent="."]
 unique_name_in_owner = true

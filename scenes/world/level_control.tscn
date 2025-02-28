@@ -9,14 +9,10 @@
 [node name="LevelControl" type="Control"]
 process_mode = 3
 layout_mode = 3
-anchor_left = 0.5
-anchor_top = 0.612
-anchor_right = 0.5
-anchor_bottom = 0.612
-offset_left = -194.0
-offset_top = -136.648
-offset_right = 193.0
-offset_bottom = 141.352
+offset_left = -191.0
+offset_top = -132.0
+offset_right = 196.0
+offset_bottom = 146.0
 script = ExtResource("1_0bq88")
 
 [node name="Panel" type="Panel" parent="."]

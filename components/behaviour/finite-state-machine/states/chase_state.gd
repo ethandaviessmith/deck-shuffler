@@ -10,7 +10,8 @@ func enter(previous_state_path: String, data := {}) -> void:
 		target = data.get("target")
 	else:
 		if target == null:
-			target = character.targets.pick_random() 
+			if _is_target_valid(character):
+				target = character.targets.pick_random() 
 	target_offset =  positions[randi() % positions.size()]
 
 func exit() -> void:

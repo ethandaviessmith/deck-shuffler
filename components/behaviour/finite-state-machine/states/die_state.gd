@@ -26,7 +26,7 @@ func update(_delta: float):
 func death():
 	character.friction = FRICTION
 	character.knockback = Vector2.ZERO
-	
+	character.lock_state.emit(true)
 	if not anim == null:
 		anim.play("die")
 	if not sfx_audio == null:
@@ -42,4 +42,5 @@ func death():
 	loot_base.call_deferred("add_child", new_gem)
 	
 	await get_tree().create_timer(anim.current_animation_length).timeout
-	character.queue_free()
+	if not character.get_spawn_type() == Character.Spawn.NA:
+		character.queue_free()

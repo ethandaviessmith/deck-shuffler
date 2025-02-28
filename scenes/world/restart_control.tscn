@@ -1,0 +1,47 @@
+[gd_scene load_steps=4 format=3 uid="uid://puwivhpyf4gr"]
+
+[ext_resource type="Script" path="res://scenes/world/restart_control.gd" id="1_o3rhg"]
+[ext_resource type="Shader" path="res://scenes/world/fog_screen_shader.gdshader" id="2_d53qt"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8ng8h"]
+shader = ExtResource("2_d53qt")
+shader_parameter/wave_frequency = Vector2(0.1, 0.1)
+shader_parameter/wave_speed = 1.0
+shader_parameter/fog_density = 0.3
+shader_parameter/fog_color = Vector4(0.8, 0.8, 0.8, 1)
+shader_parameter/transition_y = 0.5
+
+[node name="RestartControl" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_o3rhg")
+
+[node name="Fog" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_8ng8h")
+layout_mode = 0
+offset_left = -259.0
+offset_top = -146.0
+offset_right = 260.0
+offset_bottom = 148.0
+
+[node name="Darken" type="ColorRect" parent="."]
+visible = false
+layout_mode = 0
+offset_left = -259.0
+offset_top = -146.0
+offset_right = 260.0
+offset_bottom = 148.0
+color = Color(0.500095, 0.500095, 0.500095, 0.431373)
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = -77.0
+offset_top = 36.0
+offset_right = 78.0
+offset_bottom = 86.0
+tooltip_text = "Try Again"
+text = "Wake Up
+[Enter]"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
