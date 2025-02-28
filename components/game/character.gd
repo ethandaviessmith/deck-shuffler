@@ -49,6 +49,12 @@ func _physics_process(_delta):
 func teleport():
 	next_state.emit(CharacterState.TELEPORT, {})
 
+func face_target(vector: Vector2):
+	if global_position.direction_to(vector).x < 0.1:
+		sprite.flip_h = true
+	elif global_position.direction_to(vector).x > -0.1:
+		sprite.flip_h = false
+
 func _set_target(body: Node2D):
 	target = body
 	new_target.emit(target)

@@ -3,9 +3,10 @@ extends Control
 @onready var fog = $Fog
 @onready var darken = $Darken
 @onready var try_again_button = $Button
-var time_passed = 0.0
+
 
 func _ready():
+	modulate.a = 0 # hide
 	await get_tree().create_timer(1.0, true, false, true).timeout
 	get_tree().paused = true
 	# Configure initial properties
@@ -15,14 +16,10 @@ func _ready():
 	try_again_button.grab_focus()
 	_start_fog_and_darken_animation()
 
-func _process(delta):
-	time_passed += delta
-	fog.material.set_shader_parameter("time", time_passed)
-
 func _start_fog_and_darken_animation():
 	# Tween animations for a smooth transition
 	var tween = create_tween()
-	tween.tween_property(fog, "color:a", 0.5, 2.0)  # Tween fog opacity to 0.5 over 2 seconds
+	tween.tween_property(self, "modulate:a", 1.0, 2.0)  # Tween fog opacity to 0.5 over 2 seconds
 	tween.tween_property(darken, "color:a", 0.5, 2.0)  # Tween darken overlay opacity to 0.5 over 2 seconds
 
 

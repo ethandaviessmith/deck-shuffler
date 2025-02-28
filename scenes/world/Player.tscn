@@ -549,14 +549,14 @@ texture = ExtResource("14_m82w4")
 [node name="StatusIconResolveSprite2D" type="Sprite2D" parent="GUI"]
 unique_name_in_owner = true
 visible = false
-position = Vector2(11, 87)
+position = Vector2(-9, 23)
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("15_b6fgc")
 
 [node name="StatusIconShuffleSprite2D" type="Sprite2D" parent="GUI"]
 unique_name_in_owner = true
 visible = false
-position = Vector2(17, 87)
+position = Vector2(-3, 23)
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("16_23hk5")
 

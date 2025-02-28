@@ -17,12 +17,6 @@ func _process(delta: float) -> void:
 func teleport():
 	next_state.emit(CharacterState.TELEPORT, {})
 
-func face_target(vector: Vector2):
-	if global_position.direction_to(vector).x < 0.1:
-		sprite.flip_h = true
-	elif global_position.direction_to(vector).x > -0.1:
-		sprite.flip_h = false
-
 func _on_hurtbox_2d_hurt(damage: Variant, angle: Variant, knockback_amount: Variant) -> void:
 	hp -= damage
 	knockback = angle * knockback_amount

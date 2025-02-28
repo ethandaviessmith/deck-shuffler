@@ -120,6 +120,7 @@ func _physics_process(_delta: float) -> void:
 	knockback = knockback.move_toward(Vector2.ZERO, knockback_recovery)
 	velocity += knockback
 	
+	#face_target(velocity)
 	if get_last_motion().x < 0.1:
 		sprite.flip_h = true
 	elif get_last_motion().x > -0.1:
