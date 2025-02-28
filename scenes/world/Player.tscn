@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=3 uid="uid://b6xsykb6ffhrn"]
+[gd_scene load_steps=49 format=3 uid="uid://b6xsykb6ffhrn"]
 
 [ext_resource type="Script" path="res://scenes/world/player.gd" id="1_gqwxa"]
 [ext_resource type="Script" path="res://components/game/player_stats.gd" id="2_5xxq7"]
@@ -8,7 +8,9 @@
 [ext_resource type="Script" path="res://components/motion/2D/top-down-controller/states/idle.gd" id="4_kdb0p"]
 [ext_resource type="Script" path="res://components/motion/2D/top-down-controller/states/walk.gd" id="5_t48kx"]
 [ext_resource type="SpriteFrames" uid="uid://vktqhm2afg3s" path="res://assets/neutral_mercgambitgirl.tres" id="5_yrmep"]
+[ext_resource type="Script" path="res://components/behaviour/finite-state-machine/fsm.gd" id="6_0hi2d"]
 [ext_resource type="Script" path="res://components/motion/2D/top-down-controller/states/dash.gd" id="6_bunba"]
+[ext_resource type="Script" path="res://components/behaviour/finite-state-machine/states/idle_state.gd" id="7_gl86w"]
 [ext_resource type="Script" path="res://components/vfx/2D/ghost_trail/ghost_trail_effect.gd" id="7_wnu4c"]
 [ext_resource type="Texture2D" uid="uid://la28kx7jw0ho" path="res://components/vfx/2D/ghost_trail/ghost.svg" id="8_u32yg"]
 [ext_resource type="PackedScene" uid="uid://b07rljcn3rxmd" path="res://components/interaction/2D/interactables/hurtbox_2d.tscn" id="10_0ny1a"]
@@ -362,6 +364,12 @@ shape = SubResource("CapsuleShape2D_5rohf")
 unique_name_in_owner = true
 autostart = true
 
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource("6_0hi2d")
+
+[node name="IdleState" type="Node" parent="StateMachine"]
+script = ExtResource("7_gl86w")
+
 [node name="FiniteStateMachine" type="Node" parent="." node_paths=PackedStringArray("current_state")]
 script = ExtResource("3_d2tu4")
 current_state = NodePath("TopDownIdle")
@@ -541,12 +549,14 @@ texture = ExtResource("14_m82w4")
 
 [node name="StatusIconResolveSprite2D" type="Sprite2D" parent="GUI"]
 unique_name_in_owner = true
+visible = false
 position = Vector2(11, 87)
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("15_b6fgc")
 
 [node name="StatusIconShuffleSprite2D" type="Sprite2D" parent="GUI"]
 unique_name_in_owner = true
+visible = false
 position = Vector2(17, 87)
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("16_23hk5")

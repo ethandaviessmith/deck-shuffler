@@ -191,32 +191,32 @@ visible = false
 position = Vector2(-1, -10)
 shape = SubResource("CircleShape2D_ecuri")
 
-[node name="FiniteStateMachine" type="Node" parent="."]
+[node name="StateMachine" type="Node" parent="."]
 script = ExtResource("7_dm454")
 
-[node name="IdleState" type="Node" parent="FiniteStateMachine" node_paths=PackedStringArray("anim")]
+[node name="IdleState" type="Node" parent="StateMachine" node_paths=PackedStringArray("anim")]
 script = ExtResource("8_5vbtl")
 anim = NodePath("../../AnimationPlayer")
 
-[node name="RoamState" type="Node" parent="FiniteStateMachine"]
+[node name="RoamState" type="Node" parent="StateMachine"]
 script = ExtResource("9_dvc74")
 
-[node name="ChaseState" type="Node" parent="FiniteStateMachine"]
+[node name="ChaseState" type="Node" parent="StateMachine"]
 script = ExtResource("10_cv45o")
 
-[node name="DieState" type="Node" parent="FiniteStateMachine" node_paths=PackedStringArray("anim", "sfx_audio")]
+[node name="DieState" type="Node" parent="StateMachine" node_paths=PackedStringArray("anim", "sfx_audio")]
 script = ExtResource("11_bsm27")
 FRICTION = 15
 anim = NodePath("../../AnimationPlayer")
 sfx_audio = NodePath("../../SFXAudioStream")
 
-[node name="TeleportState" type="Node" parent="FiniteStateMachine"]
+[node name="TeleportState" type="Node" parent="StateMachine"]
 script = ExtResource("12_h35yo")
 
-[node name="AttackState" type="Node" parent="FiniteStateMachine"]
+[node name="AttackState" type="Node" parent="StateMachine"]
 script = ExtResource("13_7sq1y")
 
-[node name="OrbitState" type="Node" parent="FiniteStateMachine"]
+[node name="OrbitState" type="Node" parent="StateMachine"]
 script = ExtResource("14_h0eb7")
 
 [node name="Node2D" type="Node2D" parent="."]

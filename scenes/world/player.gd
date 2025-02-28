@@ -1,5 +1,5 @@
 @icon("res://components/motion/2D/top-down-controller/top_down_controller.svg")
-class_name Player extends CharacterBody2D
+class_name Player extends Character
 
 const GroupName: StringName = &"player"
 
@@ -30,7 +30,7 @@ const GroupName: StringName = &"player"
 @onready var icon_weapon_list = get_node("%WeaponHFlowContainer")
 
 # Player
-@onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
+#@onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var card_node: Node2D = $CardNode2D
 @export var card_scene = preload("res://scenes/world/card.tscn")
@@ -57,14 +57,13 @@ var motion_input: TransformedInput = TransformedInput.new(self) # TopDownControl
 @export var max_mana = 4
 @export var draw_mana = 1
 @export var shuffle_mana = 2
-@export var hp = 20
-var experience = 0
+#@export var hp = 20
+#var experience = 0
 var experience_level = 1
 var collected_experience = 0
 
-
-@export var knockback_recovery = 2
-var knockback = Vector2.ZERO
+#@export var knockback_recovery = 2
+#var knockback = Vector2.ZERO
 var normal_color = Color(1, 1, 1) 
 var hit_color = Color(1, .7, .7)
 
@@ -83,6 +82,9 @@ var additional_attacks = 0
 var enemy_far = [] # targets to shoot at
 var enemy_near = [] # prioritized targets
 var enemy_touch = [] # slowing the player
+
+func _init():
+	spawn_type = Spawn.NA
 
 func _ready() -> void:
 	animation_player.play("idle")

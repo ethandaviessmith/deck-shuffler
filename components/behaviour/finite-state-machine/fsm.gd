@@ -1,13 +1,12 @@
 @icon("res://components/behaviour/finite-state-machine/fsm.png")
 class_name StateMachine extends Node
 
-@onready var state_label = $"../Node2D/StateLabel" #debugging
-
 @export var initial_state: State = null
+
+@onready var state_label = $"../Node2D/StateLabel" #debugging
 @onready var state: State = (func get_initial_state() -> State:
 	return initial_state if initial_state != null else get_child(0)
 ).call()
-
 
 func _ready() -> void:
 	for state_node: State in find_children("*", "State"):
