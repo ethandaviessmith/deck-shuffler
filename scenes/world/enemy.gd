@@ -34,6 +34,12 @@ func _on_hurtbox_2d_hurt(damage: Variant, angle: Variant, knockback_amount: Vari
 	else:
 		pass
 
+func enemy_hit(charge = 1):
+	if spawn_type == Character.Spawn.GUARD: 
+		next_state.emit(CharacterState.REPOSITION)
+	else:
+		next_state.emit(CharacterState.IDLE)
+
 # Body and Area Signals connected
 func _on_chase_area_2d_body_entered(body: Node2D) -> void:
 	if body.is_in_group("target"):

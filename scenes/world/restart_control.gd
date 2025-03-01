@@ -19,7 +19,7 @@ func _ready():
 func _start_fog_and_darken_animation():
 	# Tween animations for a smooth transition
 	var tween = create_tween()
-	tween.tween_property(self, "modulate:a", 1.0, 2.0)  # Tween fog opacity to 0.5 over 2 seconds
+	tween.tween_property(self, "modulate:a", 0.8, 2.0)  # Tween fog opacity to 0.5 over 2 seconds
 	tween.tween_property(darken, "color:a", 0.5, 2.0)  # Tween darken overlay opacity to 0.5 over 2 seconds
 
 

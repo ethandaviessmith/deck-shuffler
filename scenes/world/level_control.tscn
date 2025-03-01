@@ -9,6 +9,7 @@
 [node name="LevelControl" type="Control"]
 process_mode = 3
 layout_mode = 3
+anchors_preset = 0
 offset_left = -191.0
 offset_top = -132.0
 offset_right = 196.0

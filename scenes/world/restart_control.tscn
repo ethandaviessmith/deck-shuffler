@@ -5,10 +5,10 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8ng8h"]
 shader = ExtResource("2_d53qt")
-shader_parameter/wave_frequency = Vector2(0.1, 0.1)
-shader_parameter/wave_speed = 1.0
-shader_parameter/fog_density = 0.3
-shader_parameter/fog_color = Vector4(0.8, 0.8, 0.8, 1)
+shader_parameter/wave_frequency = Vector2(1.485, 2.325)
+shader_parameter/wave_speed = 0.015
+shader_parameter/fog_density = 0.345
+shader_parameter/fog_color = Vector4(0.8, 0.8, 0.8, 0.5)
 shader_parameter/transition_y = 0.5
 
 [node name="RestartControl" type="Control"]

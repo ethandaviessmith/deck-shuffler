@@ -1,6 +1,6 @@
-[gd_scene load_steps=62 format=4 uid="uid://bvyi5v3q5glkx"]
+[gd_scene load_steps=61 format=4 uid="uid://bvyi5v3q5glkx"]
 
-[ext_resource type="PackedScene" uid="uid://iq63nlaer5ul" path="res://scenes/world/Enemy.tscn" id="1_78kn1"]
+[ext_resource type="PackedScene" uid="uid://iq63nlaer5ul" path="res://scenes/world/enemy.tscn" id="1_78kn1"]
 [ext_resource type="Script" path="res://scenes/world/map.gd" id="1_hf0a2"]
 [ext_resource type="Texture2D" uid="uid://b5avfyekhnjua" path="res://assets/green_woods/Assets/Tiles2.png" id="1_l660s"]
 [ext_resource type="PackedScene" uid="uid://b6xsykb6ffhrn" path="res://scenes/world/Player.tscn" id="1_sythe"]
@@ -10,8 +10,8 @@
 [ext_resource type="Script" path="res://components/game/deck_helper.gd" id="6_dideo"]
 [ext_resource type="Script" path="res://scenes/world/card.gd" id="7_tugua"]
 [ext_resource type="Script" path="res://components/game/attack_stats.gd" id="8_fsskc"]
-[ext_resource type="PackedScene" uid="uid://kql8wfuj5tej" path="res://scenes/world/weapon_scarecrow.tscn" id="9_2c4su"]
 [ext_resource type="Texture2D" uid="uid://8ubtvov6hn83" path="res://assets/cards/cards2.png" id="9_5t0hg"]
+[ext_resource type="PackedScene" uid="uid://bnlcs4ivfbsss" path="res://scenes/world/big_bat.tscn" id="9_w58ff"]
 [ext_resource type="Texture2D" uid="uid://ymvwl7y108tj" path="res://assets/cards/cards6.png" id="11_q4jti"]
 [ext_resource type="Script" path="res://components/game/spell_stats.gd" id="13_2oihk"]
 [ext_resource type="Texture2D" uid="uid://bjrmgjkhvdhxm" path="res://assets/cards/cards8.png" id="14_ank4h"]
@@ -212,16 +212,6 @@ time_end = 240
 enemy = ExtResource("1_78kn1")
 enemy_num = 1
 enemy_spawn_delay = 0
-
-[sub_resource type="Resource" id="Resource_7hxef"]
-script = ExtResource("8_fsskc")
-weapon_type = 6
-fade = 30.0
-knockback = 1.0
-damage = 0.0
-durability = 0.0
-speed = 1.0
-size = 1.0
 
 [sub_resource type="Resource" id="Resource_3rtke"]
 script = ExtResource("8_fsskc")
@@ -585,12 +575,8 @@ spawns = Array[ExtResource("4_eae5y")]([SubResource("Resource_xs8gd")])
 wait_time = 2.0
 autostart = true
 
-[node name="CharacterBody2D" parent="EnemySpawner" instance=ExtResource("1_78kn1")]
-position = Vector2(447, 352)
-
-[node name="Area2D" parent="EnemySpawner" instance=ExtResource("9_2c4su")]
-position = Vector2(408, 380)
-buff = SubResource("Resource_7hxef")
+[node name="CharacterBody2D" parent="EnemySpawner" instance=ExtResource("9_w58ff")]
+position = Vector2(464, 336)
 
 [node name="DeckHelper" type="Node" parent="."]
 unique_name_in_owner = true

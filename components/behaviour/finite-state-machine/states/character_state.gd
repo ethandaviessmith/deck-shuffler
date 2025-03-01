@@ -8,6 +8,7 @@ const DEATH = "DieState"
 const ATTACK = "AttackState"
 const TELEPORT = "TeleportState"
 const ORBIT = "OrbitState"
+const REPOSITION = "RepositionState"
 
 var character: Character
 
@@ -17,6 +18,7 @@ var target_offset: Vector2 = Vector2.ZERO
 
 const DISTANCE_BESIDE = 10
 const DISTANCE_CLOSE = 30
+const DISTANCE_NEAR = 60
 
 func _ready() -> void:
 	await owner.ready

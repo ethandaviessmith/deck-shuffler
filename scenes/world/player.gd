@@ -13,6 +13,8 @@ const GroupName: StringName = &"player"
 @onready var card_node: Node2D = $CardNode2D
 @onready var gui_control = $GUI
 @onready var hurtbox:Hurtbox2D = $Hurtbox2D
+@onready var hit_audio:AudioStreamPlayer2D = $HitAudioStream
+@onready var summon_audio:AudioStreamPlayer2D = $SummonAudioStream
 
 # GUI
 @onready var healthBar = get_node("%HealthBar")
@@ -67,10 +69,11 @@ var motion_input: TransformedInput = TransformedInput.new(self) # TopDownControl
 var experience_level = 1
 var collected_experience = 0
 
-#@export var knockback_recovery = 2
-#var knockback = Vector2.ZERO
+var next_weapon = 0
+var weapon_num = 1
+
 var normal_color = Color(1, 1, 1) 
-var hit_color = Color(1, .7, .7)
+var hit_color = Color(1, .5, .5)
 
 #var movement_speed = 40.0
 #var last_movement = Vector2.UP
@@ -95,12 +98,11 @@ func _ready() -> void:
 	lock_state.connect(_on_lock_finite_state_machine)
 	animation_player.play("idle")
 	
+	set_player_stats()
 	set_guibar(expBar,experience, calculate_experiencecap())
 	set_guibar(manaBar, mana, max_mana)
 	set_guibar(healthBar, hp, stats.durability)
-	
-	set_player_stats()
-	set_deck(5)
+	_set_deck(5)
 	next_action()
 
 func set_player_stats():
@@ -126,18 +128,8 @@ func _physics_process(_delta: float) -> void:
 	elif get_last_motion().x > -0.1:
 		sprite.flip_h = false
 
-func get_random_enemy():
-	if enemy_near.size() > 0:
-		return enemy_near.pick_random()
-	elif enemy_far.size() > 0:
-		return enemy_far.pick_random()
-	else:
-		return null
 
-var next_weapon = 0
-var weapon_num = 1
-
-
+#region ACTIONS
 func attack():
 	var buff:AttackStats = AttackStats.new()
 	var weapons:Array[AttackStats] = []
@@ -179,8 +171,6 @@ func attack():
 	if next_weapon >= weapons.size():
 		next_weapon = 0
 
-func set_deck(count):
-	deck.set_deck(deck_helper.get_starter_deck(count))
 
 func next_action():
 	if motion_state.locked:
@@ -275,6 +265,19 @@ func use_mana(used_mana) -> bool:
 		mana = clamp((mana - draw_mana), 0, max_mana)
 		return true
 	return false
+#endregion
+
+
+func get_random_enemy():
+	if enemy_near.size() > 0:
+		return enemy_near.pick_random()
+	elif enemy_far.size() > 0:
+		return enemy_far.pick_random()
+	else:
+		return null
+
+func _set_deck(count):
+	deck.set_deck(deck_helper.get_starter_deck(count))
 
 func calculate_experience(gem_exp):
 	var exp_required = calculate_experiencecap()
@@ -312,6 +315,7 @@ func apply_upgrade(card: Card):
 		deck.add_card(card)
 	display_buffs(111)
 
+
 #region VISUALS
 
 func show_level_control():
@@ -335,6 +339,7 @@ func idle():
 	animation_player.play("idle")
 	print("back to idle")
 	deck_animation = false
+	icon_resolve.visible = false
 	draw_timer.start()
 
 func summon_animation():
@@ -343,12 +348,13 @@ func summon_animation():
 	animation_player.play("resolve")
 	action_anim.play("resolve")
 	draw_timer.stop()
+	Util.play_with_randomized_audio(summon_audio)
 	
 	var tween = create_tween() # Tween mana refill
 	tween.tween_property(manaBar,"value",mana,2.5).set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_IN_OUT)
 	tween.play()
 	
-	var timer_anim = TimeHelper.create_idle_timer(1.3, true, true)
+	var timer_anim = TimeHelper.create_idle_timer(animation_player.current_animation_length, true, true)
 	timer_anim.connect("timeout", Callable(self,"idle"))
 	add_child(timer_anim) #janky timer to make things look nice (not cleaning up)
 
@@ -410,11 +416,12 @@ func _on_hurt_box_2d_hurt(damage: Variant, angle: Variant, knockback_amount: Var
 	set_guibar(healthBar, hp, stats.durability)
 	
 	var tween = create_tween().set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_IN_OUT)
-	tween.tween_property(sprite, "modulate", hit_color, 0.1)
-	tween.tween_property(sprite, "modulate", normal_color, 0.1) 
+	tween.tween_property(sprite, "modulate", hit_color, 0.4)
+	tween.tween_property(sprite, "modulate", normal_color, 0.3)
+	
+	Util.play_with_randomized_audio(hit_audio)
 	if hp <= 0:
-		animation_player.play("die")
-		next_state.emit(CharacterState.DEATH, {"target": self})
+		next_state.emit(CharacterState.DEATH)
 		hurtbox.disable()
 		gui_control.call_deferred("add_child", restart_scene.instantiate())
 

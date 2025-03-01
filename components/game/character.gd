@@ -1,6 +1,6 @@
 class_name Character extends CharacterBody2D
 
-enum Spawn { NA, WRAP, SET}
+enum Spawn { NA, WRAP, SET, GUARD}
 
 @export var movement_speed = 30.0
 @export var hp = 3
@@ -8,11 +8,13 @@ enum Spawn { NA, WRAP, SET}
 @export var damage = 1
 @export var knockback_recovery = 2
 var knockback = Vector2.ZERO
+@export var spawn_type = Spawn.WRAP
 
+@export_group("Movement")
 @export var speed: float = 30.0
 @export var acceleration: float = 5.0
 @export var friction: float = 5.0
-@export var spawn_type = Spawn.WRAP
+
 
 @onready var player = get_tree().get_first_node_in_group(Player.GroupName)
 @onready var sprite = $AnimatedSprite2D

@@ -160,4 +160,29 @@ Pierce (weapon durability)
 
 APS
 
+# Ideas bucket
+
+Card that gives dash/doge charges
+
 # TO DO
+
+DEMO
+
+player states
+
+- topdowncontroller state
+- idle,walk,dash, interact (controls)
+- player state
+- action (deck), interact, death
+
+goal
+
+- boss monster (big bat)
+  states - retreat, rest, spawn bats,
+- boss fight quest
+- boss drops rarity cards
+
+- field with fences
+- random
+
+/Export game

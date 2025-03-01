@@ -45,6 +45,8 @@ func on_area_entered(hitbox: Area2D) -> void:
 		emit_signal("hurt",damage, angle, knockback)
 		if hitbox.has_method("enemy_hit"):
 			hitbox.enemy_hit(1)
+			
+		
 
 func _on_disable_timer_timeout():
 	collision.call_deferred("set","disabled",false)

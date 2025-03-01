@@ -12,7 +12,8 @@ func enter(previous_state_path: String, data := {}) -> void:
 		if target == null:
 			if _is_target_valid(character):
 				target = character.targets.pick_random() 
-	target_offset =  positions[randi() % positions.size()]
+	if character.spawn_type == Character.Spawn.GUARD: 
+		target_offset =  positions[randi() % positions.size()]
 
 func exit() -> void:
 	target_offset = positions[0]
@@ -24,12 +25,16 @@ func physics_update(_delta: float):
 
 func update(_delta: float):
 	if is_instance_valid(target):
+		if character.spawn_type == Character.Spawn.GUARD: 
+			if character.global_position.distance_to(get_position()) < DISTANCE_NEAR:
+				finished.emit(ATTACK)
+		else:
+			if character.global_position.distance_to(get_position()) < DISTANCE_CLOSE:
+				finished.emit(ATTACK)
+				pass
 		#var direction = character.global_position.direction_to(target.global_position)
 		#character.velocity = direction * character.movement_speed * _delta
 		#character.move_towards_target(_delta, target.global_position)
-		if character.global_position.distance_to(get_position()) < DISTANCE_CLOSE:
-			finished.emit(ATTACK)
-			pass
 			#finished.emit(ATTACK)
 	else:
 		finished.emit(IDLE)

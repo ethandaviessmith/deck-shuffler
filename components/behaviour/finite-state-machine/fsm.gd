@@ -31,6 +31,7 @@ func _transition_to_next_state(target_state_path: String, data: Dictionary = {})
 		return
 
 	var previous_state_path := state.name
+	Log.pr("state", target_state_path, previous_state_path, owner)
 	if(previous_state_path != CharacterState.DEATH):
 		state.exit()
 		state = get_node(target_state_path)

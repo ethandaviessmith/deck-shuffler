@@ -4,6 +4,7 @@ class_name DieState extends CharacterState
 @export var FRICTION = 100
 @export var anim: AnimationPlayer
 @export var sfx_audio: AudioStreamPlayer2D
+@export var hurtbox: Hurtbox2D
 
 @onready var loot_base = get_tree().get_first_node_in_group("loot")
 var exp_gem = preload("res://scenes/world/experience_gem.tscn")
@@ -27,6 +28,8 @@ func death():
 	character.friction = FRICTION
 	character.knockback = Vector2.ZERO
 	character.lock_state.emit(true)
+	if not hurtbox == null:
+		hurtbox.disable()
 	if not anim == null:
 		anim.play("die")
 	if not sfx_audio == null:

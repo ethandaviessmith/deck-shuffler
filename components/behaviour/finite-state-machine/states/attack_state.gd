@@ -12,7 +12,7 @@ func physics_update(_delta: float):
 func update(_delta: float):
 	if is_instance_valid(target):
 		if character.global_position.distance_to(target.global_position) < DISTANCE_BESIDE:
-			finished.emit(IDLE)
+			pass
 		if character.global_position.distance_to(get_position()) > DISTANCE_CLOSE:
 			await GameGlobals.wait(randf_range(0.0, 2.0))
 			finished.emit(CHASE)
