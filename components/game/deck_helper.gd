@@ -16,7 +16,7 @@ func get_random_card() -> Card:
 	#return deck.pick_random()
 
 func get_random_cards(count:int) -> Array[Card]:
-	var array = deck # + player_upgrades # only deck for now as we focus on deck building first
+	var array = deck # + player_3upgrades # only deck for now as we focus on deck building first
 	array.shuffle()
 	return array.slice(0,count)
 

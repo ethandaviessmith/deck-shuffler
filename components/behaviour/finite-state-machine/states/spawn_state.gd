@@ -10,12 +10,12 @@ class_name SpawnState extends CharacterState
 var idle_time := 0.0
 var _spawn_count := 0
 @export var anim: AnimationPlayer
+@export var sfx_audio: AudioStreamPlayer2D
 
 func enter(previous_state_path: String, data := {}) -> void:
 	_spawn_count = 0
 	if not anim == null:
 		anim.play("breathing")
-	
 
 func exit() -> void:
 	pass
@@ -35,6 +35,7 @@ func update(delta: float):
 		enemy_base.call_deferred("add_child", new_enemy)
 		_spawn_count += 1
 		Log.pr("spawn enemy", _spawn_count, SPAWN_COUNT)
+		Util.play_with_randomized_audio(sfx_audio)
 	if _spawn_count >= SPAWN_COUNT:
 		Log.pr("spawn idle")
 		finished.emit(IDLE)

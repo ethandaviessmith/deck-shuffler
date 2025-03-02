@@ -1,0 +1,39 @@
+[gd_scene load_steps=2 format=3 uid="uid://d17p53j4vv56n"]
+
+[ext_resource type="Texture2D" uid="uid://cxahejisqcaol" path="res://assets/field-sheet.png" id="1_i3swj"]
+
+[node name="Nest" type="Node2D"]
+texture_filter = 1
+
+[node name="Sprite2D5" type="Sprite2D" parent="."]
+modulate = Color(1, 0.52549, 0.419608, 1)
+position = Vector2(1, -16)
+texture = ExtResource("1_i3swj")
+hframes = 22
+frame = 13
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(1, -16)
+texture = ExtResource("1_i3swj")
+hframes = 22
+frame = 11
+
+[node name="Sprite2D3" type="Sprite2D" parent="."]
+modulate = Color(1, 0.52549, 0.419608, 1)
+position = Vector2(-14, -7)
+texture = ExtResource("1_i3swj")
+hframes = 22
+frame = 13
+
+[node name="Sprite2D4" type="Sprite2D" parent="."]
+modulate = Color(1, 0.52549, 0.419608, 1)
+position = Vector2(8, -9)
+texture = ExtResource("1_i3swj")
+hframes = 22
+frame = 19
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+position = Vector2(-2, -4)
+texture = ExtResource("1_i3swj")
+hframes = 22
+frame = 12

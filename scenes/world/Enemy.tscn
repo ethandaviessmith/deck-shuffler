@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://iq63nlaer5ul"]
+[gd_scene load_steps=25 format=3 uid="uid://iq63nlaer5ul"]
 
 [ext_resource type="Script" path="res://scenes/world/enemy.gd" id="1_2wiof"]
 [ext_resource type="SpriteFrames" uid="uid://coxg58roo4g74" path="res://assets/critter_2.tres" id="1_pg8tb"]
@@ -14,6 +14,7 @@
 [ext_resource type="Script" path="res://components/behaviour/finite-state-machine/states/teleport_state.gd" id="12_h35yo"]
 [ext_resource type="Script" path="res://components/behaviour/finite-state-machine/states/attack_state.gd" id="13_7sq1y"]
 [ext_resource type="Script" path="res://components/behaviour/finite-state-machine/states/orbit_state.gd" id="14_h0eb7"]
+[ext_resource type="AudioStream" uid="uid://brs016c3j874y" path="res://assets/audio/chirp.mp3" id="15_66kqf"]
 
 [sub_resource type="Animation" id="Animation_wasu3"]
 length = 0.001
@@ -123,12 +124,14 @@ font_size = 7
 outline_size = 2
 outline_color = Color(0, 0, 0, 1)
 
-[node name="CharacterBody2D" type="CharacterBody2D"]
+[node name="CharacterBody2D" type="CharacterBody2D" node_paths=PackedStringArray("sfx_audio")]
 texture_filter = 1
 collision_layer = 4
 collision_mask = 135
 motion_mode = 1
 script = ExtResource("1_2wiof")
+sfx_audio = NodePath("SFXActionAudioStream")
+speed = 28.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
@@ -244,6 +247,10 @@ theme_override_font_sizes/font_size = 7
 text = "state"
 label_settings = SubResource("LabelSettings_ireb8")
 horizontal_alignment = 1
+
+[node name="SFXActionAudioStream" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("15_66kqf")
+bus = &"SFX"
 
 [connection signal="hurt" from="Hurtbox2D" to="." method="_on_hurtbox_2d_hurt"]
 [connection signal="area_entered" from="ChaseArea2D" to="." method="_on_chase_area_2d_area_entered"]

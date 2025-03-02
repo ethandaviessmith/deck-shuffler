@@ -1,4 +1,4 @@
-[gd_scene load_steps=61 format=4 uid="uid://bvyi5v3q5glkx"]
+[gd_scene load_steps=62 format=4 uid="uid://bvyi5v3q5glkx"]
 
 [ext_resource type="PackedScene" uid="uid://iq63nlaer5ul" path="res://scenes/world/enemy.tscn" id="1_78kn1"]
 [ext_resource type="Script" path="res://scenes/world/map.gd" id="1_hf0a2"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://scenes/world/enemy_spawner.gd" id="3_jf31c"]
 [ext_resource type="Script" path="res://scenes/world/spawn_info.gd" id="4_eae5y"]
 [ext_resource type="Texture2D" uid="uid://cr6pv1sb1w6yh" path="res://assets/fire-sheet.png" id="4_w74vi"]
+[ext_resource type="PackedScene" uid="uid://d17p53j4vv56n" path="res://scenes/world/nest.tscn" id="5_deady"]
 [ext_resource type="Script" path="res://components/game/deck_helper.gd" id="6_dideo"]
 [ext_resource type="Script" path="res://scenes/world/card.gd" id="7_tugua"]
 [ext_resource type="Script" path="res://components/game/attack_stats.gd" id="8_fsskc"]
@@ -532,6 +533,7 @@ offset_bottom = -575.0
 scale = Vector2(0.4, 0.4)
 
 [node name="FieldArea2D" type="Area2D" parent="Map"]
+visible = false
 collision_layer = 0
 collision_mask = 2
 
@@ -540,6 +542,7 @@ position = Vector2(797, -636)
 shape = SubResource("RectangleShape2D_mksjt")
 
 [node name="RestArea2D" type="Area2D" parent="Map"]
+visible = false
 collision_layer = 0
 collision_mask = 2
 
@@ -576,7 +579,16 @@ wait_time = 2.0
 autostart = true
 
 [node name="CharacterBody2D" parent="EnemySpawner" instance=ExtResource("9_w58ff")]
-position = Vector2(464, 336)
+position = Vector2(850, -325)
+
+[node name="Nest" parent="EnemySpawner" instance=ExtResource("5_deady")]
+position = Vector2(886, -366)
+
+[node name="Nest2" parent="EnemySpawner" instance=ExtResource("5_deady")]
+position = Vector2(892, -294)
+
+[node name="Nest3" parent="EnemySpawner" instance=ExtResource("5_deady")]
+position = Vector2(836, -245)
 
 [node name="DeckHelper" type="Node" parent="."]
 unique_name_in_owner = true

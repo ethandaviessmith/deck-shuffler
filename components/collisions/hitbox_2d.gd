@@ -5,7 +5,7 @@ class_name Hitbox2D extends Area2D
 @onready var collision = $CollisionShape2D
 @onready var disableTimer = $DisableHitBoxTimer
 
-signal on_enemy_hit(hitbox: Hitbox2D, charge: int)
+signal on_enemy_hit(charge: int)
 
 func _init() -> void:
 	collision_mask = 0
@@ -23,8 +23,8 @@ func enable():
 func disable():
 	set_deferred("monitorable", false)
 
-func enemy_hit(hitbox = self, charge = 1):
-	on_enemy_hit.emit(hitbox, charge)
+func enemy_hit(charge = 1):
+	on_enemy_hit.emit(charge)
 
 func tempdisable():
 	collision.call_deferred("set","disabled",true)

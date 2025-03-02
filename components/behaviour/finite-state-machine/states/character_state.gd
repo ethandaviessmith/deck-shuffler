@@ -10,6 +10,8 @@ const TELEPORT = "TeleportState"
 const ORBIT = "OrbitState"
 const REPOSITION = "RepositionState"
 const SPAWN = "SpawnState"
+const RETREAT = "RetreatState"
+const REST = "RestState"
 
 var character: Character
 

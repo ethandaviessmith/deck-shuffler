@@ -41,6 +41,7 @@ const GroupName: StringName = &"player"
 @export var level_scene = preload("res://scenes/world/level_control.tscn")
 @export var restart_scene = preload("res://scenes/world/restart_control.tscn")
 
+@export var CAN_ATTACK: bool = true
 
 #AttackNodes
 var wpn_dagger = preload("res://scenes/world/weapon_dagger.tscn")
@@ -145,8 +146,7 @@ func attack():
 		#print("No weapons from buff - choosing default")
 	display_buffs(active_buffs.size())
 	
-	# attacking DISABLED
-	if false and not get_random_enemy() == null: # true or
+	if CAN_ATTACK and not get_random_enemy() == null:
 		var weapon: WeaponAttack
 		#Log.pr("attack",next_weapon, next_weapon + weapon_num)
 		for weapon_attack in weapons.slice(next_weapon, next_weapon + weapon_num):
@@ -298,8 +298,8 @@ func calculate_experience(gem_exp):
 func calculate_experiencecap():
 	var exp_cap = experience_level
 	# experience levels taken from survivor clone
-	if experience_level < 3:
-		exp_cap = experience_level
+	if experience_level < 5:
+		exp_cap = experience_level * 2
 	elif experience_level < 20:
 		exp_cap = experience_level*5
 	elif experience_level < 40:

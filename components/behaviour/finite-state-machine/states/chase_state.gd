@@ -5,6 +5,8 @@ const CHASE_DISTANCE = 80
 const OFFSET = 50
 var positions = [ Vector2.ZERO, Vector2(0, -CHASE_DISTANCE), Vector2(0, CHASE_DISTANCE), Vector2(-CHASE_DISTANCE, 0), Vector2(CHASE_DISTANCE, 0) ]
 
+@export var anim: AnimationPlayer
+
 func enter(previous_state_path: String, data := {}) -> void:
 	if not data.get("target") == null:
 		target = data.get("target")
@@ -12,8 +14,11 @@ func enter(previous_state_path: String, data := {}) -> void:
 		if target == null:
 			if _is_target_valid(character):
 				target = character.targets.pick_random() 
-	if character.spawn_type == Character.Spawn.GUARD: 
+	if not character.spawn_type == Character.Spawn.GUARD: 
 		target_offset =  positions[randi() % positions.size()]
+	
+	if not anim == null:
+		anim.play("run")
 
 func exit() -> void:
 	target_offset = positions[0]
@@ -28,7 +33,9 @@ func new_target(node: Node2D):
 
 func update(_delta: float):
 	if is_instance_valid(target):
-		if character.spawn_type == Character.Spawn.GUARD: 
+		if character.spawn_type == Character.Spawn.GUARD:
+			if character.has_low_health():
+				finished.emit(RETREAT)
 			if character.global_position.distance_to(get_position()) < DISTANCE_NEAR:
 				finished.emit(ATTACK)
 		else:

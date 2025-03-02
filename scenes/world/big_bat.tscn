@@ -1,7 +1,8 @@
-[gd_scene load_steps=28 format=3 uid="uid://bnlcs4ivfbsss"]
+[gd_scene load_steps=32 format=3 uid="uid://bnlcs4ivfbsss"]
 
 [ext_resource type="Script" path="res://scenes/world/enemy.gd" id="1_kmulg"]
 [ext_resource type="SpriteFrames" uid="uid://bp531pjampdkk" path="res://assets/critter_3.tres" id="2_6fy8k"]
+[ext_resource type="PackedScene" uid="uid://d17p53j4vv56n" path="res://scenes/world/nest.tscn" id="2_b5jew"]
 [ext_resource type="PackedScene" uid="uid://b07rljcn3rxmd" path="res://components/interaction/2D/interactables/hurtbox_2d.tscn" id="3_kee52"]
 [ext_resource type="PackedScene" uid="uid://dvvoyxs6gfhne" path="res://components/interaction/2D/interactables/hitbox_2d.tscn" id="4_fm4td"]
 [ext_resource type="FontFile" uid="uid://do03fwxb30r7l" path="res://assets/GUI/OldSchoolAdventures-42j9.ttf" id="5_mt6y6"]
@@ -17,8 +18,12 @@
 [ext_resource type="Script" path="res://components/behaviour/finite-state-machine/states/reposition_state.gd" id="15_e7xq2"]
 [ext_resource type="Script" path="res://components/behaviour/finite-state-machine/states/spawn_state.gd" id="16_w3ji3"]
 [ext_resource type="PackedScene" uid="uid://iq63nlaer5ul" path="res://scenes/world/enemy.tscn" id="17_61coa"]
+[ext_resource type="Script" path="res://components/behaviour/finite-state-machine/states/retreat_state.gd" id="19_mmn2a"]
+[ext_resource type="Script" path="res://components/behaviour/finite-state-machine/states/rest_state.gd" id="20_sqjs4"]
+[ext_resource type="AudioStream" uid="uid://brs016c3j874y" path="res://assets/audio/chirp.mp3" id="21_77uo8"]
 
 [sub_resource type="Animation" id="Animation_wasu3"]
+resource_name = "RESET"
 length = 0.001
 loop_mode = 1
 tracks/0/type = "value"
@@ -44,6 +49,83 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimatedSprite2D:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(2, 2)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AnimatedSprite2D:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -28)]
+}
+
+[sub_resource type="Animation" id="Animation_bet01"]
+resource_name = "breathing"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"breathing"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0, 13]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimatedSprite2D:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.366667, 0.4, 0.5, 0.7, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(2, 2), Vector2(1.8, 2), Vector2(2, 2.05), Vector2(2.1, 2), Vector2(2, 2)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AnimatedSprite2D:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.4, 0.633333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, -28), Vector2(0, -27)]
 }
 
 [sub_resource type="Animation" id="Animation_0rjc8"]
@@ -102,35 +184,6 @@ tracks/1/keys = {
 "values": [0, 3]
 }
 
-[sub_resource type="Animation" id="Animation_bet01"]
-resource_name = "breathing"
-length = 0.8
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&"breathing"]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("AnimatedSprite2D:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.8),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [0, 13]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_e0c2a"]
 _data = {
 "RESET": SubResource("Animation_wasu3"),
@@ -156,17 +209,22 @@ font_size = 7
 outline_size = 2
 outline_color = Color(0, 0, 0, 1)
 
-[node name="CharacterBody2D" type="CharacterBody2D"]
+[node name="CharacterBody2D" type="CharacterBody2D" node_paths=PackedStringArray("sfx_audio")]
 texture_filter = 1
+scale = Vector2(0.938462, 0.876923)
 collision_layer = 4
 collision_mask = 135
 motion_mode = 1
 script = ExtResource("1_kmulg")
-hp = 10
+nest = ExtResource("2_b5jew")
+sfx_audio = NodePath("SFXActionAudioStream")
+hp = 15
 experience = 5
-knockback_recovery = 4
+damage = 2
+knockback_recovery = 6
 spawn_type = 3
-speed = 45.0
+LOW_HEALTH = 4
+speed = 48.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
@@ -207,10 +265,10 @@ shape = SubResource("CircleShape2D_60q7e")
 
 [node name="DamageLabel" type="Label" parent="."]
 texture_filter = 1
-offset_left = -11.0
-offset_top = -29.0
-offset_right = 14.0
-offset_bottom = 3.0
+offset_left = -11.7213
+offset_top = -25.0877
+offset_right = 13.2787
+offset_bottom = 6.91228
 theme_override_fonts/font = ExtResource("5_mt6y6")
 theme_override_font_sizes/font_size = 7
 horizontal_alignment = 1
@@ -240,8 +298,9 @@ anim = NodePath("../../AnimationPlayer")
 [node name="RoamState" type="Node" parent="StateMachine"]
 script = ExtResource("9_g5nay")
 
-[node name="ChaseState" type="Node" parent="StateMachine"]
+[node name="ChaseState" type="Node" parent="StateMachine" node_paths=PackedStringArray("anim")]
 script = ExtResource("10_klptc")
+anim = NodePath("../../AnimationPlayer")
 
 [node name="DieState" type="Node" parent="StateMachine" node_paths=PackedStringArray("anim", "sfx_audio", "hurtbox")]
 script = ExtResource("11_rhpuq")
@@ -262,10 +321,19 @@ script = ExtResource("14_susqk")
 [node name="RepositionState" type="Node" parent="StateMachine"]
 script = ExtResource("15_e7xq2")
 
-[node name="SpawnState" type="Node" parent="StateMachine" node_paths=PackedStringArray("anim")]
+[node name="SpawnState" type="Node" parent="StateMachine" node_paths=PackedStringArray("anim", "sfx_audio")]
 script = ExtResource("16_w3ji3")
 SPAWN_SCENE = ExtResource("17_61coa")
 anim = NodePath("../../AnimationPlayer")
+sfx_audio = NodePath("../../SFXActionAudioStream")
+
+[node name="RetreatState" type="Node" parent="StateMachine"]
+script = ExtResource("19_mmn2a")
+
+[node name="RestState" type="Node" parent="StateMachine" node_paths=PackedStringArray("anim", "sfx_audio")]
+script = ExtResource("20_sqjs4")
+anim = NodePath("../../AnimationPlayer")
+sfx_audio = NodePath("../../SFXActionAudioStream")
 
 [node name="Node2D" type="Node2D" parent="."]
 position = Vector2(0, 13)
@@ -273,7 +341,6 @@ scale = Vector2(0.5, 0.5)
 
 [node name="StateLabel" type="Label" parent="Node2D"]
 unique_name_in_owner = true
-visible = false
 texture_filter = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -290,6 +357,10 @@ theme_override_font_sizes/font_size = 7
 text = "state"
 label_settings = SubResource("LabelSettings_ireb8")
 horizontal_alignment = 1
+
+[node name="SFXActionAudioStream" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("21_77uo8")
+bus = &"SFX"
 
 [connection signal="hurt" from="Hurtbox2D" to="." method="_on_hurtbox_2d_hurt"]
 [connection signal="area_entered" from="ChaseArea2D" to="." method="_on_chase_area_2d_area_entered"]
