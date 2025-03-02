@@ -19,7 +19,7 @@ var knockback = Vector2.ZERO
 @onready var player = get_tree().get_first_node_in_group(Player.GroupName)
 @onready var sprite = $AnimatedSprite2D
 @onready var state: StateMachine = $StateMachine;
-@onready var hitBox = $Hitbox2D
+@onready var hitbox: Hitbox2D = $Hitbox2D
 
 signal next_state(next_state_path: String, data: Dictionary)
 signal lock_state(lock: bool)
@@ -36,7 +36,8 @@ func get_spawn_type() -> Spawn:
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	hitBox.damage = damage
+	hitbox.damage = damage
+	hitbox.on_enemy_hit.connect(on_enemy_hit)
 	if get_spawn_type() == Character.Spawn.WRAP:
 		targets.append(player)
 
@@ -50,6 +51,9 @@ func _physics_process(_delta):
 
 func teleport():
 	next_state.emit(CharacterState.TELEPORT, {})
+
+func on_enemy_hit(hitbox: Hitbox2D, charge = 1):
+	pass
 
 func face_target(vector: Vector2):
 	if global_position.direction_to(vector).x < 0.1:

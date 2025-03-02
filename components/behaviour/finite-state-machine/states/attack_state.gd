@@ -14,7 +14,10 @@ func update(_delta: float):
 		if character.global_position.distance_to(target.global_position) < DISTANCE_BESIDE:
 			pass
 		if character.global_position.distance_to(get_position()) > DISTANCE_CLOSE:
-			await GameGlobals.wait(randf_range(0.0, 2.0))
+			#await GameGlobals.wait(randf_range(0.0, 2.0))
 			finished.emit(CHASE)
 	else:
 		finished.emit(IDLE)
+
+func new_target(node: Node2D):
+	target = node

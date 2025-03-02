@@ -21,7 +21,7 @@ func _on_hurtbox_2d_hurt(damage: Variant, angle: Variant, knockback_amount: Vari
 	hp -= damage
 	knockback = angle * knockback_amount
 	#Log.pr("angle", angle, "knockback", knockback_amount)
-	damage_label.text = str(hp)
+	damage_label.text = str(damage)
 	damage_label.modulate.a = 1
 	var tween = create_tween()
 	tween.tween_property(damage_label, "modulate:a", 0.0, 1.0)
@@ -34,7 +34,7 @@ func _on_hurtbox_2d_hurt(damage: Variant, angle: Variant, knockback_amount: Vari
 	else:
 		pass
 
-func enemy_hit(charge = 1):
+func on_enemy_hit(hitbox: Hitbox2D, charge = 1):
 	if spawn_type == Character.Spawn.GUARD: 
 		next_state.emit(CharacterState.REPOSITION)
 	else:
@@ -48,12 +48,13 @@ func _on_chase_area_2d_body_entered(body: Node2D) -> void:
 
 func _on_chase_area_2d_body_exited(body: Node2D) -> void:
 	if body.is_in_group("target"): # keep in list of targets for now
-		_remove_target(body)
+		if not spawn_type == Character.Spawn.GUARD: 
+			_remove_target(body)
 
 func _on_chase_area_2d_area_entered(area: Area2D) -> void:
 	if area.is_in_group("target"):
 		targets.append(area)
-		new_target.emit(area)
+		_set_target(area)
 
 func _on_chase_area_2d_area_exited(area: Area2D) -> void:
 	if area.is_in_group("target"): # keep in list of targets for now

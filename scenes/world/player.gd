@@ -122,10 +122,11 @@ func _physics_process(_delta: float) -> void:
 	knockback = knockback.move_toward(Vector2.ZERO, knockback_recovery)
 	velocity += knockback
 	
+	#motion_input.input_axis_as_vector.x
 	#face_target(velocity)
-	if get_last_motion().x < 0.1:
+	if motion_input.previous_input_direction.x < 0.1:
 		sprite.flip_h = true
-	elif get_last_motion().x > -0.1:
+	elif motion_input.previous_input_direction.x > -0.1:
 		sprite.flip_h = false
 
 
@@ -145,7 +146,7 @@ func attack():
 	display_buffs(active_buffs.size())
 	
 	# attacking DISABLED
-	if false or not get_random_enemy() == null: # true or
+	if false and not get_random_enemy() == null: # true or
 		var weapon: WeaponAttack
 		#Log.pr("attack",next_weapon, next_weapon + weapon_num)
 		for weapon_attack in weapons.slice(next_weapon, next_weapon + weapon_num):

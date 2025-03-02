@@ -28,6 +28,9 @@ func update(_delta: float):
 		#current_state = State.FOLLOW
 	pass
 
+func new_target(node: Node2D):
+	target = node
+
 func _pick_new_roam_target() -> Node2D:
 	if not roam_points.is_empty():
 		return roam_points[randi() % roam_points.size()]

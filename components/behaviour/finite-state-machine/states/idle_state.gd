@@ -18,6 +18,9 @@ func exit() -> void:
 func physics_update(_delta: float):
 	decelerate(_delta)
 
+func new_target(node: Node2D):
+	target = node
+
 
 func update(_delta: float):
 	if not character.get_spawn_type() == Character.Spawn.NA:

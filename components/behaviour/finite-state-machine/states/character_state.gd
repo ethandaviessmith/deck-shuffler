@@ -9,6 +9,7 @@ const ATTACK = "AttackState"
 const TELEPORT = "TeleportState"
 const ORBIT = "OrbitState"
 const REPOSITION = "RepositionState"
+const SPAWN = "SpawnState"
 
 var character: Character
 
@@ -25,7 +26,7 @@ func _ready() -> void:
 	character = owner as Character
 	assert(character != null, "The PlayerState state type must be used only in the character scene. It needs the owner to be a Character node.")
 	origin_position = character.position
-	character.new_target.connect(_new_target)
+	character.connect("new_target", Callable(self, "new_target"))
 	character.lost_target.connect(_lost_target)
 
 
@@ -65,10 +66,11 @@ func decelerate(delta: float = get_physics_process_delta_time()) -> void:
 		character.velocity = character.velocity.lerp(Vector2.ZERO, character.friction * delta)
 	else:
 		character.velocity = Vector2.ZERO
-		
-func _new_target(node: Node2D):
+
+func new_target(node: Node2D):
 	target = node
-	finished.emit(CHASE, {"target": target})
+	#finished.emit(CHASE, {"target": target})
+	Log.pr("target", "chase", self)
 
 func _lost_target():
 	target = null

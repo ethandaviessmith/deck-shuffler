@@ -567,7 +567,7 @@ position = Vector2(609, 396)
 [node name="Attacks" type="Node2D" parent="."]
 unique_name_in_owner = true
 
-[node name="EnemySpawner" type="Node2D" parent="."]
+[node name="EnemySpawner" type="Node2D" parent="." groups=["enemy"]]
 script = ExtResource("3_jf31c")
 spawns = Array[ExtResource("4_eae5y")]([SubResource("Resource_xs8gd")])
 

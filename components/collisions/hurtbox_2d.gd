@@ -44,7 +44,7 @@ func on_area_entered(hitbox: Area2D) -> void:
 		
 		emit_signal("hurt",damage, angle, knockback)
 		if hitbox.has_method("enemy_hit"):
-			hitbox.enemy_hit(1)
+			hitbox.enemy_hit(hitbox, 1)
 			
 		
 

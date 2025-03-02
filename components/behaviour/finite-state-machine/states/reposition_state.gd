@@ -33,6 +33,9 @@ func physics_update(delta: float):
 func update(delta: float):
 	if is_instance_valid(target):
 		if character.global_position.distance_to(get_position()) < DISTANCE_CLOSE:
-			finished.emit(IDLE)
+			finished.emit(SPAWN)
 	else:
 		finished.emit(IDLE)
+
+func new_target(node: Node2D):
+	target = node

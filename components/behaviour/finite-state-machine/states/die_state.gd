@@ -47,3 +47,6 @@ func death():
 	await get_tree().create_timer(anim.current_animation_length).timeout
 	if not character.get_spawn_type() == Character.Spawn.NA:
 		character.queue_free()
+
+func _new_target(node: Node2D):
+	pass

@@ -18,6 +18,9 @@ func exit() -> void:
 	pass
 	
 
+func new_target(node: Node2D):
+	target = node
+
 
 func physics_update(_delta: float):
 	pass

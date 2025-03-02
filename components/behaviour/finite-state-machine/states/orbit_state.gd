@@ -32,6 +32,9 @@ func update(delta: float):
 	else:
 		finished.emit(IDLE)
 
+func new_target(node: Node2D):
+	target = node
+
 func update_circle_movement(delta):
 	# Get current distance to target
 	var current_position = character.global_position
