@@ -299,13 +299,13 @@ func calculate_experiencecap():
 	var exp_cap = experience_level
 	# experience levels taken from survivor clone
 	if experience_level < 5:
-		exp_cap = experience_level * 2
+		exp_cap = experience_level + 3
 	elif experience_level < 20:
-		exp_cap = experience_level*5
+		exp_cap = experience_level * 3
 	elif experience_level < 40:
-		exp_cap + 95 * (experience_level-19)*8
+		exp_cap + 95 * (experience_level-19) * 5
 	else:
-		exp_cap = 255 + (experience_level-39)*12
+		exp_cap = 255 + (experience_level-39) * 8
 	return exp_cap
 
 func apply_upgrade(card: Card):

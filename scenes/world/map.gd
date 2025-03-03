@@ -1,4 +1,4 @@
-class_name World extends Control
+class_name World extends Node2D
 
 const GroupName: StringName = &"world"
 @onready var fog:ColorRect = get_node("/root/World/Fog/ParallaxLayer/ColorRect")

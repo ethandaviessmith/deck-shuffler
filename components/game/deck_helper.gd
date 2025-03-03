@@ -33,11 +33,14 @@ func get_starter_deck(count) -> Array[Card]:
 	for i in 3:
 		cards.append(get_random_card())
 	 
+	var random_number = randi_range(0, 4)
+	cards.append(deck[random_number])
+	cards.append(deck[random_number])
 	# set hand manually
-	cards.append(deck[0])
-	cards.append(deck[1])
-	cards.append(deck[2])
+	#cards.append(deck[0])
+	#cards.append(deck[1])
+	#cards.append(deck[2])
 	cards.append(deck[3])
 	cards.append(deck[4]) # extra draw card
-	cards.append(deck[8]) # scarecrow
+	#cards.append(deck[8]) # scarecrow
 	return cards

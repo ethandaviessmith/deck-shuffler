@@ -9,31 +9,31 @@ texture_filter = 1
 modulate = Color(1, 0.52549, 0.419608, 1)
 position = Vector2(1, -16)
 texture = ExtResource("1_i3swj")
-hframes = 22
+hframes = 26
 frame = 13
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(1, -16)
 texture = ExtResource("1_i3swj")
-hframes = 22
+hframes = 26
 frame = 11
 
 [node name="Sprite2D3" type="Sprite2D" parent="."]
 modulate = Color(1, 0.52549, 0.419608, 1)
 position = Vector2(-14, -7)
 texture = ExtResource("1_i3swj")
-hframes = 22
+hframes = 26
 frame = 13
 
 [node name="Sprite2D4" type="Sprite2D" parent="."]
 modulate = Color(1, 0.52549, 0.419608, 1)
 position = Vector2(8, -9)
 texture = ExtResource("1_i3swj")
-hframes = 22
+hframes = 26
 frame = 19
 
 [node name="Sprite2D2" type="Sprite2D" parent="."]
 position = Vector2(-2, -4)
 texture = ExtResource("1_i3swj")
-hframes = 22
+hframes = 26
 frame = 12
