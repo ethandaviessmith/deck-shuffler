@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://dk4gbowd3qrh6"]
 
-[ext_resource type="Script" path="res://scenes/world/level_control.gd" id="1_0bq88"]
+[ext_resource type="Script" uid="uid://3edvy1xu6fbn" path="res://scenes/world/level_control.gd" id="1_0bq88"]
 [ext_resource type="Material" uid="uid://ual471r2mys8" path="res://shaders/card_highlight.tres" id="2_xwjvm"]
 [ext_resource type="Texture2D" uid="uid://be4k40otfl3gt" path="res://components/cards/2D/database/spanish_decks/pixel_deck/backs/back.png" id="3_6eenk"]
 [ext_resource type="Theme" uid="uid://5creo3g4o3t2" path="res://ui/menus/menu_theme.tres" id="4_tj5uo"]

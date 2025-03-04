@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://gfjggii0tf5r"]
 
-[ext_resource type="Script" path="res://components/cards/2D/components/deck_pile.gd" id="1_gofh3"]
+[ext_resource type="Script" uid="uid://dg5nsoclmb7wr" path="res://components/cards/2D/components/deck_pile.gd" id="1_gofh3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4vp1i"]
 

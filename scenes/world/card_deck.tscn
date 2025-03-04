@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://bpegyhvamna5b"]
 
 [ext_resource type="Texture2D" uid="uid://bw1y4n60gsqgw" path="res://assets/cards/cards1.png" id="2_k46f6"]
-[ext_resource type="Script" path="res://scenes/world/card_deck.gd" id="2_p65ng"]
+[ext_resource type="Script" uid="uid://hto74pp4korm" path="res://scenes/world/card_deck.gd" id="2_p65ng"]
 [ext_resource type="FontFile" uid="uid://do03fwxb30r7l" path="res://assets/GUI/OldSchoolAdventures-42j9.ttf" id="4_5bqg2"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_4jbsq"]

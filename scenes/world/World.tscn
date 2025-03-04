@@ -1,21 +1,21 @@
 [gd_scene load_steps=66 format=4 uid="uid://bvyi5v3q5glkx"]
 
 [ext_resource type="PackedScene" uid="uid://iq63nlaer5ul" path="res://scenes/world/enemy.tscn" id="1_78kn1"]
-[ext_resource type="Script" path="res://scenes/world/map.gd" id="1_hf0a2"]
+[ext_resource type="Script" uid="uid://bytlnbfrchhvy" path="res://scenes/world/map.gd" id="1_hf0a2"]
 [ext_resource type="Texture2D" uid="uid://b5avfyekhnjua" path="res://assets/green_woods/Assets/Tiles2.png" id="1_l660s"]
 [ext_resource type="PackedScene" uid="uid://b6xsykb6ffhrn" path="res://scenes/world/Player.tscn" id="1_sythe"]
-[ext_resource type="Script" path="res://scenes/world/enemy_spawner.gd" id="3_jf31c"]
-[ext_resource type="Script" path="res://scenes/world/spawn_info.gd" id="4_eae5y"]
+[ext_resource type="Script" uid="uid://cktxkcyqwlvl4" path="res://scenes/world/enemy_spawner.gd" id="3_jf31c"]
+[ext_resource type="Script" uid="uid://dwg4bl8x1eebd" path="res://scenes/world/spawn_info.gd" id="4_eae5y"]
 [ext_resource type="Texture2D" uid="uid://cr6pv1sb1w6yh" path="res://assets/fire-sheet.png" id="4_w74vi"]
 [ext_resource type="Texture2D" uid="uid://dmq34bw5kqh5u" path="res://assets/fence.png" id="5_74nrw"]
 [ext_resource type="PackedScene" uid="uid://d17p53j4vv56n" path="res://scenes/world/nest.tscn" id="5_deady"]
-[ext_resource type="Script" path="res://components/game/deck_helper.gd" id="6_dideo"]
-[ext_resource type="Script" path="res://scenes/world/card.gd" id="7_tugua"]
-[ext_resource type="Script" path="res://components/game/attack_stats.gd" id="8_fsskc"]
+[ext_resource type="Script" uid="uid://bnqju1ybhi0mx" path="res://components/game/deck_helper.gd" id="6_dideo"]
+[ext_resource type="Script" uid="uid://bju7o2x4lpqyj" path="res://scenes/world/card.gd" id="7_tugua"]
+[ext_resource type="Script" uid="uid://d2k3c58ehn0rx" path="res://components/game/attack_stats.gd" id="8_fsskc"]
 [ext_resource type="Texture2D" uid="uid://8ubtvov6hn83" path="res://assets/cards/cards2.png" id="9_5t0hg"]
 [ext_resource type="PackedScene" uid="uid://bnlcs4ivfbsss" path="res://scenes/world/big_bat.tscn" id="9_w58ff"]
 [ext_resource type="Texture2D" uid="uid://ymvwl7y108tj" path="res://assets/cards/cards6.png" id="11_q4jti"]
-[ext_resource type="Script" path="res://components/game/spell_stats.gd" id="13_2oihk"]
+[ext_resource type="Script" uid="uid://0p1ni2tjoj35" path="res://components/game/spell_stats.gd" id="13_2oihk"]
 [ext_resource type="Texture2D" uid="uid://bjrmgjkhvdhxm" path="res://assets/cards/cards8.png" id="14_ank4h"]
 [ext_resource type="Texture2D" uid="uid://cxyej0slmaeey" path="res://assets/cards/cards10.png" id="15_qmehy"]
 [ext_resource type="Texture2D" uid="uid://k30npqskair6" path="res://assets/cards/cards15.png" id="17_w0fud"]
@@ -163,14 +163,14 @@ texture = ExtResource("1_l660s")
 [sub_resource type="TileSet" id="TileSet_68f4t"]
 sources/0 = SubResource("TileSetAtlasSource_qqcfr")
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_f5prt"]
-size = Vector2(653, 41)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_smcxy"]
-size = Vector2(20.5, 352)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2bpuk"]
 size = Vector2(545.5, 12)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f5prt"]
+size = Vector2(653, 15)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_smcxy"]
+size = Vector2(11.5, 352)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mksjt"]
 size = Vector2(1561, 1340.5)
@@ -212,8 +212,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_1darb"]
 _data = {
-"RESET": SubResource("Animation_6w823"),
-"fire": SubResource("Animation_mktwl")
+&"RESET": SubResource("Animation_6w823"),
+&"fire": SubResource("Animation_mktwl")
 }
 
 [sub_resource type="Resource" id="Resource_xs8gd"]
@@ -535,14 +535,87 @@ position = Vector2(216, -519)
 [node name="Nest3" parent="Map" instance=ExtResource("5_deady")]
 position = Vector2(451, -685)
 
+[node name="Fence2" type="Node2D" parent="Map"]
+position = Vector2(558, -398.895)
+metadata/_edit_group_ = true
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Map/Fence2"]
+collision_layer = 512
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Map/Fence2/StaticBody2D"]
+position = Vector2(272, -7)
+shape = SubResource("RectangleShape2D_2bpuk")
+
+[node name="Sprite2D" type="Sprite2D" parent="Map/Fence2"]
+self_modulate = Color(1, 0.933333, 0, 0.890196)
+position = Vector2(27, -11.85)
+texture = ExtResource("5_74nrw")
+hframes = 8
+frame = 3
+
+[node name="Sprite2D2" type="Sprite2D" parent="Map/Fence2"]
+self_modulate = Color(1, 0.933333, 0, 0.890196)
+position = Vector2(91, -11.85)
+texture = ExtResource("5_74nrw")
+hframes = 8
+frame = 1
+
+[node name="Sprite2D3" type="Sprite2D" parent="Map/Fence2"]
+self_modulate = Color(1, 0.933333, 0, 0.890196)
+position = Vector2(155, -11.85)
+texture = ExtResource("5_74nrw")
+hframes = 8
+
+[node name="Sprite2D4" type="Sprite2D" parent="Map/Fence2"]
+self_modulate = Color(1, 0.933333, 0, 0.890196)
+position = Vector2(219, -11.85)
+texture = ExtResource("5_74nrw")
+hframes = 8
+frame = 1
+
+[node name="Sprite2D5" type="Sprite2D" parent="Map/Fence2"]
+self_modulate = Color(1, 0.933333, 0, 0.890196)
+position = Vector2(283, -11.85)
+texture = ExtResource("5_74nrw")
+hframes = 8
+
+[node name="Sprite2D6" type="Sprite2D" parent="Map/Fence2"]
+self_modulate = Color(1, 0.933333, 0, 0.890196)
+position = Vector2(347, -11.85)
+texture = ExtResource("5_74nrw")
+hframes = 8
+frame = 1
+
+[node name="Sprite2D7" type="Sprite2D" parent="Map/Fence2"]
+self_modulate = Color(1, 0.933333, 0, 0.890196)
+position = Vector2(411, -11.85)
+texture = ExtResource("5_74nrw")
+hframes = 8
+
+[node name="Sprite2D8" type="Sprite2D" parent="Map/Fence2"]
+self_modulate = Color(1, 0.933333, 0, 0.890196)
+position = Vector2(475, -11.85)
+texture = ExtResource("5_74nrw")
+hframes = 8
+frame = 1
+
+[node name="Sprite2D9" type="Sprite2D" parent="Map/Fence2"]
+self_modulate = Color(1, 0.933333, 0, 0.890196)
+position = Vector2(539, -11.85)
+texture = ExtResource("5_74nrw")
+hframes = 8
+frame = 2
+
 [node name="Fence3" type="Node2D" parent="Map"]
 position = Vector2(112, -776)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="Map/Fence3"]
-collision_mask = 512
+collision_layer = 512
+collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Map/Fence3/StaticBody2D"]
-position = Vector2(348.5, 23.5)
+position = Vector2(348.5, 31.5)
 shape = SubResource("RectangleShape2D_f5prt")
 
 [node name="Sprite2D" type="Sprite2D" parent="Map/Fence3"]
@@ -690,155 +763,89 @@ hframes = 8
 frame = 5
 
 [node name="StaticBody2D2" type="StaticBody2D" parent="Map/Fence3"]
-collision_mask = 512
+collision_layer = 512
+collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Map/Fence3/StaticBody2D2"]
 position = Vector2(29.5, 209)
 shape = SubResource("RectangleShape2D_smcxy")
 
 [node name="StaticBody2D3" type="StaticBody2D" parent="Map/Fence3"]
-collision_mask = 512
+collision_layer = 512
+collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Map/Fence3/StaticBody2D3"]
-position = Vector2(664.25, 196)
+position = Vector2(668.75, 196)
 shape = SubResource("RectangleShape2D_smcxy")
 
 [node name="Fence" type="Node2D" parent="Map"]
-position = Vector2(-125, -425)
+position = Vector2(-123.835, -398.895)
+metadata/_edit_group_ = true
 
 [node name="StaticBody2D" type="StaticBody2D" parent="Map/Fence"]
-collision_mask = 513
+collision_layer = 512
+collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Map/Fence/StaticBody2D"]
-position = Vector2(269.25, 25)
+position = Vector2(272, -7)
 shape = SubResource("RectangleShape2D_2bpuk")
 
 [node name="Sprite2D" type="Sprite2D" parent="Map/Fence"]
 self_modulate = Color(1, 0.933333, 0, 0.890196)
-position = Vector2(27, 20.75)
+position = Vector2(27, -11.85)
 texture = ExtResource("5_74nrw")
 hframes = 8
 frame = 3
 
 [node name="Sprite2D2" type="Sprite2D" parent="Map/Fence"]
 self_modulate = Color(1, 0.933333, 0, 0.890196)
-position = Vector2(91, 21)
+position = Vector2(91, -11.85)
 texture = ExtResource("5_74nrw")
 hframes = 8
 frame = 1
 
 [node name="Sprite2D3" type="Sprite2D" parent="Map/Fence"]
 self_modulate = Color(1, 0.933333, 0, 0.890196)
-position = Vector2(155, 21)
+position = Vector2(155, -11.85)
 texture = ExtResource("5_74nrw")
 hframes = 8
 
 [node name="Sprite2D4" type="Sprite2D" parent="Map/Fence"]
 self_modulate = Color(1, 0.933333, 0, 0.890196)
-position = Vector2(219, 21)
+position = Vector2(219, -11.85)
 texture = ExtResource("5_74nrw")
 hframes = 8
 frame = 1
 
 [node name="Sprite2D5" type="Sprite2D" parent="Map/Fence"]
 self_modulate = Color(1, 0.933333, 0, 0.890196)
-position = Vector2(283, 21)
+position = Vector2(283, -11.85)
 texture = ExtResource("5_74nrw")
 hframes = 8
 
 [node name="Sprite2D6" type="Sprite2D" parent="Map/Fence"]
 self_modulate = Color(1, 0.933333, 0, 0.890196)
-position = Vector2(347, 21)
+position = Vector2(347, -11.85)
 texture = ExtResource("5_74nrw")
 hframes = 8
 frame = 1
 
 [node name="Sprite2D7" type="Sprite2D" parent="Map/Fence"]
 self_modulate = Color(1, 0.933333, 0, 0.890196)
-position = Vector2(411, 21)
+position = Vector2(411, -11.85)
 texture = ExtResource("5_74nrw")
 hframes = 8
 
 [node name="Sprite2D8" type="Sprite2D" parent="Map/Fence"]
 self_modulate = Color(1, 0.933333, 0, 0.890196)
-position = Vector2(475, 21)
+position = Vector2(475, -11.85)
 texture = ExtResource("5_74nrw")
 hframes = 8
 frame = 1
 
 [node name="Sprite2D9" type="Sprite2D" parent="Map/Fence"]
 self_modulate = Color(1, 0.933333, 0, 0.890196)
-position = Vector2(539, 21)
-texture = ExtResource("5_74nrw")
-hframes = 8
-frame = 2
-
-[node name="Fence2" type="Node2D" parent="Map"]
-position = Vector2(544, -430)
-
-[node name="StaticBody2D" type="StaticBody2D" parent="Map/Fence2"]
-collision_mask = 513
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Map/Fence2/StaticBody2D"]
-position = Vector2(273, 23)
-shape = SubResource("RectangleShape2D_2bpuk")
-
-[node name="Sprite2D" type="Sprite2D" parent="Map/Fence2"]
-self_modulate = Color(1, 0.933333, 0, 0.890196)
-position = Vector2(27, 20.75)
-texture = ExtResource("5_74nrw")
-hframes = 8
-frame = 3
-
-[node name="Sprite2D2" type="Sprite2D" parent="Map/Fence2"]
-self_modulate = Color(1, 0.933333, 0, 0.890196)
-position = Vector2(91, 21)
-texture = ExtResource("5_74nrw")
-hframes = 8
-frame = 1
-
-[node name="Sprite2D3" type="Sprite2D" parent="Map/Fence2"]
-self_modulate = Color(1, 0.933333, 0, 0.890196)
-position = Vector2(155, 21)
-texture = ExtResource("5_74nrw")
-hframes = 8
-
-[node name="Sprite2D4" type="Sprite2D" parent="Map/Fence2"]
-self_modulate = Color(1, 0.933333, 0, 0.890196)
-position = Vector2(219, 21)
-texture = ExtResource("5_74nrw")
-hframes = 8
-frame = 1
-
-[node name="Sprite2D5" type="Sprite2D" parent="Map/Fence2"]
-self_modulate = Color(1, 0.933333, 0, 0.890196)
-position = Vector2(283, 21)
-texture = ExtResource("5_74nrw")
-hframes = 8
-
-[node name="Sprite2D6" type="Sprite2D" parent="Map/Fence2"]
-self_modulate = Color(1, 0.933333, 0, 0.890196)
-position = Vector2(347, 21)
-texture = ExtResource("5_74nrw")
-hframes = 8
-frame = 1
-
-[node name="Sprite2D7" type="Sprite2D" parent="Map/Fence2"]
-self_modulate = Color(1, 0.933333, 0, 0.890196)
-position = Vector2(411, 21)
-texture = ExtResource("5_74nrw")
-hframes = 8
-
-[node name="Sprite2D8" type="Sprite2D" parent="Map/Fence2"]
-self_modulate = Color(1, 0.933333, 0, 0.890196)
-position = Vector2(475, 21)
-texture = ExtResource("5_74nrw")
-hframes = 8
-frame = 1
-
-[node name="Sprite2D9" type="Sprite2D" parent="Map/Fence2"]
-self_modulate = Color(1, 0.933333, 0, 0.890196)
-position = Vector2(539, 21)
+position = Vector2(539, -11.85)
 texture = ExtResource("5_74nrw")
 hframes = 8
 frame = 2
@@ -863,7 +870,7 @@ shape = SubResource("RectangleShape2D_ooeju")
 
 [node name="FireAnimationPlayer" type="AnimationPlayer" parent="Map"]
 libraries = {
-"": SubResource("AnimationLibrary_1darb")
+&"": SubResource("AnimationLibrary_1darb")
 }
 
 [node name="Fire" type="Sprite2D" parent="Map"]
@@ -902,12 +909,6 @@ script = ExtResource("6_dideo")
 deck = Array[ExtResource("7_tugua")]([SubResource("Resource_oxfa6"), SubResource("Resource_eridv"), SubResource("Resource_8gd7h"), SubResource("Resource_580ic"), SubResource("Resource_lkljn"), SubResource("Resource_k3mic"), SubResource("Resource_yr7tv"), SubResource("Resource_ioi8e"), SubResource("Resource_eger2")])
 player_upgrades = Array[ExtResource("7_tugua")]([SubResource("Resource_exmbl"), SubResource("Resource_uafl5"), SubResource("Resource_o6lf2"), SubResource("Resource_xxe5f"), SubResource("Resource_tkx8r")])
 
-[node name="ColorRect" type="ColorRect" parent="."]
-visible = false
-material = ExtResource("19_4vo1s")
-offset_right = 221.0
-offset_bottom = 159.0
-
 [node name="Fog" type="ParallaxBackground" parent="."]
 layer = 1
 
@@ -922,6 +923,12 @@ offset_left = -153.0
 offset_top = -113.0
 offset_right = 1127.0
 offset_bottom = 607.0
+
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+material = ExtResource("19_4vo1s")
+offset_right = 221.0
+offset_bottom = 159.0
 
 [connection signal="body_entered" from="Map/FieldArea2D" to="Map" method="_on_field_area_2d_body_entered"]
 [connection signal="body_exited" from="Map/FieldArea2D" to="Map" method="_on_field_area_2d_body_exited"]

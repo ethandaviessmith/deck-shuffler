@@ -1,18 +1,18 @@
-[gd_scene load_steps=53 format=3 uid="uid://b6xsykb6ffhrn"]
+[gd_scene load_steps=56 format=3 uid="uid://b6xsykb6ffhrn"]
 
-[ext_resource type="Script" path="res://scenes/world/player.gd" id="1_gqwxa"]
-[ext_resource type="Script" path="res://components/game/player_stats.gd" id="2_5xxq7"]
-[ext_resource type="Script" path="res://components/game/attack_stats.gd" id="2_dff2h"]
-[ext_resource type="Script" path="res://components/behaviour/finite-state-machine/finite-state-machine.gd" id="3_d2tu4"]
-[ext_resource type="Script" path="res://components/game/spell_stats.gd" id="4_624bx"]
-[ext_resource type="Script" path="res://components/motion/2D/top-down-controller/states/idle.gd" id="4_kdb0p"]
-[ext_resource type="Script" path="res://components/motion/2D/top-down-controller/states/walk.gd" id="5_t48kx"]
+[ext_resource type="Script" uid="uid://n2p5mw1cvr4v" path="res://scenes/world/player.gd" id="1_gqwxa"]
+[ext_resource type="Script" uid="uid://cjludslda6cgs" path="res://components/game/player_stats.gd" id="2_5xxq7"]
+[ext_resource type="Script" uid="uid://d2k3c58ehn0rx" path="res://components/game/attack_stats.gd" id="2_dff2h"]
+[ext_resource type="Script" uid="uid://cfcpa88g37d1a" path="res://components/behaviour/finite-state-machine/finite-state-machine.gd" id="3_d2tu4"]
+[ext_resource type="Script" uid="uid://0p1ni2tjoj35" path="res://components/game/spell_stats.gd" id="4_624bx"]
+[ext_resource type="Script" uid="uid://cu33lbom3spn" path="res://components/motion/2D/top-down-controller/states/idle.gd" id="4_kdb0p"]
+[ext_resource type="Script" uid="uid://b8mm32wno40nu" path="res://components/motion/2D/top-down-controller/states/walk.gd" id="5_t48kx"]
 [ext_resource type="SpriteFrames" uid="uid://vktqhm2afg3s" path="res://assets/neutral_mercgambitgirl.tres" id="5_yrmep"]
-[ext_resource type="Script" path="res://components/behaviour/finite-state-machine/fsm.gd" id="6_0hi2d"]
-[ext_resource type="Script" path="res://components/motion/2D/top-down-controller/states/dash.gd" id="6_bunba"]
-[ext_resource type="Script" path="res://components/behaviour/finite-state-machine/states/idle_state.gd" id="7_gl86w"]
-[ext_resource type="Script" path="res://components/vfx/2D/ghost_trail/ghost_trail_effect.gd" id="7_wnu4c"]
-[ext_resource type="Script" path="res://components/behaviour/finite-state-machine/states/die_state.gd" id="8_e37v5"]
+[ext_resource type="Script" uid="uid://kkhjr0ckhv22" path="res://components/behaviour/finite-state-machine/fsm.gd" id="6_0hi2d"]
+[ext_resource type="Script" uid="uid://bj2k3dycxyloo" path="res://components/motion/2D/top-down-controller/states/dash.gd" id="6_bunba"]
+[ext_resource type="Script" uid="uid://ddahrc6yp0m3q" path="res://components/behaviour/finite-state-machine/states/idle_state.gd" id="7_gl86w"]
+[ext_resource type="Script" uid="uid://c08whu6ercsn4" path="res://components/vfx/2D/ghost_trail/ghost_trail_effect.gd" id="7_wnu4c"]
+[ext_resource type="Script" uid="uid://dq4404jjkmvln" path="res://components/behaviour/finite-state-machine/states/die_state.gd" id="8_e37v5"]
 [ext_resource type="Texture2D" uid="uid://la28kx7jw0ho" path="res://components/vfx/2D/ghost_trail/ghost.svg" id="8_u32yg"]
 [ext_resource type="PackedScene" uid="uid://b07rljcn3rxmd" path="res://components/interaction/2D/interactables/hurtbox_2d.tscn" id="10_0ny1a"]
 [ext_resource type="Texture2D" uid="uid://cj6a5rhwov14" path="res://assets/GUI/healthbar.png" id="12_4aqtr"]
@@ -27,9 +27,11 @@
 [ext_resource type="Texture2D" uid="uid://45t7if157bk1" path="res://assets/sdprites-Sheet.png" id="22_c8r4b"]
 [ext_resource type="AudioStream" uid="uid://dmmhnrbirnnfy" path="res://assets/audio/157233-MB-Cards-Turn-01-01.mp3" id="24_i3ak6"]
 [ext_resource type="AudioStream" uid="uid://ccgltpgeu5xm1" path="res://assets/audio/420680-Card-Game-Movement-Deal-Four.mp3" id="25_2db4x"]
-[ext_resource type="Script" path="res://scenes/world/deck_control.gd" id="26_rta5l"]
-[ext_resource type="AudioStream" uid="uid://bf7se6682a0mb" path="res://assets/audio/damage_8bit.mp3" id="29_kmp3k"]
+[ext_resource type="Script" uid="uid://bubxfxtlmmjxc" path="res://scenes/world/deck_control.gd" id="26_rta5l"]
+[ext_resource type="Script" uid="uid://2e8udml2r8gy" path="res://scenes/world/hand_control.gd" id="28_ypnam"]
 [ext_resource type="AudioStream" uid="uid://ci3qthk67uvle" path="res://assets/audio/magic_summon.mp3" id="30_684ye"]
+[ext_resource type="AudioStream" uid="uid://2q33k58vqppn" path="res://assets/audio/hit_hurt.mp3" id="30_c12y2"]
+[ext_resource type="AudioStream" uid="uid://bm06viiutjkn4" path="res://assets/audio/hit_hurt2.mp3" id="31_t2nr8"]
 
 [sub_resource type="Resource" id="Resource_kruik"]
 script = ExtResource("2_5xxq7")
@@ -214,12 +216,12 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_u7yur"]
 _data = {
-"RESET": SubResource("Animation_40l5s"),
-"die": SubResource("Animation_8biax"),
-"idle": SubResource("Animation_mgx1i"),
-"resolve": SubResource("Animation_2nnml"),
-"shuffle": SubResource("Animation_xowja"),
-"walk": SubResource("Animation_mr4bg")
+&"RESET": SubResource("Animation_40l5s"),
+&"die": SubResource("Animation_8biax"),
+&"idle": SubResource("Animation_mgx1i"),
+&"resolve": SubResource("Animation_2nnml"),
+&"shuffle": SubResource("Animation_xowja"),
+&"walk": SubResource("Animation_mr4bg")
 }
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5rohf"]
@@ -300,10 +302,10 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_isixn"]
 _data = {
-"RESET": SubResource("Animation_xxl3l"),
-"card_draw": SubResource("Animation_rlwxj"),
-"resolve": SubResource("Animation_i3aid"),
-"shuffle": SubResource("Animation_6tnrd")
+&"RESET": SubResource("Animation_xxl3l"),
+&"card_draw": SubResource("Animation_rlwxj"),
+&"resolve": SubResource("Animation_i3aid"),
+&"shuffle": SubResource("Animation_6tnrd")
 }
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_vnioi"]
@@ -329,6 +331,12 @@ radius = 10.2956
 radius = 8.5
 height = 38.0
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_j1tf5"]
+playback_mode = 1
+streams_count = 2
+stream_0/stream = ExtResource("30_c12y2")
+stream_1/stream = ExtResource("31_t2nr8")
+
 [node name="TopDownController" type="CharacterBody2D" node_paths=PackedStringArray("camera", "deck") groups=["player", "target"]]
 texture_filter = 1
 collision_layer = 2
@@ -341,6 +349,7 @@ stats = SubResource("Resource_kruik")
 hp = 1
 
 [node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(-1, 0)
 zoom = Vector2(2.5, 2.5)
 
 [node name="ShadowColorRect" type="ColorRect" parent="."]
@@ -356,7 +365,7 @@ color = Color(0, 0, 0, 0.227451)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_u7yur")
+&"": SubResource("AnimationLibrary_u7yur")
 }
 
 [node name="CardNode2D" type="Node2D" parent="."]
@@ -418,14 +427,15 @@ texture = ExtResource("8_u32yg")
 [node name="Debug" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
-offset_left = -256.0
-offset_top = -144.0
-offset_right = 19.0
-offset_bottom = 6.0
+offset_left = -263.0
+offset_top = 85.0
+offset_right = 12.0
+offset_bottom = 235.0
 scale = Vector2(0.8, 0.8)
 
 [node name="buff_label" type="Label" parent="Debug"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 1
 anchors_preset = 14
 anchor_top = 0.5
@@ -502,10 +512,10 @@ anchor_left = 0.075
 anchor_top = 0.278846
 anchor_right = 0.075
 anchor_bottom = 0.278846
-offset_left = -193.0
-offset_top = -156.0
-offset_right = -161.0
-offset_bottom = -148.0
+offset_left = -200.0
+offset_top = 73.0
+offset_right = -168.0
+offset_bottom = 81.0
 scale = Vector2(2.7, 1.7)
 texture_progress = ExtResource("13_qrw3p")
 
@@ -514,10 +524,10 @@ unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
-offset_left = -190.0
-offset_top = -108.0
-offset_right = -198.0
-offset_bottom = -100.0
+offset_left = -197.0
+offset_top = 121.0
+offset_right = -205.0
+offset_bottom = 129.0
 grow_horizontal = 2
 scale = Vector2(2.7, 0.5)
 texture_progress = ExtResource("13_ixa04")
@@ -546,7 +556,7 @@ texture_over = ExtResource("12_4aqtr")
 texture_progress = ExtResource("14_mutnh")
 
 [node name="AcespriteGui" type="Sprite2D" parent="GUI"]
-position = Vector2(-122, -75)
+position = Vector2(-129, 154)
 scale = Vector2(0.73, 0.73)
 texture = ExtResource("22_agk72")
 
@@ -573,11 +583,11 @@ texture = ExtResource("16_23hk5")
 
 [node name="ActionAnimationPlayer" type="AnimationPlayer" parent="GUI"]
 libraries = {
-"": SubResource("AnimationLibrary_isixn")
+&"": SubResource("AnimationLibrary_isixn")
 }
 
 [node name="ActionSprite2D" type="Sprite2D" parent="GUI"]
-position = Vector2(-220, -116)
+position = Vector2(-227, 113)
 scale = Vector2(0.6875, 0.6875)
 texture = ExtResource("22_c8r4b")
 hframes = 8
@@ -656,14 +666,31 @@ columns = 5
 [node name="WeaponHFlowContainer" type="HFlowContainer" parent="GUI"]
 unique_name_in_owner = true
 layout_mode = 0
-offset_left = -242.0
-offset_top = -88.0
-offset_right = -126.0
-offset_bottom = -44.0
+offset_left = -106.0
+offset_top = 95.0
+offset_right = 10.0
+offset_bottom = 139.0
+
+[node name="HandControl" type="Node2D" parent="."]
+unique_name_in_owner = true
+z_index = 100
+position = Vector2(-242, 112)
+scale = Vector2(0.385, 0.385)
+script = ExtResource("28_ypnam")
+
+[node name="Stack1" type="Node2D" parent="HandControl"]
+position = Vector2(31.1688, -220.779)
+
+[node name="Stack2" type="Node2D" parent="HandControl"]
+position = Vector2(31.1688, -405.195)
+
+[node name="Stack3" type="Node2D" parent="HandControl"]
+position = Vector2(25.974, -584.416)
 
 [node name="Hurtbox2D" parent="." instance=ExtResource("10_0ny1a")]
 collision_layer = 2
 collision_mask = 4
+metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" parent="Hurtbox2D" index="0"]
 position = Vector2(-1, 0)
@@ -673,6 +700,7 @@ shape = SubResource("CapsuleShape2D_vnioi")
 visible = false
 collision_layer = 0
 collision_mask = 4
+metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyDespawnArea2D"]
 position = Vector2(-0.5, 0)
@@ -682,6 +710,7 @@ shape = SubResource("RectangleShape2D_0rpyw")
 visible = false
 collision_layer = 0
 collision_mask = 4
+metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyFarArea2D"]
 shape = SubResource("RectangleShape2D_2ps4q")
@@ -690,6 +719,7 @@ shape = SubResource("RectangleShape2D_2ps4q")
 visible = false
 collision_layer = 0
 collision_mask = 4
+metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyNearArea2D"]
 shape = SubResource("CircleShape2D_v81tn")
@@ -698,6 +728,7 @@ shape = SubResource("CircleShape2D_v81tn")
 visible = false
 collision_layer = 0
 collision_mask = 8
+metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GrabArea"]
 shape = SubResource("CircleShape2D_f0gk1")
@@ -706,6 +737,7 @@ shape = SubResource("CircleShape2D_f0gk1")
 visible = false
 collision_layer = 0
 collision_mask = 8
+metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CollectArea"]
 shape = SubResource("CircleShape2D_0lwbw")
@@ -714,18 +746,21 @@ shape = SubResource("CircleShape2D_0lwbw")
 visible = false
 collision_layer = 0
 collision_mask = 4
+metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyTouchArea2D"]
 position = Vector2(0, 2)
 shape = SubResource("CapsuleShape2D_aej5d")
 
 [node name="HitAudioStream" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("29_kmp3k")
+stream = SubResource("AudioStreamRandomizer_j1tf5")
 bus = &"SFX"
+metadata/_edit_lock_ = true
 
 [node name="SummonAudioStream" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("30_684ye")
 bus = &"SFX"
+metadata/_edit_lock_ = true
 
 [connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]
 [connection signal="state_changed" from="FiniteStateMachine" to="." method="_on_finite_state_machine_state_changed"]

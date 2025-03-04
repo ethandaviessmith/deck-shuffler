@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://puwivhpyf4gr"]
 
-[ext_resource type="Script" path="res://scenes/world/restart_control.gd" id="1_o3rhg"]
-[ext_resource type="Shader" path="res://scenes/world/fog_screen_shader.gdshader" id="2_d53qt"]
+[ext_resource type="Script" uid="uid://bs8xc5d0lkl4n" path="res://scenes/world/restart_control.gd" id="1_o3rhg"]
+[ext_resource type="Shader" uid="uid://iclxs4wy2qch" path="res://scenes/world/fog_screen_shader.gdshader" id="2_d53qt"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8ng8h"]
 shader = ExtResource("2_d53qt")

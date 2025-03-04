@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://be4k40otfl3gt" path="res://components/cards/2D/database/spanish_decks/pixel_deck/backs/back.png" id="1_68e05"]
 [ext_resource type="Texture2D" uid="uid://dutgc72nmyi63" path="res://components/cards/2D/database/spanish_decks/pixel_deck/golds/oro7.png" id="2_t8boe"]
-[ext_resource type="Script" path="res://components/cards/2D/playing_card_resource.gd" id="3_5kfry"]
+[ext_resource type="Script" uid="uid://bfadtudqemca5" path="res://components/cards/2D/playing_card_resource.gd" id="3_5kfry"]
 
 [resource]
 script = ExtResource("3_5kfry")
@@ -15,3 +15,4 @@ back_texture = ExtResource("1_68e05")
 suit = 1
 value = 7.0
 table_value = 7.0
+default_orientation = 0

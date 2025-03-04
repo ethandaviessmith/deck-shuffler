@@ -1,25 +1,25 @@
 [gd_scene load_steps=32 format=3 uid="uid://bnlcs4ivfbsss"]
 
-[ext_resource type="Script" path="res://scenes/world/enemy.gd" id="1_kmulg"]
+[ext_resource type="Script" uid="uid://bttr7sfbphmo6" path="res://scenes/world/enemy.gd" id="1_kmulg"]
 [ext_resource type="SpriteFrames" uid="uid://bp531pjampdkk" path="res://assets/critter_3.tres" id="2_6fy8k"]
 [ext_resource type="PackedScene" uid="uid://d17p53j4vv56n" path="res://scenes/world/nest.tscn" id="2_b5jew"]
 [ext_resource type="PackedScene" uid="uid://b07rljcn3rxmd" path="res://components/interaction/2D/interactables/hurtbox_2d.tscn" id="3_kee52"]
 [ext_resource type="PackedScene" uid="uid://dvvoyxs6gfhne" path="res://components/interaction/2D/interactables/hitbox_2d.tscn" id="4_fm4td"]
 [ext_resource type="FontFile" uid="uid://do03fwxb30r7l" path="res://assets/GUI/OldSchoolAdventures-42j9.ttf" id="5_mt6y6"]
 [ext_resource type="AudioStream" uid="uid://b17xuikgm18at" path="res://assets/audio/hit-flesh-01-266311.mp3" id="6_jqxro"]
-[ext_resource type="Script" path="res://components/behaviour/finite-state-machine/fsm.gd" id="7_28b7l"]
-[ext_resource type="Script" path="res://components/behaviour/finite-state-machine/states/idle_state.gd" id="8_f06i3"]
-[ext_resource type="Script" path="res://components/behaviour/finite-state-machine/states/roam_state.gd" id="9_g5nay"]
-[ext_resource type="Script" path="res://components/behaviour/finite-state-machine/states/chase_state.gd" id="10_klptc"]
-[ext_resource type="Script" path="res://components/behaviour/finite-state-machine/states/die_state.gd" id="11_rhpuq"]
-[ext_resource type="Script" path="res://components/behaviour/finite-state-machine/states/teleport_state.gd" id="12_hxumb"]
-[ext_resource type="Script" path="res://components/behaviour/finite-state-machine/states/attack_state.gd" id="13_rl56x"]
-[ext_resource type="Script" path="res://components/behaviour/finite-state-machine/states/orbit_state.gd" id="14_susqk"]
-[ext_resource type="Script" path="res://components/behaviour/finite-state-machine/states/reposition_state.gd" id="15_e7xq2"]
-[ext_resource type="Script" path="res://components/behaviour/finite-state-machine/states/spawn_state.gd" id="16_w3ji3"]
+[ext_resource type="Script" uid="uid://kkhjr0ckhv22" path="res://components/behaviour/finite-state-machine/fsm.gd" id="7_28b7l"]
+[ext_resource type="Script" uid="uid://ddahrc6yp0m3q" path="res://components/behaviour/finite-state-machine/states/idle_state.gd" id="8_f06i3"]
+[ext_resource type="Script" uid="uid://c1n1xmcnmir2f" path="res://components/behaviour/finite-state-machine/states/roam_state.gd" id="9_g5nay"]
+[ext_resource type="Script" uid="uid://ceafe6iacuh42" path="res://components/behaviour/finite-state-machine/states/chase_state.gd" id="10_klptc"]
+[ext_resource type="Script" uid="uid://dq4404jjkmvln" path="res://components/behaviour/finite-state-machine/states/die_state.gd" id="11_rhpuq"]
+[ext_resource type="Script" uid="uid://btqlexg4ak1dw" path="res://components/behaviour/finite-state-machine/states/teleport_state.gd" id="12_hxumb"]
+[ext_resource type="Script" uid="uid://dlorq4euudwuq" path="res://components/behaviour/finite-state-machine/states/attack_state.gd" id="13_rl56x"]
+[ext_resource type="Script" uid="uid://cdpjkrsh201pj" path="res://components/behaviour/finite-state-machine/states/orbit_state.gd" id="14_susqk"]
+[ext_resource type="Script" uid="uid://24odwddaboug" path="res://components/behaviour/finite-state-machine/states/reposition_state.gd" id="15_e7xq2"]
+[ext_resource type="Script" uid="uid://dc31ciwdvmunu" path="res://components/behaviour/finite-state-machine/states/spawn_state.gd" id="16_w3ji3"]
 [ext_resource type="PackedScene" uid="uid://iq63nlaer5ul" path="res://scenes/world/enemy.tscn" id="17_61coa"]
-[ext_resource type="Script" path="res://components/behaviour/finite-state-machine/states/retreat_state.gd" id="19_mmn2a"]
-[ext_resource type="Script" path="res://components/behaviour/finite-state-machine/states/rest_state.gd" id="20_sqjs4"]
+[ext_resource type="Script" uid="uid://cmnxduaw0b0mv" path="res://components/behaviour/finite-state-machine/states/retreat_state.gd" id="19_mmn2a"]
+[ext_resource type="Script" uid="uid://o14qg7ai62u1" path="res://components/behaviour/finite-state-machine/states/rest_state.gd" id="20_sqjs4"]
 [ext_resource type="AudioStream" uid="uid://brs016c3j874y" path="res://assets/audio/chirp.mp3" id="21_77uo8"]
 
 [sub_resource type="Animation" id="Animation_wasu3"]
@@ -186,10 +186,10 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_e0c2a"]
 _data = {
-"RESET": SubResource("Animation_wasu3"),
-"breathing": SubResource("Animation_bet01"),
-"die": SubResource("Animation_0rjc8"),
-"run": SubResource("Animation_20rvb")
+&"RESET": SubResource("Animation_wasu3"),
+&"breathing": SubResource("Animation_bet01"),
+&"die": SubResource("Animation_0rjc8"),
+&"run": SubResource("Animation_20rvb")
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qsxed"]
@@ -218,13 +218,13 @@ motion_mode = 1
 script = ExtResource("1_kmulg")
 nest = ExtResource("2_b5jew")
 sfx_audio = NodePath("SFXActionAudioStream")
-hp = 15
+hp = 13
 experience = 5
 damage = 2
 knockback_recovery = 6
 spawn_type = 3
 LOW_HEALTH = 4
-speed = 48.0
+speed = 45.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
@@ -235,7 +235,7 @@ animation = &"run"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_e0c2a")
+&"": SubResource("AnimationLibrary_e0c2a")
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

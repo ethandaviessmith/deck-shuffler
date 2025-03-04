@@ -1,8 +1,8 @@
 [gd_scene load_steps=7 format=3 uid="uid://5s7gwvm11hyb"]
 
-[ext_resource type="Shader" path="res://shaders/card_smoke.gdshader" id="1_patu3"]
+[ext_resource type="Shader" uid="uid://die4d5yca0d4d" path="res://shaders/card_smoke.gdshader" id="1_patu3"]
 [ext_resource type="Texture2D" uid="uid://eyrorsjsi3cd" path="res://assets/cards/cards24.png" id="2_u6mg5"]
-[ext_resource type="Script" path="res://scenes/world/card_sprite.gd" id="3_3m5o4"]
+[ext_resource type="Script" uid="uid://6gbvvml6m6mf" path="res://scenes/world/card_sprite.gd" id="3_3m5o4"]
 [ext_resource type="FontFile" uid="uid://do03fwxb30r7l" path="res://assets/GUI/OldSchoolAdventures-42j9.ttf" id="4_371v2"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_p8b7w"]

@@ -33,7 +33,7 @@ func get_starter_deck(count) -> Array[Card]:
 	for i in 3:
 		cards.append(get_random_card())
 	 
-	var random_number = randi_range(0, 4)
+	var random_number = randi_range(0, 3)
 	cards.append(deck[random_number])
 	cards.append(deck[random_number])
 	# set hand manually

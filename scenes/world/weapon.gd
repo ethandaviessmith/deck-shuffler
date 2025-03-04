@@ -28,10 +28,10 @@ func _ready():
 		#speed *= buff.speed
 		#size *= buff.size
 	#
-	#scale = Vector2(0.2,0.2)
-	#var tween = create_tween()
-	#tween.tween_property(self,"scale", Vector2(1,1) * size, 0.3).set_trans(Tween.TRANS_BOUNCE).set_ease(Tween.EASE_OUT)
-	#tween.play()
+	scale = Vector2(0.2,0.2)
+	var tween = create_tween()
+	tween.tween_property(self,"scale", Vector2(1,1) * size, 0.3).set_trans(Tween.TRANS_BOUNCE).set_ease(Tween.EASE_OUT)
+	tween.play()
 	Util.play_with_randomized_audio(start_audio)
 
 func _physics_process(delta):

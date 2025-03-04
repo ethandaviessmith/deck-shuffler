@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://be4k40otfl3gt" path="res://components/cards/2D/database/spanish_decks/pixel_deck/backs/back.png" id="1_qn2b4"]
 [ext_resource type="Texture2D" uid="uid://ejgil3c54tbt" path="res://components/cards/2D/database/spanish_decks/pixel_deck/swords/espada1.png" id="2_e54ki"]
-[ext_resource type="Script" path="res://components/cards/2D/playing_card_resource.gd" id="3_yd86l"]
+[ext_resource type="Script" uid="uid://bfadtudqemca5" path="res://components/cards/2D/playing_card_resource.gd" id="3_yd86l"]
 
 [resource]
 script = ExtResource("3_yd86l")

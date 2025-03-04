@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://mmum7glimehm"]
 
-[ext_resource type="Script" path="res://components/cards/2D/components/playing_cards_hand.gd" id="1_6t6ui"]
+[ext_resource type="Script" uid="uid://cw4n82jae1rc5" path="res://components/cards/2D/components/playing_cards_hand.gd" id="1_6t6ui"]
 
 [node name="PlayingCardsHand" type="Control"]
 layout_mode = 3

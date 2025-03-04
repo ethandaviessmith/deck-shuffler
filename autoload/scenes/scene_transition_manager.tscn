@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://ctfm8pvayni1r"]
 
-[ext_resource type="Script" path="res://autoload/scenes/scene_transition_manager.gd" id="1_kf75r"]
+[ext_resource type="Script" uid="uid://dcwfhe1hpyof7" path="res://autoload/scenes/scene_transition_manager.gd" id="1_kf75r"]
 
 [sub_resource type="Animation" id="Animation_kf1sc"]
 length = 0.001
@@ -117,13 +117,13 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_fyhyf"]
 _data = {
-"RESET": SubResource("Animation_kf1sc"),
-"fade_from_black": SubResource("Animation_0p6h8"),
-"fade_to_black": SubResource("Animation_4yrah"),
-"voronoi_in_left": SubResource("Animation_4kwo2"),
-"voronoi_in_right": SubResource("Animation_77mwk"),
-"voronoi_out_left": SubResource("Animation_xwtj7"),
-"voronoi_out_right": SubResource("Animation_w7pos")
+&"RESET": SubResource("Animation_kf1sc"),
+&"fade_from_black": SubResource("Animation_0p6h8"),
+&"fade_to_black": SubResource("Animation_4yrah"),
+&"voronoi_in_left": SubResource("Animation_4kwo2"),
+&"voronoi_in_right": SubResource("Animation_77mwk"),
+&"voronoi_out_left": SubResource("Animation_xwtj7"),
+&"voronoi_out_right": SubResource("Animation_w7pos")
 }
 
 [node name="SceneTransitionManager" type="Node"]

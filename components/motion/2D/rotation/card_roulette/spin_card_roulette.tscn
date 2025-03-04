@@ -1,9 +1,9 @@
 [gd_scene load_steps=11 format=3 uid="uid://svepvwedlwv0"]
 
-[ext_resource type="Script" path="res://components/motion/2D/rotation/card_roulette/spin_card_roulette.gd" id="1_ynaj7"]
+[ext_resource type="Script" uid="uid://dhbr6rtgap5jw" path="res://components/motion/2D/rotation/card_roulette/spin_card_roulette.gd" id="1_ynaj7"]
 [ext_resource type="PackedScene" uid="uid://c76rjb46vwy5x" path="res://components/motion/2D/rotation/card_roulette/spin_card.tscn" id="2_a4l4b"]
-[ext_resource type="Script" path="res://components/motion/2D/rotation/orbit_component_2d.gd" id="3_6l77p"]
-[ext_resource type="Script" path="res://components/motion/2D/rotation/card_roulette/cards/spin_card_resource.gd" id="3_g1bsj"]
+[ext_resource type="Script" uid="uid://bbsvtoh1k3lew" path="res://components/motion/2D/rotation/orbit_component_2d.gd" id="3_6l77p"]
+[ext_resource type="Script" uid="uid://cltswcnom82w7" path="res://components/motion/2D/rotation/card_roulette/cards/spin_card_resource.gd" id="3_g1bsj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0mhee"]
 size = Vector2(3, 21)

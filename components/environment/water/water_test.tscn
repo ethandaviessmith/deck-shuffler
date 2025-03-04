@@ -1,9 +1,9 @@
 [gd_scene load_steps=13 format=3 uid="uid://cq6e3jxtyo3pg"]
 
-[ext_resource type="Script" path="res://components/environment/water/water_manager.gd" id="1_m0gg3"]
+[ext_resource type="Script" uid="uid://bshml05dtmr10" path="res://components/environment/water/water_manager.gd" id="1_m0gg3"]
 [ext_resource type="Material" uid="uid://cf5yq4x0wcvie" path="res://components/environment/water/materials/water_material.tres" id="2_qvuod"]
-[ext_resource type="Script" path="res://components/environment/water/buoyancy/simple_floatable_body_3d.gd" id="6_j0p7e"]
-[ext_resource type="Script" path="res://components/environment/water/buoyancy/floatable_body_3d.gd" id="7_ao8n7"]
+[ext_resource type="Script" uid="uid://bla604uo6lrdx" path="res://components/environment/water/buoyancy/simple_floatable_body_3d.gd" id="6_j0p7e"]
+[ext_resource type="Script" uid="uid://bsqtb448e62ar" path="res://components/environment/water/buoyancy/floatable_body_3d.gd" id="7_ao8n7"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_dg6xg"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)

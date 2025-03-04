@@ -1,8 +1,8 @@
 [gd_scene load_steps=16 format=3 uid="uid://kql8wfuj5tej"]
 
-[ext_resource type="Script" path="res://scenes/world/weapon_scarecrow.gd" id="1_8h5pg"]
+[ext_resource type="Script" uid="uid://dfg5tmxc88teh" path="res://scenes/world/weapon_scarecrow.gd" id="1_8h5pg"]
 [ext_resource type="Texture2D" uid="uid://des60sw5pp1s2" path="res://assets/characters.png" id="2_102gw"]
-[ext_resource type="Script" path="res://components/collisions/hurtbox_2d.gd" id="3_5rkx8"]
+[ext_resource type="Script" uid="uid://babnfr36l0lhq" path="res://components/collisions/hurtbox_2d.gd" id="3_5rkx8"]
 [ext_resource type="AudioStream" uid="uid://wpadsnl6s0c2" path="res://assets/audio/stick-hitting-a-dreadlock-small-thud-83297.mp3" id="4_1usri"]
 
 [sub_resource type="Animation" id="Animation_ykj7x"]
@@ -78,9 +78,9 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_yta0m"]
 _data = {
-"RESET": SubResource("Animation_ykj7x"),
-"blank": SubResource("Animation_iahpd"),
-"thump": SubResource("Animation_an66b")
+&"RESET": SubResource("Animation_ykj7x"),
+&"blank": SubResource("Animation_iahpd"),
+&"thump": SubResource("Animation_an66b")
 }
 
 [sub_resource type="Animation" id="Animation_4c550"]
@@ -132,9 +132,9 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_s8c2l"]
 _data = {
-"RESET": SubResource("Animation_4c550"),
-"idle": SubResource("Animation_1ft0p"),
-"thump": SubResource("Animation_itbdd")
+&"RESET": SubResource("Animation_4c550"),
+&"idle": SubResource("Animation_1ft0p"),
+&"thump": SubResource("Animation_itbdd")
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_203sm"]
@@ -161,7 +161,7 @@ frame = 10
 
 [node name="EffectAnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_yta0m")
+&"": SubResource("AnimationLibrary_yta0m")
 }
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -171,7 +171,7 @@ hframes = 18
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_s8c2l")
+&"": SubResource("AnimationLibrary_s8c2l")
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

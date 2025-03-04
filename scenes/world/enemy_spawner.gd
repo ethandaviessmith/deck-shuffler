@@ -16,7 +16,7 @@ func _ready():
 func _on_timer_timeout():
 	time += 1
 	var enemy_spawns = spawns
-	for i in enemy_spawns:
+	for i:Spawn_info in enemy_spawns:
 		if time >= i.time_start and time <= i.time_end:
 			if i.spawn_delay_counter < i.enemy_spawn_delay:
 				i.spawn_delay_counter += 1

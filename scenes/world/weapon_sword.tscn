@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://bf3d0f2wpes64"]
 
-[ext_resource type="Script" path="res://scenes/world/weapon.gd" id="1_pqug7"]
+[ext_resource type="Script" uid="uid://k30qrfteoakp" path="res://scenes/world/weapon.gd" id="1_pqug7"]
 [ext_resource type="AudioStream" uid="uid://betw2m30spj7l" path="res://assets/audio/swish.mp3" id="3_uejxr"]
 [ext_resource type="AudioStream" uid="uid://b17xuikgm18at" path="res://assets/audio/hit-flesh-01-266311.mp3" id="4_dhuij"]
 [ext_resource type="Texture2D" uid="uid://dinbqp45aok51" path="res://assets/weapons-and-equipment.png" id="4_iffqg"]

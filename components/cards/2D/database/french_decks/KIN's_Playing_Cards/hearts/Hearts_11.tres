@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://3rt10yyetr24" path="res://components/cards/2D/database/french_decks/KIN's_Playing_Cards/backs/Back_1.png" id="1_3dq66"]
 [ext_resource type="Texture2D" uid="uid://cdwf8ev0pv4ti" path="res://components/cards/2D/database/french_decks/KIN's_Playing_Cards/hearts/Hearts_11.png" id="2_7c04x"]
-[ext_resource type="Script" path="res://components/cards/2D/playing_card_resource.gd" id="3_kepec"]
+[ext_resource type="Script" uid="uid://bfadtudqemca5" path="res://components/cards/2D/playing_card_resource.gd" id="3_kepec"]
 
 [resource]
 script = ExtResource("3_kepec")
@@ -15,3 +15,4 @@ back_texture = ExtResource("1_3dq66")
 suit = 4
 value = 11.0
 table_value = 11.0
+default_orientation = 0

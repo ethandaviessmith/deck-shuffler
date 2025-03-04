@@ -115,7 +115,8 @@ bullet per https://godotengine.org/asset-library/asset/2053
 
 https://github.com/Maaack/Godot-Game-Template
 https://github.com/viniciusgerevini/godot-aseprite-wizard?tab=readme-ov-file
-https://github.com/russmatney/log.gd
+
+https://superuser.com/questions/491180/how-do-i-embed-multiple-sizes-in-an-ico-file
 
 # TODO next
 
@@ -164,25 +165,6 @@ APS
 
 Card that gives dash/doge charges
 
+#### Weapons have a usage instead of buff timer, weapon use ticks down on attack
+
 # TO DO
-
-DEMO
-
-player states
-
-- topdowncontroller state
-- idle,walk,dash, interact (controls)
-- player state
-- action (deck), interact, death
-
-goal
-
-- boss monster (big bat)
-  states - retreat, rest, spawn bats,
-- boss fight quest
-- boss drops rarity cards
-
-- field with fences
-- random
-
-/Export game

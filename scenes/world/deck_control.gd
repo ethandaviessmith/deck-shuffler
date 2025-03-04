@@ -6,9 +6,10 @@ var deck: Array[Card] = []
 var draw_pile: Array[Card] = []
 var hand: Array[Card] = []
 
+@export var card_scene = preload("res://scenes/world/card_deck.tscn")
 @onready var draw_audio = $DrawAudio
 @onready var shuffle_audio = $ShuffleAudio
-@export var card_scene = preload("res://scenes/world/card_deck.tscn")
+@onready var hand_control:HandControl = get_node("%HandControl")
 
 signal shuffle_complete
 #unused
@@ -60,8 +61,9 @@ func draw_card() -> Card:
 		var drawn_card = draw_pile[random_index]
 		hand.append(drawn_card)
 		draw_pile.remove_at(random_index)
+		hand_control.add_card_to_hand(drawn_card)
+		
 		#emit_signal("card_removed", drawn_card)  # Signal removal
-		#Log.pr(drawn_card.get_card_type_name() + "drawn")
 		return drawn_card
 	else:
 		Log.pr("Draw pile is empty!")
@@ -79,6 +81,7 @@ func get_last_drawn_card() -> Card:
 	return hand.back()
 
 func resolve_hand() -> PlayerStats:
+	hand_control.resolve_hand()
 	var hand_buff = PlayerStats.new()
 	for card in hand:
 		Log.pr("new " + card.get_card_type_name())
@@ -108,7 +111,6 @@ func add_card(card: Card):
 	card_instance.set_card(card)
 	emit_signal("card_added", card)
 
-# Example function to demonstrate setting and drawing from the deck
 func _ready():
 	# Connect signals to custom handlers
 	#connect("shuffle_complete", Callable(self, "_on_shuffle_complete"))

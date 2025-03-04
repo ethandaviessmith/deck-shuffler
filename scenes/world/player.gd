@@ -123,12 +123,10 @@ func _physics_process(_delta: float) -> void:
 	knockback = knockback.move_toward(Vector2.ZERO, knockback_recovery)
 	velocity += knockback
 	
-	#motion_input.input_axis_as_vector.x
-	#face_target(velocity)
-	if motion_input.previous_input_direction.x < 0.1:
-		sprite.flip_h = true
-	elif motion_input.previous_input_direction.x > -0.1:
+	if motion_input.previous_input_direction.x > 0.1:
 		sprite.flip_h = false
+	elif motion_input.previous_input_direction.x < -0.1:
+		sprite.flip_h = true
 
 
 #region ACTIONS

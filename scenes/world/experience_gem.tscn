@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://bsyksfjwdfwoy"]
 
-[ext_resource type="Script" path="res://scenes/world/experience_gem.gd" id="1_andqg"]
+[ext_resource type="Script" uid="uid://dakwvq2nasobi" path="res://scenes/world/experience_gem.gd" id="1_andqg"]
 [ext_resource type="Texture2D" uid="uid://b4bgle5wml37l" path="res://assets/coin_sheet.png" id="2_vyr8m"]
 [ext_resource type="AudioStream" uid="uid://bblufhfxswae0" path="res://assets/audio/64282-Healing_crystal_drop_set_down_movement_jewel-BLASTWAVEFX-01900.mp3" id="3_23ov2"]
 
@@ -41,8 +41,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_th1px"]
 _data = {
-"RESET": SubResource("Animation_ubqte"),
-"spin": SubResource("Animation_x5dly")
+&"RESET": SubResource("Animation_ubqte"),
+&"spin": SubResource("Animation_x5dly")
 }
 
 [node name="ExperienceGem" type="Area2D" groups=["loot"]]
@@ -69,7 +69,7 @@ stream = ExtResource("3_23ov2")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_th1px")
+&"": SubResource("AnimationLibrary_th1px")
 }
 
 [connection signal="finished" from="snd_play" to="." method="_on_snd_play_finished"]
