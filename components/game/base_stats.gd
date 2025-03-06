@@ -10,6 +10,24 @@ class_name BaseStats
 # Default Multiplier
 @export var speed: float = 1.0
 @export var size: float = 1.0
+@export var CHARGE_LIMIT: int = 1  ## How many uses before it's gone
+var charges = 0
+
+var icon_scene: WeaponIcon
+
+
+## returns remaining charges
+func charge_limit(increase: int) -> int:
+	#Log.pr("charge limit", increase, charges,CHARGE_LIMIT)
+	charges += increase
+	#if charges >= CHARGE_LIMIT:
+		#if is_instance_valid(icon_scene):
+			#if icon_scene.has_method("remove_buff"):
+				#icon_scene.remove_buff()
+				#Log.pr("remove icon")
+		#else:
+			#Log.pr("invalid icon")
+	return clampi(CHARGE_LIMIT - charges, 0, CHARGE_LIMIT)
 
 
 func add_buff(buff: BaseStats):

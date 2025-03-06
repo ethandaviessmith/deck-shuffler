@@ -1,4 +1,4 @@
-@icon("res://components/cards/2D/icons/hand.svg")
+@icon("res://components/cards/2D/icons/player_hand.svg")
 class_name HandControl extends Node2D
 
 var stack_positions = {}

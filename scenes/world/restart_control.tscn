@@ -13,6 +13,7 @@ shader_parameter/transition_y = 0.5
 
 [node name="RestartControl" type="Control"]
 process_mode = 3
+z_index = 100
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_o3rhg")

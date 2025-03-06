@@ -40,53 +40,35 @@ const GroupName: StringName = &"player"
 @export var card_scene = preload("res://scenes/world/card.tscn")
 @export var level_scene = preload("res://scenes/world/level_control.tscn")
 @export var restart_scene = preload("res://scenes/world/restart_control.tscn")
-
-@export var CAN_ATTACK: bool = true
-
-#AttackNodes
+# AttackNodes
 var wpn_dagger = preload("res://scenes/world/weapon_dagger.tscn")
 var wpn_axe = preload("res://scenes/world/weapon_axe.tscn")
 var wpn_sword = preload("res://scenes/world/weapon_sword.tscn")
 var wpn_scarecrow = preload("res://scenes/world/weapon_scarecrow.tscn")
 var wpn_icon = preload("res://scenes/world/weapon_icon.tscn")
 
+@export var CAN_ATTACK: bool = true
 @export var camera: Camera2D
 @export var deck: CardDeck
-var active_buffs: Array[PlayerStats] = []
-var next_actions: Array[Card.ACTIONS] = []
-var deck_animation = false # janky anim fix for now
 
-var motion_input: TransformedInput = TransformedInput.new(self) # TopDownController
+var active_buffs: Array = []
+var wpn_icons: Dictionary = {}
+var next_weapon = 0
+var weapon_num = 1
+var weapon_list = []
+var next_actions: Array[Card.ACTIONS] = []
+var deck_animation = false ## janky anim fix for now
+var motion_input: TransformedInput = TransformedInput.new(self) ## TopDownController
 
 #Player
 @export var stats: PlayerStats
-
 @export var mana = 4
 @export var max_mana = 4
-@export var draw_mana = 1
+@export var draw_mana = 2
 @export var shuffle_mana = 2
-#@export var hp = 20
-#var experience = 0
+
 var experience_level = 1
 var collected_experience = 0
-
-var next_weapon = 0
-var weapon_num = 1
-
-var normal_color = Color(1, 1, 1) 
-var hit_color = Color(1, .5, .5)
-
-#var movement_speed = 40.0
-#var last_movement = Vector2.UP
-#var time = 0
-#var maxhp = 80
-
-
-#UPGRADES
-#var collected_upgrades = []
-#var upgrade_options = []
-var spell_cooldown = 0
-var additional_attacks = 0
 
 var enemy_far = [] # targets to shoot at
 var enemy_near = [] # prioritized targets
@@ -112,8 +94,6 @@ func set_player_stats():
 	hp = stats.durability
 	Log.pr("draw ",draw_timer.wait_time, ",shuffle ", shuffle_timer.wait_time)
 
-
-# MOVEMENT
 func _physics_process(_delta: float) -> void:
 	motion_input.update()
 	
@@ -128,25 +108,25 @@ func _physics_process(_delta: float) -> void:
 	elif motion_input.previous_input_direction.x < -0.1:
 		sprite.flip_h = true
 
-
 #region ACTIONS
 func attack():
 	var buff:AttackStats = AttackStats.new()
 	var weapons:Array[AttackStats] = []
+	var debuff := false
 	
 	for active_buff in active_buffs:
-		if active_buff.attacks == null: # general buff or specific weapon
+		if active_buff is PlayerStats:
 			buff.add_buff(active_buff)
 		else:
-			weapons.append_array(active_buff.attacks)
+			weapons.append(active_buff)
 	if weapons.size() == 0:
-		weapons.append(AttackStats.new()) # Default attack, no weapons in buff
-		#print("No weapons from buff - choosing default")
-	display_buffs(active_buffs.size())
+		weapons.append(AttackStats.new()) 
+		debuff = true
+	Log.pr("attack", active_buffs, next_weapon)
 	
 	if CAN_ATTACK and not get_random_enemy() == null:
 		var weapon: WeaponAttack
-		#Log.pr("attack",next_weapon, next_weapon + weapon_num)
+		Log.pr("attack",next_weapon, next_weapon + weapon_num)
 		for weapon_attack in weapons.slice(next_weapon, next_weapon + weapon_num):
 			match weapon_attack.weapon_type:
 				AttackStats.WeaponType.DAGGER:
@@ -163,13 +143,31 @@ func attack():
 			if not get_random_enemy() == null:
 				weapon.target = get_random_enemy().global_position
 			# need to add buff from card (base buff)
-			weapon.set_buff(weapon_attack) # player buff
+			weapon.set_buff(weapon_attack) # attack buff
 			weapon.add_buff(buff) # player buff
 			attacks.call_deferred("add_child", weapon)
+			charge_limit(weapon_attack, 1)
+	
+	if debuff and active_buffs.size() > next_weapon:
+		var active_buff = active_buffs[next_weapon]
+		charge_limit(active_buff, 1)
+		
 	next_weapon += weapon_num
 	if next_weapon >= weapons.size():
 		next_weapon = 0
 
+
+func charge_limit(attack, amount: int):
+	var limit = attack.charge_limit(amount)
+	if wpn_icons.has(attack):
+		var icon = wpn_icons[attack]
+		if is_instance_valid(icon):
+			if limit == 0:
+				icon.remove_buff()
+				wpn_icons.erase(attack)
+				active_buffs.erase(attack)
+				Log.pr("summon", "remove buff", attack)
+			icon.set_charge(limit)
 
 func next_action():
 	if motion_state.locked:
@@ -230,24 +228,29 @@ func set_next_action(action: Card.ACTIONS):
 func summon_hand(buff: PlayerStats):
 	mana = max_mana
 	summon_animation()
-	## add buffs, and remove them later
-	var timer = TimeHelper.create_idle_timer(buff.time, true, true)
-	var debuff = Callable(self,"debuff").bind(buff, timer)
-	timer.connect("timeout", debuff)
-	add_child(timer)
-	
-	active_buffs.append(buff)
-	show_weapon_icons(buff)
 
-func debuff(buff: PlayerStats, timer: Timer):
-	active_buffs.erase(buff)
-	timer.queue_free()
-	pass
+	var player_buff:PlayerStats = PlayerStats.new()
+	var weapons:Array[AttackStats] = []
+	var c = 0
+	for attack in buff.attacks:
+		if attack is AttackStats and not attack.weapon_type == AttackStats.WeaponType.NA:
+			weapons.append(attack)
+			add_weapon_icon(attack)
+			c += 1
+		else:
+			player_buff.add_buff(attack)
+	add_weapon_icon(player_buff)
+	c += 1
+	
+	active_buffs.append_array(weapons)
+	active_buffs.append(player_buff)
+	Log.pr("summon", c, active_buffs.size())
+
 
 func shuffle_deck():
 	draw_timer.stop()
 	deck.shuffle()
-	#indicate player is shuffling
+	
 	icon_shuffle.visible = true
 	deck_animation = true
 	animation_player.play("shuffle")
@@ -364,13 +367,16 @@ func calculate_stats() -> PlayerStats:
 		disp_stats.add_player_stats(buff)
 	return disp_stats
 
-func show_weapon_icons(buff: PlayerStats):
-	if not buff.attacks == null:
-		for weapon in buff.attacks:
-			var wpn_icon_instance = wpn_icon.instantiate() as WeaponIcon
-			Log.pr("icon", weapon.weapon_type, weapon.damage)
-			wpn_icon_instance.add_buff(weapon.weapon_type, buff.time)
-			icon_weapon_list.call_deferred("add_child",wpn_icon_instance)
+func add_weapon_icon(buff):
+	var icon_type = AttackStats.WeaponType.NA
+	var wpn_icon_instance = wpn_icon.instantiate() as WeaponIcon
+	if buff is AttackStats:
+		icon_type = buff.weapon_type
+	Log.pr("weapon_icon", type_string(typeof(buff)))
+	wpn_icon_instance.set_charge(buff.CHARGE_LIMIT)
+	wpn_icon_instance.add_buff(icon_type)
+	icon_weapon_list.call_deferred("add_child", wpn_icon_instance)
+	wpn_icons[buff] = wpn_icon_instance
 
 func display_buffs(count:int):
 	var disp_stats = calculate_stats()
@@ -384,12 +390,12 @@ func display_buffs(count:int):
 	#Debug text
 	var label_text = str(count) + ">"
 	for buff in active_buffs:
-		label_text += buff.format_stats()
+		pass
+		#label_text += buff.format_stats()
 	label_text += "\n" +deck.format_hand_stats() #"\n" +
 	if buff_label and label_text:
 		buff_label.text = label_text
-		
-		
+
 #endregion
 
 #region SIGNALS
@@ -415,8 +421,8 @@ func _on_hurt_box_2d_hurt(damage: Variant, angle: Variant, knockback_amount: Var
 	set_guibar(healthBar, hp, stats.durability)
 	
 	var tween = create_tween().set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_IN_OUT)
-	tween.tween_property(sprite, "modulate", hit_color, 0.4)
-	tween.tween_property(sprite, "modulate", normal_color, 0.3)
+	tween.tween_property(sprite, "modulate", Util.hit_color, 0.4)
+	tween.tween_property(sprite, "modulate", Util.normal_color, 0.3)
 	
 	Util.play_with_randomized_audio(hit_audio)
 	if hp <= 0:

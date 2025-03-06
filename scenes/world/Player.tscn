@@ -46,6 +46,7 @@ damage = 0.0
 durability = 10.0
 speed = 0.3
 size = 1.0
+CHARGE_LIMIT = 1
 
 [sub_resource type="Animation" id="Animation_40l5s"]
 length = 0.001
@@ -668,12 +669,12 @@ unique_name_in_owner = true
 layout_mode = 0
 offset_left = -106.0
 offset_top = 95.0
-offset_right = 10.0
+offset_right = 81.0
 offset_bottom = 139.0
 
 [node name="HandControl" type="Node2D" parent="."]
 unique_name_in_owner = true
-z_index = 100
+z_index = 10
 position = Vector2(-242, 112)
 scale = Vector2(0.385, 0.385)
 script = ExtResource("28_ypnam")

@@ -2,11 +2,13 @@ class_name WeaponIcon extends TextureRect
 
 const REGION_SIZE = 32
 
-var time = 1.0
-var fade_time = 1.5
+@onready var label: Label = $Control/ChargeLabel;
 
-func add_buff(weapon_type: AttackStats.WeaponType, _time: float):
-	time = _time
+#var time = 1.0
+var fade_time = 2.0
+
+func add_buff(weapon_type: AttackStats.WeaponType):
+	#time = _time
 	set_weapon_type(weapon_type)
 
 func set_weapon_type(weapon_type: AttackStats.WeaponType):
@@ -17,14 +19,20 @@ func set_weapon_type(weapon_type: AttackStats.WeaponType):
 	atlas_texture.margin = old_atlas.margin
 	atlas_texture.region = Rect2(region_offset, 0, REGION_SIZE, REGION_SIZE)
 	texture = atlas_texture
-	Log.pr("weapon icon", atlas_texture.region)
 
 func _ready():
-	$Timer.start(time - fade_time)
+	pass
+
+func set_charge(charge:int):
+	if not label == null:
+		label.text = str(charge)
 
 func _on_timer_timeout() -> void:
-	Log.pr("starting fade")
-	start_fade_and_remove(fade_time,0.375)
+	remove_buff()
+	
+func remove_buff():
+	Log.pr("remove buff")
+	start_fade_and_remove(fade_time,0.49)
 
 func get_weapon_index(weapon_type: AttackStats.WeaponType) -> int:
 	match (weapon_type):
@@ -41,7 +49,7 @@ func get_weapon_index(weapon_type: AttackStats.WeaponType) -> int:
 		AttackStats.WeaponType.SCARECROW:
 			return 3
 		AttackStats.WeaponType.NA:
-			return 0
+			return 4
 	return 0
 
 func start_fade_and_remove(total_duration: float, fade_duration: float):

@@ -83,6 +83,7 @@ func get_last_drawn_card() -> Card:
 func resolve_hand() -> PlayerStats:
 	hand_control.resolve_hand()
 	var hand_buff = PlayerStats.new()
+	var weapon_list: Array[AttackStats] = []
 	for card in hand:
 		Log.pr("new " + card.get_card_type_name())
 		match(card.card_type):

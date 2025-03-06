@@ -72,7 +72,7 @@ func decelerate(delta: float = get_physics_process_delta_time()) -> void:
 func new_target(node: Node2D):
 	target = node
 	#finished.emit(CHASE, {"target": target})
-	Log.pr("target", "chase", self)
+	#Log.pr("target", "chase", self)
 
 func _lost_target():
 	target = null

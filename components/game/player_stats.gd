@@ -15,14 +15,16 @@ class_name PlayerStats
 @export var attacks: Array[AttackStats] = []
 @export var spells: Array[SpellStats] = []
 
-func add_player_stats(stats: PlayerStats):
+
+func add_player_stats(stats):
 	add_buff(stats)
-	self.armor += stats.armor
-	self.time += stats.time
-	
-	self.draw_speed *= stats.draw_speed
-	self.shuffle_speed *= stats.shuffle_speed
-	self.attacks_per_second *= stats.attacks_per_second
+	if stats is PlayerStats:
+		self.armor += stats.armor
+		self.time += stats.time
+		
+		self.draw_speed *= stats.draw_speed
+		self.shuffle_speed *= stats.shuffle_speed
+		self.attacks_per_second *= stats.attacks_per_second
 
 func format_stats() -> String:
 	var stats = ">h:" + format_value(durability) + ",s:" + format_value(speed) +",d:" + format_value(damage) +",a:" + format_value(attacks_per_second)

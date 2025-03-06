@@ -233,6 +233,7 @@ damage = 0.0
 durability = 1.0
 speed = 1.0
 size = 1.0
+CHARGE_LIMIT = 3
 
 [sub_resource type="Resource" id="Resource_oxfa6"]
 script = ExtResource("7_tugua")
@@ -253,6 +254,7 @@ damage = 0.0
 durability = 0.0
 speed = 0.8
 size = 1.0
+CHARGE_LIMIT = 3
 
 [sub_resource type="Resource" id="Resource_eridv"]
 script = ExtResource("7_tugua")
@@ -273,6 +275,7 @@ damage = 2.0
 durability = 0.0
 speed = 1.0
 size = 1.0
+CHARGE_LIMIT = 3
 
 [sub_resource type="Resource" id="Resource_8gd7h"]
 script = ExtResource("7_tugua")
@@ -293,6 +296,7 @@ damage = 1.0
 durability = 0.0
 speed = 1.0
 size = 1.0
+CHARGE_LIMIT = 1
 
 [sub_resource type="Resource" id="Resource_580ic"]
 script = ExtResource("7_tugua")
@@ -349,6 +353,7 @@ damage = 1.0
 durability = 1.0
 speed = -1.0
 size = 1.0
+CHARGE_LIMIT = 3
 
 [sub_resource type="Resource" id="Resource_eger2"]
 script = ExtResource("7_tugua")
@@ -375,6 +380,7 @@ damage = 0.0
 durability = 0.0
 speed = 1.0
 size = 1.0
+CHARGE_LIMIT = 1
 
 [sub_resource type="Resource" id="Resource_exmbl"]
 script = ExtResource("7_tugua")
@@ -401,6 +407,7 @@ damage = 5.0
 durability = 0.0
 speed = 1.0
 size = 1.0
+CHARGE_LIMIT = 1
 
 [sub_resource type="Resource" id="Resource_uafl5"]
 script = ExtResource("7_tugua")
@@ -427,6 +434,7 @@ damage = 0.0
 durability = 0.0
 speed = 1.0
 size = 1.0
+CHARGE_LIMIT = 1
 
 [sub_resource type="Resource" id="Resource_o6lf2"]
 script = ExtResource("7_tugua")
@@ -453,6 +461,7 @@ damage = 0.0
 durability = 0.0
 speed = 1.2
 size = 1.0
+CHARGE_LIMIT = 1
 
 [sub_resource type="Resource" id="Resource_xxe5f"]
 script = ExtResource("7_tugua")
@@ -479,6 +488,7 @@ damage = 0.0
 durability = 0.0
 speed = 1.0
 size = 1.0
+CHARGE_LIMIT = 1
 
 [sub_resource type="Resource" id="Resource_tkx8r"]
 script = ExtResource("7_tugua")
@@ -887,7 +897,7 @@ position = Vector2(405, -371)
 
 [node name="Player" parent="." instance=ExtResource("1_sythe")]
 y_sort_enabled = true
-position = Vector2(609, 396)
+position = Vector2(467, -131)
 
 [node name="Attacks" type="Node2D" parent="."]
 unique_name_in_owner = true

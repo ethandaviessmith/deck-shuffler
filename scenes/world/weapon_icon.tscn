@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://c5y8hxuy00tcm"]
+[gd_scene load_steps=5 format=3 uid="uid://c5y8hxuy00tcm"]
 
 [ext_resource type="Texture2D" uid="uid://b7em3piksc28e" path="res://assets/icons.png" id="1_hkxea"]
 [ext_resource type="Script" uid="uid://n5q8ioggytyp" path="res://scenes/world/weapon_icon.gd" id="2_ccdyu"]
+[ext_resource type="FontFile" uid="uid://do03fwxb30r7l" path="res://assets/GUI/OldSchoolAdventures-42j9.ttf" id="3_wo7d8"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_u6uc5"]
 atlas = ExtResource("1_hkxea")
@@ -9,9 +10,36 @@ region = Rect2(128, 0, 32, 32)
 margin = Rect2(-6, -6, -12, -12)
 
 [node name="TextureRect" type="TextureRect"]
+texture_filter = 1
 texture = SubResource("AtlasTexture_u6uc5")
 script = ExtResource("2_ccdyu")
 
 [node name="Timer" type="Timer" parent="."]
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -1.09
+offset_top = 9.005
+offset_right = -1.09
+offset_bottom = 9.005
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.5, 0.5)
+
+[node name="ChargeLabel" type="Label" parent="Control"]
+texture_filter = 1
+layout_mode = 0
+offset_right = 6.0
+offset_bottom = 10.0
+theme_override_fonts/font = ExtResource("3_wo7d8")
+theme_override_font_sizes/font_size = 7
+text = "9"
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
