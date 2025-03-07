@@ -6,9 +6,10 @@ const REGION_SIZE = 32
 
 #var time = 1.0
 var fade_time = 2.0
+var wpn_type = AttackStats.WeaponType.NA
 
 func add_buff(weapon_type: AttackStats.WeaponType):
-	#time = _time
+	wpn_type = weapon_type
 	set_weapon_type(weapon_type)
 
 func set_weapon_type(weapon_type: AttackStats.WeaponType):
@@ -26,12 +27,13 @@ func _ready():
 func set_charge(charge:int):
 	if not label == null:
 		label.text = str(charge)
+	Log.pr("charge", AttackStats.get_weapon_type(wpn_type), charge)
 
 func _on_timer_timeout() -> void:
 	remove_buff()
 	
 func remove_buff():
-	Log.pr("remove buff")
+	Log.pr("remove buff", AttackStats.get_weapon_type(wpn_type))
 	start_fade_and_remove(fade_time,0.49)
 
 func get_weapon_index(weapon_type: AttackStats.WeaponType) -> int:

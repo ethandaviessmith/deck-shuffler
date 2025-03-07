@@ -62,9 +62,9 @@ var motion_input: TransformedInput = TransformedInput.new(self) ## TopDownContro
 
 #Player
 @export var stats: PlayerStats
-@export var mana = 4
-@export var max_mana = 4
-@export var draw_mana = 2
+@export var mana = 3
+@export var max_mana = 3
+@export var draw_mana = 1
 @export var shuffle_mana = 2
 
 var experience_level = 1
@@ -122,11 +122,11 @@ func attack():
 	if weapons.size() == 0:
 		weapons.append(AttackStats.new()) 
 		debuff = true
-	Log.pr("attack", active_buffs, next_weapon)
+	Log.pr("attacks", active_buffs, next_weapon)
 	
 	if CAN_ATTACK and not get_random_enemy() == null:
 		var weapon: WeaponAttack
-		Log.pr("attack",next_weapon, next_weapon + weapon_num)
+		Log.pr("weapons",next_weapon, next_weapon + weapon_num, weapons)
 		for weapon_attack in weapons.slice(next_weapon, next_weapon + weapon_num):
 			match weapon_attack.weapon_type:
 				AttackStats.WeaponType.DAGGER:
@@ -372,7 +372,10 @@ func add_weapon_icon(buff):
 	var wpn_icon_instance = wpn_icon.instantiate() as WeaponIcon
 	if buff is AttackStats:
 		icon_type = buff.weapon_type
-	Log.pr("weapon_icon", type_string(typeof(buff)))
+	Log.pr("summon", "weapon_icon", buff)
+	
+	## todo sometimes weapons have 0 charge_limit?
+	
 	wpn_icon_instance.set_charge(buff.CHARGE_LIMIT)
 	wpn_icon_instance.add_buff(icon_type)
 	icon_weapon_list.call_deferred("add_child", wpn_icon_instance)

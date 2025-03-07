@@ -1,0 +1,96 @@
+[gd_scene load_steps=8 format=3 uid="uid://dnvtgs0w45b28"]
+
+[ext_resource type="Texture2D" uid="uid://btqo1t7k21v2i" path="res://assets/status_effects.png" id="1_tee3g"]
+[ext_resource type="Script" uid="uid://c0f2ordrp4yty" path="res://scenes/world/status_effect_manager.gd" id="1_xv0yx"]
+
+[sub_resource type="Animation" id="Animation_6el1p"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Node2D/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_e5nkl"]
+resource_name = "burn"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Node2D/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0, 10]
+}
+
+[sub_resource type="Animation" id="Animation_fxeiv"]
+resource_name = "ready"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Node2D/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_al71f"]
+resource_name = "shock"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Node2D/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [11, 14]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0tqdl"]
+_data = {
+&"RESET": SubResource("Animation_6el1p"),
+&"burn": SubResource("Animation_e5nkl"),
+&"ready": SubResource("Animation_fxeiv"),
+&"shock": SubResource("Animation_al71f")
+}
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_xv0yx")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-0.25, -0.75)
+scale = Vector2(0.570313, 0.570313)
+texture = ExtResource("1_tee3g")
+hframes = 16
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="DurationTimer" type="Timer" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../..")
+libraries = {
+&"": SubResource("AnimationLibrary_0tqdl")
+}

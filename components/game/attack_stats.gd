@@ -12,7 +12,7 @@ enum WeaponType { DAGGER, SWORD, AXE, BOW, ROCK, SCARECROW, NA }
 func add_player_buff(buff: PlayerStats):
 	add_buff(buff as BaseStats)
 
-func get_weapon_type(weapon_type:WeaponType) -> String:
+static func get_weapon_type(weapon_type:WeaponType) -> String:
 	match weapon_type:
 		WeaponType.DAGGER:
 			return "Dagger"
@@ -23,4 +23,4 @@ func get_weapon_type(weapon_type:WeaponType) -> String:
 	return "NA"
 
 func get_weapon_type_name() -> String:
-	return get_weapon_type(self.weapon_type)
+	return AttackStats.get_weapon_type(self.weapon_type)
