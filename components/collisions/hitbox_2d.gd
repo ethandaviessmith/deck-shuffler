@@ -25,6 +25,9 @@ func disable():
 
 func enemy_hit(charge = 1):
 	on_enemy_hit.emit(charge)
+	
+func get_spell_effect():
+	pass
 
 func tempdisable():
 	collision.call_deferred("set","disabled",true)

@@ -2,7 +2,7 @@
 class_name CardDeck extends Control
 
 # The actual deck containing Card resources
-var deck: Array[Card] = []
+var deck: Array[Card] = [] ## all cards
 var draw_pile: Array[Card] = []
 var hand: Array[Card] = []
 
@@ -94,7 +94,7 @@ func resolve_hand() -> PlayerStats:
 					hand_buff.add_buff(card.attack)
 				#elemental
 			Card.CardType.SPELL:
-				if not card.spell.status_effect == StatusEffect.StautsType.NA:
+				if not card.spell.status_effect == null and not card.spell.status_effect.status_type == EffectStats.StatusType.NA:
 					hand_buff.spells.append(card.spell)
 				# drop gold/xp
 				# split

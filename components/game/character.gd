@@ -21,7 +21,8 @@ var knockback = Vector2.ZERO
 @onready var sprite = $AnimatedSprite2D
 @onready var state_machine: StateMachine = $StateMachine;
 @onready var hitbox: Hitbox2D = $Hitbox2D
-@onready var status_effect: StatusEffectManager = $StatesEffectManager
+@onready var status_effect: StatusEffectManager = $StatusEffectManager
+@onready var damage_label = get_node("%damage_label")
 
 signal next_state(next_state_path: String, data: Dictionary)
 signal lock_state(lock: bool)
@@ -44,8 +45,8 @@ func _ready():
 	
 	if not status_effect == null:
 		pass
-		status_effect.effect_applied.connect(effect_applied)
-		status_effect.effect_removed.connect(effect_removed)
+		status_effect.effect_proc.connect(on_effect_proc)
+		status_effect.effect_duration.connect(on_effect_duration)
 	
 
 func _process(delta: float) -> void:
@@ -56,13 +57,21 @@ func _physics_process(_delta):
 	velocity += knockback
 	move_and_slide()
 
-#bad example, should be damage not effect
-func effect_applied(effect_name):
-	pass
-func effect_removed(effect_name):
+func on_effect_proc(effect: EffectStats):
+	take_damage(effect.damage)
+	Log.pr("character", "damage from effect", effect.damage)
+	#if not status_effect == null:
+	#status_effect.apply_effect(effect)
 	pass
 
-	
+#bad example, should be damage not effect
+func on_effect_duration(effect: EffectStats):
+	pass
+
+
+func get_spell_effect():
+	Log.pr("char", "get spell effect")
+
 
 func get_spawn_type() -> Spawn:
 	return spawn_type
@@ -73,9 +82,16 @@ func is_priority_state():
 func teleport():
 	next_state.emit(CharacterState.TELEPORT, {})
 
+func take_damage(damage: int):
+	hp -= damage
+	if hp <= 0:
+		next_state.emit(CharacterState.DEATH)
+	show_amount(damage, Util.hit_color)
+
 ## hitting others
 func on_enemy_hit(charge = 1):
 	pass
+
 
 func has_low_health() -> bool:
 	return hp <= LOW_HEALTH
@@ -91,6 +107,17 @@ func face_target(vector: Vector2):
 		sprite.flip_h = true
 	elif global_position.direction_to(vector).x > -0.1:
 		sprite.flip_h = false
+
+func show_amount(amount: int, color: Color):
+	if not damage_label == null:
+		damage_label.text = str(amount)
+		damage_label.modulate.a = 1
+		damage_label.set("theme_override_colors/font_color", color)
+		var tween = create_tween()
+		tween.tween_property(damage_label, "modulate:a", 0.0, 1.0)
+		var tween2 = create_tween().set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_IN_OUT)
+		tween2.tween_property(sprite, "modulate", color, 0.5)
+		tween2.tween_property(sprite, "modulate", Util.normal_color, 0.1) 
 
 func _set_target(body: Node2D):
 	target = body

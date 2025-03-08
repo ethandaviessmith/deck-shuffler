@@ -1,4 +1,4 @@
-[gd_scene load_steps=72 format=4 uid="uid://bvyi5v3q5glkx"]
+[gd_scene load_steps=71 format=4 uid="uid://bvyi5v3q5glkx"]
 
 [ext_resource type="PackedScene" uid="uid://iq63nlaer5ul" path="res://scenes/world/Enemy.tscn" id="1_78kn1"]
 [ext_resource type="Script" uid="uid://bytlnbfrchhvy" path="res://scenes/world/map.gd" id="1_hf0a2"]
@@ -12,11 +12,8 @@
 [ext_resource type="Script" uid="uid://bnqju1ybhi0mx" path="res://components/game/deck_helper.gd" id="6_dideo"]
 [ext_resource type="Script" uid="uid://bju7o2x4lpqyj" path="res://scenes/world/card.gd" id="7_tugua"]
 [ext_resource type="Script" uid="uid://d2k3c58ehn0rx" path="res://components/game/attack_stats.gd" id="8_fsskc"]
-[ext_resource type="PackedScene" uid="uid://5s7gwvm11hyb" path="res://scenes/world/card.tscn" id="8_xokg7"]
 [ext_resource type="Texture2D" uid="uid://8ubtvov6hn83" path="res://assets/cards/cards2.png" id="9_5t0hg"]
-[ext_resource type="PackedScene" uid="uid://dk4gbowd3qrh6" path="res://scenes/world/level_control.tscn" id="9_hk3qm"]
 [ext_resource type="PackedScene" uid="uid://bnlcs4ivfbsss" path="res://scenes/world/big_bat.tscn" id="9_w58ff"]
-[ext_resource type="PackedScene" uid="uid://puwivhpyf4gr" path="res://scenes/world/restart_control.tscn" id="10_g82e4"]
 [ext_resource type="Texture2D" uid="uid://ymvwl7y108tj" path="res://assets/cards/cards6.png" id="11_q4jti"]
 [ext_resource type="Script" uid="uid://0p1ni2tjoj35" path="res://components/game/spell_stats.gd" id="13_2oihk"]
 [ext_resource type="Texture2D" uid="uid://bjrmgjkhvdhxm" path="res://assets/cards/cards8.png" id="14_ank4h"]
@@ -34,6 +31,7 @@
 [ext_resource type="Texture2D" uid="uid://cmk27wfdhsh21" path="res://assets/cards/cards23.png" id="21_w8ibi"]
 [ext_resource type="Texture2D" uid="uid://eyrorsjsi3cd" path="res://assets/cards/cards24.png" id="22_pal45"]
 [ext_resource type="Texture2D" uid="uid://walwwt8skx4l" path="res://assets/cards/card27.png" id="25_iehkj"]
+[ext_resource type="Script" uid="uid://b74vvdehimkl5" path="res://components/game/effect_stats.gd" id="25_iqxvy"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qqcfr"]
 texture = ExtResource("1_l660s")
@@ -369,13 +367,41 @@ attack = SubResource("Resource_jf28h")
 action = 0
 rarity = 0
 
+[sub_resource type="Resource" id="Resource_xokg7"]
+script = ExtResource("25_iqxvy")
+defaultDurations = {
+1: {
+1: 5.0,
+2: 6.0,
+3: 7.0
+},
+2: {
+1: 3.0,
+2: 4.0,
+3: 5.0
+},
+3: {
+1: 7.0,
+2: 8.0,
+3: 9.0
+},
+4: {
+1: 2.0,
+2: 3.0,
+3: 4.0
+}
+}
+status_type = 1
+duration = 4.0
+proc = 1.0
+damage = 2
+metadata/_custom_type_script = "uid://b74vvdehimkl5"
+
 [sub_resource type="Resource" id="Resource_iqxvy"]
 script = ExtResource("13_2oihk")
 trajectory = 0
 drops = false
-status_effect = 1
-status_duration = 4.0
-status_proc = 1.0
+status_effect = SubResource("Resource_xokg7")
 armor = 0
 time = 6.0
 draw_speed = 1.0
@@ -405,9 +431,6 @@ metadata/_custom_type_script = "uid://bju7o2x4lpqyj"
 script = ExtResource("13_2oihk")
 trajectory = 0
 drops = false
-status_effect = 0
-status_duration = 0.0
-status_proc = 0.0
 armor = 0
 time = 0.0
 draw_speed = 1.0
@@ -435,9 +458,6 @@ rarity = 0
 script = ExtResource("13_2oihk")
 trajectory = 0
 drops = false
-status_effect = 0
-status_duration = 0.0
-status_proc = 0.0
 armor = 0
 time = 0.0
 draw_speed = 1.0
@@ -465,9 +485,6 @@ rarity = 0
 script = ExtResource("13_2oihk")
 trajectory = 0
 drops = false
-status_effect = 0
-status_duration = 0.0
-status_proc = 0.0
 armor = 0
 time = 0.0
 draw_speed = 1.2
@@ -495,9 +512,6 @@ rarity = 0
 script = ExtResource("13_2oihk")
 trajectory = 0
 drops = false
-status_effect = 0
-status_duration = 0.0
-status_proc = 0.0
 armor = 0
 time = 0.0
 draw_speed = 1.0
@@ -525,9 +539,6 @@ rarity = 0
 script = ExtResource("13_2oihk")
 trajectory = 0
 drops = false
-status_effect = 0
-status_duration = 0.0
-status_proc = 0.0
 armor = 0
 time = 0.0
 draw_speed = 1.0
@@ -949,24 +960,6 @@ position = Vector2(405, -371)
 [node name="Player" parent="." instance=ExtResource("1_sythe")]
 y_sort_enabled = true
 position = Vector2(463, -133)
-card_scene = ExtResource("8_xokg7")
-level_scene = ExtResource("9_hk3qm")
-restart_scene = ExtResource("10_g82e4")
-CAN_ATTACK = true
-mana = 3
-max_mana = 3
-draw_mana = 1
-shuffle_mana = 2
-movement_speed = 30.0
-experience = 1
-damage = 1
-knockback_recovery = 2
-spawn_type = 1
-LOW_HEALTH = 1
-speed = 30.0
-acceleration = 5.0
-friction = 5.0
-PRIORITY_STATES = Array[String](["RepositionState", "SpawnState", "RetreatState", "RestState"])
 
 [node name="Attacks" type="Node2D" parent="."]
 unique_name_in_owner = true

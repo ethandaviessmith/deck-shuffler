@@ -1,6 +1,6 @@
 class_name Enemy extends Character
 
-@onready var damage_label = $DamageLabel
+
 @export var nest:Resource
 
 var spawn_nest: Node2D
@@ -32,34 +32,26 @@ func get_retreat() -> Node2D:
 		node.global_position = Vector2.ZERO # zero is a bad position, fix later
 		return node
 
-func _on_hurtbox_2d_hurt(damage: Variant, angle: Variant, knockback_amount: Variant) -> void:
-	hp -= damage
-	knockback = angle * knockback_amount
-	#Log.pr("angle", angle, "knockback", knockback_amount)
-	
-	show_amount(damage, Util.hit_color)
-	if hp <= 0:
-		next_state.emit(CharacterState.DEATH)
-	else:
-		if not is_priority_state(): # list of states not to interupt
-			next_state.emit(CharacterState.CHASE, {"target": player})
-
 func recover_health(amount: int) -> int:
 	Log.pr("recover char", amount)
 	show_amount(amount, Util.heal_color)
 	return super.recover_health(amount)
 
 
-func show_amount(amount: int, color: Color):
-	if not damage_label == null:
-		damage_label.text = str(amount)
-		damage_label.modulate.a = 1
-		damage_label.set("theme_override_colors/font_color", color)
-		var tween = create_tween()
-		tween.tween_property(damage_label, "modulate:a", 0.0, 1.0)
-		var tween2 = create_tween().set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_IN_OUT)
-		tween2.tween_property(sprite, "modulate", color, 0.5)
-		tween2.tween_property(sprite, "modulate", Util.normal_color, 0.1) 
+func _on_hurtbox_2d_status_effect(effect: SpellStats) -> void:
+	Log.pr("hurtbox","spell","effect signal")
+	if not status_effect == null:
+		status_effect.add_from_spell(effect)
+
+func _on_hurtbox_2d_hurt(damage: Variant, angle: Variant, knockback_amount: Variant) -> void:
+	take_damage(damage)
+	knockback = angle * knockback_amount
+	if hp <= 0:
+		next_state.emit(CharacterState.DEATH)
+	else:
+		if not is_priority_state(): # list of states not to interupt
+			next_state.emit(CharacterState.CHASE, {"target": player})
+
 
 func on_enemy_hit(charge = 1):
 	if spawn_type == Character.Spawn.GUARD: 

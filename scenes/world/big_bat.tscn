@@ -263,7 +263,8 @@ damage = 20
 position = Vector2(-1, -11)
 shape = SubResource("CircleShape2D_60q7e")
 
-[node name="DamageLabel" type="Label" parent="."]
+[node name="damage_label" type="Label" parent="."]
+unique_name_in_owner = true
 texture_filter = 1
 offset_left = -11.7213
 offset_top = -25.0877

@@ -32,6 +32,12 @@ func add_spell(spell: SpellStats):
 func get_spells():
 	return buff_spell
 
+## Spell effect from an attack
+func get_spell_effect():
+	Log.pr("spell from weapon")
+	return buff_spell
+
+
 func _play_death_effect():
 	#await darken_sprite()
 	await jitter_and_shrink()

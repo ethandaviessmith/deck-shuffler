@@ -26,7 +26,6 @@ const GroupName: StringName = &"player"
 @onready var lblLevel = get_node("%lbl_level")
 @onready var buff_label = get_node("%buff_label")
 
-@onready var damage_label = get_node("%damage_label")
 @onready var defence_label = get_node("%defence_label")
 @onready var speed_label = get_node("%speed_label")
 @onready var size_label = get_node("%size_label")
@@ -250,7 +249,7 @@ func summon_hand(buff: PlayerStats):
 		else:
 			player_buff.add_buff(attack)
 	for spell in buff.spells:
-		if spell is SpellStats and not spell.status_effect ==  StatusEffect.StautsType.NA:
+		if spell is SpellStats and not spell.status_effect == null:
 			player_buff.spells.append(spell)
 	add_weapon_icon(player_buff)
 	c += 1

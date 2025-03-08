@@ -1,11 +1,13 @@
 class_name StatusEffectManager extends Node2D
 
-signal effect_applied(effect_name: String)
-signal effect_removed(effect_name: String)
-var statusEffect = preload("res://components/game/status_effect.gd")
+signal effect_proc(effect_stats: EffectStats)
+signal effect_duration(effect_stats: EffectStats)
+var status_effect_scene = preload("res://scenes/world/status_effect.tscn")
 
 var status_effects := {}
 var procTimers = {}
+
+var effect_list: Array[EffectStats] = []
 
 @export var defaultDurations = {
 	"frozen": { 1: 3.0,  2: 4.0,  3: 5.0 },
@@ -15,11 +17,16 @@ var procTimers = {}
 }
 
 
+func _ready() -> void:
+	await owner.ready
+	if owner.has_signal("effect_proc"):
+		owner.effect_proc.connect(on_effect_proc)
+
 #func applyStatusEffect(effectType, level):
 	#
-	## Create an entry in statusEffects for the new effect
+	## Create an entry in status_effect_scene for the new effect
 	#var duration = defaultDurations[effectType][level]
-	#statusEffects[effectType] = {
+	#status_effect_scene[effectType] = {
 		#"duration": duration,
 		#"timer": 0,
 		#"visuals": loadPulsingVisuals(effectType)
@@ -30,12 +37,12 @@ var procTimers = {}
 
 #func _process(delta):
 	## Iterate over active status effects and update their timers
-	#for effect in statusEffects.keys():
-		#statusEffects[effect]["timer"] += delta
-		#updatePulsingVisuals(effect, statusEffects[effect]["timer"], statusEffects[effect]["duration"])
+	#for effect in status_effect_scene.keys():
+		#status_effect_scene[effect]["timer"] += delta
+		#updatePulsingVisuals(effect, status_effect_scene[effect]["timer"], status_effect_scene[effect]["duration"])
 #
 		## If the effect duration has elapsed, remove the effect
-		#if statusEffects[effect]["timer"] > statusEffects[effect]["duration"]:
+		#if status_effect_scene[effect]["timer"] > status_effect_scene[effect]["duration"]:
 			#removeStatusEffect(effect)
 
 func _process(delta: float):
@@ -58,6 +65,35 @@ func _process(delta: float):
 # Called when an effect's timer timeout
 func _on_timer_timeout(name: String):
 	apply_effect_proc(name)
+
+func add_from_spell(spell: SpellStats):
+	
+	
+	var status_effect = status_effect_scene.instantiate()
+	status_effect.setStatusEffect(spell.status_effect)
+	status_effect.effect_proc.connect(on_effect_proc)
+	status_effect.effect_duration.connect(on_effect_duration)
+	status_effect.effect_duration
+	
+	add_child(status_effect)
+	effect_list.append(spell.status_effect)
+	Log.pr("spell status effect on the manager")
+	
+	
+
+func add_effect(effect: StatusEffect):
+	var status_effect = status_effect_scene.instantiate()
+	status_effect.setStatusEffect(effect)
+	add_child(status_effect)
+	effect_list.append(effect)
+	Log.pr("spell status effect on the manager")
+
+func on_effect_proc(status_effect: EffectStats):
+	effect_proc.emit(status_effect)
+	pass
+	
+func on_effect_duration(status_effect: EffectStats):
+	pass
 
 # Called to apply a status effect
 func apply_status_effect(name: String, duration_in_seconds: float, frequency_in_seconds: float):
@@ -91,7 +127,7 @@ func apply_effect_proc(name: String):
 
 # Load visual effects for the status effect
 func load_pulsing_visuals(name: String):
-	var visual_effect = statusEffect.instantiate()
+	var visual_effect = status_effect_scene.instantiate()
 	visual_effect.name = name + "_visual"
 	add_child(visual_effect)
 	update_pulsing_visuals(name)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://iq63nlaer5ul"]
+[gd_scene load_steps=26 format=3 uid="uid://iq63nlaer5ul"]
 
 [ext_resource type="Script" uid="uid://bttr7sfbphmo6" path="res://scenes/world/enemy.gd" id="1_2wiof"]
 [ext_resource type="SpriteFrames" uid="uid://coxg58roo4g74" path="res://assets/critter_2.tres" id="1_pg8tb"]
@@ -16,7 +16,6 @@
 [ext_resource type="Script" uid="uid://cdpjkrsh201pj" path="res://components/behaviour/finite-state-machine/states/orbit_state.gd" id="14_h0eb7"]
 [ext_resource type="AudioStream" uid="uid://brs016c3j874y" path="res://assets/audio/chirp.mp3" id="15_66kqf"]
 [ext_resource type="Script" uid="uid://c0f2ordrp4yty" path="res://scenes/world/status_effect_manager.gd" id="16_e5nkl"]
-[ext_resource type="PackedScene" uid="uid://dnvtgs0w45b28" path="res://scenes/world/status_effect.tscn" id="17_e5nkl"]
 
 [sub_resource type="Animation" id="Animation_wasu3"]
 length = 0.001
@@ -171,7 +170,8 @@ damage = 20
 position = Vector2(-1, -11)
 shape = SubResource("CircleShape2D_60q7e")
 
-[node name="DamageLabel" type="Label" parent="."]
+[node name="damage_label" type="Label" parent="."]
+unique_name_in_owner = true
 texture_filter = 1
 offset_left = -11.0
 offset_top = -21.0
@@ -257,9 +257,8 @@ bus = &"SFX"
 [node name="StatusEffectManager" type="Node2D" parent="."]
 script = ExtResource("16_e5nkl")
 
-[node name="Node2D" parent="StatusEffectManager" instance=ExtResource("17_e5nkl")]
-
 [connection signal="hurt" from="Hurtbox2D" to="." method="_on_hurtbox_2d_hurt"]
+[connection signal="status_effect" from="Hurtbox2D" to="." method="_on_hurtbox_2d_status_effect"]
 [connection signal="area_entered" from="ChaseArea2D" to="." method="_on_chase_area_2d_area_entered"]
 [connection signal="area_exited" from="ChaseArea2D" to="." method="_on_chase_area_2d_area_exited"]
 [connection signal="body_entered" from="ChaseArea2D" to="." method="_on_chase_area_2d_body_entered"]
