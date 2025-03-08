@@ -9,6 +9,13 @@ enum WeaponType { DAGGER, SWORD, AXE, BOW, ROCK, SCARECROW, NA }
 # multiplier
 @export var knockback: float = 1.0
 
+func add_attack(attack: AttackStats):
+	add_buff(attack)
+	weapon_type = attack.weapon_type
+	fade = attack.fade
+	knockback = attack.knockback
+
+
 func add_player_buff(buff: PlayerStats):
 	add_buff(buff as BaseStats)
 

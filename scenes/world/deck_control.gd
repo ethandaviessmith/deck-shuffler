@@ -94,7 +94,8 @@ func resolve_hand() -> PlayerStats:
 					hand_buff.add_buff(card.attack)
 				#elemental
 			Card.CardType.SPELL:
-				pass
+				if not card.spell.status_effect == StatusEffect.StautsType.NA:
+					hand_buff.spells.append(card.spell)
 				# drop gold/xp
 				# split
 			Card.CardType.ACTION:

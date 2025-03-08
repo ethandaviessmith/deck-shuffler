@@ -16,6 +16,24 @@ class_name PlayerStats
 @export var spells: Array[SpellStats] = []
 
 
+func resolve():
+	
+	var attack := AttackStats.new()
+	var spell := SpellStats.new()
+	
+	for a in attacks:
+		attack.add_attack(a)
+	for s in spells:
+		spell.add_spell(s)
+
+	return [attack, spell]
+
+func add_attack(attack):
+	pass
+	
+func add_spell(spell):
+	pass
+
 func add_player_stats(stats):
 	add_buff(stats)
 	if stats is PlayerStats:

@@ -21,6 +21,7 @@ var knockback = Vector2.ZERO
 @onready var sprite = $AnimatedSprite2D
 @onready var state_machine: StateMachine = $StateMachine;
 @onready var hitbox: Hitbox2D = $Hitbox2D
+@onready var status_effect: StatusEffectManager = $StatesEffectManager
 
 signal next_state(next_state_path: String, data: Dictionary)
 signal lock_state(lock: bool)
@@ -40,6 +41,12 @@ func _ready():
 	hitbox.on_enemy_hit.connect(on_enemy_hit)
 	if get_spawn_type() == Character.Spawn.WRAP:
 		targets.append(player)
+	
+	if not status_effect == null:
+		pass
+		status_effect.effect_applied.connect(effect_applied)
+		status_effect.effect_removed.connect(effect_removed)
+	
 
 func _process(delta: float) -> void:
 	pass
@@ -49,6 +56,13 @@ func _physics_process(_delta):
 	velocity += knockback
 	move_and_slide()
 
+#bad example, should be damage not effect
+func effect_applied(effect_name):
+	pass
+func effect_removed(effect_name):
+	pass
+
+	
 
 func get_spawn_type() -> Spawn:
 	return spawn_type
@@ -59,6 +73,7 @@ func is_priority_state():
 func teleport():
 	next_state.emit(CharacterState.TELEPORT, {})
 
+## hitting others
 func on_enemy_hit(charge = 1):
 	pass
 

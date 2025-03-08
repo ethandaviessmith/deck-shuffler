@@ -1,10 +1,13 @@
 class_name StatusEffect extends Node2D
 
+
+enum StautsType {NA, BURN, FREEZE, POISON, SHOCK}
+
 @export var defaultDurations = {
-	"frozen": { 1: 3.0,  2: 4.0,  3: 5.0 },
-	"burnt": { 1: 5.0,  2: 6.0,  3: 7.0 },
-	"poisoned": { 1: 7.0,  2: 8.0,  3: 9.0 },
-	"shocked": { 1: 2.0,  2: 3.0,  3: 4.0 }
+	StautsType.FREEZE: { 1: 3.0,  2: 4.0,  3: 5.0 },
+	StautsType.BURN: { 1: 5.0,  2: 6.0,  3: 7.0 },
+	StautsType.POISON: { 1: 7.0,  2: 8.0,  3: 9.0 },
+	StautsType.SHOCK: { 1: 2.0,  2: 3.0,  3: 4.0 }
 }
 
 var statusEffects = {}

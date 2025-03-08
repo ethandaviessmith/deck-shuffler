@@ -74,6 +74,7 @@ var enemy_far = [] # targets to shoot at
 var enemy_near = [] # prioritized targets
 var enemy_touch = [] # slowing the player
 
+
 func _init():
 	spawn_type = Spawn.NA
 
@@ -110,19 +111,25 @@ func _physics_process(_delta: float) -> void:
 
 #region ACTIONS
 func attack():
+	#var hand_buff:PlayerStats = PlayerStats.new()
 	var buff:AttackStats = AttackStats.new()
+	var spells:Array[SpellStats] =[]
 	var weapons:Array[AttackStats] = []
 	var debuff := false
 	
 	for active_buff in active_buffs:
 		if active_buff is PlayerStats:
 			buff.add_buff(active_buff)
+			if not active_buff.spells == null and active_buff.spells.size() > 0:
+				spells.append_array(active_buff.spells)
 		else:
 			weapons.append(active_buff)
 	if weapons.size() == 0:
 		weapons.append(AttackStats.new()) 
 		debuff = true
 	Log.pr("attacks", active_buffs, next_weapon)
+	
+	#hand_buff.resolve()
 	
 	if CAN_ATTACK and not get_random_enemy() == null:
 		var weapon: WeaponAttack
@@ -143,8 +150,10 @@ func attack():
 			if not get_random_enemy() == null:
 				weapon.target = get_random_enemy().global_position
 			# need to add buff from card (base buff)
-			weapon.set_buff(weapon_attack) # attack buff
-			weapon.add_buff(buff) # player buff
+			weapon.set_buff(weapon_attack) ## buff from the weapon card
+			weapon.add_buff(buff) ## player buff
+			for spell in spells:
+				weapon.add_spell(spell)
 			attacks.call_deferred("add_child", weapon)
 			charge_limit(weapon_attack, 1)
 	
@@ -231,6 +240,7 @@ func summon_hand(buff: PlayerStats):
 
 	var player_buff:PlayerStats = PlayerStats.new()
 	var weapons:Array[AttackStats] = []
+	var spells:Array[SpellStats] = []
 	var c = 0
 	for attack in buff.attacks:
 		if attack is AttackStats and not attack.weapon_type == AttackStats.WeaponType.NA:
@@ -239,6 +249,9 @@ func summon_hand(buff: PlayerStats):
 			c += 1
 		else:
 			player_buff.add_buff(attack)
+	for spell in buff.spells:
+		if spell is SpellStats and not spell.status_effect ==  StatusEffect.StautsType.NA:
+			player_buff.spells.append(spell)
 	add_weapon_icon(player_buff)
 	c += 1
 	

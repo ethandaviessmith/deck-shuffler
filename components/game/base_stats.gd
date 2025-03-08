@@ -30,6 +30,7 @@ func charge_limit(increase: int) -> int:
 	return clampi(CHARGE_LIMIT - charges, 0, CHARGE_LIMIT)
 
 
+## Add onto buff
 func add_buff(buff: BaseStats):
 	damage += buff.damage
 	durability += buff.durability

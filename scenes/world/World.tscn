@@ -1,6 +1,6 @@
-[gd_scene load_steps=66 format=4 uid="uid://bvyi5v3q5glkx"]
+[gd_scene load_steps=72 format=4 uid="uid://bvyi5v3q5glkx"]
 
-[ext_resource type="PackedScene" uid="uid://iq63nlaer5ul" path="res://scenes/world/enemy.tscn" id="1_78kn1"]
+[ext_resource type="PackedScene" uid="uid://iq63nlaer5ul" path="res://scenes/world/Enemy.tscn" id="1_78kn1"]
 [ext_resource type="Script" uid="uid://bytlnbfrchhvy" path="res://scenes/world/map.gd" id="1_hf0a2"]
 [ext_resource type="Texture2D" uid="uid://b5avfyekhnjua" path="res://assets/green_woods/Assets/Tiles2.png" id="1_l660s"]
 [ext_resource type="PackedScene" uid="uid://b6xsykb6ffhrn" path="res://scenes/world/Player.tscn" id="1_sythe"]
@@ -12,8 +12,11 @@
 [ext_resource type="Script" uid="uid://bnqju1ybhi0mx" path="res://components/game/deck_helper.gd" id="6_dideo"]
 [ext_resource type="Script" uid="uid://bju7o2x4lpqyj" path="res://scenes/world/card.gd" id="7_tugua"]
 [ext_resource type="Script" uid="uid://d2k3c58ehn0rx" path="res://components/game/attack_stats.gd" id="8_fsskc"]
+[ext_resource type="PackedScene" uid="uid://5s7gwvm11hyb" path="res://scenes/world/card.tscn" id="8_xokg7"]
 [ext_resource type="Texture2D" uid="uid://8ubtvov6hn83" path="res://assets/cards/cards2.png" id="9_5t0hg"]
+[ext_resource type="PackedScene" uid="uid://dk4gbowd3qrh6" path="res://scenes/world/level_control.tscn" id="9_hk3qm"]
 [ext_resource type="PackedScene" uid="uid://bnlcs4ivfbsss" path="res://scenes/world/big_bat.tscn" id="9_w58ff"]
+[ext_resource type="PackedScene" uid="uid://puwivhpyf4gr" path="res://scenes/world/restart_control.tscn" id="10_g82e4"]
 [ext_resource type="Texture2D" uid="uid://ymvwl7y108tj" path="res://assets/cards/cards6.png" id="11_q4jti"]
 [ext_resource type="Script" uid="uid://0p1ni2tjoj35" path="res://components/game/spell_stats.gd" id="13_2oihk"]
 [ext_resource type="Texture2D" uid="uid://bjrmgjkhvdhxm" path="res://assets/cards/cards8.png" id="14_ank4h"]
@@ -30,6 +33,7 @@
 [ext_resource type="Texture2D" uid="uid://dd2ab1o2y1r1j" path="res://assets/cards/cards26.png" id="21_ifrxr"]
 [ext_resource type="Texture2D" uid="uid://cmk27wfdhsh21" path="res://assets/cards/cards23.png" id="21_w8ibi"]
 [ext_resource type="Texture2D" uid="uid://eyrorsjsi3cd" path="res://assets/cards/cards24.png" id="22_pal45"]
+[ext_resource type="Texture2D" uid="uid://walwwt8skx4l" path="res://assets/cards/card27.png" id="25_iehkj"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qqcfr"]
 texture = ExtResource("1_l660s")
@@ -365,10 +369,45 @@ attack = SubResource("Resource_jf28h")
 action = 0
 rarity = 0
 
+[sub_resource type="Resource" id="Resource_iqxvy"]
+script = ExtResource("13_2oihk")
+trajectory = 0
+drops = false
+status_effect = 1
+status_duration = 4.0
+status_proc = 1.0
+armor = 0
+time = 6.0
+draw_speed = 1.0
+shuffle_speed = 1.0
+attacks_per_second = 1.0
+attacks = Array[ExtResource("8_fsskc")]([])
+spells = Array[ExtResource("13_2oihk")]([])
+damage = 1.0
+durability = 0.0
+speed = 1.0
+size = 1.0
+CHARGE_LIMIT = 1
+metadata/_custom_type_script = "uid://0p1ni2tjoj35"
+
+[sub_resource type="Resource" id="Resource_pi2y4"]
+script = ExtResource("7_tugua")
+name = "Burn"
+description = "Add fire status effect"
+texture = ExtResource("25_iehkj")
+card_type = 1
+spell = SubResource("Resource_iqxvy")
+action = 0
+rarity = 0
+metadata/_custom_type_script = "uid://bju7o2x4lpqyj"
+
 [sub_resource type="Resource" id="Resource_xnx8o"]
 script = ExtResource("13_2oihk")
 trajectory = 0
 drops = false
+status_effect = 0
+status_duration = 0.0
+status_proc = 0.0
 armor = 0
 time = 0.0
 draw_speed = 1.0
@@ -396,6 +435,9 @@ rarity = 0
 script = ExtResource("13_2oihk")
 trajectory = 0
 drops = false
+status_effect = 0
+status_duration = 0.0
+status_proc = 0.0
 armor = 0
 time = 0.0
 draw_speed = 1.0
@@ -423,6 +465,9 @@ rarity = 0
 script = ExtResource("13_2oihk")
 trajectory = 0
 drops = false
+status_effect = 0
+status_duration = 0.0
+status_proc = 0.0
 armor = 0
 time = 0.0
 draw_speed = 1.2
@@ -450,6 +495,9 @@ rarity = 0
 script = ExtResource("13_2oihk")
 trajectory = 0
 drops = false
+status_effect = 0
+status_duration = 0.0
+status_proc = 0.0
 armor = 0
 time = 0.0
 draw_speed = 1.0
@@ -477,6 +525,9 @@ rarity = 0
 script = ExtResource("13_2oihk")
 trajectory = 0
 drops = false
+status_effect = 0
+status_duration = 0.0
+status_proc = 0.0
 armor = 0
 time = 0.0
 draw_speed = 1.0
@@ -897,7 +948,25 @@ position = Vector2(405, -371)
 
 [node name="Player" parent="." instance=ExtResource("1_sythe")]
 y_sort_enabled = true
-position = Vector2(467, -131)
+position = Vector2(463, -133)
+card_scene = ExtResource("8_xokg7")
+level_scene = ExtResource("9_hk3qm")
+restart_scene = ExtResource("10_g82e4")
+CAN_ATTACK = true
+mana = 3
+max_mana = 3
+draw_mana = 1
+shuffle_mana = 2
+movement_speed = 30.0
+experience = 1
+damage = 1
+knockback_recovery = 2
+spawn_type = 1
+LOW_HEALTH = 1
+speed = 30.0
+acceleration = 5.0
+friction = 5.0
+PRIORITY_STATES = Array[String](["RepositionState", "SpawnState", "RetreatState", "RestState"])
 
 [node name="Attacks" type="Node2D" parent="."]
 unique_name_in_owner = true
@@ -916,7 +985,7 @@ position = Vector2(303, -671)
 [node name="DeckHelper" type="Node" parent="."]
 unique_name_in_owner = true
 script = ExtResource("6_dideo")
-deck = Array[ExtResource("7_tugua")]([SubResource("Resource_oxfa6"), SubResource("Resource_eridv"), SubResource("Resource_8gd7h"), SubResource("Resource_580ic"), SubResource("Resource_lkljn"), SubResource("Resource_k3mic"), SubResource("Resource_yr7tv"), SubResource("Resource_ioi8e"), SubResource("Resource_eger2")])
+deck = Array[ExtResource("7_tugua")]([SubResource("Resource_oxfa6"), SubResource("Resource_eridv"), SubResource("Resource_8gd7h"), SubResource("Resource_580ic"), SubResource("Resource_lkljn"), SubResource("Resource_k3mic"), SubResource("Resource_yr7tv"), SubResource("Resource_ioi8e"), SubResource("Resource_eger2"), SubResource("Resource_pi2y4")])
 player_upgrades = Array[ExtResource("7_tugua")]([SubResource("Resource_exmbl"), SubResource("Resource_uafl5"), SubResource("Resource_o6lf2"), SubResource("Resource_xxe5f"), SubResource("Resource_tkx8r")])
 
 [node name="Fog" type="ParallaxBackground" parent="."]

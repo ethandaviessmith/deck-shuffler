@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://dnvtgs0w45b28"]
 
 [ext_resource type="Texture2D" uid="uid://btqo1t7k21v2i" path="res://assets/status_effects.png" id="1_tee3g"]
-[ext_resource type="Script" uid="uid://c0f2ordrp4yty" path="res://scenes/world/status_effect_manager.gd" id="1_xv0yx"]
+[ext_resource type="Script" uid="uid://dw1shgofiyxa8" path="res://components/game/status_effect.gd" id="1_xv0yx"]
 
 [sub_resource type="Animation" id="Animation_6el1p"]
 length = 0.001

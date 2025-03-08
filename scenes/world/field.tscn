@@ -235,7 +235,7 @@ y_sort_enabled = true
 position = Vector2(160, 32)
 texture = ExtResource("1_44vmf")
 hframes = 26
-frame = 5
+frame = 10
 
 [node name="Sprite2D4" type="Sprite2D" parent="RowControl8"]
 self_modulate = Color(1, 0.933333, 0, 0.890196)
@@ -455,7 +455,7 @@ y_sort_enabled = true
 position = Vector2(288, 32)
 texture = ExtResource("1_44vmf")
 hframes = 26
-frame = 1
+frame = 5
 
 [node name="Sprite2D6" type="Sprite2D" parent="RowControl4"]
 self_modulate = Color(1, 0.933333, 0, 0.890196)
@@ -574,7 +574,7 @@ y_sort_enabled = true
 position = Vector2(160, 32)
 texture = ExtResource("1_44vmf")
 hframes = 26
-frame = 1
+frame = 6
 
 [node name="Sprite2D4" type="Sprite2D" parent="RowControl5"]
 self_modulate = Color(1, 0.933333, 0, 0.890196)
@@ -794,7 +794,7 @@ y_sort_enabled = true
 position = Vector2(288, 32)
 texture = ExtResource("1_44vmf")
 hframes = 26
-frame = 1
+frame = 2
 
 [node name="Sprite2D6" type="Sprite2D" parent="RowControl12"]
 self_modulate = Color(1, 0.933333, 0, 0.890196)

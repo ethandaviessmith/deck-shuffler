@@ -15,7 +15,7 @@
 [ext_resource type="Script" uid="uid://dlorq4euudwuq" path="res://components/behaviour/finite-state-machine/states/attack_state.gd" id="13_7sq1y"]
 [ext_resource type="Script" uid="uid://cdpjkrsh201pj" path="res://components/behaviour/finite-state-machine/states/orbit_state.gd" id="14_h0eb7"]
 [ext_resource type="AudioStream" uid="uid://brs016c3j874y" path="res://assets/audio/chirp.mp3" id="15_66kqf"]
-[ext_resource type="Script" uid="uid://dw1shgofiyxa8" path="res://components/game/status_effect.gd" id="16_sr2a0"]
+[ext_resource type="Script" uid="uid://c0f2ordrp4yty" path="res://scenes/world/status_effect_manager.gd" id="16_e5nkl"]
 [ext_resource type="PackedScene" uid="uid://dnvtgs0w45b28" path="res://scenes/world/status_effect.tscn" id="17_e5nkl"]
 
 [sub_resource type="Animation" id="Animation_wasu3"]
@@ -254,12 +254,10 @@ horizontal_alignment = 1
 stream = ExtResource("15_66kqf")
 bus = &"SFX"
 
-[node name="StatusEffect" type="Node" parent="."]
-script = ExtResource("16_sr2a0")
-defaultDurations = null
-metadata/_custom_type_script = "uid://dw1shgofiyxa8"
+[node name="StatusEffectManager" type="Node2D" parent="."]
+script = ExtResource("16_e5nkl")
 
-[node name="Node2D" parent="StatusEffect" instance=ExtResource("17_e5nkl")]
+[node name="Node2D" parent="StatusEffectManager" instance=ExtResource("17_e5nkl")]
 
 [connection signal="hurt" from="Hurtbox2D" to="." method="_on_hurtbox_2d_hurt"]
 [connection signal="area_entered" from="ChaseArea2D" to="." method="_on_chase_area_2d_area_entered"]

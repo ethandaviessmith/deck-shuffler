@@ -17,7 +17,7 @@
 [ext_resource type="Script" uid="uid://cdpjkrsh201pj" path="res://components/behaviour/finite-state-machine/states/orbit_state.gd" id="14_susqk"]
 [ext_resource type="Script" uid="uid://24odwddaboug" path="res://components/behaviour/finite-state-machine/states/reposition_state.gd" id="15_e7xq2"]
 [ext_resource type="Script" uid="uid://dc31ciwdvmunu" path="res://components/behaviour/finite-state-machine/states/spawn_state.gd" id="16_w3ji3"]
-[ext_resource type="PackedScene" uid="uid://iq63nlaer5ul" path="res://scenes/world/enemy.tscn" id="17_61coa"]
+[ext_resource type="PackedScene" uid="uid://iq63nlaer5ul" path="res://scenes/world/Enemy.tscn" id="17_61coa"]
 [ext_resource type="Script" uid="uid://cmnxduaw0b0mv" path="res://components/behaviour/finite-state-machine/states/retreat_state.gd" id="19_mmn2a"]
 [ext_resource type="Script" uid="uid://o14qg7ai62u1" path="res://components/behaviour/finite-state-machine/states/rest_state.gd" id="20_sqjs4"]
 [ext_resource type="AudioStream" uid="uid://brs016c3j874y" path="res://assets/audio/chirp.mp3" id="21_77uo8"]

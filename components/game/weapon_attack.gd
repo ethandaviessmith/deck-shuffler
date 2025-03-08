@@ -2,6 +2,7 @@ class_name WeaponAttack extends Area2D
 
 @export var hp = 1
 @export var buff: AttackStats
+@export var buff_spell: SpellStats
 @onready var sprite:Sprite2D = $Sprite2D
 var target = Vector2.ZERO
 
@@ -13,6 +14,10 @@ func _ready():
 		var tween = create_tween()
 		tween.tween_property(self,"scale", Vector2(1,1) * buff.size, 0.3).set_trans(Tween.TRANS_BOUNCE).set_ease(Tween.EASE_OUT)
 		tween.play()
+		
+	Log.pr("weapon", "ready","effect on a weapon, do action here", buff_spell.status_effect)
+	if not buff_spell == null:
+		pass
 
 func set_buff(_buff:AttackStats):
 	buff = _buff
@@ -20,11 +25,16 @@ func set_buff(_buff:AttackStats):
 func add_buff(_buff:AttackStats):
 	buff.add_buff(_buff)
 
+# todo set as override array other places
+func add_spell(spell: SpellStats):
+	buff_spell = spell
+	
+func get_spells():
+	return buff_spell
 
 func _play_death_effect():
 	#await darken_sprite()
 	await jitter_and_shrink()
-	emit_signal("remove_from_array",self)
 	queue_free()
 	
 # Fade animation
