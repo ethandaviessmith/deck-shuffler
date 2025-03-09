@@ -40,8 +40,8 @@ func get_starter_deck(count) -> Array[Card]:
 	#cards.append(deck[0])
 	#cards.append(deck[1])
 	#cards.append(deck[2])
-	cards.append(deck[9])
-	cards.append(deck[9])
+	cards.append(deck[10])
+	cards.append(deck[10])
 	cards.append(deck[3])
 	cards.append(deck[4]) # extra draw card
 	#cards.append(deck[8]) # scarecrow

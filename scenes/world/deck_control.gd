@@ -5,6 +5,7 @@ class_name CardDeck extends Control
 var deck: Array[Card] = [] ## all cards
 var draw_pile: Array[Card] = []
 var hand: Array[Card] = []
+#var discard_pile: Array[Card] = [] ## removing hand from shuffle as workaround
 
 @export var card_scene = preload("res://scenes/world/card_deck.tscn")
 @onready var draw_audio = $DrawAudio
@@ -48,6 +49,8 @@ func shuffle():
 func _on_shuffle_complete():
 	#hand.clear()
 	draw_pile = deck.duplicate()
+	for card in hand:
+		draw_pile.erase(card) # don't include current hand in next shuffle
 	draw_pile.shuffle()
 	emit_signal("shuffle_complete")
 	Log.pr("shuffle_complete")

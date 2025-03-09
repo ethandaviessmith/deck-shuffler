@@ -5,6 +5,7 @@ static var volume_variance: float = 0.1  # Volume variance range
 
 static var normal_color = Color(1, 1, 1) 
 static var hit_color = Color(1, .5, .5)
+static var shock_color = Color(.8, .8, 1)
 static var heal_color = Color(.5, 1, .5)
 
 static func get_random_edge_pos(pos: Vector2, vpr: Vector2) -> Vector2:

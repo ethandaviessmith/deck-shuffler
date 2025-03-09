@@ -1,4 +1,4 @@
-[gd_scene load_steps=71 format=4 uid="uid://bvyi5v3q5glkx"]
+[gd_scene load_steps=76 format=4 uid="uid://bvyi5v3q5glkx"]
 
 [ext_resource type="PackedScene" uid="uid://iq63nlaer5ul" path="res://scenes/world/Enemy.tscn" id="1_78kn1"]
 [ext_resource type="Script" uid="uid://bytlnbfrchhvy" path="res://scenes/world/map.gd" id="1_hf0a2"]
@@ -32,6 +32,7 @@
 [ext_resource type="Texture2D" uid="uid://eyrorsjsi3cd" path="res://assets/cards/cards24.png" id="22_pal45"]
 [ext_resource type="Texture2D" uid="uid://walwwt8skx4l" path="res://assets/cards/card27.png" id="25_iehkj"]
 [ext_resource type="Script" uid="uid://b74vvdehimkl5" path="res://components/game/effect_stats.gd" id="25_iqxvy"]
+[ext_resource type="Texture2D" uid="uid://d14vh446pguyt" path="res://assets/cards/card28.png" id="27_pi2y4"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qqcfr"]
 texture = ExtResource("1_l660s")
@@ -369,32 +370,11 @@ rarity = 0
 
 [sub_resource type="Resource" id="Resource_xokg7"]
 script = ExtResource("25_iqxvy")
-defaultDurations = {
-1: {
-1: 5.0,
-2: 6.0,
-3: 7.0
-},
-2: {
-1: 3.0,
-2: 4.0,
-3: 5.0
-},
-3: {
-1: 7.0,
-2: 8.0,
-3: 9.0
-},
-4: {
-1: 2.0,
-2: 3.0,
-3: 4.0
-}
-}
+defaultDurations = null
 status_type = 1
 duration = 4.0
 proc = 1.0
-damage = 2
+damage = null
 metadata/_custom_type_script = "uid://b74vvdehimkl5"
 
 [sub_resource type="Resource" id="Resource_iqxvy"]
@@ -423,6 +403,58 @@ description = "Add fire status effect"
 texture = ExtResource("25_iehkj")
 card_type = 1
 spell = SubResource("Resource_iqxvy")
+action = 0
+rarity = 0
+metadata/_custom_type_script = "uid://bju7o2x4lpqyj"
+
+[sub_resource type="Resource" id="Resource_nres0"]
+script = ExtResource("8_fsskc")
+weapon_type = 6
+fade = 0.0
+knockback = 1.0
+damage = 0.0
+durability = 0.0
+speed = 0.5
+size = 1.0
+CHARGE_LIMIT = 0
+metadata/_custom_type_script = "uid://d2k3c58ehn0rx"
+
+[sub_resource type="Resource" id="Resource_hk3qm"]
+script = ExtResource("25_iqxvy")
+defaultDurations = null
+status_type = 4
+duration = 2.0
+proc = 0.5
+damage = null
+debuff = SubResource("Resource_nres0")
+metadata/_custom_type_script = "uid://b74vvdehimkl5"
+
+[sub_resource type="Resource" id="Resource_g82e4"]
+script = ExtResource("13_2oihk")
+trajectory = 0
+drops = false
+status_effect = SubResource("Resource_hk3qm")
+armor = 0
+time = 6.0
+draw_speed = 1.0
+shuffle_speed = 1.0
+attacks_per_second = 1.0
+attacks = Array[ExtResource("8_fsskc")]([])
+spells = Array[ExtResource("13_2oihk")]([])
+damage = 0.0
+durability = 0.0
+speed = 1.0
+size = 1.0
+CHARGE_LIMIT = 1
+metadata/_custom_type_script = "uid://0p1ni2tjoj35"
+
+[sub_resource type="Resource" id="Resource_2vkyy"]
+script = ExtResource("7_tugua")
+name = "Shock"
+description = "Shock and paralyse enemies"
+texture = ExtResource("27_pi2y4")
+card_type = 1
+spell = SubResource("Resource_g82e4")
 action = 0
 rarity = 0
 metadata/_custom_type_script = "uid://bju7o2x4lpqyj"
@@ -978,7 +1010,7 @@ position = Vector2(303, -671)
 [node name="DeckHelper" type="Node" parent="."]
 unique_name_in_owner = true
 script = ExtResource("6_dideo")
-deck = Array[ExtResource("7_tugua")]([SubResource("Resource_oxfa6"), SubResource("Resource_eridv"), SubResource("Resource_8gd7h"), SubResource("Resource_580ic"), SubResource("Resource_lkljn"), SubResource("Resource_k3mic"), SubResource("Resource_yr7tv"), SubResource("Resource_ioi8e"), SubResource("Resource_eger2"), SubResource("Resource_pi2y4")])
+deck = Array[ExtResource("7_tugua")]([SubResource("Resource_oxfa6"), SubResource("Resource_eridv"), SubResource("Resource_8gd7h"), SubResource("Resource_580ic"), SubResource("Resource_lkljn"), SubResource("Resource_k3mic"), SubResource("Resource_yr7tv"), SubResource("Resource_ioi8e"), SubResource("Resource_eger2"), SubResource("Resource_pi2y4"), SubResource("Resource_2vkyy")])
 player_upgrades = Array[ExtResource("7_tugua")]([SubResource("Resource_exmbl"), SubResource("Resource_uafl5"), SubResource("Resource_o6lf2"), SubResource("Resource_xxe5f"), SubResource("Resource_tkx8r")])
 
 [node name="Fog" type="ParallaxBackground" parent="."]

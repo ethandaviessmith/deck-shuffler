@@ -1,7 +1,7 @@
 @icon("res://components/collisions/hitbox.svg")
 class_name Hitbox2D extends Area2D
 
-@export var damage = 1
+@export var damage = 1.0
 @onready var collision = $CollisionShape2D
 @onready var disableTimer = $DisableHitBoxTimer
 

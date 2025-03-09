@@ -4,12 +4,14 @@ enum Spawn { NA, WRAP, SET, GUARD}
 
 @export var movement_speed = 30.0
 @export var hp = 3
+@export var damage = 1.0
 @export var experience = 1
-@export var damage = 1
 @export var knockback_recovery = 2
+
+
 var knockback = Vector2.ZERO
-@export var spawn_type = Spawn.WRAP
 @export var LOW_HEALTH = 1
+@export var spawn_type = Spawn.WRAP
 
 @export_group("Movement")
 @export var speed: float = 30.0
@@ -58,8 +60,18 @@ func _physics_process(_delta):
 	move_and_slide()
 
 func on_effect_proc(effect: EffectStats):
-	take_damage(effect.damage)
+	take_damage(effect.damage, effect.get_color())
 	Log.pr("character", "damage from effect", effect.damage)
+	
+	match(effect.status_type):
+		EffectStats.StatusType.NA: pass
+		EffectStats.StatusType.BURN: pass
+		EffectStats.StatusType.FREEZE: pass
+		EffectStats.StatusType.POISON: pass
+		EffectStats.StatusType.SHOCK: 
+			# add slow to buff 
+			pass
+	
 	#if not status_effect == null:
 	#status_effect.apply_effect(effect)
 	pass
@@ -82,11 +94,11 @@ func is_priority_state():
 func teleport():
 	next_state.emit(CharacterState.TELEPORT, {})
 
-func take_damage(damage: int):
+func take_damage(damage: int, color: Color = Util.hit_color):
 	hp -= damage
 	if hp <= 0:
 		next_state.emit(CharacterState.DEATH)
-	show_amount(damage, Util.hit_color)
+	show_amount(damage, color)
 
 ## hitting others
 func on_enemy_hit(charge = 1):

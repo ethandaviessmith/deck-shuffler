@@ -6,33 +6,10 @@ class_name PlayerStats
 @export var armor: int = 0
 @export var time: float = 6.0
 
-
 @export var draw_speed: float = 1.0
 @export var shuffle_speed: float = 1.0
 @export var attacks_per_second: float = 1.0
 
-# for applying buffs from resolving hands
-@export var attacks: Array[AttackStats] = []
-@export var spells: Array[SpellStats] = []
-
-
-func resolve():
-	
-	var attack := AttackStats.new()
-	var spell := SpellStats.new()
-	
-	for a in attacks:
-		attack.add_attack(a)
-	for s in spells:
-		spell.add_spell(s)
-
-	return [attack, spell]
-
-func add_attack(attack):
-	pass
-	
-func add_spell(spell):
-	pass
 
 func add_player_stats(stats):
 	add_buff(stats)

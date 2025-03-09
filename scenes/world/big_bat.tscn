@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://bnlcs4ivfbsss"]
+[gd_scene load_steps=33 format=3 uid="uid://bnlcs4ivfbsss"]
 
 [ext_resource type="Script" uid="uid://bttr7sfbphmo6" path="res://scenes/world/enemy.gd" id="1_kmulg"]
 [ext_resource type="SpriteFrames" uid="uid://bp531pjampdkk" path="res://assets/critter_3.tres" id="2_6fy8k"]
@@ -21,6 +21,7 @@
 [ext_resource type="Script" uid="uid://cmnxduaw0b0mv" path="res://components/behaviour/finite-state-machine/states/retreat_state.gd" id="19_mmn2a"]
 [ext_resource type="Script" uid="uid://o14qg7ai62u1" path="res://components/behaviour/finite-state-machine/states/rest_state.gd" id="20_sqjs4"]
 [ext_resource type="AudioStream" uid="uid://brs016c3j874y" path="res://assets/audio/chirp.mp3" id="21_77uo8"]
+[ext_resource type="Script" uid="uid://c0f2ordrp4yty" path="res://scenes/world/status_effect_manager.gd" id="22_tjbv4"]
 
 [sub_resource type="Animation" id="Animation_wasu3"]
 resource_name = "RESET"
@@ -211,7 +212,6 @@ outline_color = Color(0, 0, 0, 1)
 
 [node name="CharacterBody2D" type="CharacterBody2D" node_paths=PackedStringArray("sfx_audio")]
 texture_filter = 1
-scale = Vector2(0.938462, 0.876923)
 collision_layer = 4
 collision_mask = 131
 motion_mode = 1
@@ -220,7 +220,6 @@ nest = ExtResource("2_b5jew")
 sfx_audio = NodePath("SFXActionAudioStream")
 hp = 13
 experience = 5
-damage = 2
 knockback_recovery = 6
 spawn_type = 3
 LOW_HEALTH = 4
@@ -257,7 +256,7 @@ wait_time = 0.5
 position = Vector2(1, 11)
 collision_layer = 4
 collision_mask = 2
-damage = 20
+damage = 1.0
 
 [node name="CollisionShape2D" parent="Hitbox2D" index="0"]
 position = Vector2(-1, -11)
@@ -362,6 +361,9 @@ horizontal_alignment = 1
 [node name="SFXActionAudioStream" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("21_77uo8")
 bus = &"SFX"
+
+[node name="StatusEffectManager" type="Node2D" parent="."]
+script = ExtResource("22_tjbv4")
 
 [connection signal="hurt" from="Hurtbox2D" to="." method="_on_hurtbox_2d_hurt"]
 [connection signal="area_entered" from="ChaseArea2D" to="." method="_on_chase_area_2d_area_entered"]

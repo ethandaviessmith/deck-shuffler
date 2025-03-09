@@ -1,10 +1,8 @@
-[gd_scene load_steps=56 format=3 uid="uid://b6xsykb6ffhrn"]
+[gd_scene load_steps=54 format=3 uid="uid://b6xsykb6ffhrn"]
 
 [ext_resource type="Script" uid="uid://n2p5mw1cvr4v" path="res://scenes/world/player.gd" id="1_gqwxa"]
 [ext_resource type="Script" uid="uid://cjludslda6cgs" path="res://components/game/player_stats.gd" id="2_5xxq7"]
-[ext_resource type="Script" uid="uid://d2k3c58ehn0rx" path="res://components/game/attack_stats.gd" id="2_dff2h"]
 [ext_resource type="Script" uid="uid://cfcpa88g37d1a" path="res://components/behaviour/finite-state-machine/finite-state-machine.gd" id="3_d2tu4"]
-[ext_resource type="Script" uid="uid://0p1ni2tjoj35" path="res://components/game/spell_stats.gd" id="4_624bx"]
 [ext_resource type="Script" uid="uid://cu33lbom3spn" path="res://components/motion/2D/top-down-controller/states/idle.gd" id="4_kdb0p"]
 [ext_resource type="Script" uid="uid://b8mm32wno40nu" path="res://components/motion/2D/top-down-controller/states/walk.gd" id="5_t48kx"]
 [ext_resource type="SpriteFrames" uid="uid://vktqhm2afg3s" path="res://assets/neutral_mercgambitgirl.tres" id="5_yrmep"]
@@ -40,8 +38,6 @@ time = 6.0
 draw_speed = 3.0
 shuffle_speed = 1.0
 attacks_per_second = 1.0
-attacks = Array[ExtResource("2_dff2h")]([])
-spells = Array[ExtResource("4_624bx")]([])
 damage = 0.0
 durability = 10.0
 speed = 0.3

@@ -17,4 +17,11 @@ enum StatusType {NA, BURN, FREEZE, POISON, SHOCK}
 @export var duration: float = 0.0 ## How long it lasts
 @export var proc: float = 0.0 ## How often it procs
 
-@export var damage: int = 0
+@export var damage: float = 0.0
+@export var debuff: AttackStats ## stats debuffed for the duration of the effect
+
+
+func get_color():
+	match (status_type):
+		StatusType.SHOCK: return Util.shock_color
+	return Util.hit_color
