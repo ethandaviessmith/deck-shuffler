@@ -70,6 +70,7 @@ func on_effect_proc(effect: EffectStats):
 		EffectStats.StatusType.POISON: pass
 		EffectStats.StatusType.SHOCK: 
 			# add slow to buff 
+			speed *= 0.9
 			pass
 	
 	#if not status_effect == null:

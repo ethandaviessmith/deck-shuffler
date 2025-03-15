@@ -6,9 +6,15 @@ class_name PlayerStats
 @export var armor: int = 0
 @export var time: float = 6.0
 
+
 @export var draw_speed: float = 1.0
 @export var shuffle_speed: float = 1.0
 @export var attacks_per_second: float = 1.0
+
+# for applying buffs from resolving hands
+@export var attacks: Array[AttackStats] = []
+@export var spells: Array[SpellStats] = []
+
 
 
 func add_player_stats(stats):

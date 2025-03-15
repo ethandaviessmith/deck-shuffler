@@ -24,6 +24,8 @@ func set_weapon_type(weapon_type: AttackStats.WeaponType):
 func _ready():
 	pass
 
+
+# todo doesn't work on intantiate, only afterwards
 func set_charge(charge:int):
 	if not label == null:
 		label.text = str(charge)

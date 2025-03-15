@@ -1,15 +1,9 @@
 class_name StatusEffect extends Node2D
 
-
-@export var effect_stats: EffectStats
-
-var statusEffects = {}
-var procTimers = {}
-
 signal effect_proc(effect:EffectStats)
 signal effect_duration(effect:EffectStats)
 
-
+@export var effect_stats: EffectStats
 
 func _ready() -> void:
 	Log.pr("status effect node", effect_stats)
@@ -17,8 +11,6 @@ func _ready() -> void:
 		play_animation()
 		$DurationTimer.start(effect_stats.duration)
 		$Timer.start(effect_stats.proc)
-	pass
-
 
 func play_animation():
 	if not effect_stats == null:
@@ -32,8 +24,6 @@ func play_animation():
 			EffectStats.StatusType.SHOCK: 
 				$AnimationPlayer.play("shock")
 				pass
-			
-	
 
 func setStatusEffect(effect: EffectStats):
 	effect_stats = effect
@@ -44,5 +34,4 @@ func _on_timer_timeout():
 
 func _on_duration_timer_timeout() -> void:
 	effect_duration.emit(effect_stats)
-	#signal to remove
-	pass
+	queue_free()

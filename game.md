@@ -137,6 +137,10 @@ Boss
 
 #### CARDS
 
+stats:
+attack
+spell
+
 ## Action Cards
 
 Quick Draw - Instant draw 2 more cards. alt. Next 2 draws draw 2 cards or
@@ -168,3 +172,5 @@ Card that gives dash/doge charges
 #### Weapons have a usage instead of buff timer, weapon use ticks down on attack
 
 # TO DO
+
+character_stats and player_stats

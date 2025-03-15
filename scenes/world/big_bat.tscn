@@ -221,8 +221,8 @@ sfx_audio = NodePath("SFXActionAudioStream")
 hp = 13
 experience = 5
 knockback_recovery = 6
-spawn_type = 3
 LOW_HEALTH = 4
+spawn_type = 3
 speed = 45.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -366,6 +366,7 @@ bus = &"SFX"
 script = ExtResource("22_tjbv4")
 
 [connection signal="hurt" from="Hurtbox2D" to="." method="_on_hurtbox_2d_hurt"]
+[connection signal="status_effect" from="Hurtbox2D" to="." method="_on_hurtbox_2d_status_effect"]
 [connection signal="area_entered" from="ChaseArea2D" to="." method="_on_chase_area_2d_area_entered"]
 [connection signal="area_exited" from="ChaseArea2D" to="." method="_on_chase_area_2d_area_exited"]
 [connection signal="body_entered" from="ChaseArea2D" to="." method="_on_chase_area_2d_body_entered"]

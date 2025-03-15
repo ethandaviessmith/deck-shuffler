@@ -92,6 +92,7 @@ func resolve_hand() -> PlayerStats:
 		match(card.card_type):
 			Card.CardType.ATTACK:
 				if not card.attack.weapon_type == AttackStats.WeaponType.NA:
+					Log.pr("summon", AttackStats.get_weapon_type(card.attack.weapon_type), card.attack.guid)
 					hand_buff.attacks.append(card.attack)
 				else:
 					hand_buff.add_buff(card.attack)

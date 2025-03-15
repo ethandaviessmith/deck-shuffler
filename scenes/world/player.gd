@@ -110,7 +110,6 @@ func _physics_process(_delta: float) -> void:
 
 #region ACTIONS
 func attack():
-	#var hand_buff:PlayerStats = PlayerStats.new()
 	var buff:AttackStats = AttackStats.new()
 	var spells:Array[SpellStats] =[]
 	var weapons:Array[AttackStats] = []
@@ -167,8 +166,9 @@ func attack():
 
 func charge_limit(attack, amount: int):
 	var limit = attack.charge_limit(amount)
-	if wpn_icons.has(attack):
-		var icon = wpn_icons[attack]
+	Log.pr("summon", "charge check", limit)
+	if wpn_icons.has(attack.guid):
+		var icon = wpn_icons[attack.guid]
 		if is_instance_valid(icon):
 			if limit == 0:
 				icon.remove_buff()
@@ -384,14 +384,14 @@ func add_weapon_icon(buff):
 	var wpn_icon_instance = wpn_icon.instantiate() as WeaponIcon
 	if buff is AttackStats:
 		icon_type = buff.weapon_type
-	Log.pr("summon", "weapon_icon", buff)
+	Log.pr("summon", "weapon_icon", buff, buff.guid)
 	
 	## todo sometimes weapons have 0 charge_limit?
 	
-	wpn_icon_instance.set_charge(buff.CHARGE_LIMIT)
 	wpn_icon_instance.add_buff(icon_type)
+	wpn_icon_instance.set_charge(buff.CHARGE_LIMIT)
 	icon_weapon_list.call_deferred("add_child", wpn_icon_instance)
-	wpn_icons[buff] = wpn_icon_instance
+	wpn_icons[buff.guid] = wpn_icon_instance
 
 func display_buffs(count:int):
 	var disp_stats = calculate_stats()

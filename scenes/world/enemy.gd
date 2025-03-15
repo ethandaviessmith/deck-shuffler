@@ -37,6 +37,14 @@ func recover_health(amount: int) -> int:
 	show_amount(amount, Util.heal_color)
 	return super.recover_health(amount)
 
+func on_enemy_hit(charge = 1):
+	if spawn_type == Character.Spawn.GUARD: 
+		next_state.emit(CharacterState.REPOSITION)
+	else:
+		next_state.emit(CharacterState.IDLE)
+	if not sfx_audio == null:
+		Util.play_with_randomized_audio(sfx_audio)
+
 
 func _on_hurtbox_2d_status_effect(effect: SpellStats) -> void:
 	Log.pr("hurtbox","spell","effect signal")
@@ -51,15 +59,6 @@ func _on_hurtbox_2d_hurt(damage: Variant, angle: Variant, knockback_amount: Vari
 	else:
 		if not is_priority_state(): # list of states not to interupt
 			next_state.emit(CharacterState.CHASE, {"target": player})
-
-
-func on_enemy_hit(charge = 1):
-	if spawn_type == Character.Spawn.GUARD: 
-		next_state.emit(CharacterState.REPOSITION)
-	else:
-		next_state.emit(CharacterState.IDLE)
-	if not sfx_audio == null:
-		Util.play_with_randomized_audio(sfx_audio)
 
 # Body and Area Signals connected
 func _on_chase_area_2d_body_entered(body: Node2D) -> void:

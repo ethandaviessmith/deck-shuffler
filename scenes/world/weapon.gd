@@ -17,21 +17,11 @@ var angle = Vector2.ZERO
 signal remove_from_array(object)
 
 func _ready(): 
+	super()
+	
 	angle = global_position.direction_to(target)
 	rotation = angle.angle()
 	
-	#if not buff == null:
-		#hp += buff.durability
-		#damage += buff.damage
-		#
-		#knockback *= buff.knockback
-		#speed *= buff.speed
-		#size *= buff.size
-	#
-	scale = Vector2(0.2,0.2)
-	var tween = create_tween()
-	tween.tween_property(self,"scale", Vector2(1,1) * size, 0.3).set_trans(Tween.TRANS_BOUNCE).set_ease(Tween.EASE_OUT)
-	tween.play()
 	Util.play_with_randomized_audio(start_audio)
 
 func _physics_process(delta):

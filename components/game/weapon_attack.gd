@@ -14,10 +14,18 @@ func _ready():
 		var tween = create_tween()
 		tween.tween_property(self,"scale", Vector2(1,1) * buff.size, 0.3).set_trans(Tween.TRANS_BOUNCE).set_ease(Tween.EASE_OUT)
 		tween.play()
-		
-	Log.pr("weapon", "ready","effect on a weapon, do action here", buff_spell.status_effect)
+
 	if not buff_spell == null:
-		pass
+		match(buff_spell.status_effect.status_type):
+			EffectStats.StatusType.NA: pass
+			EffectStats.StatusType.BURN: 
+				modulate = Util.hit_color
+				pass
+			EffectStats.StatusType.FREEZE: pass
+			EffectStats.StatusType.POISON: pass
+			EffectStats.StatusType.SHOCK: 
+				modulate = Util.shock_color
+				pass
 
 func set_buff(_buff:AttackStats):
 	buff = _buff
@@ -34,7 +42,6 @@ func get_spells():
 
 ## Spell effect from an attack
 func get_spell_effect():
-	Log.pr("spell from weapon")
 	return buff_spell
 
 
