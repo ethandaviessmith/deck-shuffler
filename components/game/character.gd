@@ -17,6 +17,7 @@ var knockback = Vector2.ZERO
 @export var speed: float = 30.0
 @export var acceleration: float = 5.0
 @export var friction: float = 5.0
+## states that won't interupt action when hurt
 @export var PRIORITY_STATES: Array[String] = [CharacterState.REPOSITION, CharacterState.SPAWN, CharacterState.RETREAT, CharacterState.REST]
 
 @onready var player = get_tree().get_first_node_in_group(Player.GroupName)

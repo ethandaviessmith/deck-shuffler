@@ -13,6 +13,8 @@ enum Rarity { COMMON }
 @export var action: ACTIONS = ACTIONS.NA
 @export var rarity: Rarity
 
+@export var stat: Array[Stat] = []
+
 static func get_card_type(card_type:CardType) -> String:
 	match card_type:
 		CardType.ATTACK:

@@ -123,7 +123,7 @@ https://superuser.com/questions/491180/how-do-i-embed-multiple-sizes-in-an-ico-f
 card selection (w/ player)
 example sprites for cards (write over)
 deck button
-levels on cards
+? levels on cards
 
 Action Bar
 resolve animation
@@ -168,9 +168,142 @@ APS
 # Ideas bucket
 
 Card that gives dash/doge charges
+/ Weapons have a usage instead of buff timer, weapon use ticks down on attack
 
-#### Weapons have a usage instead of buff timer, weapon use ticks down on attack
+
+
 
 # TO DO
-
 character_stats and player_stats
+
+old method
+player_stats > base_stats
+attack_stats > base_stats
+
+character
+stats (stats_manager)
+> buff
+> debuff 
+
+status_effect_manager
+> status_effect (card(effect))
+
+weapon
+effect_status
+
+
+# Current classes
+
+## Stats
+damage
+durability (health)
+speed
+size
+
+CHARGE_LIMIT
+charges
+
+Attack (stats)
+weapon_type
+fade
+knockback
+
+Player (stats)
+armor
+-- time
+draw_speed
+shuffle_speed
+(resolve hand)
+attacks
+spells
+
+Spell
+trajectory
+drops
+status_effect
+
+prompt
+writing stat atributes for an overhead game where stats are set on cards and there's a function in Player called summon() that gets list of stats from all cards in hand (other code don't worry about it now) so that within a player, enemy, or weapon the same stat Resource can be passed around to do specific dunctionality
+
+
+
+every stat in the Stats classes below are setup as this Stat Resource
+# Stat inherits Resource
+Key: enum stat_name
+Value stat_type (
+	enum type (value type) which of the below values to get
+	float,int,enum value (amount)
+	modifier (+-x%) 
+)
+
+
+# status effect
+status_type (element - optional)
+usage - duration (all in list would? be the same)
+list of stats
+  stat - damage [usage proc]
+  stat - speed modifier [usage proc]
+
+
+# usage
+enum permanent, charges, duration, signal_name
+charges (int) usage charges checks limit
+duration (float) set's callback timer (decrement charges for proc)
+signal (signal name) signal does a global signal connect
+proc (damage over time)
+
+
+stat - damage
+damage
+proc (aps)
+debuff (attackstats)
+  
+  duration (usage)
+
+for the format below showcase example of files written in go
+## Class (inherits)
+list of attributes
+
+## Stats
+damage
+durability (health)
+speed
+size
+
+## PlayerStats (characterStats)
+draw_speed
+shuffle_speed
+recovery
+
+## CharacterStats (stats)
+attacks_per_second (timer)
+armor
+
+## AttackStats (stats)
+weapon_type
+fade (duration)
+knockback
+
+## SpellStats (stats)
+trajectory
+drops
+status_effect
+
+
+## Player
+has list active_buffs Array[playerStats,attackStats,spellStats,statsStats]
+
+## Card
+list (attack,spell,stats) - used for having stats that pass to player on draw or hand 
+status_effect
+
+resolve
+
+
+
+End goal (over complicating it for now)
+
+Character has a stat dictionary
+
+
+Cards have list of stats
