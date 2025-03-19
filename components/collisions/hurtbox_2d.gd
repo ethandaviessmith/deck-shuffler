@@ -5,7 +5,8 @@ class_name Hurtbox2D extends Area2D
 @onready var disableTimer = $DisableTimer
 
 #signal hitbox_detected(hitbox: Hitbox2D)
-signal hurt(damage, angle, knockback)
+#signal hurt(damage, angle, knockback)
+signal hurt(stats: Stats, angle: float)
 signal status_effect(effect: SpellStats)
 
 func _init() -> void:
@@ -45,7 +46,12 @@ func on_area_entered(hitbox: Area2D) -> void:
 		
 		if hitbox.has_method("enemy_hit"): ## being hit
 			hitbox.enemy_hit(1)
-		emit_signal("hurt", damage, angle, knockback)
+		if hitbox.has_method("get_stats"):
+			var stats = hitbox.get_stats()
+			if stats:
+				Log.pr("hitbox", stats.stats.values())
+				emit_signal("hurt", stats, angle)
+		#emit_signal("hurt", damage, angle, knockback)
 		
 		if hitbox.has_method("get_spell_effect"):
 			var effect:SpellStats = hitbox.get_spell_effect()

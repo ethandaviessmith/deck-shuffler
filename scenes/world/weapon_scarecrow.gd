@@ -52,15 +52,25 @@ func enemy_hit(charge = 1):
 		$CollisionShape2D.call_deferred("set","disabled",true)
 		_play_death_effect()
 
-func _on_hurtbox_2d_hurt(damage: Variant, angle: Variant, knockback_amount: Variant) -> void:
-	knockback = angle * knockback_amount
-	hp -= clamp(damage, 1.0, 999.0)
+func _on_hurtbox_2d_hurt(hurt_stats: Stats, angle: Variant) -> void:
+	if hurt_stats.has(Stat.Name.DAMAGE):
+		take_damage(hurt_stats.get_stat_value(Stat.Name.DAMAGE))
+	if hurt_stats.has(Stat.Name.KNOCKBACK):
+		knockback = angle * hurt_stats.get_stat_value(Stat.Name.KNOCKBACK)
 	
 	var tween = create_tween().set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_IN_OUT)
 	tween.tween_property(sprite, "modulate", hit_color, 0.1)
 	tween.tween_property(sprite, "modulate", normal_color, 0.1) 
 	if hp <= 0:
 		pass#death()
+
+func take_damage(damage: int, color: Color = Util.hit_color):
+	var hp: Stat = Stat.new_health(clamp(-damage + stats.get_stat_value(Stat.Name.ARMOR), -99.0, 0.0)) ## negative hp stat
+	stats.add_stat(hp)
+	
+	if stats.get_stat_value(Stat.Name.HEALTH) <= 0:
+		_play_death_effect()
+	
 
 func _on_timer_timeout():
 	anim.play("thump")

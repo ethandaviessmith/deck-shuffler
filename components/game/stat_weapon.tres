@@ -1,0 +1,66 @@
+[gd_resource type="Resource" script_class="Stats" load_steps=9 format=3 uid="uid://bdhkhrn1yn3ed"]
+
+[ext_resource type="Script" uid="uid://b7niesfpj64g8" path="res://stat_config.gd" id="1_6tpum"]
+[ext_resource type="Script" uid="uid://bcc6w8d5vnrm1" path="res://components/game/stat.gd" id="2_5osvk"]
+[ext_resource type="Script" uid="uid://bxdbv4ub373nx" path="res://components/game/usage.gd" id="3_5osvk"]
+
+[sub_resource type="Resource" id="Resource_33x6y"]
+script = ExtResource("2_5osvk")
+stat_name = 0
+stat_type = 0
+value = 0.0
+modifier = 0.0
+effect_status_type = 0
+trajectory = 0
+metadata/_custom_type_script = "uid://bcc6w8d5vnrm1"
+
+[sub_resource type="Resource" id="Resource_5osvk"]
+script = ExtResource("2_5osvk")
+stat_name = 2
+stat_type = 2
+value = 0.0
+modifier = 1.0
+effect_status_type = 0
+trajectory = 0
+metadata/_custom_type_script = "uid://bcc6w8d5vnrm1"
+
+[sub_resource type="Resource" id="Resource_h478q"]
+script = ExtResource("2_5osvk")
+stat_name = 3
+stat_type = 2
+value = 1.0
+modifier = 0.0
+effect_status_type = 0
+trajectory = 0
+metadata/_custom_type_script = "uid://bcc6w8d5vnrm1"
+
+[sub_resource type="Resource" id="Resource_xsej0"]
+script = ExtResource("2_5osvk")
+stat_name = 6
+stat_type = 0
+value = 20.0
+modifier = 0.0
+effect_status_type = 0
+trajectory = 0
+metadata/_custom_type_script = "uid://bcc6w8d5vnrm1"
+
+[sub_resource type="Resource" id="Resource_p2pbf"]
+script = ExtResource("3_5osvk")
+usage_type = 0
+charges = 0
+duration = 0.0
+signal_name = ""
+weapon_type = 0
+metadata/_custom_type_script = "uid://bxdbv4ub373nx"
+
+[resource]
+script = ExtResource("1_6tpum")
+guid = null
+stats = Dictionary[int, ExtResource("2_5osvk")]({
+0: SubResource("Resource_33x6y"),
+2: SubResource("Resource_5osvk"),
+3: SubResource("Resource_h478q"),
+6: SubResource("Resource_xsej0")
+})
+usage = SubResource("Resource_p2pbf")
+metadata/_custom_type_script = "uid://cy60h6tx8fwbs"

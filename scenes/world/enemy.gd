@@ -1,6 +1,5 @@
 class_name Enemy extends Character
 
-
 @export var nest:Resource
 
 var spawn_nest: Node2D
@@ -10,6 +9,12 @@ var spawn_nest: Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	stats = preload("res://components/game/stat_enemy.tres")
+	#max_health = hp
+	#hitbox.damage = damage
+	if hitbox:
+		hitbox.stats = stats
+	
 	super()
 	if get_spawn_type() == Character.Spawn.WRAP:
 		targets.append(player)
@@ -51,10 +56,12 @@ func _on_hurtbox_2d_status_effect(effect: SpellStats) -> void:
 	if not status_effect == null:
 		status_effect.add_from_spell(effect)
 
-func _on_hurtbox_2d_hurt(damage: Variant, angle: Variant, knockback_amount: Variant) -> void:
-	take_damage(damage)
-	knockback = angle * knockback_amount
-	if hp <= 0:
+func _on_hurtbox_2d_hurt(hurt_stats: Stats, angle: Variant) -> void:
+	if hurt_stats.has(Stat.Name.DAMAGE):
+		take_damage(hurt_stats.get_stat_value(Stat.Name.DAMAGE))
+	if hurt_stats.has(Stat.Name.KNOCKBACK):
+		knockback = angle * hurt_stats.get_stat_value(Stat.Name.KNOCKBACK)
+	if stats.get_stat_value(Stat.Name.HEALTH) <= 0:
 		next_state.emit(CharacterState.DEATH)
 	else:
 		if not is_priority_state(): # list of states not to interupt

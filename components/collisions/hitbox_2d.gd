@@ -2,6 +2,7 @@
 class_name Hitbox2D extends Area2D
 
 @export var damage = 1.0
+@export var stats: Stats
 @onready var collision = $CollisionShape2D
 @onready var disableTimer = $DisableHitBoxTimer
 
@@ -22,6 +23,10 @@ func enable():
 
 func disable():
 	set_deferred("monitorable", false)
+
+func get_stats() -> Stats:
+	Log.pr("get_stats of hitbox")
+	return null
 
 func enemy_hit(charge = 1):
 	on_enemy_hit.emit(charge)

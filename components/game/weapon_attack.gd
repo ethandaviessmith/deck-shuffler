@@ -1,10 +1,18 @@
 class_name WeaponAttack extends Area2D
 
 @export var hp = 1
-@export var buff: AttackStats
-@export var buff_spell: SpellStats
 @onready var sprite:Sprite2D = $Sprite2D
 var target = Vector2.ZERO
+
+@export var stats: Stats
+## stats going to depracate these
+@export var buff: AttackStats
+@export var buff_spell: SpellStats
+
+
+func get_stats() -> Stats:
+	Log.pr("get_stats of weapon")
+	return stats
 
 func _ready(): 
 	if not buff == null:

@@ -218,7 +218,6 @@ motion_mode = 1
 script = ExtResource("1_kmulg")
 nest = ExtResource("2_b5jew")
 sfx_audio = NodePath("SFXActionAudioStream")
-hp = 13
 experience = 5
 knockback_recovery = 6
 LOW_HEALTH = 4

@@ -83,30 +83,56 @@ func get_last_drawn_card() -> Card:
 		return null
 	return hand.back()
 
-func resolve_hand() -> PlayerStats:
-	hand_control.resolve_hand()
-	var hand_buff = PlayerStats.new()
-	var weapon_list: Array[AttackStats] = []
-	for card in hand:
-		Log.pr("new " + card.get_card_type_name())
-		match(card.card_type):
-			Card.CardType.ATTACK:
-				if not card.attack.weapon_type == AttackStats.WeaponType.NA:
-					Log.pr("summon", AttackStats.get_weapon_type(card.attack.weapon_type), card.attack.guid)
-					hand_buff.attacks.append(card.attack)
-				else:
-					hand_buff.add_buff(card.attack)
-				#elemental
-			Card.CardType.SPELL:
-				if not card.spell.status_effect == null and not card.spell.status_effect.status_type == EffectStats.StatusType.NA:
-					hand_buff.spells.append(card.spell)
-				# drop gold/xp
-				# split
-			Card.CardType.ACTION:
-				Log.pr("not implemented actions")
 
+
+#func resolve_hand() -> PlayerStats:
+	#hand_control.resolve_hand()
+	#var hand_buff = PlayerStats.new()
+	#var weapon_list: Array[AttackStats] = []
+	#for card in hand:
+		#Log.pr("new " + card.get_card_type_name())
+		#match(card.card_type):
+			#Card.CardType.ATTACK:
+				#if not card.attack.weapon_type == AttackStats.WeaponType.NA:
+					#Log.pr("summon", AttackStats.get_weapon_type(card.attack.weapon_type), card.attack.guid)
+					#hand_buff.attacks.append(card.attack)
+				#else:
+					#hand_buff.add_buff(card.attack)
+				##elemental
+			#Card.CardType.SPELL:
+				#if not card.spell.status_effect == null and not card.spell.status_effect.status_type == EffectStats.StatusType.NA:
+					#hand_buff.spells.append(card.spell)
+				## drop gold/xp
+				## split
+			#Card.CardType.ACTION:
+				#Log.pr("not implemented actions")
+#
+	#hand.clear() # Discard hand
+	#return hand_buff
+
+
+
+func resolve_hand() -> Array:
+	hand_control.resolve_hand()
+	
+	var hand_buff:Stats = Stats.new()
+	var weapon_list: Array[Stats] = []
+	
+	for card in hand:
+		if card.stats and card.stats.usage:
+			Log.pr("new " + card.get_card_type_name())
+			match(card.stats.usage.usage_type):
+				Usage.UsageType.CHARGES: 
+					weapon_list.append(card.stats)
+				Usage.UsageType.DURATION:
+					hand_buff.usage = card.stats.usage
+					for stat in card.stats:
+						hand_buff.buff_stat(stat)
 	hand.clear() # Discard hand
-	return hand_buff
+
+	return [hand_buff, weapon_list]
+
+
 
 # Function to add a card to the deck
 func add_card(card: Card):

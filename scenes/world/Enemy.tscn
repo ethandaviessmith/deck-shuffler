@@ -1,7 +1,8 @@
-[gd_scene load_steps=26 format=3 uid="uid://iq63nlaer5ul"]
+[gd_scene load_steps=27 format=3 uid="uid://iq63nlaer5ul"]
 
 [ext_resource type="Script" uid="uid://bttr7sfbphmo6" path="res://scenes/world/enemy.gd" id="1_2wiof"]
 [ext_resource type="SpriteFrames" uid="uid://coxg58roo4g74" path="res://assets/critter_2.tres" id="1_pg8tb"]
+[ext_resource type="Resource" uid="uid://dxu8cdt8xf4m6" path="res://components/game/stat_enemy.tres" id="2_e5nkl"]
 [ext_resource type="PackedScene" uid="uid://b07rljcn3rxmd" path="res://components/interaction/2D/interactables/hurtbox_2d.tscn" id="3_pva0l"]
 [ext_resource type="PackedScene" uid="uid://dvvoyxs6gfhne" path="res://components/interaction/2D/interactables/hitbox_2d.tscn" id="4_axjrv"]
 [ext_resource type="FontFile" uid="uid://do03fwxb30r7l" path="res://assets/GUI/OldSchoolAdventures-42j9.ttf" id="5_bpmjk"]
@@ -132,6 +133,7 @@ collision_mask = 135
 motion_mode = 1
 script = ExtResource("1_2wiof")
 sfx_audio = NodePath("SFXActionAudioStream")
+stats = ExtResource("2_e5nkl")
 speed = 28.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

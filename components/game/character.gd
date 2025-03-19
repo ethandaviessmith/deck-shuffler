@@ -2,9 +2,11 @@ class_name Character extends CharacterBody2D
 
 enum Spawn { NA, WRAP, SET, GUARD}
 
-@export var movement_speed = 30.0
-@export var hp = 3
-@export var damage = 1.0
+#@export var movement_speed = 30.0
+#@export var hp = 3
+#@export var damage = 1.0
+@export var stats: Stats
+
 @export var experience = 1
 @export var knockback_recovery = 2
 
@@ -40,9 +42,10 @@ var target
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	max_health = hp
-	hitbox.damage = damage
-	hitbox.on_enemy_hit.connect(on_enemy_hit)
+	#max_health = hp
+	#hitbox.damage = damage
+	if hitbox:
+		hitbox.on_enemy_hit.connect(on_enemy_hit)
 	if get_spawn_type() == Character.Spawn.WRAP:
 		targets.append(player)
 	
@@ -97,8 +100,10 @@ func teleport():
 	next_state.emit(CharacterState.TELEPORT, {})
 
 func take_damage(damage: int, color: Color = Util.hit_color):
-	hp -= damage
-	if hp <= 0:
+	var hp: Stat = Stat.new_health(clamp(-damage + stats.get_stat_value(Stat.Name.ARMOR), -99.0, 0.0)) ## negative hp stat
+	stats.add_stat(hp)
+	
+	if stats.get_stat_value(Stat.Name.HEALTH) <= 0:
 		next_state.emit(CharacterState.DEATH)
 	show_amount(damage, color)
 
@@ -106,14 +111,19 @@ func take_damage(damage: int, color: Color = Util.hit_color):
 func on_enemy_hit(charge = 1):
 	pass
 
+func get_stats() -> Stats:
+	Log.pr("get_stats of hitbox")
+	return stats
 
 func has_low_health() -> bool:
-	return hp <= LOW_HEALTH
+	return stats.get_stat_value(Stat.Name.HEALTH) <= LOW_HEALTH
 
 func recover_health(amount: int) -> int:
-	var recovered = amount if hp + amount <= max_health else 0
-	hp = clampi(hp + amount, 0, max_health)
-	Log.pr("recover char", amount, hp, recovered)
+	var recovered = amount if stats.get_stat_value(Stat.Name.HEALTH) + amount <= stats.get_stat_value(Stat.Name.MAX_HEALTH) else 0
+	var hp: Stat = Stat.new_health(clamp(stats.get_stat_value(Stat.Name.HEALTH) + amount, 0, stats.get_stat_value(Stat.Name.MAX_HEALTH)))
+	stats.add_stat(hp)
+	
+	Log.pr("recover char", amount, stats.get_stat_value(Stat.Name.HEALTH), recovered)
 	return recovered
 
 func face_target(vector: Vector2):

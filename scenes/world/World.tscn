@@ -1,4 +1,4 @@
-[gd_scene load_steps=80 format=4 uid="uid://bvyi5v3q5glkx"]
+[gd_scene load_steps=78 format=4 uid="uid://bvyi5v3q5glkx"]
 
 [ext_resource type="PackedScene" uid="uid://iq63nlaer5ul" path="res://scenes/world/Enemy.tscn" id="1_78kn1"]
 [ext_resource type="Script" uid="uid://bytlnbfrchhvy" path="res://scenes/world/map.gd" id="1_hf0a2"]
@@ -18,8 +18,7 @@
 [ext_resource type="Script" uid="uid://0p1ni2tjoj35" path="res://components/game/spell_stats.gd" id="13_2oihk"]
 [ext_resource type="Texture2D" uid="uid://bjrmgjkhvdhxm" path="res://assets/cards/cards8.png" id="14_ank4h"]
 [ext_resource type="Texture2D" uid="uid://cxyej0slmaeey" path="res://assets/cards/cards10.png" id="15_qmehy"]
-[ext_resource type="Script" uid="uid://bcc6w8d5vnrm1" path="res://components/game/stat.gd" id="15_xokg7"]
-[ext_resource type="Script" uid="uid://bxdbv4ub373nx" path="res://components/game/usage.gd" id="16_hk3qm"]
+[ext_resource type="Resource" uid="uid://bdhkhrn1yn3ed" path="res://components/game/stat_weapon.tres" id="15_xokg7"]
 [ext_resource type="Texture2D" uid="uid://k30npqskair6" path="res://assets/cards/cards15.png" id="17_w0fud"]
 [ext_resource type="Texture2D" uid="uid://crt4os1asdqrh" path="res://assets/cards/cards18.png" id="17_wlf66"]
 [ext_resource type="Texture2D" uid="uid://cxi5fqymxqcu4" path="res://assets/cards/cards19.png" id="18_xmdy8"]
@@ -35,6 +34,7 @@
 [ext_resource type="Texture2D" uid="uid://walwwt8skx4l" path="res://assets/cards/card27.png" id="25_iehkj"]
 [ext_resource type="Script" uid="uid://b74vvdehimkl5" path="res://components/game/effect_stats.gd" id="25_iqxvy"]
 [ext_resource type="Texture2D" uid="uid://d14vh446pguyt" path="res://assets/cards/card28.png" id="27_pi2y4"]
+[ext_resource type="Resource" uid="uid://b0770ghm5cnmr" path="res://components/game/stat_element_effect.tres" id="28_hk3qm"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qqcfr"]
 texture = ExtResource("1_l660s")
@@ -241,26 +241,6 @@ speed = 1.0
 size = 1.0
 CHARGE_LIMIT = 3
 
-[sub_resource type="Resource" id="Resource_i6axg"]
-script = ExtResource("16_hk3qm")
-usage_type = 0
-charges = 0
-duration = 0.0
-signal_name = ""
-metadata/_custom_type_script = "uid://bxdbv4ub373nx"
-
-[sub_resource type="Resource" id="Resource_bmjh4"]
-script = ExtResource("15_xokg7")
-stat_name = 0
-stat_type = 0
-value = 2.0
-modifier = 0.0
-weapon_type = 1
-effect_status_type = 1
-trajectory = 1
-usage = SubResource("Resource_i6axg")
-metadata/_custom_type_script = "uid://bcc6w8d5vnrm1"
-
 [sub_resource type="Resource" id="Resource_oxfa6"]
 script = ExtResource("7_tugua")
 name = "slice"
@@ -270,7 +250,7 @@ card_type = 0
 attack = SubResource("Resource_3rtke")
 action = 0
 rarity = 0
-stat = Array[ExtResource("15_xokg7")]([SubResource("Resource_bmjh4")])
+stats = ExtResource("15_xokg7")
 
 [sub_resource type="Resource" id="Resource_rkxd2"]
 script = ExtResource("8_fsskc")
@@ -293,7 +273,7 @@ card_type = 0
 attack = SubResource("Resource_rkxd2")
 action = 0
 rarity = 0
-stat = Array[ExtResource("15_xokg7")]([])
+stats = ExtResource("15_xokg7")
 
 [sub_resource type="Resource" id="Resource_xm6s7"]
 script = ExtResource("8_fsskc")
@@ -316,7 +296,7 @@ card_type = 0
 attack = SubResource("Resource_xm6s7")
 action = 0
 rarity = 0
-stat = Array[ExtResource("15_xokg7")]([])
+stats = ExtResource("15_xokg7")
 
 [sub_resource type="Resource" id="Resource_g4i7s"]
 script = ExtResource("8_fsskc")
@@ -339,7 +319,7 @@ card_type = 0
 attack = SubResource("Resource_g4i7s")
 action = 0
 rarity = 0
-stat = Array[ExtResource("15_xokg7")]([])
+stats = ExtResource("15_xokg7")
 
 [sub_resource type="Resource" id="Resource_lkljn"]
 script = ExtResource("7_tugua")
@@ -349,7 +329,6 @@ texture = ExtResource("17_w0fud")
 card_type = 2
 action = 1
 rarity = 0
-stat = Array[ExtResource("15_xokg7")]([])
 
 [sub_resource type="Resource" id="Resource_k3mic"]
 script = ExtResource("7_tugua")
@@ -359,7 +338,6 @@ texture = ExtResource("17_wlf66")
 card_type = 2
 action = 2
 rarity = 0
-stat = Array[ExtResource("15_xokg7")]([])
 
 [sub_resource type="Resource" id="Resource_yr7tv"]
 script = ExtResource("7_tugua")
@@ -369,7 +347,6 @@ texture = ExtResource("18_xmdy8")
 card_type = 2
 action = 3
 rarity = 0
-stat = Array[ExtResource("15_xokg7")]([])
 
 [sub_resource type="Resource" id="Resource_ioi8e"]
 script = ExtResource("7_tugua")
@@ -379,7 +356,6 @@ texture = ExtResource("19_pxnfh")
 card_type = 2
 action = 4
 rarity = 0
-stat = Array[ExtResource("15_xokg7")]([])
 
 [sub_resource type="Resource" id="Resource_jf28h"]
 script = ExtResource("8_fsskc")
@@ -402,7 +378,7 @@ card_type = 0
 attack = SubResource("Resource_jf28h")
 action = 0
 rarity = 0
-stat = Array[ExtResource("15_xokg7")]([])
+stats = ExtResource("15_xokg7")
 
 [sub_resource type="Resource" id="Resource_xokg7"]
 script = ExtResource("25_iqxvy")
@@ -442,7 +418,7 @@ card_type = 1
 spell = SubResource("Resource_iqxvy")
 action = 0
 rarity = 0
-stat = Array[ExtResource("15_xokg7")]([])
+stats = ExtResource("28_hk3qm")
 metadata/_custom_type_script = "uid://bju7o2x4lpqyj"
 
 [sub_resource type="Resource" id="Resource_nres0"]
@@ -497,7 +473,7 @@ card_type = 1
 spell = SubResource("Resource_g82e4")
 action = 0
 rarity = 0
-stat = Array[ExtResource("15_xokg7")]([])
+stats = ExtResource("28_hk3qm")
 metadata/_custom_type_script = "uid://bju7o2x4lpqyj"
 
 [sub_resource type="Resource" id="Resource_xnx8o"]
@@ -527,7 +503,6 @@ card_type = 3
 spell = SubResource("Resource_xnx8o")
 action = 0
 rarity = 0
-stat = Array[ExtResource("15_xokg7")]([])
 
 [sub_resource type="Resource" id="Resource_i0bjp"]
 script = ExtResource("13_2oihk")
@@ -556,7 +531,6 @@ card_type = 3
 spell = SubResource("Resource_i0bjp")
 action = 0
 rarity = 0
-stat = Array[ExtResource("15_xokg7")]([])
 
 [sub_resource type="Resource" id="Resource_qkm4w"]
 script = ExtResource("13_2oihk")
@@ -585,7 +559,6 @@ card_type = 3
 spell = SubResource("Resource_qkm4w")
 action = 0
 rarity = 0
-stat = Array[ExtResource("15_xokg7")]([])
 
 [sub_resource type="Resource" id="Resource_mi84d"]
 script = ExtResource("13_2oihk")
@@ -614,7 +587,6 @@ card_type = 3
 spell = SubResource("Resource_mi84d")
 action = 0
 rarity = 0
-stat = Array[ExtResource("15_xokg7")]([])
 
 [sub_resource type="Resource" id="Resource_g7ae8"]
 script = ExtResource("13_2oihk")
@@ -643,7 +615,6 @@ card_type = 3
 spell = SubResource("Resource_g7ae8")
 action = 0
 rarity = 0
-stat = Array[ExtResource("15_xokg7")]([])
 
 [node name="World" type="Node2D"]
 y_sort_enabled = true
@@ -1043,6 +1014,7 @@ position = Vector2(405, -371)
 [node name="Player" parent="." instance=ExtResource("1_sythe")]
 y_sort_enabled = true
 position = Vector2(463, -133)
+stats = null
 
 [node name="Attacks" type="Node2D" parent="."]
 unique_name_in_owner = true
