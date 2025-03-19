@@ -9,19 +9,19 @@ var spawn_nest: Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	stats = preload("res://components/game/stat_enemy.tres")
-	#max_health = hp
-	#hitbox.damage = damage
-	if hitbox:
-		hitbox.stats = stats
-	
+	stats = preload("res://components/game/stat_enemy.tres").duplicate()
 	super()
+	
 	if get_spawn_type() == Character.Spawn.WRAP:
 		targets.append(player)
 	if not nest == null and nest.can_instantiate():
 		spawn_nest = nest.instantiate()
 		spawn_nest.global_position = global_position
 		enemy_base.call_deferred("add_child", spawn_nest)
+
+func get_stats() -> Stats:
+	Log.pr("get_stats of enemy")
+	return stats
 
 func _process(delta: float) -> void:
 	pass
@@ -52,15 +52,18 @@ func on_enemy_hit(charge = 1):
 
 
 func _on_hurtbox_2d_status_effect(effect: SpellStats) -> void:
-	Log.pr("hurtbox","spell","effect signal")
-	if not status_effect == null:
-		status_effect.add_from_spell(effect)
+	Log.pr("hurtbox","spell","effect signal removed temp")
+	#if not status_effect == null:
+		#status_effect.add_from_spell(effect)
 
 func _on_hurtbox_2d_hurt(hurt_stats: Stats, angle: Variant) -> void:
+	Util.play_with_randomized_audio(sfx_audio)
 	if hurt_stats.has(Stat.Name.DAMAGE):
 		take_damage(hurt_stats.get_stat_value(Stat.Name.DAMAGE))
 	if hurt_stats.has(Stat.Name.KNOCKBACK):
 		knockback = angle * hurt_stats.get_stat_value(Stat.Name.KNOCKBACK)
+	if hurt_stats.has(Stat.Name.STATUS_EFFECT):
+		status_effect.add_from_stat(hurt_stats)
 	if stats.get_stat_value(Stat.Name.HEALTH) <= 0:
 		next_state.emit(CharacterState.DEATH)
 	else:

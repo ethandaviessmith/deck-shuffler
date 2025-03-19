@@ -46,6 +46,7 @@ func _ready():
 	#hitbox.damage = damage
 	if hitbox:
 		hitbox.on_enemy_hit.connect(on_enemy_hit)
+		hitbox.stats = stats
 	if get_spawn_type() == Character.Spawn.WRAP:
 		targets.append(player)
 	
@@ -63,16 +64,16 @@ func _physics_process(_delta):
 	velocity += knockback
 	move_and_slide()
 
-func on_effect_proc(effect: EffectStats):
-	take_damage(effect.damage, effect.get_color())
-	Log.pr("character", "damage from effect", effect.damage)
+func on_effect_proc(stats: Stats):
+	take_damage(stats.get_stat_value(Stat.Name.DAMAGE), Util.hit_color)
+	Log.pr("character", "damage from effect", stats.get_stat_value(Stat.Name.DAMAGE))
 	
-	match(effect.status_type):
-		EffectStats.StatusType.NA: pass
-		EffectStats.StatusType.BURN: pass
-		EffectStats.StatusType.FREEZE: pass
-		EffectStats.StatusType.POISON: pass
-		EffectStats.StatusType.SHOCK: 
+	match(stats.get_stat_value(Stat.Name.STATUS_EFFECT)):
+		Stat.EffectType.NA: pass
+		Stat.EffectType.BURN: pass
+		Stat.EffectType.FREEZE: pass
+		Stat.EffectType.POISON: pass
+		Stat.EffectType.SHOCK: 
 			# add slow to buff 
 			speed *= 0.9
 			pass

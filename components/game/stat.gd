@@ -64,6 +64,23 @@ static func create(stat_name: Name, stat_type: StatType, value: float, modifier:
 	stat.modifier = modifier
 	return stat
 
+static func get_default(name: Name):
+	match name:
+		Name.DAMAGE: return 0
+		Name.HEALTH: return 0
+		Name.MOVE_SPEED: return 1.0
+		Name.SIZE: return 1.0
+		Name.ARMOR: return 0.0
+		Name.KNOCKBACK: return 0.0
+		Name.COOLDOWN: return 1.0
+		Name.ATTACK_SPEED: return 1.0
+		Name.DRAW_SPEED: return 1.0
+		Name.SHUFFLE_SPEED: return 1.0
+		Name.MAX_HEALTH: return 0.0
+		Name.AMOUNT: return 0
+	return 0
+
+
 # Example method to describe the stat
 func describe_stat() -> String:
 	var description = "Stat: %s, Type: %s, Value: %.2f, Modifier: %.2f%%" % [stat_name, get_stat_type_name(), value, modifier * 100]
@@ -76,18 +93,12 @@ func is_type(t: StatType) -> bool:
 
 func get_value():
 	match stat_type:
-		StatType.FLOAT, StatType.INT:
-			return value
-		StatType.MODIFIER:
-			return modifier
-		#StatType.WEAPON_TYPE:
-			#return weapon_type
-		StatType.EFFECT_STATUS_TYPE:
-			return effect_status_type
-		StatType.TRAJECTORY:
-			return trajectory
-		_:
-			return null
+		StatType.FLOAT, StatType.INT: return value
+		StatType.MODIFIER: return modifier
+		#StatType.WEAPON_TYPE: #return weapon_type
+		StatType.EFFECT_STATUS_TYPE: return effect_status_type
+		StatType.TRAJECTORY: return trajectory
+		_: return null
 
 func set_value(t: StatType, val):
 	stat_type = t
@@ -107,20 +118,13 @@ func set_value(t: StatType, val):
 
 func get_stat_type_name() -> String:
 	match stat_type:
-		StatType.FLOAT:
-			return "Float"
-		StatType.INT:
-			return "Int"
-		StatType.MODIFIER:
-			return "Modifier"
-		StatType.WEAPON_TYPE:
-			return "Weapon Type"
-		StatType.EFFECT_STATUS_TYPE:
-			return "Effect  Type"
-		StatType.TRAJECTORY:
-			return "Trajectory"
-		_:
-			return "Unknown"
+		StatType.FLOAT: return "Float"
+		StatType.INT: return "Int"
+		StatType.MODIFIER: return "Modifier"
+		StatType.WEAPON_TYPE: return "Weapon Type"
+		StatType.EFFECT_STATUS_TYPE: return "Effect  Type"
+		StatType.TRAJECTORY: return "Trajectory"
+		_: return "Unknown"
 
 static func get_stat_name(name: Name) -> String:
 	match name:

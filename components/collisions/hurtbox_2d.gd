@@ -49,8 +49,10 @@ func on_area_entered(hitbox: Area2D) -> void:
 		if hitbox.has_method("get_stats"):
 			var stats = hitbox.get_stats()
 			if stats:
-				Log.pr("hitbox", stats.stats.values())
+				Log.pr("hitbox", stats.stats.values()[0].get_value())
 				emit_signal("hurt", stats, angle)
+		else:
+			Log.pr("no stats")
 		#emit_signal("hurt", damage, angle, knockback)
 		
 		if hitbox.has_method("get_spell_effect"):

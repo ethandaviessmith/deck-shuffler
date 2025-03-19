@@ -25,8 +25,8 @@ func disable():
 	set_deferred("monitorable", false)
 
 func get_stats() -> Stats:
-	Log.pr("get_stats of hitbox")
-	return null
+	Log.pr("get_stats of hitbox", stats)
+	return stats
 
 func enemy_hit(charge = 1):
 	on_enemy_hit.emit(charge)

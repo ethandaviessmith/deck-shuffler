@@ -83,7 +83,6 @@ position = Vector2(-0.25, -0.75)
 scale = Vector2(0.570313, 0.570313)
 texture = ExtResource("1_tee3g")
 hframes = 16
-frame = 11
 
 [node name="Timer" type="Timer" parent="."]
 

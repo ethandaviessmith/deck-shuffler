@@ -82,8 +82,8 @@ func _init():
 	spawn_type = Spawn.NA
 
 func _ready() -> void:
+	stats = preload("res://components/game/stat_player.tres").duplicate() # don't know why I need to load it, adding via editor being weird
 	super()
-	stats = preload("res://components/game/stat_player.tres") # don't know why I need to load it, adding via editor being weird
 	#assert(not stats == null, "Stats must be defined in a character class")
 	lock_state.connect(_on_lock_finite_state_machine)
 	animation_player.play("idle")

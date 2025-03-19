@@ -1,11 +1,11 @@
-[gd_resource type="Resource" script_class="Stats" load_steps=10 format=3 uid="uid://b0770ghm5cnmr"]
+[gd_resource type="Resource" script_class="Stats" load_steps=10 format=3 uid="uid://k5p10jtf76b1"]
 
-[ext_resource type="Script" uid="uid://b7niesfpj64g8" path="res://stat_config.gd" id="1_tp3db"]
-[ext_resource type="Script" uid="uid://bcc6w8d5vnrm1" path="res://components/game/stat.gd" id="2_hh4fi"]
-[ext_resource type="Script" uid="uid://bxdbv4ub373nx" path="res://components/game/usage.gd" id="3_v7782"]
+[ext_resource type="Script" uid="uid://b7niesfpj64g8" path="res://stat_config.gd" id="1_3s1k8"]
+[ext_resource type="Script" uid="uid://bcc6w8d5vnrm1" path="res://components/game/stat.gd" id="2_ex75i"]
+[ext_resource type="Script" uid="uid://bxdbv4ub373nx" path="res://components/game/usage.gd" id="3_fnhwc"]
 
 [sub_resource type="Resource" id="Resource_33x6y"]
-script = ExtResource("2_hh4fi")
+script = ExtResource("2_ex75i")
 stat_name = 0
 stat_type = 0
 value = 0.5
@@ -15,7 +15,7 @@ trajectory = 0
 metadata/_custom_type_script = "uid://bcc6w8d5vnrm1"
 
 [sub_resource type="Resource" id="Resource_xsej0"]
-script = ExtResource("2_hh4fi")
+script = ExtResource("2_ex75i")
 stat_name = 2
 stat_type = 2
 value = 0.0
@@ -25,7 +25,7 @@ trajectory = 0
 metadata/_custom_type_script = "uid://bcc6w8d5vnrm1"
 
 [sub_resource type="Resource" id="Resource_ap72h"]
-script = ExtResource("2_hh4fi")
+script = ExtResource("2_ex75i")
 stat_name = 3
 stat_type = 2
 value = 0.0
@@ -35,7 +35,7 @@ trajectory = 0
 metadata/_custom_type_script = "uid://bcc6w8d5vnrm1"
 
 [sub_resource type="Resource" id="Resource_h478q"]
-script = ExtResource("2_hh4fi")
+script = ExtResource("2_ex75i")
 stat_name = 6
 stat_type = 2
 value = 1.2
@@ -45,28 +45,28 @@ trajectory = 0
 metadata/_custom_type_script = "uid://bcc6w8d5vnrm1"
 
 [sub_resource type="Resource" id="Resource_shhea"]
-script = ExtResource("2_hh4fi")
+script = ExtResource("2_ex75i")
 stat_name = 11
 stat_type = 4
 value = 0.0
 modifier = 0.0
-effect_status_type = 4
+effect_status_type = 1
 trajectory = 0
 metadata/_custom_type_script = "uid://bcc6w8d5vnrm1"
 
 [sub_resource type="Resource" id="Resource_p2pbf"]
-script = ExtResource("3_v7782")
+script = ExtResource("3_fnhwc")
 usage_type = 1
 charges = 2
-duration = 0.0
+duration = 1.0
 signal_name = ""
-weapon_type = 1
+weapon_type = 0
 metadata/_custom_type_script = "uid://bxdbv4ub373nx"
 
 [resource]
-script = ExtResource("1_tp3db")
+script = ExtResource("1_3s1k8")
 guid = null
-stats = Dictionary[int, ExtResource("2_hh4fi")]({
+stats = Dictionary[int, ExtResource("2_ex75i")]({
 0: SubResource("Resource_33x6y"),
 2: SubResource("Resource_xsej0"),
 3: SubResource("Resource_ap72h"),
@@ -74,4 +74,3 @@ stats = Dictionary[int, ExtResource("2_hh4fi")]({
 11: SubResource("Resource_shhea")
 })
 usage = SubResource("Resource_p2pbf")
-metadata/_custom_type_script = "uid://cy60h6tx8fwbs"

@@ -1,4 +1,4 @@
-[gd_scene load_steps=78 format=4 uid="uid://bvyi5v3q5glkx"]
+[gd_scene load_steps=79 format=4 uid="uid://bvyi5v3q5glkx"]
 
 [ext_resource type="PackedScene" uid="uid://iq63nlaer5ul" path="res://scenes/world/Enemy.tscn" id="1_78kn1"]
 [ext_resource type="Script" uid="uid://bytlnbfrchhvy" path="res://scenes/world/map.gd" id="1_hf0a2"]
@@ -33,6 +33,7 @@
 [ext_resource type="Texture2D" uid="uid://eyrorsjsi3cd" path="res://assets/cards/cards24.png" id="22_pal45"]
 [ext_resource type="Texture2D" uid="uid://walwwt8skx4l" path="res://assets/cards/card27.png" id="25_iehkj"]
 [ext_resource type="Script" uid="uid://b74vvdehimkl5" path="res://components/game/effect_stats.gd" id="25_iqxvy"]
+[ext_resource type="Resource" uid="uid://k5p10jtf76b1" path="res://components/game/stat_element_effect_burn.tres" id="27_g82e4"]
 [ext_resource type="Texture2D" uid="uid://d14vh446pguyt" path="res://assets/cards/card28.png" id="27_pi2y4"]
 [ext_resource type="Resource" uid="uid://b0770ghm5cnmr" path="res://components/game/stat_element_effect.tres" id="28_hk3qm"]
 
@@ -418,7 +419,7 @@ card_type = 1
 spell = SubResource("Resource_iqxvy")
 action = 0
 rarity = 0
-stats = ExtResource("28_hk3qm")
+stats = ExtResource("27_g82e4")
 metadata/_custom_type_script = "uid://bju7o2x4lpqyj"
 
 [sub_resource type="Resource" id="Resource_nres0"]

@@ -16,6 +16,7 @@ func get_stat_value(name: Stat.Name):
 		return stats.get(name).get_value()
 	else:
 		Log.pr("get stat", Stat.get_stat_name(name), " failed because it didn't exist in", stats.keys())
+		return Stat.get_default(name)
 
 func add_stat(stat: Stat):
 	var old_stat = stats.get(stat.stat_name)
