@@ -1,10 +1,13 @@
-[gd_scene load_steps=33 format=3 uid="uid://bnlcs4ivfbsss"]
+[gd_scene load_steps=45 format=3 uid="uid://bnlcs4ivfbsss"]
 
 [ext_resource type="Script" uid="uid://bttr7sfbphmo6" path="res://scenes/world/enemy.gd" id="1_kmulg"]
 [ext_resource type="SpriteFrames" uid="uid://bp531pjampdkk" path="res://assets/critter_3.tres" id="2_6fy8k"]
 [ext_resource type="PackedScene" uid="uid://d17p53j4vv56n" path="res://scenes/world/nest.tscn" id="2_b5jew"]
+[ext_resource type="Script" uid="uid://b7niesfpj64g8" path="res://stat_config.gd" id="3_ct6yb"]
 [ext_resource type="PackedScene" uid="uid://b07rljcn3rxmd" path="res://components/interaction/2D/interactables/hurtbox_2d.tscn" id="3_kee52"]
 [ext_resource type="PackedScene" uid="uid://dvvoyxs6gfhne" path="res://components/interaction/2D/interactables/hitbox_2d.tscn" id="4_fm4td"]
+[ext_resource type="Script" uid="uid://bcc6w8d5vnrm1" path="res://components/game/stat.gd" id="4_outjr"]
+[ext_resource type="Script" uid="uid://bxdbv4ub373nx" path="res://components/game/usage.gd" id="5_dge5q"]
 [ext_resource type="FontFile" uid="uid://do03fwxb30r7l" path="res://assets/GUI/OldSchoolAdventures-42j9.ttf" id="5_mt6y6"]
 [ext_resource type="AudioStream" uid="uid://b17xuikgm18at" path="res://assets/audio/hit-flesh-01-266311.mp3" id="6_jqxro"]
 [ext_resource type="Script" uid="uid://kkhjr0ckhv22" path="res://components/behaviour/finite-state-machine/fsm.gd" id="7_28b7l"]
@@ -22,6 +25,99 @@
 [ext_resource type="Script" uid="uid://o14qg7ai62u1" path="res://components/behaviour/finite-state-machine/states/rest_state.gd" id="20_sqjs4"]
 [ext_resource type="AudioStream" uid="uid://brs016c3j874y" path="res://assets/audio/chirp.mp3" id="21_77uo8"]
 [ext_resource type="Script" uid="uid://c0f2ordrp4yty" path="res://scenes/world/status_effect_manager.gd" id="22_tjbv4"]
+
+[sub_resource type="Resource" id="Resource_lpwb4"]
+script = ExtResource("4_outjr")
+stat_name = 0
+stat_type = 0
+value = 1.0
+modifier = 0.0
+effect_status_type = 0
+trajectory = 0
+metadata/_custom_type_script = "uid://bcc6w8d5vnrm1"
+
+[sub_resource type="Resource" id="Resource_ftj0j"]
+script = ExtResource("4_outjr")
+stat_name = 1
+stat_type = 0
+value = 3.0
+modifier = 0.0
+effect_status_type = 0
+trajectory = 0
+metadata/_custom_type_script = "uid://bcc6w8d5vnrm1"
+
+[sub_resource type="Resource" id="Resource_ja72k"]
+script = ExtResource("4_outjr")
+stat_name = 2
+stat_type = 0
+value = 10.0
+modifier = 0.0
+effect_status_type = 0
+trajectory = 0
+metadata/_custom_type_script = "uid://bcc6w8d5vnrm1"
+
+[sub_resource type="Resource" id="Resource_r717i"]
+script = ExtResource("4_outjr")
+stat_name = 3
+stat_type = 0
+value = 1.0
+modifier = 0.0
+effect_status_type = 0
+trajectory = 0
+metadata/_custom_type_script = "uid://bcc6w8d5vnrm1"
+
+[sub_resource type="Resource" id="Resource_w2axb"]
+script = ExtResource("4_outjr")
+stat_name = 4
+stat_type = 0
+value = 0.0
+modifier = 0.0
+effect_status_type = 0
+trajectory = 0
+metadata/_custom_type_script = "uid://bcc6w8d5vnrm1"
+
+[sub_resource type="Resource" id="Resource_qsno6"]
+script = ExtResource("4_outjr")
+stat_name = 8
+stat_type = 0
+value = 1.0
+modifier = 0.0
+effect_status_type = 0
+trajectory = 0
+metadata/_custom_type_script = "uid://bcc6w8d5vnrm1"
+
+[sub_resource type="Resource" id="Resource_ftoth"]
+script = ExtResource("4_outjr")
+stat_name = 12
+stat_type = 0
+value = 12.0
+modifier = 0.0
+effect_status_type = 0
+trajectory = 0
+metadata/_custom_type_script = "uid://bcc6w8d5vnrm1"
+
+[sub_resource type="Resource" id="Resource_7xfa0"]
+script = ExtResource("5_dge5q")
+usage_type = 0
+charges = 0
+duration = 0.0
+signal_name = ""
+weapon_type = 0
+metadata/_custom_type_script = "uid://bxdbv4ub373nx"
+
+[sub_resource type="Resource" id="Resource_4ltnc"]
+script = ExtResource("3_ct6yb")
+guid = null
+stats = Dictionary[int, ExtResource("4_outjr")]({
+0: SubResource("Resource_lpwb4"),
+1: SubResource("Resource_ftj0j"),
+2: SubResource("Resource_ja72k"),
+3: SubResource("Resource_r717i"),
+4: SubResource("Resource_w2axb"),
+8: SubResource("Resource_qsno6"),
+12: SubResource("Resource_ftoth")
+})
+usage = SubResource("Resource_7xfa0")
 
 [sub_resource type="Animation" id="Animation_wasu3"]
 resource_name = "RESET"
@@ -218,6 +314,7 @@ motion_mode = 1
 script = ExtResource("1_kmulg")
 nest = ExtResource("2_b5jew")
 sfx_audio = NodePath("SFXActionAudioStream")
+stats = SubResource("Resource_4ltnc")
 experience = 5
 knockback_recovery = 6
 LOW_HEALTH = 4

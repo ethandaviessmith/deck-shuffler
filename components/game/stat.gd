@@ -26,6 +26,7 @@ enum Trajectory { NA, LINEAR, CURVED, ZIGZAG }
 # Usage resource for managing stat usage logic
 
 func merge(stat: Stat):
+	Log.pr("merge", Stat.get_stat_name(stat.stat_name), stat.get_value())
 	match stat_type:
 		StatType.FLOAT, StatType.INT:
 			if stat.stat_type == StatType.FLOAT or stat.stat_type == StatType.INT:  ## Add

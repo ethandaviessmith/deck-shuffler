@@ -88,6 +88,7 @@ custom_minimum_size = Vector2(100, 25)
 layout_mode = 2
 theme = ExtResource("4_tj5uo")
 text = "Option Description with multiple lines"
+fit_content = true
 scroll_active = false
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="Panel/BoxContainer"]
@@ -114,6 +115,7 @@ custom_minimum_size = Vector2(100, 25)
 layout_mode = 2
 theme = ExtResource("4_tj5uo")
 text = "Option Description with multiple lines"
+fit_content = true
 scroll_active = false
 
 [node name="VBoxContainer3" type="VBoxContainer" parent="Panel/BoxContainer"]
@@ -140,4 +142,5 @@ custom_minimum_size = Vector2(100, 25)
 layout_mode = 2
 theme = ExtResource("4_tj5uo")
 text = "Option Description with multiple lines"
+fit_content = true
 scroll_active = false

@@ -6,13 +6,13 @@ const REGION_SIZE = 32
 
 #var time = 1.0
 var fade_time = 2.0
-var wpn_type = AttackStats.WeaponType.NA
+var wpn_type = Usage.WeaponType.NA
 
-func add_buff(weapon_type: AttackStats.WeaponType):
+func add_buff(weapon_type: Usage.WeaponType):
 	wpn_type = weapon_type
 	set_weapon_type(weapon_type)
 
-func set_weapon_type(weapon_type: AttackStats.WeaponType):
+func set_weapon_type(weapon_type: Usage.WeaponType):
 	var region_offset = get_weapon_index(weapon_type) * REGION_SIZE + (REGION_SIZE * 4)
 	var old_atlas = texture as AtlasTexture
 	var atlas_texture = AtlasTexture.new()
@@ -29,30 +29,30 @@ func _ready():
 func set_charge(charge:int):
 	if not label == null:
 		label.text = str(charge)
-	Log.pr("charge", AttackStats.get_weapon_type(wpn_type), charge)
+	Log.pr("charge", Usage.get_weapon_type(wpn_type), charge)
 
 func _on_timer_timeout() -> void:
 	remove_buff()
 	
 func remove_buff():
-	Log.pr("remove buff", AttackStats.get_weapon_type(wpn_type))
+	Log.pr("remove buff", Usage.get_weapon_type(wpn_type))
 	start_fade_and_remove(fade_time,0.49)
 
-func get_weapon_index(weapon_type: AttackStats.WeaponType) -> int:
+func get_weapon_index(weapon_type: Usage.WeaponType) -> int:
 	match (weapon_type):
-		AttackStats.WeaponType.DAGGER:
+		Usage.WeaponType.DAGGER:
 			return 0
-		AttackStats.WeaponType.SWORD:
+		Usage.WeaponType.SWORD:
 			return 1
-		AttackStats.WeaponType.AXE:
+		Usage.WeaponType.AXE:
 			return 2
-		AttackStats.WeaponType.BOW:
+		Usage.WeaponType.BOW:
 			return 0
-		AttackStats.WeaponType.ROCK:
+		Usage.WeaponType.ROCK:
 			return 0
-		AttackStats.WeaponType.SCARECROW:
+		Usage.WeaponType.SCARECROW:
 			return 3
-		AttackStats.WeaponType.NA:
+		Usage.WeaponType.NA:
 			return 4
 	return 0
 

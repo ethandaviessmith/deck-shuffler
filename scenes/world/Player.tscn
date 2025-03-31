@@ -1,7 +1,6 @@
-[gd_scene load_steps=53 format=3 uid="uid://b6xsykb6ffhrn"]
+[gd_scene load_steps=52 format=3 uid="uid://b6xsykb6ffhrn"]
 
 [ext_resource type="Script" uid="uid://n2p5mw1cvr4v" path="res://scenes/world/player.gd" id="1_gqwxa"]
-[ext_resource type="Resource" uid="uid://c5pfnftraho4y" path="res://components/game/stat_player.tres" id="2_gq0tj"]
 [ext_resource type="Script" uid="uid://cfcpa88g37d1a" path="res://components/behaviour/finite-state-machine/finite-state-machine.gd" id="3_d2tu4"]
 [ext_resource type="Script" uid="uid://cu33lbom3spn" path="res://components/motion/2D/top-down-controller/states/idle.gd" id="4_kdb0p"]
 [ext_resource type="Script" uid="uid://b8mm32wno40nu" path="res://components/motion/2D/top-down-controller/states/walk.gd" id="5_t48kx"]
@@ -321,7 +320,7 @@ streams_count = 2
 stream_0/stream = ExtResource("30_c12y2")
 stream_1/stream = ExtResource("31_t2nr8")
 
-[node name="TopDownController" type="CharacterBody2D" node_paths=PackedStringArray("camera", "deck") groups=["player", "target"]]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("camera", "deck") groups=["player", "target"]]
 texture_filter = 1
 collision_layer = 2
 collision_mask = 513
@@ -329,8 +328,6 @@ motion_mode = 1
 script = ExtResource("1_gqwxa")
 camera = NodePath("Camera2D")
 deck = NodePath("GUI/DeckControl")
-stats = ExtResource("2_gq0tj")
-experience = 2
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(-1, 0)
@@ -385,17 +382,14 @@ hurtbox = NodePath("../../Hurtbox2D")
 script = ExtResource("3_d2tu4")
 current_state = NodePath("TopDownIdle")
 
-[node name="TopDownIdle" type="Node" parent="FiniteStateMachine" node_paths=PackedStringArray("actor")]
+[node name="TopDownIdle" type="Node" parent="FiniteStateMachine"]
 script = ExtResource("4_kdb0p")
-actor = NodePath("../..")
 
-[node name="TopDownWalk" type="Node" parent="FiniteStateMachine" node_paths=PackedStringArray("actor")]
+[node name="TopDownWalk" type="Node" parent="FiniteStateMachine"]
 script = ExtResource("5_t48kx")
-actor = NodePath("../..")
 
-[node name="TopDownDash" type="Node" parent="FiniteStateMachine" node_paths=PackedStringArray("actor")]
+[node name="TopDownDash" type="Node" parent="FiniteStateMachine"]
 script = ExtResource("6_bunba")
-actor = NodePath("../..")
 
 [node name="GhostEffect" type="Node2D" parent="FiniteStateMachine/TopDownDash" node_paths=PackedStringArray("target")]
 script = ExtResource("7_wnu4c")
@@ -579,6 +573,9 @@ hframes = 8
 vframes = 7
 
 [node name="DeckControl" type="Control" parent="GUI"]
+process_mode = 3
+z_index = 101
+z_as_relative = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -610,7 +607,6 @@ position = Vector2(20, 64)
 stream = ExtResource("25_2db4x")
 
 [node name="Control" type="Control" parent="GUI/DeckControl"]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

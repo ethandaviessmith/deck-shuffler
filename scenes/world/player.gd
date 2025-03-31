@@ -52,7 +52,7 @@ var wpn_default:Stats = preload("res://components/game/stat_weapon.tres")
 @export var camera: Camera2D
 @export var deck: CardDeck
 
-var active_buffs: Array = []
+var active_buffs: Array[Array] = []
 var wpn_list: Array = []
 var wpn_icons: Dictionary = {}
 var next_weapon = 0
@@ -93,6 +93,8 @@ func _ready() -> void:
 	set_guibar(manaBar, mana, max_mana)
 	set_guibar(healthBar, stats.get_stat_value(Stat.Name.HEALTH), stats.get_stat_value(Stat.Name.MAX_HEALTH))
 	_set_deck(5)
+	wpn_default.usage.charges = 1
+	
 	next_action()
 
 func set_player_stats():
@@ -118,19 +120,22 @@ func _physics_process(_delta: float) -> void:
 #region ACTIONS
 func attack():
 	var buff:Stats = Stats.new()
+	var weapon_effects: Array[Stats] = []
+	var weapon_stats: Array[Stats] = []
 	#var spells:Array[SpellStats] =[]
 	#var weapons:Array[AttackStats] = []
 	var debuff := false
 	
-	wpn_list
-	
+
 	for active_buff in active_buffs:
-		#if active_buff is PlayerStats:
-		buff.add_stats(active_buff.stats)
-			#if not active_buff.spells == null and active_buff.spells.size() > 0:
-				#spells.append_array(active_buff.spells)
-		#else:
-			#pass#weapons.append(active_buff)
+		for active_stat: Stats in active_buff:
+			if active_stat.usage.usage_type == Usage.UsageType.EFFECT:
+				buff.add_stats(active_stat.stats) # base stats on weapon
+				Log.pr("stats", Stat.get_stat_name(active_stat.stats.keys()[0]), active_stat.get_stat_value(Stat.Name.DAMAGE))
+			elif not active_stat.usage.weapon_type == Usage.WeaponType.NA:
+				weapon_effects.append(active_stat)  # list of effects on weapon
+			else:
+				weapon_stats.append(active_stat) # weapons
 	if wpn_list.size() == 0:
 		#weapons.append(AttackStats.new()) 
 		wpn_list.append(wpn_default)
@@ -163,6 +168,7 @@ func attack():
 			
 			weapon.stats = weapon_attack.duplicate()
 			weapon.stats.add_stats(buff.stats)
+			#weapon.status_effects = weapon_effects
 			
 			#for spell in spells:
 				#weapon.add_spell(spell)
@@ -171,7 +177,8 @@ func attack():
 	
 	if debuff and active_buffs.size() > next_weapon:
 		var active_buff = active_buffs[next_weapon]
-		charge_limit(active_buff, 1)
+		for active_stat: Stats in active_buff:
+			charge_limit(active_stat, 1)
 		
 	next_weapon += weapon_num
 	if next_weapon >= wpn_list.size():
@@ -180,17 +187,23 @@ func attack():
 
 func charge_limit(attack, amount: int):
 	var limit = attack.charge_limit(amount)
-	Log.pr("summon", "charge check", limit)
+	Log.pr("summon", "charge check", limit, attack.guid, wpn_icons)
+	
 	if wpn_icons.has(attack.guid):
 		var icon = wpn_icons[attack.guid]
 		if is_instance_valid(icon):
-			if limit == 0:
-				icon.remove_buff()
-				wpn_icons.erase(attack)
-				active_buffs.erase(attack)
-				wpn_list.erase(attack)
-				Log.pr("summon", "remove buff", attack)
 			icon.set_charge(limit)
+	if limit == 0:
+		remove_buff(attack)
+
+func remove_buff(stat:Stats):
+	if wpn_icons.has(stat.guid):
+		var icon = wpn_icons[stat.guid]
+		if is_instance_valid(icon):
+			icon.remove_buff()
+	active_buffs.erase(stat)
+	wpn_list.erase(stat)
+	Log.pr("summon", "remove buff", stat)
 
 func next_action():
 	if motion_state.locked:
@@ -252,16 +265,33 @@ func resolve_hand(buff: Array):
 	mana = max_mana
 	summon_animation()
 	
-	var player_buff:Stats = buff[0]
+	var player_buffs:Array[Stats] = buff[0]
 	var weapons:Array[Stats] = buff[1]
 	
 	for weapon:Stats in weapons:
 		add_weapon_icon(weapon)
-	add_weapon_icon(player_buff)
-	#active_buffs.append_array(weapons)
-	active_buffs.append(player_buff)
 	wpn_list.append_array(weapons)
+	#active_buffs.append_array(weapons)
+	
+	var hand_buffs: Array[Stats] = []
+	var player_buff:Stats = Stats.new()
+	player_buff.usage = Usage.new()
+	
+	for stat:Stats in player_buffs:
+		if stat.usage.usage_type == Usage.UsageType.EFFECT:
+			player_buff.add_stats(stat.stats)
+		else:
+			hand_buffs.append(stat) # all stats with charges
+	hand_buffs.push_front(player_buff)
+	add_weapon_icon(hand_buffs[0])
+	active_buffs.append(hand_buffs)
 
+func add_buff(stat:Stat):
+	add_weapon_icon(stat)
+	active_buffs.append(stat)
+	
+
+# old remove
 func summon_hand(buff: PlayerStats):
 	mana = max_mana
 	summon_animation()
@@ -406,12 +436,11 @@ func add_weapon_icon(stat_config):
 	var wpn_icon_instance = wpn_icon.instantiate() as WeaponIcon
 	#if stat_config is AttackStats:
 		#icon_type = stat_config.weapon_type
-	if stat_config is Stats:
-		if stat_config.usage:
-			icon_type = stat_config.usage.weapon_type
-			wpn_icon_instance.set_charge(stat_config.usage.charges)
-		else:
-			icon_type = Usage.WeaponType.NA
+	if stat_config is Stats and stat_config.usage:
+		icon_type = stat_config.usage.weapon_type
+		wpn_icon_instance.set_charge(stat_config.usage.charges)
+	else:
+		icon_type = Usage.WeaponType.NA
 	wpn_icon_instance.add_buff(icon_type)
 	Log.pr("summon", "weapon_icon", stat_config, stat_config.guid)
 	

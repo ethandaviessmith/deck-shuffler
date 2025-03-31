@@ -1,11 +1,11 @@
 class_name Usage extends Resource
 
 # Enumerations for types of usage
-enum UsageType { PERMANENT, CHARGES, DURATION, SIGNAL_NAME }
+enum UsageType { EFFECT, PERMANENT, CHARGES, DURATION, SIGNAL_NAME}
 enum WeaponType { NA, DAGGER, SWORD, AXE, BOW, ROCK, SCARECROW }
 
 # Properties for the usage resource
-@export var usage_type: UsageType = UsageType.PERMANENT
+@export var usage_type: UsageType = UsageType.EFFECT
 @export var charges: int = 0         # Only used if usage_type is CHARGES
 @export var duration: float = 0.0    # Only used if usage_type is DURATION
 @export var signal_name: String = "" # Only used if usage_type is SIGNAL_NAME

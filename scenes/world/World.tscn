@@ -1,4 +1,4 @@
-[gd_scene load_steps=79 format=4 uid="uid://bvyi5v3q5glkx"]
+[gd_scene load_steps=96 format=4 uid="uid://bvyi5v3q5glkx"]
 
 [ext_resource type="PackedScene" uid="uid://iq63nlaer5ul" path="res://scenes/world/Enemy.tscn" id="1_78kn1"]
 [ext_resource type="Script" uid="uid://bytlnbfrchhvy" path="res://scenes/world/map.gd" id="1_hf0a2"]
@@ -17,8 +17,11 @@
 [ext_resource type="Texture2D" uid="uid://ymvwl7y108tj" path="res://assets/cards/cards6.png" id="11_q4jti"]
 [ext_resource type="Script" uid="uid://0p1ni2tjoj35" path="res://components/game/spell_stats.gd" id="13_2oihk"]
 [ext_resource type="Texture2D" uid="uid://bjrmgjkhvdhxm" path="res://assets/cards/cards8.png" id="14_ank4h"]
+[ext_resource type="Script" uid="uid://b7niesfpj64g8" path="res://stat_config.gd" id="15_bmjh4"]
 [ext_resource type="Texture2D" uid="uid://cxyej0slmaeey" path="res://assets/cards/cards10.png" id="15_qmehy"]
 [ext_resource type="Resource" uid="uid://bdhkhrn1yn3ed" path="res://components/game/stat_weapon.tres" id="15_xokg7"]
+[ext_resource type="Script" uid="uid://bcc6w8d5vnrm1" path="res://components/game/stat.gd" id="16_i6axg"]
+[ext_resource type="Script" uid="uid://bxdbv4ub373nx" path="res://components/game/usage.gd" id="17_rqyvg"]
 [ext_resource type="Texture2D" uid="uid://k30npqskair6" path="res://assets/cards/cards15.png" id="17_w0fud"]
 [ext_resource type="Texture2D" uid="uid://crt4os1asdqrh" path="res://assets/cards/cards18.png" id="17_wlf66"]
 [ext_resource type="Texture2D" uid="uid://cxi5fqymxqcu4" path="res://assets/cards/cards19.png" id="18_xmdy8"]
@@ -242,16 +245,76 @@ speed = 1.0
 size = 1.0
 CHARGE_LIMIT = 3
 
+[sub_resource type="Resource" id="Resource_33x6y"]
+script = ExtResource("16_i6axg")
+stat_name = 0
+stat_type = 0
+value = 1.0
+modifier = 0.0
+effect_status_type = 0
+trajectory = 0
+metadata/_custom_type_script = "uid://bcc6w8d5vnrm1"
+
+[sub_resource type="Resource" id="Resource_5osvk"]
+script = ExtResource("16_i6axg")
+stat_name = 2
+stat_type = 2
+value = 0.0
+modifier = 1.0
+effect_status_type = 0
+trajectory = 0
+metadata/_custom_type_script = "uid://bcc6w8d5vnrm1"
+
+[sub_resource type="Resource" id="Resource_h478q"]
+script = ExtResource("16_i6axg")
+stat_name = 3
+stat_type = 2
+value = 1.0
+modifier = 0.0
+effect_status_type = 0
+trajectory = 0
+metadata/_custom_type_script = "uid://bcc6w8d5vnrm1"
+
+[sub_resource type="Resource" id="Resource_xsej0"]
+script = ExtResource("16_i6axg")
+stat_name = 6
+stat_type = 0
+value = 20.0
+modifier = 0.0
+effect_status_type = 0
+trajectory = 0
+metadata/_custom_type_script = "uid://bcc6w8d5vnrm1"
+
+[sub_resource type="Resource" id="Resource_qv6fn"]
+script = ExtResource("17_rqyvg")
+usage_type = 2
+charges = 5
+duration = 0.0
+signal_name = ""
+weapon_type = 0
+metadata/_custom_type_script = "uid://bxdbv4ub373nx"
+
+[sub_resource type="Resource" id="Resource_0qn2w"]
+script = ExtResource("15_bmjh4")
+guid = null
+stats = Dictionary[int, ExtResource("16_i6axg")]({
+0: SubResource("Resource_33x6y"),
+2: SubResource("Resource_5osvk"),
+3: SubResource("Resource_h478q"),
+6: SubResource("Resource_xsej0")
+})
+usage = SubResource("Resource_qv6fn")
+
 [sub_resource type="Resource" id="Resource_oxfa6"]
 script = ExtResource("7_tugua")
 name = "slice"
-description = "Fling a dagger"
+description = "Fling a dagger, low damage - high charges"
 texture = ExtResource("9_5t0hg")
 card_type = 0
 attack = SubResource("Resource_3rtke")
 action = 0
 rarity = 0
-stats = ExtResource("15_xokg7")
+stats = SubResource("Resource_0qn2w")
 
 [sub_resource type="Resource" id="Resource_rkxd2"]
 script = ExtResource("8_fsskc")
@@ -265,16 +328,36 @@ speed = 0.8
 size = 1.0
 CHARGE_LIMIT = 3
 
+[sub_resource type="Resource" id="Resource_l5iln"]
+script = ExtResource("17_rqyvg")
+usage_type = 2
+charges = 3
+duration = 0.0
+signal_name = ""
+weapon_type = 0
+metadata/_custom_type_script = "uid://bxdbv4ub373nx"
+
+[sub_resource type="Resource" id="Resource_qxjis"]
+script = ExtResource("15_bmjh4")
+guid = null
+stats = Dictionary[int, ExtResource("16_i6axg")]({
+0: SubResource("Resource_33x6y"),
+2: SubResource("Resource_5osvk"),
+3: SubResource("Resource_h478q"),
+6: SubResource("Resource_xsej0")
+})
+usage = SubResource("Resource_l5iln")
+
 [sub_resource type="Resource" id="Resource_eridv"]
 script = ExtResource("7_tugua")
 name = "slash"
-description = "Lob a sword"
+description = "Lob a sword, mid damage, mid charges"
 texture = ExtResource("11_q4jti")
 card_type = 0
 attack = SubResource("Resource_rkxd2")
 action = 0
 rarity = 0
-stats = ExtResource("15_xokg7")
+stats = SubResource("Resource_qxjis")
 
 [sub_resource type="Resource" id="Resource_xm6s7"]
 script = ExtResource("8_fsskc")
@@ -291,7 +374,7 @@ CHARGE_LIMIT = 3
 [sub_resource type="Resource" id="Resource_8gd7h"]
 script = ExtResource("7_tugua")
 name = "chop"
-description = "Chuck an axe"
+description = "Chuck an axe, high damage - low charges"
 texture = ExtResource("14_ank4h")
 card_type = 0
 attack = SubResource("Resource_xm6s7")
@@ -311,21 +394,81 @@ speed = 1.0
 size = 1.0
 CHARGE_LIMIT = 1
 
+[sub_resource type="Resource" id="Resource_bmjh4"]
+script = ExtResource("16_i6axg")
+stat_name = 0
+stat_type = 0
+value = 1.0
+modifier = 0.0
+effect_status_type = 0
+trajectory = 0
+metadata/_custom_type_script = "uid://bcc6w8d5vnrm1"
+
+[sub_resource type="Resource" id="Resource_i6axg"]
+script = ExtResource("16_i6axg")
+stat_name = 2
+stat_type = 2
+value = 0.0
+modifier = 1.0
+effect_status_type = 0
+trajectory = 0
+metadata/_custom_type_script = "uid://bcc6w8d5vnrm1"
+
+[sub_resource type="Resource" id="Resource_rqyvg"]
+script = ExtResource("16_i6axg")
+stat_name = 3
+stat_type = 2
+value = 1.0
+modifier = 0.0
+effect_status_type = 0
+trajectory = 0
+metadata/_custom_type_script = "uid://bcc6w8d5vnrm1"
+
+[sub_resource type="Resource" id="Resource_ers45"]
+script = ExtResource("16_i6axg")
+stat_name = 6
+stat_type = 0
+value = 20.0
+modifier = 0.0
+effect_status_type = 0
+trajectory = 0
+metadata/_custom_type_script = "uid://bcc6w8d5vnrm1"
+
+[sub_resource type="Resource" id="Resource_khbuy"]
+script = ExtResource("17_rqyvg")
+usage_type = 0
+charges = 0
+duration = 0.0
+signal_name = ""
+weapon_type = 0
+metadata/_custom_type_script = "uid://bxdbv4ub373nx"
+
+[sub_resource type="Resource" id="Resource_117vm"]
+script = ExtResource("15_bmjh4")
+guid = null
+stats = Dictionary[int, ExtResource("16_i6axg")]({
+0: SubResource("Resource_bmjh4"),
+2: SubResource("Resource_i6axg"),
+3: SubResource("Resource_rqyvg"),
+6: SubResource("Resource_ers45")
+})
+usage = SubResource("Resource_khbuy")
+
 [sub_resource type="Resource" id="Resource_580ic"]
 script = ExtResource("7_tugua")
 name = "attack"
-description = "+1 damage to attacks"
+description = "Add +1 damage to all weapons in hand"
 texture = ExtResource("15_qmehy")
-card_type = 0
+card_type = 1
 attack = SubResource("Resource_g4i7s")
 action = 0
 rarity = 0
-stats = ExtResource("15_xokg7")
+stats = SubResource("Resource_117vm")
 
 [sub_resource type="Resource" id="Resource_lkljn"]
 script = ExtResource("7_tugua")
 name = "Quick Draw"
-description = "Draw 2 more cards"
+description = "Draw 2 more cards quickly"
 texture = ExtResource("17_w0fud")
 card_type = 2
 action = 1
@@ -334,7 +477,7 @@ rarity = 0
 [sub_resource type="Resource" id="Resource_k3mic"]
 script = ExtResource("7_tugua")
 name = "Double finale"
-description = "Resolve hand twice"
+description = "Resolve hand now, hand is resolved twice"
 texture = ExtResource("17_wlf66")
 card_type = 2
 action = 2
@@ -343,7 +486,7 @@ rarity = 0
 [sub_resource type="Resource" id="Resource_yr7tv"]
 script = ExtResource("7_tugua")
 name = "Mirrage"
-description = "Copy effects of last card"
+description = "(nothing WIP) Copy effects of last card"
 texture = ExtResource("18_xmdy8")
 card_type = 2
 action = 3
@@ -352,7 +495,7 @@ rarity = 0
 [sub_resource type="Resource" id="Resource_ioi8e"]
 script = ExtResource("7_tugua")
 name = "Gain Energy"
-description = "Increase hand size"
+description = "Add +1 draw, increases hand size by +1"
 texture = ExtResource("19_pxnfh")
 card_type = 2
 action = 4
@@ -373,7 +516,7 @@ CHARGE_LIMIT = 3
 [sub_resource type="Resource" id="Resource_eger2"]
 script = ExtResource("7_tugua")
 name = "Scarecrow"
-description = "Summon scarecrow totem"
+description = "Summon scarecrow totem, mid damage - enemy aggro"
 texture = ExtResource("21_ifrxr")
 card_type = 0
 attack = SubResource("Resource_jf28h")
@@ -413,7 +556,7 @@ metadata/_custom_type_script = "uid://0p1ni2tjoj35"
 [sub_resource type="Resource" id="Resource_pi2y4"]
 script = ExtResource("7_tugua")
 name = "Burn"
-description = "Add fire status effect"
+description = "Add burn status effect to all attacks in hand - Burn move faster and decreases attack"
 texture = ExtResource("25_iehkj")
 card_type = 1
 spell = SubResource("Resource_iqxvy")
@@ -468,7 +611,7 @@ metadata/_custom_type_script = "uid://0p1ni2tjoj35"
 [sub_resource type="Resource" id="Resource_2vkyy"]
 script = ExtResource("7_tugua")
 name = "Shock"
-description = "Shock and paralyse enemies"
+description = "Add shock status effect to all attacks in hand - Shock and paralyse enemies"
 texture = ExtResource("27_pi2y4")
 card_type = 1
 spell = SubResource("Resource_g82e4")
@@ -1015,7 +1158,6 @@ position = Vector2(405, -371)
 [node name="Player" parent="." instance=ExtResource("1_sythe")]
 y_sort_enabled = true
 position = Vector2(463, -133)
-stats = null
 
 [node name="Attacks" type="Node2D" parent="."]
 unique_name_in_owner = true

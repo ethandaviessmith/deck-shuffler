@@ -115,22 +115,25 @@ func get_last_drawn_card() -> Card:
 func resolve_hand() -> Array:
 	hand_control.resolve_hand()
 	
-	var hand_buff:Stats = Stats.new()
+	var hand_buffs: Array[Stats] = []
 	var weapon_list: Array[Stats] = []
 	
 	for card in hand:
 		if card.stats and card.stats.usage:
 			Log.pr("new " + card.get_card_type_name())
-			match(card.stats.usage.usage_type):
-				Usage.UsageType.CHARGES: 
-					weapon_list.append(card.stats)
-				Usage.UsageType.DURATION:
-					hand_buff.usage = card.stats.usage
-					for stat in card.stats:
-						hand_buff.buff_stat(stat)
+			match(card.card_type):
+				Card.CardType.ATTACK: weapon_list.append(card.stats)
+				Card.CardType.SPELL: hand_buffs.append(card.stats)
+					#hand_buff.usage = card.stats.usage
+					#for stat in card.stats.stats:
+						#hand_buff.buff_stat(stat)
+				Card.CardType.ACTION: pass
 	hand.clear() # Discard hand
+	
+	
+	# for each weapon - add hand_buffs
 
-	return [hand_buff, weapon_list]
+	return [hand_buffs, weapon_list]
 
 
 

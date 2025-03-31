@@ -5,6 +5,7 @@ class_name WeaponAttack extends Area2D
 var target = Vector2.ZERO
 
 @export var stats: Stats
+@export var status_effects: Array[Stats] = []
 ## stats going to depracate these
 @export var buff: AttackStats
 @export var buff_spell: SpellStats
@@ -23,17 +24,14 @@ func _ready():
 		tween.tween_property(self,"scale", Vector2(1,1) * buff.size, 0.3).set_trans(Tween.TRANS_BOUNCE).set_ease(Tween.EASE_OUT)
 		tween.play()
 
-	if not buff_spell == null:
-		match(buff_spell.status_effect.status_type):
-			EffectStats.StatusType.NA: pass
-			EffectStats.StatusType.BURN: 
+	for status: Stats in status_effects:
+		match(status.get_stat_value(Stat.Name.STATUS_EFFECT)):
+			Stat.EffectType.NA: pass
+			Stat.EffectType.BURN: 
 				modulate = Util.hit_color
-				pass
-			EffectStats.StatusType.FREEZE: pass
-			EffectStats.StatusType.POISON: pass
-			EffectStats.StatusType.SHOCK: 
-				modulate = Util.shock_color
-				pass
+			Stat.EffectType.FREEZE: pass
+			Stat.EffectType.POISON: pass
+			Stat.EffectType.SHOCK: modulate = Util.shock_color
 
 func set_buff(_buff:AttackStats):
 	buff = _buff

@@ -6,7 +6,7 @@
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_u6uc5"]
 atlas = ExtResource("1_hkxea")
-region = Rect2(128, 0, 32, 32)
+region = Rect2(256, 0, 32, 32)
 margin = Rect2(-6, -6, -12, -12)
 
 [node name="TextureRect" type="TextureRect"]
