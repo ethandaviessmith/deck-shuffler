@@ -3,3 +3,6 @@
 /android/
 .DS_STORE
 ._*
+
+# Build artifacts
+artifacts/
