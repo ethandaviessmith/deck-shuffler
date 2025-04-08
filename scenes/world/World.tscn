@@ -1,6 +1,6 @@
 [gd_scene load_steps=96 format=4 uid="uid://bvyi5v3q5glkx"]
 
-[ext_resource type="PackedScene" uid="uid://iq63nlaer5ul" path="res://scenes/world/Enemy.tscn" id="1_78kn1"]
+[ext_resource type="PackedScene" uid="uid://iq63nlaer5ul" path="res://scenes/world/enemy.tscn" id="1_78kn1"]
 [ext_resource type="Script" uid="uid://bytlnbfrchhvy" path="res://scenes/world/map.gd" id="1_hf0a2"]
 [ext_resource type="Texture2D" uid="uid://b5avfyekhnjua" path="res://assets/green_woods/Assets/Tiles2.png" id="1_l660s"]
 [ext_resource type="PackedScene" uid="uid://b6xsykb6ffhrn" path="res://scenes/world/Player.tscn" id="1_sythe"]

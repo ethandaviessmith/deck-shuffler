@@ -265,6 +265,11 @@ func resolve_hand(buff: Array):
 	mana = max_mana
 	summon_animation()
 	
+	# What if
+	#for each weapon merge any effect stats
+	# array [object (Stats(weapon), Array[Stats](effects)] - or Array[Stats] where = 0 weapon
+	
+	
 	var player_buffs:Array[Stats] = buff[0]
 	var weapons:Array[Stats] = buff[1]
 	
