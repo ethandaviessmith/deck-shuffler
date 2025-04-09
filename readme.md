@@ -3,8 +3,8 @@
 This project is a "Deck Shuffler" implemented using the Godot Engine. It's a prototype worked on when first learning Godot.
 
 
-![Game Screenshot](./assets/game_screen.png)
-![Game Screenshot](./assets/game_screen2.png)
+![Game Screenshot](./assets/game_scene.png)
+![Game Screenshot](./assets/game_scene2.png)
 
 ## Features
 
